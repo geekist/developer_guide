@@ -15,6 +15,8 @@
 
 ### JetPack
 
+* [Activity+Fragments+TableLayout+ViewPager2实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager2]
+
 ### Koltin
 
 
@@ -26,6 +28,6 @@
 
 
 
+[Activity+Fragments+TableLayout+ViewPager]: https://github.com/geekist/developer_guide/blob/main/ui/Activity+Fragments+TableLayout+ViewPager.md
 
-
-[Activity+Fragments+TableLayout+ViewPager]: https://github.com/geekist/developer_guide/tree/fb_developer_guide/ui/Activity+Fragments+TableLayout+ViewPager.md
+[Activity+Fragments+TableLayout+ViewPager2]: https://github.com/geekist/developer_guide/blob/main/jetpack/Activity+Fragments+TableLayout+ViewPager2.md
