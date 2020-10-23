@@ -18,7 +18,6 @@
 * **(Jetpack)**[RecyclerView实现元素滚动列表][recyclerview]
 
 * **(Jetpack)**[Activity+Fragments+TableLayout+ViewPager实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager]
-* 
 
 * **(Jetpack)**[Activity+Fragments+TableLayout+ViewPager2实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager2]
 
@@ -41,4 +40,4 @@
 
 [添加一个Fragment到工程中]:https://github.com/geekist/developer_guide/blob/main/activity/添加一个fragment到工程中.md
 
-[recyclerview]:https://github.com/geekist/developer_guide/blob/main/ui/RecyclerVIew.md
+[recyclerview]:https://github.com/geekist/developer_guide/blob/main/ui/RecyclerView.md
