@@ -9,8 +9,8 @@
 
 ### 四大组件
 #### Activity
-* [添加一个Activity到工程中][添加一个activity到工程中]
-* [添加一个Fragment到工程中][添加一个activity到工程中]
+* [添加一个Activity到工程中][添加一个Activity到工程中]
+* [添加一个Fragment到工程中][添加一个Fragment到工程中]
 
 ### UI
 
