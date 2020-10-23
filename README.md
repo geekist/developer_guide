@@ -10,6 +10,7 @@
 ### 四大组件
 #### Activity
 * [添加一个Activity到工程中][添加一个activity到工程中]
+* [添加一个Fragment到工程中][添加一个activity到工程中]
 
 ### UI
 
@@ -34,4 +35,6 @@
 
 [Activity+Fragments+TableLayout+ViewPager2]: https://github.com/geekist/developer_guide/blob/main/jetpack/Activity+Fragments+TableLayout+ViewPager2.md
 
-[添加一个activity到工程中]:https://github.com/geekist/developer_guide/blob/main/activity/添加一个activity到工程中.md
+[添加一个Activity到工程中]:https://github.com/geekist/developer_guide/blob/main/activity/添加一个activity到工程中.md
+
+[添加一个Fragment到工程中]:https://github.com/geekist/developer_guide/blob/main/activity/添加一个Fragment到工程中.md
