@@ -11,7 +11,7 @@
 
 ### UI
 
-* [Activity+Fragments+TableLayout+ViewPager][[Activity+Fragments+TableLayout+ViewPager]
+* [Activity+Fragments+TableLayout+ViewPager实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager]
 
 ### JetPack
 
