@@ -24,6 +24,25 @@
 ### Koltin
 
 
+### Open Source Libraries
+
+- [LitePal][litepal]
+
+- [Glide][glide]
+
+- [Retrofit][]
+
+- [Gson][]
+
+- [pgyersdk][]
+
+- [jmdns][]
+
+- [multidex][]
+
+
+
+
 
 ## [硬件开发][IoT]
 
@@ -42,3 +61,8 @@
 [recyclerview]:https://github.com/geekist/developer_guide/blob/main/ui/RecyclerView.md
 
 [IoT]:https://github.com/geekist/developer_guide/blob/main/IoT/IoT.md
+
+[litepal]:https://github.com/geekist/developer_guide/blob/main/libraries/LitePal.md
+
+
+[glide]:https://github.com/geekist/developer_guide/blob/main/libraries/Glide.md
