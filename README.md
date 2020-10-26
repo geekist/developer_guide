@@ -25,8 +25,7 @@
 
 
 
-## 硬件开发
-* [MQTT的基本概念][MQTT的基本概念]
+## [硬件开发][IoT]
 
 
 
@@ -42,4 +41,4 @@
 
 [recyclerview]:https://github.com/geekist/developer_guide/blob/main/ui/RecyclerView.md
 
-[MQTT的基本概念]:https://github.com/geekist/developer_guide/blob/main/IoT/MQTT.md
+[IoT]:https://github.com/geekist/developer_guide/blob/main/IoT/IoT.md
