@@ -3,25 +3,39 @@
 
 implementation 'com.google.android.material:material:1.2.1'
 
-
-## 2、在activity的布局文件中添加NavigaitonView的部分，包括header和menu两部分。注意：activity的layout需要改为DrawerLayout
+## 2、需要引入的java类：
 ```java
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
 
-    <include
-        layout="@layout/app_bar_main"
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+```
+
+## 3、布局文件设置：
+- 1、布局文件必须是一个DrawerLayout布局。
+
+- 2、应用栏appbar的布局layout:一个AppbarLayout，内嵌一个toolbar
+```java
+<com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <com.google.android.material.navigation.NavigationView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+```
+
+- 3、NavigationView布局，包含一个header和一个menu的布局
+
+```java
+<com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -29,10 +43,9 @@ implementation 'com.google.android.material:material:1.2.1'
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
-</androidx.drawerlayout.widget.DrawerLayout>
 ```
 
-## 3、在layout文件中添加header的布局文件。
+其中，header的布局：
 
 ```java
 <?xml version="1.0" encoding="utf-8"?>
@@ -71,10 +84,9 @@ implementation 'com.google.android.material:material:1.2.1'
         android:text="@string/nav_header_subtitle" />
 </LinearLayout>
 
-
 ```
 
-## 4、在res->menu下添加一个menu的布局文件，为navigationView添加布局。
+menu的布局：
 ```java
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
@@ -96,8 +108,44 @@ implementation 'com.google.android.material:material:1.2.1'
             android:title="@string/menu_slideshow" />
     </group>
 </menu>
+```
+最终的layout布局文件：
 
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
 ```
 
 ## 5、在Main.Activity中修改代码,通过toggle实现了drawer的功能，注意：在jetpack中该功能被AppConfiguration代替。
@@ -114,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+		//application bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setSupportActionBar(toolbar);
@@ -123,8 +172,11 @@ public class MainActivity extends AppCompatActivity {
 
         //下面的代码主要通过actionbardrawertoggle将toolbar与drawablelayout关联起来
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
+                this, 
+				mDrawerLayout, 
+				toolbar, 
+				R.string.navigation_drawer_open, 
+				R.string.navigation_drawer_close);
 
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -132,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_camera);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //设置navigationview的menu监听
