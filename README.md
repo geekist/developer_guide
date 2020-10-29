@@ -71,5 +71,5 @@
 
 [drawerlayout]:https://github.com/geekist/developer_guide/blob/main/ui/DrawerLayout+NavigationView实现Drawer侧滑.md
 
-[Bluetooth]:https://github.com/geekist/developer_guide/blob/main/Bluetooth/Bluetooth.md
+[Bluetooth]:https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md
 
