@@ -42,7 +42,8 @@
 - [multidex][]
 
 
-
+### Bluetooth
+- [Bluetooth][Bluetooth]
 
 
 ## [硬件开发][IoT]
@@ -69,3 +70,6 @@
 [glide]:https://github.com/geekist/developer_guide/blob/main/libraries/Glide.md
 
 [drawerlayout]:https://github.com/geekist/developer_guide/blob/main/ui/DrawerLayout+NavigationView实现Drawer侧滑.md
+
+[Bluetooth]:https://github.com/geekist/developer_guide/blob/main/Bluetooth/Bluetooth.md
+
