@@ -54,6 +54,7 @@ Handler是Android提供的一套异步消息处理机制，用来处理不同线
 ```java
 package com.jon.udptest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -61,45 +62,52 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("HandlerLeak")
+    //@SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
- 	private static class MyHandler extends Handler {
-        //弱引用
-        WeakReference<Main4Activity> weakReference;
-        public MyHandler(Main4Activity activity) {
-            weakReference = new WeakReference<Main4Activity>(activity);
-        }
-        @Override
-        public void handleMessage(Message msg) {
-            Main4Activity activity = weakReference.get();
-            if (activity != null) {
-                activity.tv.setText(String.valueOf(msg.arg1));
-            }
-        }
-    }
-
-    Timer timer = new Timer();
-      
+        TimerHandler timerHandler = new TimerHandler(this);
+        Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 Message message = new Message();
                 message.what = 1;
-                handler.sendMessage(message);
+                timerHandler.sendMessage(message);
             }
         };
 
         timer.schedule(timerTask, 1000);
     }
+
+    private static class TimerHandler extends Handler {
+        WeakReference<MainActivity> weakReference;
+
+        public TimerHandler(MainActivity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case 1:
+                    MainActivity activity = weakReference.get();
+                    activity.setTitle("hear me?");
+                    break;
+            }
+
+            super.handleMessage(msg);
+        }
+    }
+
 }
 
 ```
