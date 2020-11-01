@@ -22,6 +22,11 @@
 
 * **(Jetpack)**[Activity+Fragments+TableLayout+ViewPager2实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager2]
 
+### 线程
+
+* [Handler的用法][handler]
+
+
 ### Koltin
 
 
@@ -72,4 +77,6 @@
 [drawerlayout]:https://github.com/geekist/developer_guide/blob/main/ui/DrawerLayout+NavigationView实现Drawer侧滑.md
 
 [Bluetooth]:https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md
+
+[handler]:https://github.com/geekist/developer_guide/blob/main/thread/handler.md
 
