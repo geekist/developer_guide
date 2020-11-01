@@ -24,8 +24,8 @@
 
 ### 线程
 
-* [Handler的用法][handler]
-
+* [Timer和Handler配合使用][handler]
+* [线程池介绍][threadpool]
 
 ### Koltin
 
@@ -79,4 +79,4 @@
 [Bluetooth]:https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md
 
 [handler]:https://github.com/geekist/developer_guide/blob/main/thread/handler.md
-
+[threadpool]:https://github.com/geekist/developer_guide/blob/main/thread/threadpool.md
