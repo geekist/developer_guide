@@ -14,6 +14,8 @@
 
 ### UI
 
+* [BottomNavigationView][BottomNavigationView]
+
 * [DrawerLayout+NavigationView实现Drawer侧滑][drawerlayout]
 
 * **(Jetpack)**[RecyclerView实现元素滚动列表][recyclerview]
@@ -91,3 +93,4 @@
 
 [udp]:https://github.com/geekist/developer_guide/blob/main/network/udp.md
 
+[BottomNavigationView]:https://github.com/geekist/developer_guide/blob/main/ui/BottomNavigationView.md
