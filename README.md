@@ -16,6 +16,8 @@
 
 * [BottomNavigationView][BottomNavigationView]
 
+* [BottomNavigationView+fragments实现activity中多个fragments][BottomNavigationView+fragments]
+
 * [DrawerLayout+NavigationView实现Drawer侧滑][drawerlayout]
 
 * **(Jetpack)**[RecyclerView实现元素滚动列表][recyclerview]
@@ -60,6 +62,8 @@
 
 ## [硬件开发][IoT]
 
+## [疑难问题][QA]
+
 
 
 
@@ -94,3 +98,7 @@
 [udp]:https://github.com/geekist/developer_guide/blob/main/network/udp.md
 
 [BottomNavigationView]:https://github.com/geekist/developer_guide/blob/main/ui/BottomNavigationView.md
+
+[BottomNavigationView+fragments]:https://github.com/geekist/developer_guide/blob/main/ui/BottomNavigationView+fragments.md
+
+[QA]:https://github.com/geekist/developer_guide/blob/main/QA.md
