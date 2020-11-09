@@ -3,6 +3,8 @@
 
 # developer_guide
 
+## [Kotlin][Kotlin]
+
 ## Java
 
 ## Android
@@ -102,3 +104,4 @@
 [BottomNavigationView+fragments]:https://github.com/geekist/developer_guide/blob/main/ui/BottomNavigationView+fragments.md
 
 [QA]:https://github.com/geekist/developer_guide/blob/main/QA.md
+[Kotlin]:https://github.com/geekist/developer_guide/blob/main/kotlin/QA.md
