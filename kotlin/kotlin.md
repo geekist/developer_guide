@@ -262,4 +262,225 @@ Signleton.singletonTest();
 
 ```
 
+## list set and map
+```java
+
+ val list = ArrayList<String>()
+    list.add("apple")
+    list.add("banana")
+    list.add("orange")
+
+    val list1 = listOf("apple","banana","orange")
+    for(fruit in list1) {
+        println(fruit)
+    }
+
+    var list2 = mutableListOf<String>()
+    list2.add("apple")
+
+    var list3 = mutableListOf("apple","banana","orange","peal")
+    list3.add("coconut")
+    for(fruit in list3) {
+        println(fruit)
+    }
+
+    var list4 = setOf("car","motor","bike","vechile")
+
+    var list5 = mutableSetOf("car","motor","bike","vichile")
+    list5.add("ship")
+
+    val map = HashMap<Int,String>()
+    map.put(1,"car")
+    map.put(2,"bicycle")
+    map[3]= "ship"
+
+    val var1 = map[1]
+
+    var map1 = mapOf( 1 to "car", 2 to "motor")
+    var map2 = mutableMapOf( 1 to "car", 2 to "motor")
+
+    for((number,value) in map2) {
+        println("number is " + number + " value is " + value)
+    }
+
+
+```
+## lambda表达式
+lambda表达式是指一小段可以作为参数传递的代码。其格式如下：
+
+```java
+{parameter1:type,parameter2:type -> experssion}
+
+```
+
+## 集合的函数式API
+* maxBy
+
+```java
+
+val list = listOf("apple","banana","orangle","pear","grape")
+val maxLength = list.maxBy{it.length}
+
+```
+下面进行剖析：
+maxBy是一个普通的函数，它需要的参数是一个lambda类型的:
+val maxLength = list.maxBy({fruit:String->fruit.length)}
+当lambda参数是函数的最后一个参数时，可以把lambda移到括号外面
+val maxLength = list.maxBy(){fruit:String->fruit.lenght}
+当lambda是函数的唯一一个参数时，括号可以省略
+val maxLength = list.maxBy{fruit:String->fruit.length}
+kotlin的类型推导机制可以去掉类型：
+val maxLenght = lsit.maxBy{fruit->fruit.length}
+当lambda的参数只有一个时，可以用默认的it来代替
+val maxLenght = list.maxBy{it->fruit.length}
+
+* map
+
+```java
+val list = listOf("apple","banana","orangle","pear","grape")
+val newList = list.map{it.toUpperCase()}
+
+```
+* filter
+
+
+```java
+val list = listOf("apple","banana","orangle","pear","grape")
+val newList = list.filter{it.length<5}.map{it.toUpperCase()}
+for(fruit in newList){
+println(fruit)
+}
+```
+
+* any all
+
+```java
+val list = listOf("apple","banana","orangle","pear","grape")
+val anyOne = list.any{it.length<5}
+val allOne = list.all{it.toUpperCase()}
+
+println(anyOne)
+}
+
+```
+
+## java 函数式API
+```java
+
+new Thread(new Runable() {
+		@Override
+		public void run() {
+			println("hello")
+		}
+	}
+}.start();
+
+Thread(object: Runable {
+override fun run() {
+println("hello")
+})}.start()
+
+如果只有一个可以复写的方法，则方法名可以省略
+Thread(Runable{println("hello")}).start()
+如果只有一个抽象接口类，类名可以省略
+Thread({println("hello")}).start()
+如果lambda是最后一个参数，可以移到括号外，如果是唯一一个参数，括号可以省略
+Thread{println("hello")}.start()
+
+又如：button.setOnClickListener{}
+
+```
+
+## 空指针检查 默认所有的类型都是非空的
+kotlin在编译时会进行强制的判空检查，默认所有的参数都不能为空。
+
+## 可以为空的类型 类型？
+```java
+
+fun main() {
+	doSomething(null)
+}
+
+fun doSomething(stu: String?) {
+	if(stu!= null) {
+		stu.test()
+	}
+}
+
+```
+
+## 判空辅助工具？.
+```java
+if(stu!= null) {
+stu.test()
+}
+
+stu?.test()
+
+```
+
+## 判空操作符 ？：
+```java
+
+if(a!=null) {
+a}
+else{
+b}
+
+a ?: b
+
+```
+
+## 强型非空断言符号 ！！
+```java
+
+fun print() {
+	val upper = content!!.toUpperCase()
+}
+
+```
+
+## let函数  提供了函数式API的接口，并将原始对象作为参数传递到lambda表达式中
+```java
+a?.let{
+it.doSomething()
+it.test()
+}
+
+```
+
+## 字符串内嵌表达式
+```java
+val name = "Tom"
+
+println("hello, nice to meet you！ $name ")
+
+```
+
+## 可以带默认值的函数参数
+```java
+
+fun test(param1:Int, param2: Int = "echo") {
+
+}
+
+test(100)  
+
+fun test(param1:String = "Tom",param2: Int) {
+
+}
+
+test(100)  这里会出问题
+
+fun test(param1:String = "Tom",param2: Int = 100) {
+}
+
+test(param2 = 100)
+
+
+```
+
+
+
+
 
