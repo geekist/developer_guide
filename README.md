@@ -7,7 +7,7 @@
 
 ## Java
 
-## Android
+## [Android][android]
 
 ### 四大组件
 #### Activity
@@ -105,3 +105,5 @@
 
 [QA]:https://github.com/geekist/developer_guide/blob/main/QA.md
 [Kotlin]:https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin.md
+
+[android]:https://github.com/geekist/developer_guide/blob/main/android/android.md
