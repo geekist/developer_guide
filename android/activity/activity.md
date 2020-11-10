@@ -77,4 +77,16 @@ class FirstActivity : AppCompatActivity() {
 ```
 现在，一个新的Activity就可以启动了
 
+## Activity中控件的自动绑定
+
+在app的build.gradle中加入：kotlin-android-extensions的插件即可
+```java
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
+
+```
+
 
