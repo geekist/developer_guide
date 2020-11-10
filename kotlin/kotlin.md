@@ -324,15 +324,25 @@ val maxLength = list.maxBy{it.length}
 ```
 下面进行剖析：
 maxBy是一个普通的函数，它需要的参数是一个lambda类型的:
+
 val maxLength = list.maxBy({fruit:String->fruit.length)}
+
 当lambda参数是函数的最后一个参数时，可以把lambda移到括号外面
+
 val maxLength = list.maxBy(){fruit:String->fruit.lenght}
+
 当lambda是函数的唯一一个参数时，括号可以省略
+
 val maxLength = list.maxBy{fruit:String->fruit.length}
+
 kotlin的类型推导机制可以去掉类型：
+
 val maxLenght = lsit.maxBy{fruit->fruit.length}
+
 当lambda的参数只有一个时，可以用默认的it来代替
+
 val maxLenght = list.maxBy{it->fruit.length}
+
 
 * map
 
@@ -440,14 +450,6 @@ fun print() {
 
 ```
 
-## let函数  提供了函数式API的接口，并将原始对象作为参数传递到lambda表达式中
-```java
-a?.let{
-it.doSomething()
-it.test()
-}
-
-```
 
 ## 字符串内嵌表达式
 ```java
@@ -479,6 +481,149 @@ test(param2 = 100)
 
 
 ```
+
+
+
+## Kotlin标准函数介绍
+
+* let函数  
+
+提供了函数式API的接口，并将原始对象作为参数传递到lambda表达式中
+
+```java
+a?.let{
+it.doSomething()
+it.test()
+}
+
+```
+
+* with函数
+
+with函数接收两个参数，一个是上下文，另外一个是lambda表达式。with函数以上下文为对象执行lambda表达式，并且返回该lambda表达式的最后一条语句的结果
+
+```java
+fun main() {
+    val list = listOf("apple", "banana", "orange", "pear")
+    val result = with(StringBuilder()) {
+        append("Start eat fruits\n")
+        for (fruit in list) {
+            append(fruit + "\n")
+        }
+        append("It's delicious\n")
+        toString()
+    }
+}
+
+
+```
+
+
+* run函数
+
+和with函数非常类似，将第一个参数提取出来，作为调用with的对象。然后依次执行lambda表达式，并且返回该lambda表达式的最后一条语句结果
+
+```java
+
+fun runTest(list:List<String>) {
+    val stringBuilder = StringBuilder()
+
+    val result = stringBuilder.run {
+        append("Start eat fruits\n")
+        for (fruit in list) {
+            append(fruit + "\n")
+        }
+        append("It's delicious\n")
+        toString()
+    }
+
+    println(result)
+}
+
+
+```
+
+
+
+* apply函数
+和with函数非常类似，将第一个参数提取出来，作为调用with的对象。然后依次执行lambda表达式，区别是没有返回值。
+```java
+fun applyTest(list:List<String>) {
+    val stringBuilder = StringBuilder()
+
+    stringBuilder.apply {
+        append("Start eat fruits\n")
+        for (fruit in list) {
+            append(fruit + "\n")
+        }
+        append("It's delicious\n")
+    }
+
+    println(stringBuilder.toString())
+}
+
+```
+
+## 静态方法的实现
+在Kotlin中实现静态方法，主要有下面两种：
+
+* 将类定义成object 类型
+
+```java
+object  Class1 {
+    fun test1() {
+        println("this is object class")
+    }
+}
+
+```
+
+* 在普通类中添加companion object
+
+将要静态的方法添加jvmStatic注解
+
+```java
+
+class Class2() {
+    companion object {
+
+        fun test2() {
+            println("this is companion class")
+        }
+    }
+}
+
+```
+
+上面两种实际上不是真正的class级别的静态方法，但是要是真正实现class级别的静态方法也有两种方法：
+* 1、在上面的两种情况下，对需要静态的方法添加@JvmStatic注解
+```
+
+class Class2() {
+    companion object {
+        @JvmStatic
+        fun test2() {
+            println("this is companion class")
+        }
+    }
+}
+```
+
+* 2、顶层函数，即没有包含在任何类当中的函数
+```java
+
+fun main() {
+    val list = listOf("apple", "banana", "orange", "pear")
+    //applyTest(list)
+    Class1.test1()
+    Class2.test2()
+  //  val class2 = Class2();
+   // class2.test2()
+}
+
+
+```
+
 
 
 
