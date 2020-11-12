@@ -1,50 +1,15 @@
 
 
-# 实现大量元素的滑动组件
+## RecyclerVieew
 
-
-RecyclerView是support-v7包中的新组件，是一个用于大量数据展示的强大的滑动组件（Android 5.0开始），可以用来代替传统的ListView和GridView。
-
-RecyclerVieew包括下面几个类：
-
-
-- 1、Layout Manager布局管理器
-
-LayoutManager负责RecyclerView的布局，其中包含了Item View的获取与回收。
-
-RecyclerView提供了三种布局管理器：
-
-*LinerLayoutManager 以垂直或者水平列表方式展示Item*
-	 
-*GridLayoutManager 以网格方式展示Item*
-
-*StaggeredGridLayoutManager 以瀑布流方式展示Item*
-
-- 2、ViewHolder
-
-ViewHolder负责呈现RecyclerView中的item
-
-- 3、Adapter适配器
-
-Adapter负责RecyclerVIew中数据的管理和绑定。
-
-在Adapter中必须实现三个方法的重载：
-
-*onCreateViewHolder()*
-
-*onBindViewHolder()*
-
-*getItemCount()*
-
-
-## 1、依赖项配置
+* 1、依赖项配置
 
 在build.gradle中需要material的依赖
 
-implementation 'androidx.recyclerview:recyclerview:1.1.0'1
+implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
 
-## 2、在Activity的布局文件中添加RecyclerView的布局：
+* 2、在Activity的布局文件中添加RecyclerView的布局：
 
 ```java
 
@@ -63,160 +28,138 @@ implementation 'androidx.recyclerview:recyclerview:1.1.0'1
 ```
 
 
-### 3、创建一个layout文件，用来布局RecyclerView中的item。
+* 3、创建一个layout文件，用来布局RecyclerView中的item。
 ```java
-
-<?xml version="1.0" encoding="utf-8"   ?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:padding="@dimen/size_16dp">
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/size_2dp"
-        android:layout_marginBottom="@dimen/size_1dp"
-        android:textColor="@color/text_9"
-        android:textSize="@dimen/size_12sp" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvTime"
-        android:layout_marginTop="@dimen/size_2dp"
-        android:layout_marginBottom="@dimen/size_1dp"
-        android:layout_toLeftOf="@+id/tvTime"
-        android:layout_weight="1"
-        android:maxLines="1"
-        android:text="hello my title is hello"
-        android:textColor="@color/text_3"
-        android:textSize="@dimen/size_16sp" />
+    android:layout_height="60dp"
+    android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/ivCollect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTime"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/size_1dp"
-        android:layout_marginBottom="@dimen/size_2dp"
-        android:src="@drawable/collect_select_selector" />
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"></ImageView>
 
     <TextView
-        android:id="@+id/tvAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_alignBaseline="@+id/ivCollect"
-        android:layout_marginTop="@dimen/size_1dp"
-        android:layout_marginBottom="@dimen/size_2dp"
-        android:layout_toLeftOf="@+id/ivCollect"
-        android:text="hello, i am the author"
-        android:textColor="@color/text_6"
-        android:textSize="@dimen/size_12sp" />
-</RelativeLayout>
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_weight="1"
+        android:textSize="24sp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"></TextView>
+
+</LinearLayout>
 
 ```
 
-### 4、创建ViewHolder类。
+* 4、创建一些数据
 
 ```java
 
- class ViewHolder extends RecyclerView.ViewHolder {
-        View dataView;
-
-        TextView tvTime;
-        TextView tvAuthor;
-        TextView tvTitle;
-        ImageView imgCollect;
-
-        public ViewHolder(View view) {
-            super(view);
-            dataView = view;
-            tvTime = view.findViewById(R.id.tvTime);
-            tvAuthor = view.findViewById(R.id.tvAuthor);
-            tvTitle = view.findViewById(R.id.tvTitle);
-            imgCollect = view.findViewById(R.id.ivCollect);
-        }
-    }
-
-```
-
-## 5、创建Adapter类，实现三个重写的方法，用来创建viewHolder,绑定item数据，和计算item项数量：
-
-```java
-
-public class CDataAdapter extends RecyclerView.Adapter<CDataAdapter.ViewHolder> {
-    private List<CData> mDataList;
-
-    public CDataAdapter(List<CData> fruitList) {
-        mDataList = fruitList;
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.rv_article_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CData data = mDataList.get(position);
-        holder.tvAuthor.setText(data.author);
-        holder.tvTime.setText(data.time);
-        holder.tvTitle.setText(data.name);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDataList.size();
-    }
+class ObjItem(val name: String, val imageId: Int) {
 
 }
 
-```
-
-## 6、在Activity中实现RecyclerView和LayoutManger以及Adapter的绑定：
-```java
-
-public class MainActivity extends AppCompatActivity {
-
-    private List<CData> dataList = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        CDataAdapter adapter = new CDataAdapter(dataList);
-        recyclerView.setAdapter(adapter);
-
-	//添加自定义分割线：可自定义分割线高度和颜色
-        recyclerView.addItemDecoration(new RecyclerViewDivider(
-                this, LinearLayoutManager.HORIZONTAL, 20, getResources().getColor(R.color.scanner_text_hint)));
+private fun initObjItems() {
+    repeat(2) {
+        objItemList.add(ObjItem("location black", R.drawable.ic_add_location_black_24dp))
+        objItemList.add(ObjItem("bike", R.drawable.ic_directions_bike_black_24dp))
+        objItemList.add(ObjItem("boat", R.drawable.ic_directions_boat_black_24dp))
+        objItemList.add(ObjItem("car", R.drawable.ic_directions_car_black_24dp))
+        objItemList.add(ObjItem("transit", R.drawable.ic_directions_transit_black_24dp))
+        objItemList.add(ObjItem("flight", R.drawable.ic_flight_black_24dp))
     }
 }
 
 ```
 
-## 7、关于item的点击事件响应，在viewholder中创建回调，通过adapter传递。
+* 5、创建Adapter类，实现三个重写的方法，用来创建viewHolder,绑定item数据，和计算item项数量,同时需要创建一个ViewHolder的类
+
+```java
+
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+
+class RecyclerViewAdapter(val objectItemList: List<ObjItem>) :
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val objImage: ImageView = view.findViewById(R.id.imageView)
+        val objName: TextView = view.findViewById(R.id.textView)
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.layout_listview_item2, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
+        val objItem = objectItemList[position]
+        holder.objImage.setImageResource(objItem.imageId)
+        holder.objName.text = objItem.name
+
+    }
+
+    override fun getItemCount(): Int {
+        return objectItemList.size
+    }
+}
+
+```
+
+* 6、在Activity中实现RecyclerView和LayoutManger以及Adapter的绑定：
+
+
+```java
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+             // Inflate the layout for this fragment
+        val view =  inflater.inflate(R.layout.fragment_second, container, false)
+        initObjItems2()
+      //  val layoutManager = LinearLayoutManager(context)
+      //  layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+      //    val layoutManager = GridLayoutManager(context,4)
+        val layoutManager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
+
+        view.recyclerView.layoutManager = layoutManager
+        val adapter = RecyclerViewAdapter(objItemList)
+        view.recyclerView.adapter = adapter
+
+        view.recyclerView.addItemDecoration(
+            RecyclerViewDivider(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                1,
+                resources.getColor(R.color.purple_200)
+            )
+        )
+        return view
+    }
+
+```
+
+* 7、关于item的点击事件响应，在viewholder中创建回调，通过adapter传递。
 
 （略）参见utils中的viewholder和adapter
 
-## 8、附上一个创建item项的分割线的类RecyclerViewDivider
+* 8、附上一个创建item项的分割线的类RecyclerViewDivider
 ```java
 
 package com.jon.recycleview;

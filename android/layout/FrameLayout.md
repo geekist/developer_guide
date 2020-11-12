@@ -1,1 +1,3 @@
-## RelativeLayout
+## FrameLayout
+
+帧布局，布局中的每一个控件都放在布局的左上方。
