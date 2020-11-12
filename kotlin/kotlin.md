@@ -546,6 +546,7 @@ fun runTest(list:List<String>) {
 
 
 * apply函数
+
 和with函数非常类似，将第一个参数提取出来，作为调用with的对象。然后依次执行lambda表达式，区别是没有返回值。
 ```java
 fun applyTest(list:List<String>) {
