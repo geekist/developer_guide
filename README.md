@@ -110,4 +110,4 @@
 
 [android]:https://github.com/geekist/developer_guide/blob/main/android/android.md
 
-[yy]:https://github.com/geekist/developer_guide/blob/main/android/yy/yy.md
+[yy]:https://github.com/geekist/developer_guide/blob/main/yy/yy.md
