@@ -1,4 +1,8 @@
 ## 1、项目依赖项
+
+* [ARouter][arouter]
+
+
 - glide
 
 - litepal
@@ -33,3 +37,8 @@
 ## 4、硬件通讯
 
 ## 5、服务器通信
+
+
+
+
+[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/arouter.md

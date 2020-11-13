@@ -23,4 +23,4 @@
 
 [resource]:https://github.com/geekist/developer_guide/blob/main/android/layout/resource.md
 
-[resource]:https://github.com/geekist/developer_guide/blob/main/android/libraries/libraries.md
+[libraries]:https://github.com/geekist/developer_guide/blob/main/android/libraries/libraries.md
