@@ -41,4 +41,4 @@
 
 
 
-[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/arouter.md
+[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
