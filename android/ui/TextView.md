@@ -2,6 +2,9 @@
 
 用来在界面上显示文字
 
+[简单教程](https://www.twle.cn/l/yufei/android/android-basic-textview.html)
+
+
 ```java
     <TextView
         android:id="@+id/textview_first"

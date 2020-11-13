@@ -9,7 +9,7 @@
 * [AlertDialog][alertdialog]
 * [ListView][listview]
 * [RecyclerView][recyclerview]
-* [ActionBar][actionbar]
+* [][]
 * [][]
 * [][]
 * [][]
@@ -34,5 +34,3 @@
 [recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
 
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
-
-[actionbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/ActionBar.md

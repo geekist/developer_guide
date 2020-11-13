@@ -224,6 +224,7 @@ class Student(val sno: Int,val grade: Int,name: String, age: Int) : Person(name,
 	}
  }
 ```
+注意：接口的继承写法上不要加（）
 
 ## 函数的可见性修饰符
 ```java
@@ -622,6 +623,61 @@ fun main() {
    // class2.test2()
 }
 
+
+```
+
+## 用is关键字代替java中的instanceof关键字
+
+## 用as关键字代替java中的强制类型转换
+
+## 常量定义 const
+
+常量定义只有在单例类、compainion object中或者顶层函数中才能使用
+```java
+class Msg(val content: String, val type: Int) {
+	companion object {
+		const val TYPE_RECEIVED = 0
+		const val TYPE_SENT = 1
+	}
+
+}
+
+```
+
+
+## 延迟初始化lateinit
+
+```java
+class A() {
+private val lateinit param1: String
+
+
+fun initParam(parm: String) {
+param1= parm
+}
+
+fun useParam() {
+parm1.toString()
+}
+ 
+
+
+
+```
+
+
+## 密封类sealed class
+
+```java
+sealed class Result
+class Success(val msg: String):Result()
+class Failure(val error: Exception): Result()
+
+
+fun getResultMsg(result: Result)= when(result) {
+
+is Success-> result.msg
+is Failure-> result.error.message)
 
 ```
 
