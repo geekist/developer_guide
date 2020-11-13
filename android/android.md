@@ -13,6 +13,8 @@
 
 ## [Resource Files][resource]
 
+## [Android常用的库][libraries]
+
 
 [activity]:https://github.com/geekist/developer_guide/blob/main/android/activity/activity.md
 
@@ -20,3 +22,5 @@
 [layout]:https://github.com/geekist/developer_guide/blob/main/android/layout/Layout.md
 
 [resource]:https://github.com/geekist/developer_guide/blob/main/android/layout/resource.md
+
+[resource]:https://github.com/geekist/developer_guide/blob/main/android/libraries/libraries.md
