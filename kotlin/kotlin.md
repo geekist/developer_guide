@@ -382,7 +382,7 @@ it.doSomething()
 it.test()
 }
 ```
-* with函数
+* with函数   
 with函数接收两个参数，一个是上下文，另外一个是lambda表达式。with函数以上下文为对象执行lambda表达式，并且返回该lambda表达式的最后一条语句的结果
 ```java
 fun main() {
@@ -397,7 +397,8 @@ fun main() {
     }
 }
 ```
-* run函数
+* run函数   
+
 和with函数非常类似，将第一个参数提取出来，作为调用with的对象。然后依次执行lambda表达式，并且返回该lambda表达式的最后一条语句结果
 ```java
 fun runTest(list:List<String>) {
@@ -414,6 +415,7 @@ fun runTest(list:List<String>) {
 }
 ```
 * apply函数
+
 和with函数非常类似，将第一个参数提取出来，作为调用with的对象。然后依次执行lambda表达式，区别是没有返回值。
 ```java
 fun applyTest(list:List<String>) {
@@ -601,9 +603,13 @@ fun main() {
 ```
 * 用lambda表达式来代替函数的声明
 一个函数实际上就是一个lambda表达式 {parameter1:type,parameter2:type -> experssion}
+
 我们将上面的函数定义可以用lambda表达式来表示；
+
 plus： {value1:Int,value2:Int->value1+value2}
+
 minus: {value1:Int,value2:Int->value1-value2}
+
 则上面在main中的调用可以变为：
 ```kotlin
 fun main() {
@@ -643,6 +649,125 @@ inline fun(block: (Int, String)->Unit, block2: (Int,String) ->Unt) {
 ```
 如果有些函数参数不希望被复制，则可以使用noinline关键字，不复制这一段代码
 如果inline函数的函数体内出现了其他的不可控类型，比如runnable，则可以用crossinline来协调。
+
+## 泛型
+
+### 泛型类
+```java
+class ClassName<T>(val param: Type, val param: Type) {
+    fun method(param1: T)：T {
+        return param1
+    }
+}
+```
+调用的时候可以用：
+```java
+val obj = Obj<String>(param1,param2)
+val ret = obj.method("hello")
+```
+
+### 泛型方法
+```kotlin
+class ClassName{
+
+fun <T> method(param: T): T {
+    return param
+}
+
+val obj = ClassName()
+val ret = obj.method<String>("hello")
+或者: val ret = obj.method("hello")
+
+```
+泛型类和方法可以指定上限T:Number等
+
+## 委托 by 关键字
+### 类委托
+类委托是委托（代理）模式的一种应用。
+```kotlin
+class MySet<T>(val helperSet: HashSet<T>): Set<T> by helperSet {
+```
+即由helperSet来实现MeSet的所有接口方法，MySet只需要重载自己需要的方法就可以
+```koltin
+class MySet<T>(val helperSet: HashSet<T>): Set<T> by helperSet {
+    override val size: Int
+    get() = helperSet.size
+    
+    //helperSet 实现了Myset的大部分接口方法
+    override fun contains(element: T) = helperSet.contains(element)
+    override fun isEmpty() = helperSet.isEmpty()
+    ......
+    
+    //MySet只需要重载自己需要实现的部分
+    fun helloworld() = println("hello world")
+    override isEmpty() = false
+}
+```
+### 属性委托
+属性委托的核心思想是将一个属性的get/set具体实现委托给另外一个类去完成
+语法结构
+```koltin
+class MyClass {
+    val p by Delegate()
+}
+```
+看看其背后的实现
+```koltin
+class Delegate {
+    var propValue: Any? = null
+    
+    operator fun getValue(myClass: MyClass, prop: KProperty<*>): Any? {
+        return propValue
+    }
+    
+    operator fun setValue(muClass: MyClass, prop: KProperty<*>, value: Any?) {
+        propValue = value
+    }
+}
+```
+
+`实现自己的一个lazy函数`
+首先定义一个泛型类Later，这个类包含一个函数类型的成员变量，以及getValue的方法
+```java
+class Later<T>(val block: ()->T) {
+    val value: Any? = null
+    
+    operator fun getValue(any: Any?, prop: KProperty<*>): T {
+        if(value == null) {
+            block()
+        }else {
+            //
+        }
+        
+        return value as T
+    }
+}
+```
+
+然后设计一个顶层函数later
+```java
+fun <T> later(block: ()->T) = Later(block())
+```
+最后，我们可以直接使用这个函数来实现later加载
+
+```kotlin
+val uriMatcher by later{
+    val matcher = UriMathcer(UriMatcher.MO_MATCH)
+    matcher.addURI()
+    matcher.addURI()
+    matcher.addURI()
+    matcher.addURI()
+    matcher
+}
+
+
+```
+
+
+
+
+
+
 
 
 
