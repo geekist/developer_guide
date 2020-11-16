@@ -1,5 +1,4 @@
 ## RelativeLayout
-
 ## [LinearLayout][linearlayout]
 ## [RelativeLayout][relativelayout]
 ## [FrameLayout][framelayout]

@@ -1,278 +1,173 @@
-## ARouter
+# ARouter
 
-## github地址：https://github.com/guolindev/LitePal
+## github地址：https://github.com/alibaba/ARouter
 
-## 1、依赖项添加：
+## 1、Kotlin依赖项添加：
+```gradle
+plugins {
+    id 'kotlin-kapt' //kotlin 注解处理器插件
+}
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 dependencies {
-
-    implementation 'org.litepal.guolindev:core:3.2.2'
-
+    //arouter 依赖项
+    implementation 'com.alibaba:arouter-api:1.5.1'
+    kapt 'com.alibaba:arouter-compiler:1.5.1'
 }
-
-## 2、配置litepal.xml
-接着在项目的assets目录下面新建一个litepal.xml文件，并将以下代码拷贝进去：
-
-```java
-
-<?xml version="1.0" encoding="utf-8"?>
-<litepal>
-    <dbname value="demo" ></dbname>
- 
-    <version value="1" ></version>
- 
-    <list>
-    </list>
-</litepal>
-
-```
-配置文件相当简单，<dbname>用于设定数据库的名字，<version>用于设定数据库的版本号，<list>用于设定所有的映射模型，我们稍后就会用到。
-项目的assets目录是指main/assets,这个值是在工程创建的时候已经确定的，放置APP所需的固定文件，且该文件被打包到APK中时，不会被编码到二进制文件。访问时需要用AssetManager来访问。
-
-## 3、配置LitePalApplication
-
-新建一个MyApplication继承自LitepalApplication,主要用于得到context。
-
-
-```java
-
-public class MyApplication  extends LitePalApplication {
-}
-
 ```
 
+## 2、初始化ARouter
 ```java
+  if (BuildConfig.DEBUG) { // 这两行必须写在init之前，否则这些配置在init过程中将无效
+        ARouter.openLog()     // 打印日志
+        ARouter.openDebug()//开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+}
+ARouter.init(application) // 尽可能早，推荐在Application中初始化
+```
 
-<manifest>
-    <application
-        android:name="com.example.MyApplication"
-        ...
-    >
+## 3、在每一个需要路由的地方添加route注解
+注解的要求是以/开头，且至少有两级目录
+```java
+// 在支持路由的页面上添加注解(必选)
+// 这里的路径需要注意的是至少需要有两级，/xx/xx
+@Route(path = "/test/activity")
+public class YourActivity extend Activity {
     ...
-    </application>
-</manifest>
-
-```
-
-## 4、建立表格
-
-```java
-
-public class News {
-   // private int id;
-
-    private String title;
-
-    private String content;
-
-    private String commentCount;
 }
-
-
-
-
 ```
-
-```java
-<?xml version="1.0" encoding="utf-8"?>
-<litepal>
-    <dbname value="demo" ></dbname>
- 
-    <version value="1" ></version>
- 
-    <list>
-        <mapping class="com.example.databasetest.model.News"></mapping>
-    </list>
-</litepal>
-
-
+## 4、路由API的使用：
+* 普通路由直接调用
+```kotlin
+  ARouter.getInstance()
+        .build("/test/activity2")
+        .navigation();
 ```
-
-## 5、版本升级
-版本升级非常简单，只需要在xml中更改版本号就可以了。
-
-## 6、表的关联
-一对一关联的实现方式是用外键，多对一关联的实现方式也是用外键，多对多关联的实现方式是用中间表
-例如：news和comment是一对多，news和introduction是一对一，news和category是多对多
-
-```java
-public class Introduction {
-	
-	private int id;
-	
-	private String guide;
-	
-	private String digest;
-
-	//private News news;
-	
-	// 自动生成get、set方法
-}
-
+* 带有参数的路由调用：
+```kotlin
+ARouter.getInstance()
+        .build("/kotlin/test")
+        .withString("name", "老王")
+        .withInt("age", 23)
+        .navigation();
 ```
+获取参数可以用自动注入的方式
+```kotlin
 
-```java
-public class Comment {
-	
-	private int id;
-	
-	private String content;
+@Route(path = "/test/activity")
+class Test1Activity : AppCompatActivity() {
+    @Autowired
+    @JvmField
+    var name: String? = null
 
-	private long publishDate;
+    @Autowired
+    @JvmField
+    var age: Int? = 0
 
-	private News news;
-	
-	// 自动生成get、set方法
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_test1)
+
+        ARouter.getInstance().inject(this)  // Start auto inject.
+        textView.text = "name is : $name age is : $age"
+    }
 }
 ```
 
+* uri解析：类似于 Uri testUriMix = Uri.parse("arouter://m.aliyun.com/test/activity")也可以找到路由地址，这个不太明白
+
 ```java
-public class Category {
-	
-	private int id;
-	
-	private String name;
-
-	private List<News> newsList = new ArrayList<News>();//多对多的关系
-
-	
-	// 自动生成get、set方法
-
+Uri testUriMix = Uri.parse("arouter://m.aliyun.com/test/activity2");
+ARouter.getInstance().build(testUriMix)
+                    .withString("key1", "value1")
+                    .navigation();
 ```
 
+* 带动画的路由（略）
+
+* 拦截器
+如果需要拦截某一次路由，实现一个Interceptor的接口类来完成路由，并且在开始路由的地方设置回调
+```java
+  ARouter.getInstance()
+                .build("/test/activity")
+                .navigation(this, object : NavCallback() {
+                    override fun onArrival(postcard: Postcard) {
+                        Log.d("ARouter", "被拦截了danshi passed")
+                    }
+                    override fun onInterrupt(postcard: Postcard) {
+                        Log.d("ARouter", "被拦截了")
+                    }
+                })
+```
+实现一个Interceptor的接口类
 ```java
 
-public class News {
-   // private int id;
-
-    private String title;
-
-    private String content;
-
-    private String commentCount;
-
-	private Introduction introduction;  //一对一的关系
-	
-	private List<Comment> commentList = new ArrayList<Comment>();  //一对多的关系
-
-	private List<Category> categoryList = new ArrayList<Category>();//多对多的关系
-
+@Interceptor(priority = 7)
+class MyInterceptor : IInterceptor {
+    var mContext: Context? = null
+    
+    override fun process(postcard: Postcard, callback: InterceptorCallback) {
+        if ("/test/activity" == postcard.path) {
+          //  callback.onContinue(postcard)
+            callback.onInterrupt(null)
+          //  callback.onContinue(postcard)
+        } else {
+            callback.onContinue(postcard)
+        }
+    }
+    
+    override fun init(context: Context) {
+        mContext = context
+        Log.e("testService", MyInterceptor::class.java.simpleName + " has init.")
+    }
 }
 ```
 
-## 6、增删改查操作
-
-
-- 增加obj.save();或 obj.saveThrow();
-
-- 修改用update  或updateAll
-
-
+* 通过webView路由到制定的网址
 ```java
-//将news表中id是2的数据项的title改为xxx
-ContentValues values = new ContentValues();
-values.put("title", "今日iPhone6发布");
-DataSupport.update(News.class, values, 2);
 
-//将news表中title = xxx的数据的title改为xxx
-ContentValues values = new ContentValues();
-values.put("title", "今日iPhone6 Plus发布");
-DataSupport.updateAll(News.class, values, "title = ?", "今日iPhone6发布");
+ ARouter.getInstance()
+                        .build("/test/webview")
+                        .withString("url", "file:///android_asset/scheme-test.html")
+                        .navigation();
+```
 
-//另外的用法
-DataSupport.updateAll(News.class, values, "title = ? and commentcount > ?", "今日iPhone6发布", "0");
+* 通过路由调用其他类的接口----service
+```java
 
-//将所有数据项都修改
-ContentValues values = new ContentValues();
-values.put("title", "今日iPhone6 Plus发布");
-DataSupport.updateAll(News.class, values);
+((HelloService) ARouter.getInstance().build("/yourservicegroupname/hello").navigation()).sayHello("mike");
+ARouter.getInstance().navigation(HelloService.class).sayHello("mike");
+```
+在service类中实现了方法
+```java
+@Route(path = "/yourservicegroupname/hello")
+public class HelloServiceImpl implements HelloService {
+    Context mContext;
+
+    @Override
+    public void sayHello(String name) {
+        Toast.makeText(mContext, "Hello " + name, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Do your init work in this method, it well be call when processor has been load.
+     *
+     * @param context ctx
+     */
+    @Override
+    public void init(Context context) {
+        mContext = context;
+        Log.e("testService", HelloService.class.getName() + " has init.");
+    }
+}
+
 
 ```
 
-- 删除用delete 或deleteAll
-
-```java
-
-//删除id是2的记录
-DataSupport.delete(News.class, 2);
-
-//条件删除
-DataSupport.deleteAll(News.class, "title = ? and commentcount = ?", "今日iPhone6发布", "0");
-
-//全部删除
-DataSupport.deleteAll(News.class);
-
-```
-
-- 查找用find
-
-```java
-
-//
-News news = DataSupport.find(News.class, 1);
-
-//
-News firstNews = DataSupport.findFirst(News.class);
-
-
-//
-News lastNews = DataSupport.findLast(News.class);
-
-//
-List<News> newsList = DataSupport.findAll(News.class, 1, 3, 5, 7);
-
-//
-long[] ids = new long[] { 1, 3, 5, 7 };
-List<News> newsList = DataSupport.findAll(News.class, ids);
-
-
-
-//
-List<News> allNews = DataSupport.findAll(News.class);
-
-
-//
-List<News> newsList = DataSupport.where("commentcount > ?", "0").find(News.class);
-
-//
-List<News> newsList = DataSupport.select("title", "content")
-		.where("commentcount > ?", "0")
-		.order("publishdate desc").find(News.class);
-
-//
-List<News> newsList = DataSupport.select("title", "content")
-		.where("commentcount > ?", "0")
-		.order("publishdate desc").limit(10).offset(10)
-		.find(News.class);
-
-//查找关联数据
-News news = DataSupport.find(News.class, 1, true);
-List<Comment> commentList = news.getCommentList();
-
-```
-
-## 7、聚合查询
-
-- count()
-
-int result = DataSupport.count(News.class);
-int result = DataSupport.where("commentcount = ?", "0").count(News.class);
-
-- sum()
-
-int result = DataSupport.sum(News.class, "commentcount", int.class);
-
-- average()
-
-double result = DataSupport.average(News.class, "commentcount");
-
-- max()
-int result = DataSupport.max(News.class, "commentcount", int.class);
-
-- min()
-int result = DataSupport.min(News.class, "commentcount", int.class);
-
-
+## 最后，有一篇文章总结得很好： [探索Android路由框架-ARouter之基本使用](https://www.jianshu.com/p/6021f3f61fa6)
 
 
 
