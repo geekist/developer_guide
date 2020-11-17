@@ -109,6 +109,17 @@ if(stickyEvent != null) {
     // Now do something with it
 }
 
+或者
+ @Subscribe(sticky = true)
+    fun handleEvent(event: BlankBaseFragment.SampleEvent) {
+        val className = this.javaClass.simpleName
+        val message = "#handleEvent: called for " + event.javaClass.simpleName
+        Toast.makeText(this, className + message, Toast.LENGTH_SHORT).show()
+        Log.d(className, message)
+
+        // prevent event from re-delivering, like when leaving and coming back to app
+        EventBus.getDefault().removeStickyEvent(event)
+    }
 ```
 ## 6、优先级和取消事件
 priority表示优先级，数值越大，优先级越高。在同一传递线程（ThreadMode）中，较高优先级的订户将在优先级较低的其他订户之前接收事件。默认优先级为0。

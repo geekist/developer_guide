@@ -92,6 +92,11 @@
 * [ARouter][arouter]
 
 * [EventBus][eventbus]
+
+* [AutoSize][autosize]
+
+* [OkGo][okgo]
+
 - glide
 
 - litepal
@@ -132,7 +137,8 @@
 
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
 [eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
-
+[autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
+[okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
 
 
 
