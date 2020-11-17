@@ -4,6 +4,7 @@
 ## Android Studio
 
 ### 编译和运行
+* [常见问题][qa]
 
 ### 调试和测试
 
@@ -11,7 +12,7 @@
 
 
 ### 发布
-
+[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 ## Android开发
 
@@ -90,7 +91,7 @@
 
 * [ARouter][arouter]
 
-
+* [EventBus][eventbus]
 - glide
 
 - litepal
@@ -130,6 +131,7 @@
 
 
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
+[eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
 
 
 
