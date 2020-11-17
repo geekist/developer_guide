@@ -1,4 +1,4 @@
-﻿## 变量
+## 变量
 * val 用来声明一个不可变的变量
 val a = 10 //类型推导机制
 var a: Int = 10
@@ -260,15 +260,24 @@ val maxLength = list.maxBy{it.length}
 
 下面进行剖析：
 maxBy是一个普通的函数，它需要的参数是一个lambda类型的:
+
 val maxLength = list.maxBy({fruit:String->fruit.length)}
+
 当lambda参数是函数的最后一个参数时，可以把lambda移到括号外面
+
 val maxLength = list.maxBy(){fruit:String->fruit.lenght}
+
 当lambda是函数的唯一一个参数时，括号可以省略
+
 val maxLength = list.maxBy{fruit:String->fruit.length}
+
 ktlin的类型推导机制可以去掉类型：
+
 val maxLenght = lsit.maxBy{fruit->fruit.length}
+
 当lambda的参数只有一个时，可以用默认的it来代替
-val maxLenght = list.maxBy{it->fruit.length}
+
+val maxLenght = list.maxBy{it->it.length}
 
 * map
 
@@ -314,12 +323,19 @@ println("hello")
 ```
 
 如果只有一个可以复写的方法，则方法名可以省略
+
 Thread(Runable{println("hello")}).start()
+
 如果只有一个抽象接口类，类名可以省略
+
 Thread({println("hello")}).start()
+
 如果lambda是最后一个参数，可以移到括号外，如果是唯一一个参数，括号可以省略
+
 Thread{println("hello")}.start()
+
 又如：button.setOnClickListener{}
+
 ## 空指针检查 默认所有的类型都是非空的
 kotlin在编译时会进行强制的判空检查，默认所有的参数都不能为空。
 ## 可以为空的类型 类型？

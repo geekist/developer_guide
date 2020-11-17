@@ -76,6 +76,16 @@
 
 ### [资源文件Resource Files][resource]
 
+## Android数据存储
+* [SharedPreference][sharedpreference]
+* [FileIO][fileio]
+* [SQLite][sqlite]
+
+
+[sharedpreference]:https://github.com/geekist/developer_guide/blob/main/android/database/SharedPreference.md
+[fileio]:https://github.com/geekist/developer_guide/blob/main/android/database/FileIO.md
+[sqlite]:https://github.com/geekist/developer_guide/blob/main/android/database/SQLite.md
+
 ## Android常用的库libraries
 
 * [ARouter][arouter]
