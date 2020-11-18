@@ -19,10 +19,16 @@
 ### 四大组件
 
 * [Activity][activity]
-* [Fragment][fragment]
+* （[Fragment][fragment]）
 * [BroadcastReceiver][broadcastReceiver]
-* Service
+* [ContentProvider][contentprovider]
+* [Service][service]
 
+[activity]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Activity.md
+[fragment]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Fragment.md
+[broadcastReceiver]:https://github.com/geekist/developer_guide/blob/main/android/4-components/BroadcastReceiver.md
+[contentprovider]:https://github.com/geekist/developer_guide/blob/main/android/4-components/ContentProvider.md
+[service]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Service.md
 
 ### UI 控件
 
@@ -87,6 +93,14 @@
 [fileio]:https://github.com/geekist/developer_guide/blob/main/android/database/FileIO.md
 [sqlite]:https://github.com/geekist/developer_guide/blob/main/android/database/SQLite.md
 
+## Intent
+* [Intent][intent]
+
+[intent]:https://github.com/geekist/developer_guide/blob/main/android/intent/Intent.md
+
+
+
+
 ## Android常用的库libraries
 
 * [ARouter][arouter]
@@ -150,10 +164,6 @@
 
 
 
-
-[activity]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Activity.md
-[fragment]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Fragment.md
-[broadcastReceiver]:https://github.com/geekist/developer_guide/blob/main/android/4-components/BroadcastReceiver.md
 
 [ui]:https://github.com/geekist/developer_guide/blob/main/android/ui/ui.md
 [layout]:https://github.com/geekist/developer_guide/blob/main/android/layout/Layout.md
