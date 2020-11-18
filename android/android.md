@@ -111,9 +111,11 @@
 
 * [OkGo][okgo]
 
-- glide
+* [Rxjava][rxjava]
 
-- litepal
+* [Glide][glide]
+
+* [Litepal][litepal]
 
 
 - retrofit
@@ -126,7 +128,7 @@
 
 - dns
 
-- multidex
+
 
 - sweet alert dialog
 
@@ -153,6 +155,11 @@
 [eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
 [autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
 [okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
+[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
+
+[glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
+
+[litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
 
 
 
