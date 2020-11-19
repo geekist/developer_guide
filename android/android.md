@@ -65,12 +65,20 @@
 
 [actionbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/ActionBar.md
 
-### [通知][notification]
+### 通知
+* [通知][notification]
+
+
 [notification]:https://github.com/geekist/developer_guide/blob/main/android/notification/Notification.md
 
-### [多媒体][multimedia]
+### 多媒体
+* [图片][photo]
+* [音频][audio]
+* [视频][video]
 
-[multimedia]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/MultiMedia.md
+[photo]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Photo.md
+[audio]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Audio.md
+[video]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Video.md
 
 ### [Layout 布局文件][layout]
 
