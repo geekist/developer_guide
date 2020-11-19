@@ -65,6 +65,13 @@
 
 [actionbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/ActionBar.md
 
+### [通知][notification]
+[notification]:https://github.com/geekist/developer_guide/blob/main/android/notification/Notification.md
+
+### [多媒体][multimedia]
+
+[multimedia]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/MultiMedia.md
+
 ### [Layout 布局文件][layout]
 
 * [LinearLayout][linearlayout]
