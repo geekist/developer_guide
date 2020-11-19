@@ -113,8 +113,18 @@
 
 [intent]:https://github.com/geekist/developer_guide/blob/main/android/intent/Intent.md
 
+## 线程
+* [Java线程][javathread]
+* [Handler][handler]
+* [HandlerThread][handlerthread]
+* [AsyncTask][asynctask]
+* [IntentService][intentservice]
 
-
+[javathread]:https://github.com/geekist/developer_guide/blob/main/android/thread/JavaThread.md
+[handler]:https://github.com/geekist/developer_guide/blob/main/android/thread/Handler.md
+[handlerthread]:https://github.com/geekist/developer_guide/blob/main/android/thread/HandlerThread.md
+[asynctask]:https://github.com/geekist/developer_guide/blob/main/android/thread/AsyncTask.md
+[intentservice]:https://github.com/geekist/developer_guide/blob/main/android/thread/IntentService.md
 
 ## Android常用的库libraries
 
