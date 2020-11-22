@@ -18,8 +18,7 @@
 
 ### 四大组件
 
-* [Activity][activity]
-* （[Fragment][fragment]）
+* [Activity][activity] （[Fragment][fragment]）
 * [BroadcastReceiver][broadcastReceiver]
 * [ContentProvider][contentprovider]
 * [Service][service]
@@ -86,6 +85,9 @@ dependencies {
 
 * [Toolbar][toolbar]
 
+
+
+[toolbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toolbar.md
 
 ### 通知
 * [通知][notification]
