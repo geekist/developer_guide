@@ -1,36 +1,46 @@
-## UI
+# AppBarLayout
 
-* [控件常用的属性][common]
-* [TextView][textview]
-* [Button][button]
-* [EditText][edittext]
-* [ImageView][imageview]
-* [ProgressBar][progressbar]
-* [AlertDialog][alertdialog]
-* [ListView][listview]
-* [RecyclerView][recyclerview]
-* [][]
-* [][]
-* [][]
-* [][]
-* [][]
-* [Toast][toast]
-* [Menu][menu]
-* [自定义控件][self]
+AppBarLayout是Material库中的另外一个工具，其实是一个垂直方向上的LinearLayout，但是在内部做了很多滚动事件的封装，并采用了一些Material Design的理念。
 
-[common]:https://github.com/geekist/developer_guide/blob/main/android/ui/Common.md
-[toast]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toast.md
+AppBarLayout通过给其他空间设置layoutBehavior的方式，来协调和控制appbarlayout中的控件和其他控件的关系。
+
+```java
+  <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarMain"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/purple_500"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-[menu]:https://github.com/geekist/developer_guide/blob/main/android/ui/Menu.md
-[textview]:https://github.com/geekist/developer_guide/blob/main/android/ui/TextView.md
-[button]:https://github.com/geekist/developer_guide/blob/main/android/ui/Button.md
-[edittext]:https://github.com/geekist/developer_guide/blob/main/android/ui/EditText.md
-[imageview]:https://github.com/geekist/developer_guide/blob/main/android/ui/ImageView.md
-[progressbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/ProgressBar.md
-[alertdialog]:https://github.com/geekist/developer_guide/blob/main/android/ui/AlertDialog.md
+```
+比如，这里的
 
-[listview]:https://github.com/geekist/developer_guide/blob/main/android/ui/ListView.md
-[recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
+  **app:layout_scrollFlags="scroll|enterAlways|snap"**
 
-[self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
+scroll表示当RecyclerView向上滚动时，Toolbar会一起向上滚动并实现隐藏。
+enterAlwarys表示当RecyclerView向下滚动时，Toolbar会向下一起滚动并重新显示。
+snap表示当Toolbar还没有完全隐藏或完全展示的时候，自动选择隐藏还是显示。
+
+再比如，在RecyclerView中添加
+```xml
+  <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </androidx.recyclerview.widget.RecyclerView>
+```
+
+** app:layout_behavior="@string/appbar_scrolling_view_behavior"  **
+
+则表示RecyclerView不会遮挡toolbar

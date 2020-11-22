@@ -84,23 +84,32 @@ dependencies {
 引入app命名空间，是因为许多MaterialDesign的属性是新增加的，原来的android命名空间中并不存在，所以为了兼容老系统，增加了一个新的命名空间。
 
 * [AppBarLayout][appbarlayout]
-* [CoorindateLayout][coordinatelayout]
-* [AppBarLayout][appbarlayout]
+* [CoordinatorLayout][coordinatorlayout]
 * [DrawerLayout][drawerlayout]
+* [SwipeRefreshLayout][swiperefreshlayout]
+* [CollapsingToolbarLayout][collaspingtoolbarlayout]
+
 
 * [Toolbar][toolbar]
 * [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
+* [MaterialCardView][cardview]
+
+* [沉浸式状态栏][transparentstatusbar]
 
 
 
-[toolbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toolbar.md
 [navigationview]:https://github.com/geekist/developer_guide/blob/main/android/ui/NavigationView.md
 [appbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/AppBarLayout.md
 
 [drawerlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/DrawerLayout.md
 
-[coordinatelayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CoordinateLayout.md
+[coordinatorlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CoordinatorLayout.md
+[swiperefreshlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/SwipeRefreshLayout.md
+[collaspingtoolbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CollaspingToolbarLayout.md
 
+[toolbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toolbar.md
+[cardview]:https://github.com/geekist/developer_guide/blob/main/android/ui/MaterialCardView.md
+[transparentstatusbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/StatusBar.md
 
 ### 通知
 * [通知][notification]
