@@ -820,6 +820,10 @@ RxView.clickEvents(button)
 RxBus 名字看起来像一个库，但它并不是一个库，而是一种模式，它的思想是使用 RxJava 来实现了 EventBus ，而让你不再需要使用 Otto 或者 GreenRobot 的 EventBus。至于什么是 RxBus，可以看这篇文章。顺便说一句，Flipboard 已经用 RxBus 替换掉了 Otto ，目前为止没有不良反应。
 
 
+### 5.[RxJava2操作符总结(Kotlin)版][rxjava+kotlin]
+[rxjava+kotlin]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava+Kotlin.md
+
+
 
 
 

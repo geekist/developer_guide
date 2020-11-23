@@ -39,16 +39,12 @@
 * [ProgressBar][progressbar]
 * [AlertDialog][alertdialog]
 * [ListView][listview]
-* [RecyclerView][recyclerview]
-* [ActionBar][actionbar]
 * [Toast][toast]
 * [Menu][menu]
 * [自定义控件][self]
 
 [common]:https://github.com/geekist/developer_guide/blob/main/android/ui/Common.md
 [toast]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toast.md
-
-
 [menu]:https://github.com/geekist/developer_guide/blob/main/android/ui/Menu.md
 [textview]:https://github.com/geekist/developer_guide/blob/main/android/ui/TextView.md
 [button]:https://github.com/geekist/developer_guide/blob/main/android/ui/Button.md
@@ -58,11 +54,9 @@
 [alertdialog]:https://github.com/geekist/developer_guide/blob/main/android/ui/AlertDialog.md
 
 [listview]:https://github.com/geekist/developer_guide/blob/main/android/ui/ListView.md
-[recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
 
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
 
-[actionbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/ActionBar.md
 
 
 ### Mfaterial Design UI
@@ -93,7 +87,7 @@ dependencies {
 * [Toolbar][toolbar]
 * [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
 * [MaterialCardView][cardview]
-
+* [RecyclerView][recyclerview]
 * [沉浸式状态栏][transparentstatusbar]
 
 
@@ -110,6 +104,8 @@ dependencies {
 [toolbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toolbar.md
 [cardview]:https://github.com/geekist/developer_guide/blob/main/android/ui/MaterialCardView.md
 [transparentstatusbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/StatusBar.md
+[recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
+
 
 ### 通知
 * [通知][notification]
