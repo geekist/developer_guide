@@ -1,6 +1,6 @@
 # CollapsingToolbarLayout
 
-CollapsingToolbarLayout是急于Toolbar基础之上的布局，实现了一个丰富的toolbar效果，它不能单独存在，必须限定作为AppBarLayout的直接子布局来使用。
+CollapsingToolbarLayout是基于Toolbar基础之上的布局，实现了一个丰富的toolbar效果，它不能单独存在，必须限定作为AppBarLayout的直接子布局来使用。
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"

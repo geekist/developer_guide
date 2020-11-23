@@ -87,7 +87,7 @@ dependencies {
 * [CoordinatorLayout][coordinatorlayout]
 * [DrawerLayout][drawerlayout]
 * [SwipeRefreshLayout][swiperefreshlayout]
-* [CollapsingToolbarLayout][collaspingtoolbarlayout]
+* [CollapsingToolbarLayout][collapsingtoolbarlayout]
 
 
 * [Toolbar][toolbar]
@@ -105,7 +105,7 @@ dependencies {
 
 [coordinatorlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CoordinatorLayout.md
 [swiperefreshlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/SwipeRefreshLayout.md
-[collaspingtoolbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CollaspingToolbarLayout.md
+[collapsingtoolbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CollapsingToolbarLayout.md
 
 [toolbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toolbar.md
 [cardview]:https://github.com/geekist/developer_guide/blob/main/android/ui/MaterialCardView.md
