@@ -87,7 +87,7 @@ dependencies {
 * [Toolbar][toolbar]
 * [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
 * [TableLayout+ViewPager][table+viewPager]--多个Fragments在TableLayout下实现fragments横向滑动
-* [TableLayout+ViewPager][table+viewPager2]--多个Fragments在TableLayout下实现fragments横向滑动
+* [TableLayout+ViewPager2][table+viewPager2]--多个Fragments在TableLayout下实现fragments横向滑动
 * [MaterialCardView][cardview]
 * [RecyclerView][recyclerview]
 * [沉浸式状态栏][transparentstatusbar]
