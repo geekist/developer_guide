@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 
-## 6、ViewPager和ViewPager在用法上的区别：
+## 6、ViewPager和ViewPager2在用法上的区别：
 - 1、Adapter继承自FragmentStateAdapter，而且只需要两个重载的方法，getTitleName不需要了。
 - 2、MainActivity中使用TablayoutMediator类实现绑定Adapter，tab的title不再从adapter中拿，adapter和TabLayout解耦。
 

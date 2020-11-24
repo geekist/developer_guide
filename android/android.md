@@ -86,6 +86,8 @@ dependencies {
 
 * [Toolbar][toolbar]
 * [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
+* [TableLayout+ViewPager][table+viewPager]--多个Fragments在TableLayout下实现fragments横向滑动
+* [TableLayout+ViewPager][table+viewPager2]--多个Fragments在TableLayout下实现fragments横向滑动
 * [MaterialCardView][cardview]
 * [RecyclerView][recyclerview]
 * [沉浸式状态栏][transparentstatusbar]
@@ -105,6 +107,8 @@ dependencies {
 [cardview]:https://github.com/geekist/developer_guide/blob/main/android/ui/MaterialCardView.md
 [transparentstatusbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/StatusBar.md
 [recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
+[table+viewPager]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager.md
+[table+viewPager2]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager2.md
 
 
 ### 通知
