@@ -172,6 +172,24 @@ dependencies {
 [asynctask]:https://github.com/geekist/developer_guide/blob/main/android/thread/AsyncTask.md
 [intentservice]:https://github.com/geekist/developer_guide/blob/main/android/thread/IntentService.md
 
+## Jetpack
+* [Lifecycles][lifecycles]
+* [ViewModel][viewmodel]
+* [LiveData][livedata]
+* [Room][room]
+* [WorkManager][workmanager]
+
+[lifecycles]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/Lifecycles.md
+
+[viewmodel]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/ViewModel.md
+
+[livedata]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/LiveData.md
+
+[room]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/Room.md
+
+[workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
+
+
 ## Android常用的库libraries
 
 * [ARouter][arouter]
