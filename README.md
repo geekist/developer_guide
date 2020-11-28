@@ -19,6 +19,7 @@
 关于组件化开发、程序架构设计、项目配置、编译和发布流程的一个基本框架。
 
 [Android项目基本框架][architecture]
+
 [architecture]: https://github.com/geekist/developer_guide/blob/main/architecture/Android项目基本框架.md
 
 ## Android开发中流行的框架库
