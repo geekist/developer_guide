@@ -779,6 +779,163 @@ val uriMatcher by later{
 
 ```
 
+## 协程
+协程允许我们在单线程模式下模拟多线程编程的效果，代码执行与挂起完全由编程语言来控制，与操作系统无关。
+
+###  GlobalScope.launch  顶层协程
+顶层协程域的launch函数在当前线程启动一个协程，当当前线程结束的时候，无论顶层协程域是否执行完成，都会被同时结束。
+```kotlin
+fun main() {
+	GlobalScope.launch{
+		println("")
+	}
+	Thread.sleep(1000)
+}
+
+```
+
+### runBlocking阻塞当前线程的协程
+函数runBlocking会创建一个协程，并在该协程执行完成之前，阻塞当前线程。
+```kotlin
+fun main() {
+	runBlocking {
+		println("")
+	}
+	Thread.sleep(1000)
+}
+
+```
+
+### launch函数
+launch函数只能在协程的作用域之下才能被调用，其次他会在当前协程下创建一个子协程。
+```kotlin
+fun main() {
+	runBlocking {
+		launch{
+			println("")
+		}
+	}
+	Thread.sleep(1000)
+}
+
+```
+
+### delay() 挂起函数
+delay函数是一个非阻塞的挂起函数，它会挂起当前协程，但是不影响其他协程或线程的运行。
+
+
+### suspend关键字修饰的函数是一个挂起函数.
+执行时也将当前协程挂起，直到执行结束。suspend 修饰的关键字只能将一个函数声明成为挂起函数，但是无法提供协程域。即挂起函数只能在协程域中才能执行，而且该挂起函数中无法创建子协程，即不能调用launch函数。
+```kotlin
+suspend fun printDot() {
+	println(".")
+    delay(100)
+}
+```
+
+### coroutineScope函数。
+coroutineScope是一个挂起函数，但是它能够继承外部的协程作用域并且在其内部能够用launch创建子协程。由coroutineScope函数会阻塞当前协程，直到其内部代码或子协程全部执行完为止。
+```kotlin
+fun main() {
+	runBlocking{
+		coroutineScope{
+			launch{
+				for(i in 1..10) {
+					println(i)
+					delay(1000)
+				}
+			}
+		}
+		println("")
+	}
+	pirntln("")
+}
+
+```
+
+### 协程的取消 和CoroutineScope函数（类）
+launch函数的返回值是一个Job类对象，可以通过调用job的cancel方法取消协程。
+CoroutineScope函数的参数是job，会返回一个CoroutineScope类对象，可以在这个类对象的协程域中调用launch来创建子协程。
+```kotlin
+val job = Job()
+val scope = CorountineScope(job)
+scope.launch{
+}
+.......
+job.cancel()
+```
+
+### async函数和await函数
+async函数相当于launch函数，可以在协程作用域内创建一个子协程，但是可以通过await函数将lambda表达式的值返回。
+async函数返回一个Deferred对象，调用该对象的await方法可以将async函数的执行结果返回。
+```kotlin
+fun main() {
+	runBlocking {
+		val result = async {
+			5+5
+		}.await()
+		println(result)
+	}
+}
+```
+
+### withContext()函数
+withContext函数是一个挂起函数，可以理解成为是async函数的一个简化版本。大致相当于asyn{}.await
+withContext强制要求指定一个线程参数。
+```kotlin
+fun main() {
+	runBlocking {
+		val result = withContext(Dispatchers.Default) {
+			5+5
+		}
+		println(result)
+	}
+}
+```
+
+### 线程参数
+前面所学的所有挂起函数，出了coroutineScipe函数外，其他所有的函数都可以指定线程参数。
+而withContext是强制指定的。
+* Dispatchers.Default  默认低并发的线程策略
+* Dispatchers.IO 高并发的线程策略，使用与网路传输
+* Dispatchers.Main 主线程
+
+### suspendCoroutine函数
+suspendCoroutine函数必须在协程域或者挂起函数中使用，它接受一个lambda表达式作为参数，将当前协程挂起，然后在一个普通线程执行lambda表达式，该lambda表达式带有参数Continuation参数，调用该参数的resume或resumeWithException函数可以让协程恢复执行。
+```kotlin
+val appService = ServiceCreator.create<AppService>()
+appService.getAppData().enqueue(object: Callback<List<App>>{
+	override fun onResponse(call: Call<List<App>>,responese: Response<List<App>>) {
+	}
+	override fun OnFailure(call: Call<Lst<App>>,t: throwable) {
+
+	}
+})
+
+suspend <T> fun Call<T>.await() : T {
+	return suspendCoroutine{ continuation ->
+		enqueue(object: Callback<T> {
+			override fun onResponse(call: Call<T>,response: Response<T>) {
+				val body = response.body()
+				if(body != null) continuation.resume(body)
+				else continuation.resumeWithExceptin(
+					RuntimeException("response body is null"))
+				}
+			}
+
+			overide fun onFailure(call:Call<T>, t:Throwable) {
+				continuation.resumeWithException(t)
+			}
+		}
+}
+
+appService.getAppData().await();
+
+```
+
+
+
+
 
 
 

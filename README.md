@@ -1,113 +1,104 @@
 
-**本文档为个人开发过程中笔记整理，目的是为了唤醒记忆，达到以最快的速度保持知识栈的目的**
-
 # developer_guide
 
-## [Kotlin][Kotlin]
+本文档包含以下几个部分：
 
-## Java
+## Android编程规范
 
-## [Android][android]
+为使代码规范、可读性强，提高开发效率和方便沟通，参照官方的文档，并结合自身开发的经验，总结出的适合个人和团队使用的编程规范。
 
-### 四大组件
-#### Activity
-* [添加一个Activity到工程中][添加一个Activity到工程中]
-* [添加一个Fragment到工程中][添加一个Fragment到工程中]
+* [Android-Java编程规范][java-rule]
 
-### UI
+* [Android-Kotlin编程规范][kotlin-rule]
 
-* [BottomNavigationView][BottomNavigationView]
+[java-rule]: https://github.com/geekist/developer_guide/blob/main/rules/Android-Java编程规范.md
 
-* [BottomNavigationView+fragments实现activity中多个fragments][BottomNavigationView+fragments]
+[kotlin-rule]: https://github.com/geekist/developer_guide/blob/main/rules/Android-Kotlin编程规范.md
 
-* [DrawerLayout+NavigationView实现Drawer侧滑][drawerlayout]
+## Android项目基本框架
+关于组件化开发、程序架构设计、项目配置、编译和发布流程的一个基本框架。
 
-* **(Jetpack)**[RecyclerView实现元素滚动列表][recyclerview]
+[Android项目基本框架][architecture]
+[architecture]: https://github.com/geekist/developer_guide/blob/main/architecture/Android项目基本框架.md
 
-* **(Jetpack)**[Activity+Fragments+TableLayout+ViewPager实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager]
+## Android开发中流行的框架库
+开发过程中默认使用的第三方流行框架。
 
-* **(Jetpack)**[Activity+Fragments+TableLayout+ViewPager2实现activity中多个fragment绑定TableLayout侧滑效果][Activity+Fragments+TableLayout+ViewPager2]
+* [ARouter][arouter]
 
-### 线程
+* [EventBus][eventbus]
 
-* [Timer和Handler配合使用][handler]
-* [线程池介绍][threadpool]
+* [RxJava][rxjava]
 
-### 网络编程
-
-* [TCP/IP协议简介][tcp]
-* [UDP协议简介][udp]
-
-### Koltin
+* [Fragmentation][fragmentation]
 
 
-### Open Source Libraries
-
-- [LitePal][litepal]
-
-- [Glide][glide]
-
-- [Retrofit][]
-
-- [Gson][]
-
-- [pgyersdk][]
-
-- [jmdns][]
-
-- [multidex][]
+[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
+[eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
 
 
-### Bluetooth
-- [Bluetooth][Bluetooth]
+[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
 
 
-## [硬件开发][IoT]
+[fragmentation]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Fragmentation.md
 
-## [疑难问题][QA]
+## Android开发中优秀的第三方控件或工具
+项目中经常会使用到的优秀的第三方控件或开发工具
 
-## [项目分析][yy]
+- retrofit
+
+- gson
+
+- pgyersdk
+
+- pgyersdk
+
+- dns
+
+[okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
+[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
+
+[glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
+
+[litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
+
+- sweet alert dialog
+
+## Android扩展功能导入
+地图、支付、消息推送、二维码扫描等外部功能接入
+
+* [地图功能接入][map]
+
+* [支付功能接入][pay]
 
 
+* [消息推送功能接入][push]
 
 
+* [二维码扫描功能接入][scan-code]
 
-[Activity+Fragments+TableLayout+ViewPager]: https://github.com/geekist/developer_guide/blob/main/ui/Activity+Fragments+TableLayout+ViewPager.md
+[map]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Map.md
 
-[Activity+Fragments+TableLayout+ViewPager2]: https://github.com/geekist/developer_guide/blob/main/ui/Activity+Fragments+TableLayout+ViewPager2.md
+[pay]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Pap.md
 
-[添加一个Activity到工程中]:https://github.com/geekist/developer_guide/blob/main/activity/添加一个activity到工程中.md
+[push]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Push.md
 
-[添加一个Fragment到工程中]:https://github.com/geekist/developer_guide/blob/main/activity/添加一个fragment到工程中.md
-
-[recyclerview]:https://github.com/geekist/developer_guide/blob/main/ui/RecyclerView.md
-
-[IoT]:https://github.com/geekist/developer_guide/blob/main/IoT/IoT.md
-
-[litepal]:https://github.com/geekist/developer_guide/blob/main/libraries/LitePal.md
+[scan-code]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ScanCode.md
 
 
-[glide]:https://github.com/geekist/developer_guide/blob/main/libraries/Glide.md
+## Android基础类库
+开发过程中长期整理的工具代码
 
-[drawerlayout]:https://github.com/geekist/developer_guide/blob/main/ui/DrawerLayout+NavigationView实现Drawer侧滑.md
+[Utils Code][utils]
 
-[Bluetooth]:https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md
+[utils]:https://github.com/geekist/developer_guide/blob/main/utils/Utils.md
 
-[handler]:https://github.com/geekist/developer_guide/blob/main/thread/handler.md
+## 基础知识学习
+开发过程中的笔记整理，目的是为了唤醒记忆，达到以最快的速度保持知识栈的目的。
 
-[threadpool]:https://github.com/geekist/developer_guide/blob/main/thread/threadpool.md
+[Android][android]
 
-[tcp]:https://github.com/geekist/developer_guide/blob/main/network/tcp.md
-
-[udp]:https://github.com/geekist/developer_guide/blob/main/network/udp.md
-
-[BottomNavigationView]:https://github.com/geekist/developer_guide/blob/main/ui/BottomNavigationView.md
-
-[BottomNavigationView+fragments]:https://github.com/geekist/developer_guide/blob/main/ui/BottomNavigationView+fragments.md
-
-[QA]:https://github.com/geekist/developer_guide/blob/main/QA.md
-[Kotlin]:https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin.md
+[Kotlin][kotlin]
 
 [android]:https://github.com/geekist/developer_guide/blob/main/android/android.md
-
-[yy]:https://github.com/geekist/developer_guide/blob/main/yy/yy.md
+[kotlin]:https://github.com/geekist/developer_guide/blob/main/kotlin/Kotlin.md
