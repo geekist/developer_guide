@@ -4,7 +4,10 @@
 ## Android Studio
 
 ### 编译和运行
+* [build.gradle介绍][gradle]
 * [常见问题][qa]
+
+[gradle]:https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md
 
 ### 调试和测试
 

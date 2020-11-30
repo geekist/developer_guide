@@ -1,4 +1,4 @@
-﻿
+
 
 #  Fragment
 
@@ -75,7 +75,6 @@ fragment的布局文件如下：
 
     <frameLayout
         android:id="@+id/fragmentRight1"
-        android:name="com.jon.chapter0501.FirstFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
          />
