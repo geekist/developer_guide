@@ -4,7 +4,10 @@
 ## Android Studio
 
 ### 编译和运行
-* [build.gradle介绍][gradle]
+* [Android.manifest文件介绍][gradle]
+
+* [build.gradle文件介绍][gradle]
+
 * [常见问题][qa]
 
 [gradle]:https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md
@@ -16,6 +19,16 @@
 
 ### 发布
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
+
+
+## Android平台、设备、分辨率兼容性适配问题
+
+* [Android平台版本兼容性问题][gradle]
+
+* [Android设备厂商兼容性问题][gradle]
+ 
+* [Android屏幕分辨率兼容性问题][gradle]
+
 
 ## Android开发
 

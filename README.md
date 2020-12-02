@@ -46,9 +46,51 @@
 ## Android开发中优秀的第三方控件或工具
 项目中经常会使用到的优秀的第三方控件或开发工具
 
+网络传输相关
+
 - retrofit
 
+- [OkGo][okgo]
+
 - gson
+
+权限相关
+
+- [AndPermission][andpermission]
+
+[andpermission]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndPermission.md
+
+- [PermissionX][permissionx]
+
+[permissionx]:https://github.com/geekist/developer_guide/blob/main/android/libraries/PermissionX.md
+
+UI控件相关
+
+对话框
+
+- [XPopup][xpopup]
+[xpopup]:https://github.com/geekist/developer_guide/blob/main/android/libraries/XPopup.md
+
+沉浸式状态栏
+
+- [ImmersionBar][immersionbar]
+[immersionbar]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ImmersionBar.md
+
+
+刷新
+
+- [SmartRefreshLayout][smartrefresh]
+
+图片相关
+
+- Sketch
+
+- [Glide][glide]
+
+数据库相关
+
+- [LitePal][litepal]
+
 
 - pgyersdk
 
@@ -57,7 +99,7 @@
 - dns
 
 [okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
-[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
+[smartrefresh]:https://github.com/geekist/developer_guide/blob/main/android/libraries/SmartRefreshLayout.md
 
 [glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
 

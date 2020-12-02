@@ -139,6 +139,7 @@ class MyInterceptor : IInterceptor {
 ```java
 
 ((HelloService) ARouter.getInstance().build("/yourservicegroupname/hello").navigation()).sayHello("mike");
+
 ARouter.getInstance().navigation(HelloService.class).sayHello("mike");
 ```
 在service类中实现了方法
