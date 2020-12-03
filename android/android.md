@@ -127,8 +127,8 @@ dependencies {
 [table+viewPager2]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager2.md
 ### Animation and Transition
 
-* [Animation]([table+viewPager2]:https://github.com/geekist/developer_guide/blob/main/android/ui/Animation.md)
-* 
+* [Animation](https://github.com/geekist/developer_guide/blob/main/android/ui/Animation.md)
+
 
 ### 通知
 * [通知][notification]
