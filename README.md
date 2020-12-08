@@ -144,4 +144,4 @@ UI控件相关
 [Kotlin][kotlin]
 
 [android]:https://github.com/geekist/developer_guide/blob/main/android/android.md
-[kotlin]:https://github.com/geekist/developer_guide/blob/main/kotlin/Kotlin.md
+[kotlin]:https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin.md
