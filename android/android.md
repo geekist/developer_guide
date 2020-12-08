@@ -23,7 +23,7 @@
 
 ## Android平台、设备、分辨率兼容性适配问题
 
-* [Android平台版本兼容性问题][gradle]
+* [Android平台版本兼容性问题](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
 * [Android设备厂商兼容性问题][gradle]
  
