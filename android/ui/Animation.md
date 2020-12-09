@@ -4,12 +4,132 @@
 
 ## [官方文档](https://developer.android.google.cn/training/animation)
 
-## 为位图添加动画
+## 基础知识
+Android中动画的实现分两种方式，一种方式是补间动画 Teen Animation，就是说你定义一个开始和结束，中间的部分由程序运算得到。另一种叫逐帧动画 Frame Animation，就是说一帧一帧的连起来播放就变成了动画。
+
+### 1-补间动画 Teen Animation
+
+Android提供了四个基本的动画类：
+* 透明动画(AlphaAnimation)
+ 
+* 旋转动画(RotateAnimation)
+
+* 移动动画(TranslateAnimation)
+ 
+* 和缩放动画(ScaleAnimation)。
+
+有两种方法可以实现动画，一个是纯代码方式，另外一个是用代码和xml结合的方式来实现：
+#### 纯代码方式实现
+
+举例如下：
+
+```java
+ private val alphaAnimation by lazy {
+        AlphaAnimation(0.5f, 1.0f).apply {
+            duration = splashDuration
+            fillAfter = true
+        }
+    }
+
+    private val scaleAnimation by lazy {
+        ScaleAnimation(1f,
+            1.05f,
+            1f,
+            1.05f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f).apply {
+            duration = splashDuration
+            fillAfter = true
+        }
+    }
+
+
+ imageView.startAnimation(alphaAnimation)
+ textView.startAnimation(scaleAnimation)
+
+```
+
+#### 代码和xml方式结合来实现
+
+实现补间动画的思路是这样的：
+
+1、首先用XML定义一个动画效果 
+
+2、依据这个XML使用AnimationUtils工具类创建一个Animationd对象 
+
+3、调用View组件的startAnimation方法实现动画。
+
+* 步骤一、 在res目录下创建一个anim目录，添加一个xml文件，名为“xx_alpha"
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false"
+    android:zAdjustment="top">
+    <translate
+        android:duration="300"
+        android:fillAfter="true"
+        android:fillBefore="true"
+        android:fillEnabled="true"
+        android:fromXDelta="100%"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toXDelta="0" />
+</set>
+
+alpha的例子：
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+       android:duration="1000"
+       android:fromAlpha="0"
+       android:toAlpha="1">
+</alpha>
+
+translate的例子：
+<translate xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:duration="1000" 
+          android:fromXDelta="0" 
+          android:fromYDelta="0" 
+          android:toXDelta="80" 
+          android:toYDelta="80">
+</translate>
+
+scale的例子
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+       android:duration="1000"
+       android:fromXScale="0"
+       android:fromYScale="0"
+       android:toXScale="1"
+       android:toYScale="1">
+</scale>
+
+rotate的例子
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"        
+       android:duration="1000"
+       android:fromDegrees="0"
+       android:pivotX="50%" 
+       android:pivotY="50%" 
+       android:toDegrees="360">
+</rotate>
+
+
+
+
+
+```
+* 步骤二、 用代码来实现动画
+
+```java
+Animation animation = AnimationUtils.loadAnimation(
+	                            getApplicationContext(), R.anim.translate_animation);
+view.startAnimation(animation);
+
+```
+
+### 2-逐帧动画
+
 使用animationDrawable对象或者使用animatedVectorDrawable对象。
 
-### animationDrawable
-
-* 首先定义一个xml文件，包含animation-list节点和一系列的item节点
+* 步骤一、首先定义一个xml文件，包含animation-list节点和一系列的item节点
 ```xml
     <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
         android:oneshot="true">
@@ -19,7 +139,7 @@
     </animation-list>
 ```
 
-* 然后可以在代码中调用
+* 步骤二、然后可以在代码中调用
 
 ```kotlin
     private lateinit var rocketAnimation: AnimationDrawable
@@ -37,6 +157,10 @@
     }
     
 ```
+
+
+
+
 
 ### animatedVectorDrawable
 矢量可绘制对象是一种无需像素化或进行模糊处理即可缩放的可绘制对象。借助 AnimatedVectorDrawable 类（以及用于实现向后兼容的 AnimatedVectorDrawableCompat），您可以为矢量可绘制对象的属性添加动画效果，例如旋转或更改路径数据以将其变为其他图片。

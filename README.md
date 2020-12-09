@@ -31,7 +31,7 @@
 
 * [RxJava][rxjava]
 
-* [Fragmentation][fragmentation]
+* [Fragmentation](https://github.com/YoKeyword/Fragmentation/wiki)
 
 
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
@@ -60,9 +60,9 @@
 
 [andpermission]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndPermission.md
 
-- [PermissionX][permissionx]
+- [PermissionX][permissionx]-- [github地址](https://github.com/guolindev/PermissionX)
 
-[permissionx]:https://github.com/geekist/developer_guide/blob/main/android/libraries/PermissionX.md
+[permissionx]:https://guolin.blog.csdn.net/article/details/106181780
 
 UI控件相关
 
@@ -131,6 +131,12 @@ UI控件相关
 
 ## Android基础类库
 开发过程中长期整理的工具代码
+
+
+[带有倒计时功能的闪屏页面Splash Activity](https://www.jianshu.com/p/b38ec0bfee7d)      ---[github地址](https://github.com/ImportEffort/SplashActivityDemo)
+
+[带有广告的闪屏页面Splash Activity](https://developers.adnet.qq.com/doc/android/union/union_splash)
+
 
 [Utils Code][utils]
 

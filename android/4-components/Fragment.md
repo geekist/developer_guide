@@ -74,7 +74,7 @@ fragment的布局文件如下：
     tools:context=".MainActivity">
 
     <frameLayout
-        android:id="@+id/fragmentRight1"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
          />

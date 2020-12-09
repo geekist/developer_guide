@@ -5,7 +5,7 @@
 
 [**Android屏幕分辨率使用情况**](https://developer.android.com/about/dashboards)
 
-一个好的APP最好支持90%设备，由于不同版本系统提供的API可能不同，所以了解不同版本间系统差异很重要，这样才能更好的适配更多的智能设备。你的应用足不足够健壮要看你的应用在主流版本运行是否流畅。这篇文章记录开发过程中遇到的相对重要以及常用的适配方案，希望对读者有所帮助。
+一个好的APP最好支持90%设备，由于不同版本系统提供的API可能不同，所以了解不同版本间系统差异很重要，这样才能更好的适配更多的智能设备。你的应用足不足够健壮要看你的应用在主流版本运行是否流畅。本文记录了开发中遇到的各种问题以及从android官方更新和网络上搜集到的兼容性的解决办法，以期望达到帮助记忆，快速解决问题。
 
 ## Android5
 
@@ -129,12 +129,14 @@ android {
 
 
 需要在应用的AndroidManifest.xml文件中添加：
+```xml
 <uses-library 
 android:name="org.apache.http.legacy" 
 android:required="false"/>
-
+```
 
 ### 3、对wifi的使用要求更加严格
+
 * 1、首先在AndroidManifest.xml文件中增加以下权限
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
