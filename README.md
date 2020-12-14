@@ -85,7 +85,7 @@ UI控件相关
 
 - Sketch
 
-- [Glide][glide]
+- [Glide](https://guolin.blog.csdn.net/article/details/53759439)
 
 数据库相关
 
@@ -141,6 +141,23 @@ UI控件相关
 [Utils Code][utils]
 
 [utils]:https://github.com/geekist/developer_guide/blob/main/utils/Utils.md
+
+## Android TCP/IP 开发
+* [Http概述](https://github.com/geekist/developer_guide/blob/main/network/Http.md)
+ 
+* [Tcp概述](https://github.com/geekist/developer_guide/blob/main/network/tcp.md)
+
+* [Android开发TCP](https://github.com/geekist/developer_guide/blob/main/network/tcp_android.md)
+
+## Android UDP 开发
+
+* [UDP概述](https://github.com/geekist/developer_guide/blob/main/network/udp.md)
+
+* [Android开发UDP](https://github.com/geekist/developer_guide/blob/main/network/udp_android.md)
+
+## Android Ble 开发
+
+## Android IoT开发
 
 ## 基础知识学习
 开发过程中的笔记整理，目的是为了唤醒记忆，达到以最快的速度保持知识栈的目的。
