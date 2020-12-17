@@ -159,13 +159,22 @@ UI控件相关
 
 * [Android开发UDP](https://github.com/geekist/developer_guide/blob/main/network/udp_android.md)
 
-* [UDPDemo](https://github.com/geekist/developer_guide/blob/main/network/UdpHuber.java)
+* [UDPDemo](https://github.com/geekist/developer_guide/blob/main/network/UdpHub.java)
 
 ## [Android Wifi开发总结](https://blog.csdn.net/qq_34773981/article/details/79163579)
 
 ## Android Ble 开发
 
+* [Android 蓝牙开发技术分析](https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.java)
+
 ## Android IoT开发
+* [MQTT基本介绍](https://github.com/geekist/developer_guide/blob/main/IoT/MQTT.md)
+
+* [阿里云IOT开发](https://github.com/geekist/developer_guide/blob/main/IoT/Android连接阿里云MQTT.md)
+
+## 硬件基础
+
+* [硬件基础知识](https://github.com/geekist/developer_guide/blob/main/IoT/硬件基础知识.md)
 
 ## 基础知识学习
 开发过程中的笔记整理，目的是为了唤醒记忆，达到以最快的速度保持知识栈的目的。
