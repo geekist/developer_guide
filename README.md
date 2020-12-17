@@ -165,7 +165,7 @@ UI控件相关
 
 ## Android Ble 开发
 
-* [Android 蓝牙开发技术分析](https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.java)
+* [Android 蓝牙开发技术分析](https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md)
 
 ## Android IoT开发
 * [MQTT基本介绍](https://github.com/geekist/developer_guide/blob/main/IoT/MQTT.md)
