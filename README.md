@@ -56,6 +56,8 @@
 
 权限相关
 
+- [Android危险权限列表](https://blog.csdn.net/xxdw1992/article/details/89811370)
+
 - [AndPermission][andpermission]
 
 [andpermission]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndPermission.md
@@ -66,15 +68,21 @@
 
 UI控件相关
 
+通过标签直接生成shape，无需再写shape.xml
+
+* [backgroundLibrary](https://github.com/JavaNoober/BackgroundLibrary)
+
 对话框
 
-- [XPopup][xpopup]
-[xpopup]:https://github.com/geekist/developer_guide/blob/main/android/libraries/XPopup.md
+- [XPopup](https://github.com/geekist/developer_guide/blob/main/android/libraries/XPopup.md)
 
 沉浸式状态栏
 
 - [ImmersionBar][immersionbar]
 [immersionbar]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ImmersionBar.md
+
+搜索框
+- [searchLayout](https://github.com/Carson-Ho/Search_Layout)
 
 
 刷新
@@ -91,6 +99,11 @@ UI控件相关
 
 - [LitePal][litepal]
 
+浏览器相关
+
+- [WebView](https://blog.csdn.net/carson_ho/article/details/52693322)
+
+- [AgentWeb](https://github.com/Justson/AgentWeb)
 
 - pgyersdk
 
@@ -164,8 +177,14 @@ UI控件相关
 ## [Android Wifi开发总结](https://blog.csdn.net/qq_34773981/article/details/79163579)
 
 ## Android Ble 开发
+* [Android BLE 蓝牙开发入门](https://www.jianshu.com/p/3a372af38103)
+
+* [fastble](https://github.com/Jasonchenlijian/FastBle/wiki)
+
+* [rxble](https://github.com/Belolme/RxBLE)
 
 * [Android 蓝牙开发技术分析](https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md)
+
 
 ## Android IoT开发
 * [MQTT基本介绍](https://github.com/geekist/developer_guide/blob/main/IoT/MQTT.md)

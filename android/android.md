@@ -29,6 +29,8 @@
  
 * [Android屏幕分辨率兼容性问题][gradle]
 
+* [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
+
 ## Android性能调优
 
 * [Android性能问题](https://github.com/geekist/developer_guide/blob/main/android/android性能调优.md)

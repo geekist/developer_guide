@@ -170,6 +170,9 @@ public class HelloServiceImpl implements HelloService {
 
 ## 最后，有一篇文章总结得很好： [探索Android路由框架-ARouter之基本使用](https://www.jianshu.com/p/6021f3f61fa6)
 
+## 坑1：组件化开发时，在底层组件添加依赖，上层组件添加注解的解释，这种方法是不可以的，必须在用的模块中加上全套的引用。
+
+
 
 
 
