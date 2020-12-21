@@ -137,7 +137,7 @@ dependencies {
 
 
 ### 通知
-* [通知][notification]
+* [Notification][notification]
 
 
 [notification]:https://github.com/geekist/developer_guide/blob/main/android/notification/Notification.md
