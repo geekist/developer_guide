@@ -18,6 +18,10 @@
 
 
 ### 发布
+
+* [Android版本检测和安装](https://github.com/geekist/developer_guide/blob/main/android/studio/Update.md)
+
+
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 

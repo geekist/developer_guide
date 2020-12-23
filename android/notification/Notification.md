@@ -52,7 +52,7 @@ val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as Noti
                 .build()
         notificationManager.notify(1,notification)
 ```
-## 取消通知
+## 取消通知在界面的显示
 可以在创建通知的时候设置
 setAutoCancel（）
 

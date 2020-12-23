@@ -69,15 +69,17 @@ class MyService : Service() {
 
 ### 3、启动一个service
 
+在activity或fragment界面中调用startService
+
 ```kotlin
  val intent = Intent(this,MyService::class.java)
-            startService(intent)
+ startService(intent)
 ```
 ### 4、停止一个service
 
 ```kotlin
  val intent = Intent(this,MyService::class.java)
-            stopService(intent)
+ stopService(intent)
 ```
 
 ## Activity和Service通信
@@ -141,7 +143,7 @@ ServiceConnection类实现一个包含Binder参数的抽象方法，可以在con
 ```
 
 ### 3、通过bindService将activity和service联系起来
-
+在activity和fragment中调用bindService和unbindService
 ```kotlin
   buttonBindService.setOnClickListener{
             val intent = Intent(this,MyService::class.java)
@@ -170,7 +172,7 @@ ServiceConnection类实现一个包含Binder参数的抽象方法，可以在con
 
 ### 前台service的创建
 
-在service的onCreate函数中，添加一个通知，然后start
+在service的onCreate函数中，添加一个通知，然后startForeground
 
 ```kotlin
 class MyService: service() {
@@ -211,6 +213,16 @@ override fun onCreate() {
 }
 ```
 
+### 前台service的停止
+
+stopForeground(false);
+
+结束前台的服务，通知栏中该通知会随着点击或者滑动而删除。
+
+参数是：是否删除之前发送的通知，true：删除。false：不删除 （用手滑动或者点击通知会被删除）
+
+
+
 ## IntentService
 service的代码本质上还是运行在主线程中的，要在后台线程中运行service，需要在service的回调函数中增加线程启动。
 
@@ -234,8 +246,10 @@ class MyIntentService : IntentService("MyIntentService") {
 ```
 ### 2、调用IntentService
 
+在activity中用intent来实现startService
+
 ```
-//调用时在activity的button或其他地方用intent来实现startService
+//
    val intent = Intent(this,MyIntentService::class.java)
             startService(intent)
 ```
