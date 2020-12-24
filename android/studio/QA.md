@@ -84,4 +84,28 @@ android.enableJetifier=true
 2、然后，在那个断点标识的小红点，右键，然后会弹出这个对话框：
 3、默认一般是Thread，选择All，确认setDefault，然后重新编译一遍就OK了
 
+## CmpileOnly的含义
+```java
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    compileOnly rootProject.depsLibs.appcompat
+    compileOnly rootProject.depsLibs.coreKtx
+
+    compileOnly rootProject.depsLibs.retrofit
+    compileOnly rootProject.depsLibs.converterGson
+    compileOnly rootProject.depsLibs.gson
+    compileOnly rootProject.depsLibs.loggingInterceptor
+
+    implementation rootProject.depsLibs.coroutines
+
+    compileOnly project(":lib_base")
+
+}
+
+```
+compileonly 表示只参与编译，不参与打包，在app的build.gradle中集中打包，这样可以防止依赖的重复。
+
 

@@ -23,6 +23,10 @@
 [architecture]: https://github.com/geekist/developer_guide/blob/main/architecture/Android项目基本框架.md
 
 ## Android开发中流行的框架库
+
+[安卓常用框架汇总](http://www.androidchina.net/9941.html)
+
+
 开发过程中默认使用的第三方流行框架。
 
 * [ARouter][arouter]
