@@ -1,19 +1,27 @@
-## [Activity]
+# Activity
 
-### 创建一个activity
+需要掌握：
 
-* 在AndroidStudio中创建一个NoActivity的工程，添加一个Activity，命名位FirstActivity。
+**1、Activity概念**
 
-```java
-public class FirstActivity extends AppCompatActivity {
+**2、创建一个Fragment**
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-}
-```
-Koltin代码：
+**3、启动和销毁activity**
+
+**4、在Activity之间传递数据**
+
+**5、Activity的启动模式**
+
+**5、Activity的声明周期**
+
+## Activity概念
+Activity 是用户与 Android 应用程序交互的接口，通过这个组件中可以放置各种控件。
+
+从设计层面上来讲，类似于Mvc设计模式中的Controller控制层，在Android中，通过Activity选择要显示的View,从View中获取数据然后传给Model层进行处理，最后显示出来。
+
+## 创建一个activity
+
+* 1-在AndroidStudio中创建一个NoActivity的工程，添加一个Activity，命名位FirstActivity。
 ```java
 
 class FirstActivity : AppCompatActivity() {
@@ -24,7 +32,7 @@ class FirstActivity : AppCompatActivity() {
 
 ```
 
-* 为Activity添加布局文件，新建一个layout文件，命名为first_layout
+系统会为Activity添加布局文件，新建一个layout文件，命名为first_layout
 ```java
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,8 +50,7 @@ class FirstActivity : AppCompatActivity() {
 </LinearLayout>
 
 ```
-
-* 将布局文件和Activity绑定起来
+将布局文件和Activity绑定起来
 ```java
   @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,7 @@ class FirstActivity : AppCompatActivity() {
     }
 
 ```
-* 在Android.manifest文件中注册Activity.可以看到系统已经为我们注册好了，我们需要添加一个Intent filter，告诉系统如何调用。
+* 2-在Android.manifest文件中注册Activity.可以看到系统已经为我们注册好了，我们需要添加一个Intent filter，告诉系统如何调用。
 ```java
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -77,7 +84,7 @@ class FirstActivity : AppCompatActivity() {
 ```
 现在，一个新的Activity就可以启动了
 
-## Activity中控件的自动绑定
+* Activity中控件的自动绑定
 
 在app的build.gradle中加入：kotlin-android-extensions的插件即可
 ```java
@@ -89,16 +96,13 @@ plugins {
 
 ```
 
-## Activity的销毁 finish（）
+## 启动和销毁Activity
 
-如果需要将应用程序彻底清除，则需要调用：
-```java
-android.os.Process.killProcess(android.os.Process.myPid())
-```
+**通过Intent，调用startActivity或startActivityForResult启动activity**
+
+是Android程序中各个组件之间进行交互的一种重要方式，它不仅可以指出当前组件想要执行的动作，也可以在不同组件之间传递数据。Intent一般可以用来启动Activity、Service、以及发送广播消息等。
 
 
-## 利用Intent在Activity之间相互调用
-Intent是Android程序中各个组件之间进行交互的一种重要方式，它不仅可以指出当前组件想要执行的动作，也可以在不同组件之间传递数据。Intent一般可以用来启动Activity、Service、以及发送广播消息等。
 Intent分为两种：显示Intent和隐式Intent
 * 显示Intent
 
@@ -151,21 +155,38 @@ intent = Intent(Intent.ACTION_DIAL)
 
 ```
 
-## 传递数据给下一个activity
+**Activity的销毁**
+
+* activity.finish（）
+
+* 如果需要将应用程序彻底清除，则需要调用killProcess：
+
+```java
+android.os.Process.killProcess(android.os.Process.myPid())
+```
+
+
+##在Activity之间传递数据 
+
+**1-传递数据给下一个activity**
+
 使用Intent的putExtra函数可以给下一个activity传递数据，然后在下一个Activity的OnCreate中可以接受数据
+
 ```java
 intent.putExtra("data_test","hello,world.....")
 startActivity(intent)
 ```
-接受数据
+
+**2-从上一个activity接受数据**
+
+Activity的OnCreate中可以接受数据
 ```java
 val msg = intent.getStringExtra("data_test")
 setTitle(msg)
 
 ```
 
-## 从上一个activity接受数据
-要从上一个activity取得数据，
+**3-从下一个activity返回后带回来的数据**
 
 * 启动activity，并指明要返回的数据
 
@@ -201,7 +222,8 @@ startActivityForResult(intent)
 
 ```
 
-## Activity被回收时保存数据，等待再次创建时得到
+**4-Activity被回收时保存数据，等待再次创建时得到**
+
 如果activity被系统回收，则可以通过onSaveInstanceState来保存一些临时数据，
 然后在activity的onCreate中得到这些数据
 ```java
@@ -258,7 +280,6 @@ override fun onCreate(savedInstanceState: Bundle?) {
 onCreate和onDestroy中间是一个完整的生存周期
 onStart和onStop是一个可见周期
 onResume和onPause是一个存活周期
-
 onRestart是从onStop之后被从堆栈中唤醒。
 
 

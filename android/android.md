@@ -48,6 +48,7 @@
 * [BroadcastReceiver][broadcastReceiver]
 * [ContentProvider][contentprovider]
 * [Service][service]
+* 附：[Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
 
 [activity]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Activity.md
 [fragment]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Fragment.md
@@ -207,6 +208,8 @@ dependencies {
 * [LiveData][livedata]
 * [Room][room]
 * [WorkManager][workmanager]
+
+* [DataBinding](https://github.com/geekist/developer_guide/blob/main/android/jetpack/Databinding.md)
 
 [lifecycles]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/Lifecycles.md
 

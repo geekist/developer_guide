@@ -1,3 +1,47 @@
+
+# 运行时权限申请
+Android6.0系统及以后的系统中增加了运行时权限申请的功能，用户不需要在安装软件的时候一次授权所有的权限，可以在软件使用过程中对某一权限进行授权。
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        buttonDia.setOnClickListener{
+           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+               ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.CALL_PHONE),1)
+           }else {
+               call()
+           }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            1->{
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    call()
+                }else{
+                    Toast.makeText(this,"you denied the permission",Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun call() {
+        try {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:10086")
+            startActivity(intent)
+        }catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+    }
+}
+
+
+
 # AndPermission
 
 AndPermission是一个权限管理框架，包括但不仅限于运行时权限，覆盖绘制权限，显示通知权限和访问通知权限等

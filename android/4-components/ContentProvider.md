@@ -2,58 +2,30 @@
 
 # ContentProvider
 
+需要掌握：
+
+**1、contentProvider概念**
+
+**2、访问contentProvider**
+
+**3、一个访问通讯录的例子**
+
+**4、自定义一个contentProvider（忽略）**
+
+**5、动态判断和申请权限的方法**
+
+## ContentProvider概念
+
 用于在不同的应用程序之间实现数据共享，它提供了一套完整的机制，允许一个应用程序访问另外一个应用程序，同时能保证被访问程序的安全性。
 
-## 运行时权限申请
-Android6.0系统及以后的系统中增加了运行时权限申请的功能，用户不需要在安装软件的时候一次授权所有的权限，可以在软件使用过程中对某一权限进行授权。
-```kotlin
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        buttonDia.setOnClickListener{
-           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-               ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.CALL_PHONE),1)
-           }else {
-               call()
-           }
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
-            1->{
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    call()
-                }else{
-                    Toast.makeText(this,"you denied the permission",Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-
-    private fun call() {
-        try {
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.data = Uri.parse("tel:10086")
-            startActivity(intent)
-        }catch (e: SecurityException) {
-            e.printStackTrace()
-        }
-    }
-}
-
-```
 ## 访问contentProvider
 
-### ContentResolver类的基本用法
+### 通过ContentResolver类来访问ContentProvider
 
 #### 1、获取contentResolver实例
 
 `val contentResolver = Context.getContentResolver()`
-
 
 #### 2、内容URI
 
@@ -187,3 +159,45 @@ class MainActivity : AppCompatActivity() {
 
 ## 创建自己的ContentProvider
 
+## 运行时权限申请
+Android6.0系统及以后的系统中增加了运行时权限申请的功能，用户不需要在安装软件的时候一次授权所有的权限，可以在软件使用过程中对某一权限进行授权。
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        buttonDia.setOnClickListener{
+           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+               ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.CALL_PHONE),1)
+           }else {
+               call()
+           }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            1->{
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    call()
+                }else{
+                    Toast.makeText(this,"you denied the permission",Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun call() {
+        try {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:10086")
+            startActivity(intent)
+        }catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+    }
+}
+
+```

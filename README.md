@@ -62,7 +62,7 @@
 
 - [Android危险权限列表](https://blog.csdn.net/xxdw1992/article/details/89811370)
 
-- [AndPermission][andpermission]
+- 运行时动态申请权限的方法以及一个开源库[AndPermission][andpermission]
 
 [andpermission]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndPermission.md
 

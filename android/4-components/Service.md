@@ -1,6 +1,21 @@
 
+# Service
 
-# Service概述
+需要掌握：
+
+**1、service概念**
+
+**2、如何定义和使用一个service**
+
+**3、Service和Activity的通信**
+
+**4、前台service**
+
+**5、IntentService**
+
+
+
+## Service概述
 Service是android中实现程序后台运行的解决方案，适用于不需要和用户交互但是要求长期运行的任务。
 
 service的运行不依赖用户界面，当程序切换到后台时，service仍然可以运行，直到当应用被杀掉时，所有依赖于该应用的service会停止。
@@ -86,7 +101,7 @@ class MyService : Service() {
 
 通过在service端定义binder类，在activity端通过connection来得到这个binder实现。
 
-### 1、定义一个service，其中包含一个Binder类
+### 1、定义一个service，其中包含一个Binder类,binder类中可以执行一些操作。
 ```java
 
 class MyService : Service() {
@@ -231,17 +246,51 @@ service的代码本质上还是运行在主线程中的，要在后台线程中�
 ### 1、创建一个IntentService
 
 ```java
-class MyIntentService : IntentService("MyIntentService") {
-
-    override fun onHandleIntent(intent: Intent?) {
-       Log.d("","sfasfsfsfssffsafsfsfsfsfsfsf")
+public class MyService extends IntentService {
+    //这里必须有一个空参数的构造实现父类的构造,否则会报异常
+    //java.lang.InstantiationException: java.lang.Class<***.MyService> has no zero argument constructor
+    public MyService() {
+        super("");
+    }
+    
+    @Override
+    public void onCreate() {
+        System.out.println("onCreate");
+        super.onCreate();
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("","fsafsfsfsfsfasfasfasfasfasfasf")
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        System.out.println("onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
 
     }
+
+    @Override
+    public void onStart(@Nullable Intent intent, int startId) {
+        System.out.println("onStart");
+        super.onStart(intent, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        System.out.println("onDestroy");
+        super.onDestroy();
+    }
+
+    //这个是IntentService的核心方法,它是通过串行来处理任务的,也就是一个一个来处理
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        System.out.println("工作线程是: "+Thread.currentThread().getName());
+        String task = intent.getStringExtra("task");
+        System.out.println("任务是 :"+task);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
 }
 ```
 ### 2、调用IntentService
@@ -249,7 +298,22 @@ class MyIntentService : IntentService("MyIntentService") {
 在activity中用intent来实现startService
 
 ```
-//
-   val intent = Intent(this,MyIntentService::class.java)
-            startService(intent)
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        Intent intent = new Intent(this,MyService.class);
+        intent.putExtra("task","播放音乐");
+        startService(intent);
+        intent.putExtra("task","播放视频");
+        startService(intent);
+        intent.putExtra("task","播放图片");
+        startService(intent);
+    }
+}
 ```
+
+### 3、原理：内部实现了一handlerThread

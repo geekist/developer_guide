@@ -2,11 +2,24 @@
 
 #  Fragment
 
+需要掌握：
+
+**1、Fragment概念**
+
+**2、创建一个Fragment并添加到Activity中**
+
+**3、Activity和Fragment的交互方式**
+
+**4、Fragment之间的交互方式**
+
+**5、Fragment的生命周期**
+
 ## Fragment的定义
 
 一种可以嵌入在activity中的片段，和activity类似，也有自己的布局，自己的生命周期。
 
 ## 添加fragment的两种方式
+
 ### 静态方式添加fragment（类似自定义控件的添加）
 
 * step1: 创建一个fragment类，系统自动添加fragment的布局文件。
@@ -98,7 +111,7 @@ fragmentTransaction.replace(R.layout_first_fragment, fragment)
 fragmentTransaction.commit()
 ```
 
-### 在fragment中实现返回栈
+* step4 在fragment中实现返回栈
 多个fragment加载时，如果想要实现回退到上一个fragment的效果，则需要将事务添加到返回栈中。
 ```kotlin
 val fragmentManager = supportFragmentManager
@@ -110,6 +123,7 @@ fragmentTransaction.commit()
 ```
 
 ## activity和fragment的交互方式
+
 ### activity中调用fragment
 
 ```kotlin
