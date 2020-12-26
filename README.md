@@ -37,6 +37,12 @@
 
 * [Fragmentation](https://github.com/YoKeyword/Fragmentation/wiki)
 
+依赖注入的框架
+
+* [Dagger2](https://github.com/geekist/developer_guide/blob/main/android/libraries/dagger2.md)
+
+* [Koin](https://start.insert-koin.io/#/)
+
 
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
 [eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
