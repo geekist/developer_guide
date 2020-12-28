@@ -4,14 +4,14 @@
 
 用来承担原本activity或fragment承担的数据部分，将数据与activity解构，viewmodel的生命周期和activity无关
 
-## 添加依赖项
+## 1、添加依赖项
 ```java
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
 ```
 
-## 创建一个ViewModel类
+## 2、创建一个ViewModel类
 MainViewModel类继承于ViewModel类，向外提供了一根LiveData的数据类型供观测，这里的LiveData是只读模式的，防止外面对LiveData进行修改。
 
 ```java
@@ -39,14 +39,18 @@ class MainViewModel(counterReserved: Int): ViewModel() {
 
 ```
 
-## 不带参数的viewmodel的实例化
+## 3、实例化ViewModel
+
+### 不带参数的viewmodel的实例化
 ```java
 val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 ```
 通过ViewModelProvider来实例化ViewmOdel，其生命周期和Activity无关。传入的第一个参数是activity类的实例。第二个参数是MainVIewModel的class类。
 
-## 带参数的ViewModel的实例化
+### 带参数的ViewModel的实例化
+
 如果ViewModel带有参数，则上面的方法就不能使用了，因为无法将参数传递进去，这时可以用工厂方法来创建一个ViewModel的实例
+
 ```java
 
 class MainViewModelFactory(private val counterReserved: Int): ViewModelProvider.Factory {
@@ -59,7 +63,7 @@ class MainViewModelFactory(private val counterReserved: Int): ViewModelProvider.
             .get(MainViewModel::class.java)
 ```
 
-## 观测viewmodel中数据的变化
+## 4、观测viewmodel中数据的变化
 ```java
 viewModel.counter.observe(this, Observer { textViewNum.text = it.toString() })
 ```

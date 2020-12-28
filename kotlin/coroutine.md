@@ -129,7 +129,7 @@ fun main() = runBlocking<Unit> {
 
 ### 2.1 创建和启动一个协程：
 * 在协程域中使用协程域扩展函数launch函数创建和启动一个协程,第一个参数是协程域上下文，第二个参数是启动模式，第三个参数是一个挂起函数。返回值是一个Job类型。即协程类型。
-* 
+ 
 ```java
 public fun CoroutineScope.launch(
     context: CoroutineContext = EmptyCoroutineContext,

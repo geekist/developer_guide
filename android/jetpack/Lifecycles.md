@@ -8,13 +8,13 @@ Activiry或者Fragment作为一个obserable，以lifecycle存在于其自身。
 lifecycle.addObserver(observer)将二者结合起来，这样，当前者变化时，后者就能够受到消息
 
 
-## 添加依赖项
+## 1、添加依赖项
 ```java
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
 ```
-## 创建一个Observer
+## 2、创建一个Observer，实现LifecycleObserver接口
 ```java
 class MyObserver(val lifecycle: Lifecycle) : LifecycleObserver {
 
@@ -38,7 +38,8 @@ class MyObserver(val lifecycle: Lifecycle) : LifecycleObserver {
     }
 }
 ```	
-## 关联observer和observable
+## 3、在Activity或fragment中实现对生命周期的观察
+因为activity和fragment
 ```java
   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
