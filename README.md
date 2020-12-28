@@ -44,6 +44,8 @@
 * [Koin](https://doc.insert-koin.io/#/koin-core/dsl)
 
 
+[关于koin的一个讲解教程](https://www.jianshu.com/p/8d78761f3c6f?utm_campaign=shakespeare)
+
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
 [eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
 
