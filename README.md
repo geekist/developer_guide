@@ -41,7 +41,7 @@
 
 * [Dagger2](https://github.com/geekist/developer_guide/blob/main/android/libraries/dagger2.md)
 
-* [Koin](https://start.insert-koin.io/#/)
+* [Koin](https://doc.insert-koin.io/#/koin-core/dsl)
 
 
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
@@ -58,7 +58,9 @@
 
 网络传输相关
 
-- retrofit
+- [Retrofit](https://github.com/square/retrofit) [ChangeLog](https://github.com/square/retrofit/blob/master/CHANGELOG.md)
+
+[retrofit 支持协程的一个介绍](https://juejin.cn/post/6844903869990830093)
 
 - [OkGo][okgo]
 

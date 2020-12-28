@@ -108,4 +108,7 @@ dependencies {
 ```
 compileonly 表示只参与编译，不参与打包，在app的build.gradle中集中打包，这样可以防止依赖的重复。
 
+## 华为手机无法进入断点调试的解决办法
+
+最终解决办法：Run->Edit Configuration->Debugger->Build Type设置为Dual模式，则可以正常调试。
 
