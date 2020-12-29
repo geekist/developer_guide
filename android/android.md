@@ -118,7 +118,7 @@ dependencies {
 * [MaterialCardView][cardview]
 * [RecyclerView][recyclerview]
 * [沉浸式状态栏][transparentstatusbar]
-
+* [Paging](https://github.com/geekist/developer_guide/blob/main/android/ui/paging.md)
 
 
 [navigationview]:https://github.com/geekist/developer_guide/blob/main/android/ui/NavigationView.md
