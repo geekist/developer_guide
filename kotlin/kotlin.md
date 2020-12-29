@@ -1,9 +1,15 @@
 # Kotlin
 
 ## [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/foundation.md)
+
+## [Kotlin标准函数库](https://github.com/geekist/developer_guide/blob/main/kotlin/standard.md)
+
 ## [类与对象](https://github.com/geekist/developer_guide/blob/main/kotlin/class.md)
+
 ## [函数与lambda表达式](https://github.com/geekist/developer_guide/blob/main/kotlin/function&lambda.md)
+
 ## [集合](https://github.com/geekist/developer_guide/blob/main/kotlin/assembly.md)
+
 ## [Kotlin协程](https://github.com/geekist/developer_guide/blob/main/kotlin/coroutine.md)
 
 ## [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
