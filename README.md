@@ -109,6 +109,12 @@ TableLayout
 
 - [SmartRefreshLayout][smartrefresh]
 
+listView-RecyclerView的子控件侧滑处理
+
+- [EasySwipeMenuLayout](https://github.com/anzaizai/EasySwipeMenuLayout)
+
+[BaseQuickAdapter](https://github.com/geekist/developer_guide/blob/main/android/libraries/BaseRecyclerViewAdapterHelper.md)
+
 图片相关
 
 - Sketch
