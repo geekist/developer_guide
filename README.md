@@ -51,7 +51,7 @@
 
 ## 性能调优、 UI优化
 
-* [Android 启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android App 启动分析与优化.md)
+* [Android 启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
 ## ANR
 
