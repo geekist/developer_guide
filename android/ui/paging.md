@@ -17,6 +17,7 @@
 3、将PageList的数据submitList给PageListAdapter(需要自己调用)
 
 4、PageListAdapter在后台线程对比原来的PageList和新的PageList，生成新的PageList(Paging库已实现对比操作，用户只需提供DiffUtil.ItemCallback实现)
+
 5、PageListAdapter通知RecyclerView更新
 
 ![](https://upload-images.jianshu.io/upload_images/7037957-133babd8949f7752.gif?imageMogr2/auto-orient/strip|imageView2/2/w/800/format/webp)

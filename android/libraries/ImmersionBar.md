@@ -4,7 +4,7 @@ android 4.4以上沉浸式状态栏和沉浸式导航栏管理，适配横竖屏
 
 ## github： https://github.com/gyf-dev/ImmersionBar
 
-## wiki：
+## wiki：https://www.jianshu.com/p/2a884e211a62
 
 ##依赖项：
 implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'

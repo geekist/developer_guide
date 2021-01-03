@@ -1,5 +1,6 @@
 
 
+
 ## RecyclerVieew
 
 * 1、依赖项配置
@@ -159,6 +160,8 @@ class RecyclerViewAdapter(val objectItemList: List<ObjItem>) :
 
 （略）参见utils中的viewholder和adapter
 
+## 用recyclerview 绘制[分割线 、时光轴](https://blog.csdn.net/briblue/article/details/70161917) 和 [角标，比如金牌榜等](https://blog.csdn.net/briblue/article/details/70211942)
+
 * 8、附上一个创建item项的分割线的类RecyclerViewDivider
 ```java
 
@@ -291,10 +294,6 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
         }
     }
 }
-
-
-
-
 ```
 
 

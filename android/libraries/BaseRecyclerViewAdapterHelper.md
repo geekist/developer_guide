@@ -136,8 +136,6 @@ public class HomeAdapter extends BaseQuickAdapter<HomeItem, BaseViewHolder> {
 
 ### 1-给adapter设置数据
 
-## 4、BaseQuickAdapter主要属性、方法说明## 4、BaseQuickAdapter主要属性、方法说明
-
 |  | Java | Kotlin | 说明 |
 | :--- | ---- | ---- | ---- |
 |获取Context|getContext()|context||
@@ -169,6 +167,14 @@ public class HomeAdapter extends BaseQuickAdapter<HomeItem, BaseViewHolder> {
 |  | setDiffNewData(List<T>) | setDiffNewData(List<T>?) | 必须先设置setDiffCallback() 或者 setDiffConfig()，否则不生效 |
 | 设置Diff数据 | setDiffNewData(DiffResult, List<T>) | setDiffNewData(DiffResult, List<T>?) | 通过DiffResult设置数据，Adapter内部不关心Diff过程，只要结果。 |
  |||
+
+* 当从网络或其他地方传输的数据要改变整个数据列表时，用setNewData 或 replaceData来更换所有数据。
+
+* 当更改单个数据时，用setData和setNewData
+
+* 当删除某一个数据时，用remove
+
+* 当添加数据时，用addData
 
 
 
