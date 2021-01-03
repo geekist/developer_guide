@@ -24,8 +24,7 @@
 
 ## Android系统基本框架
 
-## Android系统进行间通讯机制
-[Android系统进行间通讯机制---Binder][binder]
+## [Android系统进程间通讯机制---Binder][binder]
 
 [binder]:https://github.com/geekist/developer_guide/blob/main/android/system/binder.md
 
@@ -51,6 +50,8 @@
 # 5、Android开发高阶实践知识
 
 ## 性能调优、 UI优化
+
+* [Android 启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android App 启动分析与优化.md)
 
 ## ANR
 
