@@ -27,7 +27,7 @@
 ## Android系统进行间通讯机制
 [Android系统进行间通讯机制---Binder][binder]
 
-[binder]:(https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
+[binder]:https://github.com/geekist/developer_guide/blob/main/android/system/binder.md
 
 ## JNI、NDK
 
