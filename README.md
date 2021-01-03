@@ -24,7 +24,9 @@
 
 ## Android系统基本框架
 
-## 进程间通信binder
+## [Android系统进行间通讯机制---Binder][binder]
+
+[binder]:(https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
 
 ## JNI、NDK
 
@@ -87,5 +89,5 @@
 
 ## 源代码管理svn、git
 
-[老版本入口](https://github.com/geekist/developer_guide/blob/main/README.md)
+[老版本入口](https://github.com/geekist/developer_guide/blob/main/README2.md)
 
