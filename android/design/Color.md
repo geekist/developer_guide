@@ -56,6 +56,8 @@ disabled或其他色彩用38%
 
 ## 白天模式和夜间模式
 
+##[关于透明度的换算](https://github.com/geekist/developer_guide/blob/main/android/design/透明度.md)
+
 
 
 
