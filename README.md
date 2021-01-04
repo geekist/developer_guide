@@ -28,6 +28,8 @@
 
 [binder]:https://github.com/geekist/developer_guide/blob/main/android/system/binder.md
 
+## [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
+
 ## JNI、NDK
 
 ## App启动过程
