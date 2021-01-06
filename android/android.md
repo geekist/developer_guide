@@ -56,7 +56,35 @@
 [contentprovider]:https://github.com/geekist/developer_guide/blob/main/android/4-components/ContentProvider.md
 [service]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Service.md
 
-### UI 控件
+### 用户界面
+
+#### 外观和风格
+* [attrs、style和theme介绍](https://github.com/geekist/developer_guide/blob/main/android/ui/attrs.md)
+
+#### 布局layout
+
+* [LinearLayout][linearlayout]
+* [RelativeLayout][relativelayout]
+* [FrameLayout][framelayout]
+* [ConstraintLayout][constraintlayout]
+
+material design中新引入的布局layout
+
+* [AppBarLayout][appbarlayout]
+* [CoordinatorLayout][coordinatorlayout]
+* [DrawerLayout][drawerlayout]
+* [SwipeRefreshLayout][swiperefreshlayout]
+* [CollapsingToolbarLayout][collapsingtoolbarlayout]
+
+
+[linearlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/LinearLayout.md
+
+[relativelayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/RelativeLayout.md
+
+[framelayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/FrameLayout.md
+
+[constraintlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/ConstraintLayout.md
+#### UI 控件
 
 * [控件常用的属性][common]
 * [TextView][textview]
@@ -104,12 +132,6 @@ dependencies {
 ```
 引入app命名空间，是因为许多MaterialDesign的属性是新增加的，原来的android命名空间中并不存在，所以为了兼容老系统，增加了一个新的命名空间。
 
-* [AppBarLayout][appbarlayout]
-* [CoordinatorLayout][coordinatorlayout]
-* [DrawerLayout][drawerlayout]
-* [SwipeRefreshLayout][swiperefreshlayout]
-* [CollapsingToolbarLayout][collapsingtoolbarlayout]
-
 
 * [Toolbar][toolbar]
 * [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
@@ -156,21 +178,7 @@ dependencies {
 [audio]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Audio.md
 [video]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Video.md
 
-### [Layout 布局文件][layout]
 
-* [LinearLayout][linearlayout]
-* [RelativeLayout][relativelayout]
-* [FrameLayout][framelayout]
-* [ConstraintLayout][constraintlayout]
-
-
-[linearlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/LinearLayout.md
-
-[relativelayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/RelativeLayout.md
-
-[framelayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/FrameLayout.md
-
-[constraintlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/ConstraintLayout.md
 
 ### [资源文件Resource Files][resource]
 
@@ -225,6 +233,10 @@ dependencies {
 
 * [material design](https://github.com/geekist/developer_guide/blob/main/android/design/MaterialDesign.md)
 
+
+## 软件工程
+
+* [组件化开发](https://github.com/geekist/developer_guide/blob/main/android/architecture/组件化.md)
 
 ## Android常用的库libraries
 

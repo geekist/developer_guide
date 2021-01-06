@@ -53,7 +53,17 @@
 
 ## 性能调优、 UI优化
 
-* [Android 启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
+* 启动速度优化 
+
+    [Android 启动分析与优化--从UI角度分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
+
+* 卡顿优化
+
+* 内存抖动和内存泄露的优化
+
+
+
+* 
 
 ## ANR
 
