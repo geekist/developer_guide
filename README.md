@@ -468,6 +468,8 @@ material design中新引入的布局layout
 
 ## 支付
 
+* [微信和支付宝android客户端接入流程](https://github.com/geekist/developer_guide/blob/main/pay/alipay.md)
+
 ## 地图
 
 ## 推送
