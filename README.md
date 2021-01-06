@@ -2,11 +2,12 @@
 
 ## java语言
 
-* java类
+* [java类](https://github.com/geekist/developer_guide/blob/main/java/class.md)
 
-* java多线程
 
-* java泛型
+* [java多线程](https://github.com/geekist/developer_guide/blob/main/java/multi-thread.md)
+
+* [java泛型](https://github.com/geekist/developer_guide/blob/main/java/generic.md)
 
 ## Kotlin语言
 
@@ -77,7 +78,11 @@
 
 ### 数据结构与算法 
 
+* [数据结构](https://github.com/geekist/developer_guide/blob/main/software/algrithom.md)
+
 ### 设计模式
+
+* [设计模式](https://github.com/geekist/developer_guide/blob/main/software/design-pattern.md)
 
 ### 组件化、MVP、MVVM
 
@@ -86,6 +91,8 @@
 
 
 ## 源代码管理SVN和git
+
+* [git](https://github.com/geekist/developer_guide/blob/main/android/architecture/git.md)
 
 # 2、Android系统开发基本知识
 
@@ -274,6 +281,9 @@ material design中新引入的布局layout
 
 ## 网络编程
 
+[webview]
+
+[agentweb]
 
 ## 线程
 
@@ -329,19 +339,25 @@ material design中新引入的布局layout
 
 ## Android系统基本框架
 
-## [Android系统进程间通讯机制---Binder][binder]
+* [Android系统框架]()
+
+* [Android系统启动过程]()
+
+* [Android系统进程间通讯机制---Binder][binder]
 
 [binder]:https://github.com/geekist/developer_guide/blob/main/android/system/binder.md
 
-## [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
+* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
 
-## JNI、NDK
+* [JNI编程]()
 
-## App启动过程
+* [NDK基本知识]()
 
 框架基本知识： JNI NDK 进程间通信、 组件启动过程、底层框架、内核
 
 # 4、Android开发基本实践
+
+## 兼容性问题
 
 * [Android平台版本兼容性问题](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
@@ -349,33 +365,31 @@ material design中新引入的布局layout
  
 * [Android屏幕分辨率兼容性问题][gradle]
 
-* [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
-* 
-
 熟练适配三星、华为、魅族、OPPO、小米等主流Android品牌，有Android4.0-Android7.0适配经验及技巧，了解Android 8.0新特性，
+## 性能问题
 
-## 启动速度优化
+### 启动和运行速度
 
 * [Android 启动分析与优化--从UI角度分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
-## 内存分析与性能优化、内存抖动和内存泄露的优化
+### cpu性能问题 ANR分析
 
-## UI性能优化
+
+### 内存性能问题、优化、抖动、泄露分析
 
 
 * [Android性能问题](https://github.com/geekist/developer_guide/blob/main/android/android性能调优.md)
 
 
+### 进程保活
 
-## ANR
+* [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
 
-## 内存分析
 
-## 电量、卡顿异常定位
+### 电量分析
 
-## 卡顿优化
 
-## 性能调优、 UI优化
+### 卡顿优化
 
 # 5、APK相关
 
