@@ -154,9 +154,13 @@ material design中新引入的布局layout
 
 * [DrawerLayout][drawerlayout]
 
+**SwipeRefreshLayout**
 
 * [SwipeRefreshLayout][swiperefreshlayout]
 
+* [第三开源库SmartRefreshLayout实现更多功能](https://github.com/scwang90/SmartRefreshLayout)
+
+**CollapsingToolbarLayout**
 
 * [CollapsingToolbarLayout][collapsingtoolbarlayout]
 
@@ -215,15 +219,34 @@ material design中新引入的布局layout
 
 * [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
 
+**TabLayout和ViewPager2**
+
+* [TabLayout介绍](https://www.jianshu.com/p/88679fed9ecb)
+
 * [TableLayout+ViewPager][table+viewPager]--多个Fragments在TableLayout下实现fragments横向滑动
 
 * [TableLayout+ViewPager2][table+viewPager2]--多个Fragments在TableLayout下实现fragments横向滑动
 
+* [第三方开源库FlycoTabLayout实现更加灵活的TabLayout功能](https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md)
+
+* [第三方开源库Banner实现轮播容器](https://github.com/youth5201314/banner)
+
+**CardView**
+
 * [MaterialCardView][cardview]
+
+**RecyclerView**
+
 
 * [RecyclerView][recyclerview]
 
+**沉浸式状态栏**
+
 * [沉浸式状态栏][transparentstatusbar]
+
+* [第三方开源库ImmersionBar实现沉浸式状态栏](https://github.com/gyf-dev/ImmersionBar)
+
+**Paging**
 
 * [Paging](https://github.com/geekist/developer_guide/blob/main/android/ui/paging.md)
 
@@ -402,7 +425,7 @@ material design中新引入的布局layout
 
 
 
-* [常见问题][qa]
+* [编译过程中常见问题][qa]
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 
@@ -428,6 +451,9 @@ material design中新引入的布局layout
 
 # 6、测试框架
 
+* [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
+
+* [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
 
 # 7、第三方架构及库原理
 
