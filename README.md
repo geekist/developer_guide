@@ -306,7 +306,7 @@ material design中新引入的布局layout
 
 * [webview](https://github.com/geekist/developer_guide/blob/main/android/ui/webview.md)
 
-* [webview和Javascript交互](https://blog.csdn.net/carson_ho/article/details/64904691)
+* [webview和Javascript交互](https://github.com/geekist/developer_guide/blob/main/android/ui/webview_h5.md)
 
 * [第三方开源库agentweb封装webview实现带进度条的webview](https://github.com/Justson/AgentWeb)
 
