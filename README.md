@@ -82,7 +82,7 @@
 
 ### 设计模式
 
-* [设计模式](https://github.com/geekist/developer_guide/blob/main/software/design-pattern.md)
+* [设计模式](https://github.com/geekist/developer_guide/blob/main/software/designpatterns/patterns.md)
 
 ### 组件化、MVP、MVVM
 
