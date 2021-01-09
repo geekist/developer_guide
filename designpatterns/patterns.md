@@ -1,4 +1,4 @@
-#设计模式（Design Patterns） 
+# 设计模式（Design Patterns） 
 
 ——可复用面向对象软件的基础 
 

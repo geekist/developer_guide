@@ -82,7 +82,7 @@
 
 ### 设计模式
 
-* [设计模式](https://github.com/geekist/developer_guide/blob/main/software/designpatterns/patterns.md)
+* [设计模式](https://github.com/geekist/developer_guide/blob/main/designpatterns/patterns.md)
 
 ### 组件化、MVP、MVVM
 
@@ -93,6 +93,18 @@
 ## 源代码管理SVN和git
 
 * [git](https://github.com/geekist/developer_guide/blob/main/android/architecture/git.md)
+
+## Android系统开发的前端技术
+
+* [JavaScript](https://www.w3school.com.cn/js/index.asp)
+
+* [Hybrid app](https://github.com/geekist/developer_guide/blob/main/other/hybrid.md)
+
+* [React Native](https://github.com/geekist/developer_guide/blob/main/other/reactnative.md)
+
+* [Flutter](https://github.com/geekist/developer_guide/blob/main/other/flutter.md)
+
+* [Week](https://www.jianshu.com/p/ae1d7a2b0a8a) 
 
 # 2、Android系统开发基本知识
 
