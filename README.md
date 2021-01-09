@@ -386,9 +386,8 @@ material design中新引入的布局layout
 
 * [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
 
-* [JNI编程]()
+* [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
 
-* [NDK基本知识]()
 
 框架基本知识： JNI NDK 进程间通信、 组件启动过程、底层框架、内核
 
@@ -437,12 +436,8 @@ material design中新引入的布局layout
 
 * [Android.manifest文件介绍][gradle]
 
-
-
 * [编译过程中常见问题][qa]
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
-
-
 
 ## APK编译、打包
 
@@ -454,6 +449,8 @@ material design中新引入的布局layout
 [gradle]:https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md
 
 * [Android版本检测和安装](https://github.com/geekist/developer_guide/blob/main/android/studio/Update.md)
+
+
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 ## 混淆
