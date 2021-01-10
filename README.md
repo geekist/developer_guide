@@ -439,26 +439,44 @@ material design中新引入的布局layout
 * [编译过程中常见问题][qa]
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
-## APK编译、打包
+## APK编译、打包、安装、反编译、热修复
 
-* [启用MultiDex][multidex] 
-[multidex]:https://github.com/geekist/developer_guide/blob/main/android/studio/MultiDex.md
+### 编译过程
 
+* [Java程序编译和运行原理](https://github.com/geekist/developer_guide/blob/main/android/studio/java编译运行原理.md)
 
 * [build.gradle文件介绍][gradle]
 [gradle]:https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md
+
+#### 混淆
+
+### 打包过程
+
+* [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
+
+* [Android MultiDex原理及实现记录](https://www.jianshu.com/p/1c5e8f281d0d)
+
+
+* [启用MultiDex](https://github.com/geekist/developer_guide/blob/main/android/studio/MultiDex.md)
+
+### 安装过程
+
+* [Android安装apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
 
 * [Android版本检测和安装](https://github.com/geekist/developer_guide/blob/main/android/studio/Update.md)
 
 
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
-## 混淆
 
 
-## 反编译、hook 
+### 反编译、hook 
 
-## 热修复
+### 热修复
+
+* [Android热修复学习指南](https://juejin.cn/post/6844903784330575879)
+
+* [Andrid热修复技术回顾](https://segmentfault.com/a/1190000011365008)
 
 # 6、测试框架
 
