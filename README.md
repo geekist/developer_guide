@@ -533,3 +533,15 @@ material design中新引入的布局layout
 
 [老版本入口](https://github.com/geekist/developer_guide/blob/main/README2.md)
 
+# 9、Android新技术
+
+## AR、VR开发
+
+* [关于AR的基本概念和现状](https://blog.csdn.net/qq_32138419/article/details/106850796)
+
+* [ARCore学习之旅：基础概念](https://juejin.cn/post/6844903493900173319)
+
+
+
+
+
