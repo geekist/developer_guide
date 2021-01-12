@@ -14,7 +14,7 @@
 
 ## Kotlin语言
 
-* [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/foundation.md)
+* [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin基础.md)
 
 * [Kotlin标准函数库](https://github.com/geekist/developer_guide/blob/main/kotlin/standard.md)
 
@@ -25,6 +25,8 @@
 * [集合](https://github.com/geekist/developer_guide/blob/main/kotlin/assembly.md)
 
 * [Kotlin协程](https://github.com/geekist/developer_guide/blob/main/kotlin/coroutine.md)
+
+* [Kotlin的常用语言结构]()
 
 * [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
 
@@ -432,37 +434,39 @@ material design中新引入的布局layout
 
 # 5、APK相关
 
-## AndroidStudio使用相关
-
-
 ## APK资源分析
 
-* [Android.manifest文件介绍][gradle]
+* [Android.manifest文件介绍]()
 
-* [编译过程中常见问题][qa]
-[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
+## APK编译(打包)、安装、反编译、热修复
 
-## APK编译、打包、安装、反编译、热修复
-
-### 编译过程
+### 编译(打包)过程
 
 * [Java程序编译和运行原理](https://github.com/geekist/developer_guide/blob/main/android/studio/java编译运行原理.md)
 
-* [build.gradle文件介绍][gradle]
-[gradle]:https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md
-
-#### 混淆
-
-### 打包过程
-
-* [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
+* [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md) **[命令行记忆](https://www.cnblogs.com/sjm19910902/p/6416022.html)**
 
 * [Android MultiDex原理及实现记录](https://www.jianshu.com/p/1c5e8f281d0d)
 
-
 * [启用MultiDex](https://github.com/geekist/developer_guide/blob/main/android/studio/MultiDex.md)
 
-### 安装过程
+### gradle
+
+* [build.gradle文件介绍](https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md)
+
+* [深入理解gradle编译-Android基础篇](https://blog.csdn.net/chouhuan1877/article/details/100808667)
+
+* [gradle实现Androidapp的编译过程](http://www.voidcn.com/article/p-meuukmnh-bch.html)
+
+### 混淆
+
+* [Android 代码混淆配置总结](https://www.cnblogs.com/renhui/p/9299786.html)
+
+* [Android App代码混淆终极解决方案](http://www.androidchina.net/8367.html)
+
+* [android 混淆的项目实例](https://github.com/geekist/developer_guide/blob/main/android/studio/混淆实例.md)
+
+### 安装
 
 * [Android安装apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
 
@@ -471,15 +475,34 @@ material design中新引入的布局layout
 
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
+### 反编译
 
+* [Android APK反编译讲解](https://www.cnblogs.com/geeksongs/p/10864200.html)
 
-### 反编译、hook 
+* [Android逆向破解工具Android Killer使用](https://www.jianshu.com/p/61a93a6c0c1b)
+
+* [加固apk破解方式](https://blog.csdn.net/mr_jianrong/article/details/78958995)
+
+### hook
+ 
+* [Android Hook入门](https://www.jianshu.com/p/74c12164ffca?tdsourcetag=s_pcqq_aiomsg)
+
+* [Android三大hook框架](https://www.dazhuanlan.com/2020/03/13/5e6a86cc0efb9/)
+
+* [Android Hook技术防范漫谈](https://tech.meituan.com/2018/02/02/android-anti-hooking.html)
 
 ### 热修复
 
 * [Android热修复学习指南](https://juejin.cn/post/6844903784330575879)
 
 * [Andrid热修复技术回顾](https://segmentfault.com/a/1190000011365008)
+
+
+
+### 常见问题
+
+* [编译过程中常见问题][qa]
+[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 # 6、测试框架
 
