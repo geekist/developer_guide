@@ -2,12 +2,15 @@
 
 ## java语言
 
-* [java类](https://github.com/geekist/developer_guide/blob/main/java/class.md)
+* [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
 
+* [java虚拟机](https://github.com/geekist/developer_guide/blob/main/java/Java%20虚拟机.md)
 
-* [java多线程](https://github.com/geekist/developer_guide/blob/main/java/multi-thread.md)
+* [javaIO](https://github.com/geekist/developer_guide/blob/main/java/Java%20IO.md)
 
-* [java泛型](https://github.com/geekist/developer_guide/blob/main/java/generic.md)
+* [java并发](https://github.com/geekist/developer_guide/blob/main/java/Java%20并发.md)
+
+* [java容器](https://github.com/geekist/developer_guide/blob/main/java/Java%20容器.md)
 
 ## Kotlin语言
 
