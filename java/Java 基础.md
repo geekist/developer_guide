@@ -1374,6 +1374,8 @@ Class 和 java.lang.reflect 一起对反射提供了支持，java.lang.reflect �
 
 -  **内部暴露**   ：由于反射允许代码执行一些在正常情况下不被允许的操作（比如访问私有的属性和方法），所以使用反射可能会导致意料之外的副作用，这可能导致代码功能失调并破坏可移植性。反射代码破坏了抽象性，因此当平台发生改变的时候，代码的行为就有可能也随着变化。
 
+- [自己整理的java反射详解](https://github.com/geekist/developer_guide/blob/main/java/java反射技术.md)
+
 - [Trail: The Reflection API](https://docs.oracle.com/javase/tutorial/reflect/index.html)
 - [深入解析 Java 反射（1）- 基础](http://www.sczyh30.com/posts/Java/java-reflection-1/)
 
@@ -1401,11 +1403,17 @@ public class Box<T> {
 ```
 
 - [Java 泛型详解](https://www.cnblogs.com/Blue-Keroro/p/8875898.html)
+
+- [Java 泛型知识点总结](https://segmentfault.com/a/1190000014824002)
+
 - [10 道 Java 泛型面试题](https://cloud.tencent.com/developer/article/1033693)
 
 ## 十、注解
 
 Java 注解是附加在代码中的一些元信息，用于一些工具在编译、运行时进行解析和使用，起到说明、配置的功能。注解不会也不能影响代码的实际逻辑，仅仅起到辅助性的作用。
+
+[Java注解详解](https://blog.csdn.net/weixin_43907332/article/details/86437725?ops_request_misc=%25257B%252522request%25255Fid%252522%25253A%252522161041959216780271517292%252522%25252C%252522scm%252522%25253A%25252220140713.130102334..%252522%25257D&request_id=161041959216780271517292&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-86437725.first_rank_v2_pc_rank_v29&utm_term=annotation)
+
 
 [注解 Annotation 实现原理与自定义注解例子](https://www.cnblogs.com/acm-bingzi/p/javaAnnotation.html)
 
