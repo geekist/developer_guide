@@ -355,26 +355,6 @@ The list elements before adding new one: [one, two, three]
 
 ```
 
-
-## takeIf 
- 
-```java
-/**
- * Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn't.
- */
-@kotlin.internal.InlineOnly
-@SinceKotlin("1.1")
-public inline fun <T> T.takeIf(predicate: (T) -> Boolean): T? {
-    contract {
-        callsInPlace(predicate, InvocationKind.EXACTLY_ONCE)
-    }
-    return if (predicate(this)) this else null
-}
-
-
-```
-
-
 ### 作用域函数的区别
 
 作用域函数没有引入任何新的技术，但是它们可以使你的代码更加简洁易读。
@@ -413,9 +393,23 @@ public inline fun <T> T.takeIf(predicate: (T) -> Boolean): T? {
 
 尽管作用域函数是使代码更简洁的一种方法，但请避免过度使用它们：这会降低代码的可读性并可能导致错误。避免嵌套作用域函数，同时链式调用它们时要小心：此时很容易对当前上下文对象及 this 或 it 的值感到困惑。
 
+## takeIf 
+ 
+```java
+/**
+ * Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn't.
+ */
+@kotlin.internal.InlineOnly
+@SinceKotlin("1.1")
+public inline fun <T> T.takeIf(predicate: (T) -> Boolean): T? {
+    contract {
+        callsInPlace(predicate, InvocationKind.EXACTLY_ONCE)
+    }
+    return if (predicate(this)) this else null
+}
 
 
-
+```
 
 ## takeUnless
 

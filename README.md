@@ -1,5 +1,5 @@
 # 1、理论知识
-
+----------
 ## java语言
 
 * [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
@@ -83,7 +83,7 @@
 
 ### 数据结构与算法 
 
-* [数据结构](https://github.com/geekist/developer_guide/blob/main/software/algrithom.md)
+* [数据结构--略](https://github.com/geekist/developer_guide/blob/main/software/algrithom.md)
 
 ### 设计模式
 
@@ -91,13 +91,19 @@
 
 ### 组件化、MVP、MVVM
 
-* [组件化开发](https://github.com/geekist/developer_guide/blob/main/android/architecture/组件化.md)
+* [Android组件化开发思想与实践](https://juejin.cn/post/6844904147641171981)
 
+* [MVC，MVP，MVVM详细介绍](https://www.jianshu.com/p/ac5d4b2c2256)
+
+* [android MVC、MVP and MVVM](https://www.jianshu.com/p/b9549aa0e1fe)
 
 
 ## 源代码管理SVN和git
 
-* [git](https://github.com/geekist/developer_guide/blob/main/android/architecture/git.md)
+* [git介绍](https://www.cnblogs.com/tugenhua0707/p/4050072.html)
+
+
+* [git基本操作](https://www.runoob.com/git/git-basic-operations.html)
 
 ## Android系统开发的前端技术
 
@@ -112,16 +118,29 @@
 * [Week](https://www.jianshu.com/p/ae1d7a2b0a8a) 
 
 # 2、Android系统开发基本知识
-
+----------
 ## 四大组件：Activity、BroadcastReceiver、ContentProvider、Service
+
+### Activity
 
 * [Activity][activity] （[Fragment][fragment]）
 
+activity原理与源码
+
+### BroadcastReceiver
+
 * [BroadcastReceiver][broadcastReceiver]
+
+### ContentProvider
 
 * [ContentProvider][contentprovider]
 
+### Service
+
 * [Service][service]
+
+
+### Intent && Seriable && Parcable
 
 * 附：[Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
 
@@ -142,15 +161,17 @@
 
 ### 布局layout
 
+#### LinearLayout
+
 * [LinearLayout][linearlayout]
 
-
+#### RelativeLayout
 * [RelativeLayout][relativelayout]
 
-
+#### FrameLayout
 * [FrameLayout][framelayout]
 
-
+#### ConstraintLayout
 * [ConstraintLayout][constraintlayout]
 
 [linearlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/LinearLayout.md
@@ -163,21 +184,22 @@
 
 material design中新引入的布局layout
 
+#### AppBarLayout
 * [AppBarLayout][appbarlayout]
 
-
+#### CoordinatorLayout
 * [CoordinatorLayout][coordinatorlayout]
 
-
+#### DrawerLayout
 * [DrawerLayout][drawerlayout]
 
-**SwipeRefreshLayout**
+#### SwipeRefreshLayout
 
 * [SwipeRefreshLayout][swiperefreshlayout]
 
 * [第三开源库SmartRefreshLayout实现更多功能](https://github.com/scwang90/SmartRefreshLayout)
 
-**CollapsingToolbarLayout**
+#### CollapsingToolbarLayout
 
 * [CollapsingToolbarLayout][collapsingtoolbarlayout]
 
@@ -283,6 +305,7 @@ material design中新引入的布局layout
 [recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
 [table+viewPager]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager.md
 [table+viewPager2]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager2.md
+
 ### 动画
 
 * [Animation](https://github.com/geekist/developer_guide/blob/main/android/ui/Animation.md)
@@ -378,61 +401,120 @@ material design中新引入的布局layout
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
 # 3、Android系统开发高阶理论知识
-
+----------
 ## Android系统基本框架
 
-* [Android系统框架]()
+框架基本知识： JNI NDK 进程间通信、 组件启动过程、底层框架、内核
 
-* [Android系统启动过程]()
+* [Android系统框架](https://cloud.tencent.com/developer/article/1415759)
 
-* [Android系统进程间通讯机制---Binder][binder]
-
-[binder]:https://github.com/geekist/developer_guide/blob/main/android/system/binder.md
+* [Android系统启动过程](https://www.jianshu.com/p/45cf56172d22)
 
 * [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
+
+* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
 
 * [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
 
 
-框架基本知识： JNI NDK 进程间通信、 组件启动过程、底层框架、内核
-
 # 4、Android开发基本实践
+----------
 
-## 兼容性问题
+## 兼容
 
-* [Android平台版本兼容性问题](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
+###  Android不同版本兼容性
 
-* [Android设备厂商兼容性问题][gradle]
- 
-* [Android屏幕分辨率兼容性问题][gradle]
+* [Android平台版本兼容性问题总结](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
-熟练适配三星、华为、魅族、OPPO、小米等主流Android品牌，有Android4.0-Android7.0适配经验及技巧，了解Android 8.0新特性，
-## 性能问题
+### Android不同屏幕兼容性
 
-### 启动和运行速度
+* [Android屏幕适配解决方案](https://www.jianshu.com/p/ec5a1a30694b)
 
+* [屏幕适配方案总结](https://juejin.cn/post/6844903599495970830)
+
+* [AndroidAutoSize代码分析](https://blog.csdn.net/u012588160/article/details/105876735) && [Autosize使用](https://www.xiaoheidiannao.com/220402.html)
+
+### Android不同厂商系统兼容性
+
+* [android不同厂商问题合集](https://www.zhihu.com/question/65594088/answer/232791937)
+
+## 优化
+
+### 启动优化
+
+* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/)  [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
 * [Android 启动分析与优化--从UI角度分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
-### cpu性能问题 ANR分析
+### UI优化
+* []()
+
+* []()
+
+* []()
+
+### 存储优化
+* []()
+
+* []()
+
+* []()
+
+### IO优化
+* []()
+
+* []()
+
+* []()
+
+### 网络优化
+* []()
+
+* []()
+
+* []()
+
+### 耗电优化
+
+* [androird耗电分析与优化-1](https://blog.yorek.xyz/android/paid/master/battery_1/)
+
+* [androird耗电分析与优化-2](https://blog.yorek.xyz/android/paid/master/battery_2/)
+
+* [Android性能优化系列之电量优化](https://blog.csdn.net/u012124438/article/details/74617649)
+
+* [深入探索 Android 电量优化](https://juejin.cn/post/6844904195523346439)
 
 
-### 内存性能问题、优化、抖动、泄露分析
+### 崩溃优化
+* []()
 
+* []()
+
+* []()
+
+### 内存优化
 
 * [Android性能问题](https://github.com/geekist/developer_guide/blob/main/android/android性能调优.md)
 
+### 卡顿优化
+* []()
+
+* []()
+
+* []()
+
+### 安装包优化
+* []()
+
+* []()
+
+* []()
 
 ### 进程保活
 
 * [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
 
-
-### 电量分析
-
-
-### 卡顿优化
-
 # 5、APK相关
+----------
 
 ## APK资源分析
 
@@ -497,21 +579,19 @@ material design中新引入的布局layout
 
 * [Andrid热修复技术回顾](https://segmentfault.com/a/1190000011365008)
 
-
-
 ### 常见问题
 
 * [编译过程中常见问题][qa]
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 # 6、测试框架
-
+----------
 * [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
 
 * [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
 
 # 7、第三方架构及库原理
-
+----------
 * [ARouter][arouter]
 
 * [EventBus][eventbus]
@@ -526,14 +606,6 @@ material design中新引入的布局layout
 
 * [Litepal][litepal]
 
-# retrofit okhttp
-
-# glide
-
-# Arouter
-
-# rxjava dagger
-
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
 [eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
 [autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
@@ -546,6 +618,7 @@ material design中新引入的布局layout
 
 
 # 8、第三方使用库引入：
+----------
 
 ## 支付
 
@@ -557,10 +630,8 @@ material design中新引入的布局layout
 
 ## 二维码
 
-[老版本入口](https://github.com/geekist/developer_guide/blob/main/README2.md)
-
 # 9、Android新技术
-
+----------
 ## AR、VR开发
 
 * [关于AR的基本概念和现状](https://blog.csdn.net/qq_32138419/article/details/106850796)
@@ -568,6 +639,10 @@ material design中新引入的布局layout
 * [ARCore学习之旅：基础概念](https://juejin.cn/post/6844903493900173319)
 
 
+
+----------
+
+[老版本入口](https://github.com/geekist/developer_guide/blob/main/README2.md)
 
 
 
