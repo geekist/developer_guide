@@ -125,6 +125,7 @@ fun <T> test(name:T) : T {
 
 有⼏种⽅法可以获得函数类型的实例：
 ---使⽤函数字⾯值的代码块，采⽤以下形式之⼀：
+
 * lambda 表达式: { a, b -> a + b } 
 
 
@@ -133,6 +134,7 @@ fun <T> test(name:T) : T {
 带有接收者的函数字⾯值可⽤作带有接收者的函数类型的值。
 
 ---使⽤已有声明的可调⽤引⽤：
+
 * 顶层、局部、成员、扩展函数：::isOdd 、 String::toInt ，
 
 *顶层、成员、扩展属性：List<Int>::size ，
@@ -151,16 +153,20 @@ val intFunction: (Int) -> Int = IntTransformer()
 
 
 ## lambda表达式
+
 lambda表达式是指一小段可以作为参数传递的代码。其格式如下：
+
 ```java
 {parameter1:type,parameter2:type -> experssion}
 ```
+
 * lambda 表达式总是括在花括号中， 完整语法形式的参数声明放在花括号内，并有可选的类型标注， 函数体跟在⼀个-> 符号之后。如果推断出的该 lambda 的返回类型不是 Unit ，那么该 lambda 主体中的最后⼀个（或可能是单个）表达式会视为返回值。
 
 * lambda 表达式与匿名函数是未声明的函数， 但做为表达式传递。
 
 * 如果函数的最后⼀个参数是函数，那么作为相应参数传⼊的 lambda 表达式可以放在圆括号
 之外：
+
 ```kotlin
 val product = items.fold(1) { acc, e -> acc * e }
 这种语法也称为拖尾 lambda 表达式。
@@ -230,3 +236,4 @@ inline fun(block: (Int, String)->Unit, block2: (Int,String) ->Unt) {
 ```
 如果有些函数参数不希望被复制，则可以使用noinline关键字，不复制这一段代码
 如果inline函数的函数体内出现了其他的不可控类型，比如runnable，则可以用crossinline来协调。
+

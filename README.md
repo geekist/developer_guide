@@ -22,11 +22,11 @@
 
 * [函数与lambda表达式](https://github.com/geekist/developer_guide/blob/main/kotlin/function&lambda.md)
 
-* [集合](https://github.com/geekist/developer_guide/blob/main/kotlin/assembly.md)
+* [集合](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin集合.md)
 
 * [Kotlin协程](https://github.com/geekist/developer_guide/blob/main/kotlin/coroutine.md)
 
-* [Kotlin的常用语言结构]()
+* [Kotlin的常用语言结构](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin常用语言结构.md)
 
 * [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
 
