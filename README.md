@@ -1,5 +1,5 @@
 # 1、理论知识
-----------
+
 ## java语言
 
 * [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
@@ -118,8 +118,8 @@
 * [Week](https://www.jianshu.com/p/ae1d7a2b0a8a) 
 
 # 2、Android系统开发基本知识
-----------
-## 四大组件：Activity、BroadcastReceiver、ContentProvider、Service
+
+## 四大组件
 
 ### Activity
 
@@ -401,7 +401,7 @@ material design中新引入的布局layout
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
 # 3、Android系统开发高阶理论知识
-----------
+
 ## Android系统基本框架
 
 框架基本知识： JNI NDK 进程间通信、 组件启动过程、底层框架、内核
@@ -418,7 +418,7 @@ material design中新引入的布局layout
 
 
 # 4、Android开发基本实践
-----------
+
 
 ## 兼容
 
@@ -442,9 +442,13 @@ material design中新引入的布局layout
 
 ### 启动优化
 
-* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/)  [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
-* [Android 启动分析与优化--从UI角度分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
+* [Android 启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
+参考：
+
+* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/) 
+
+* [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
 ### UI优化
 * []()
 
@@ -514,7 +518,7 @@ material design中新引入的布局layout
 * [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
 
 # 5、APK相关
-----------
+
 
 ## APK资源分析
 
@@ -585,13 +589,13 @@ material design中新引入的布局layout
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 # 6、测试框架
-----------
+
 * [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
 
 * [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
 
 # 7、第三方架构及库原理
-----------
+
 * [ARouter][arouter]
 
 * [EventBus][eventbus]
@@ -618,7 +622,7 @@ material design中新引入的布局layout
 
 
 # 8、第三方使用库引入：
-----------
+
 
 ## 支付
 
@@ -631,7 +635,7 @@ material design中新引入的布局layout
 ## 二维码
 
 # 9、Android新技术
-----------
+
 ## AR、VR开发
 
 * [关于AR的基本概念和现状](https://blog.csdn.net/qq_32138419/article/details/106850796)
