@@ -1,6 +1,5 @@
 
 # Android Developer Guide
-
 * [Android Developer Guide](#android-developer-guide)
 * [一、语言基础](#一语言基础)
   * [1、java语言](#1java语言)
@@ -24,8 +23,8 @@
 * [三、Android系统原理](#三android系统原理)
   * [Android系统框架](#android系统框架)
   * [Android系统启动过程](#android系统启动过程)
-  * [Android App启动过程](#android-app启动过程)
   * [Android 系统进程间通信机制](#android-系统进程间通信机制)
+  * [Android App启动过程](#android-app启动过程)
   * [JNI与NDK](#jni与ndk)
 * [四、Android基础开发知识](#四android基础开发知识)
   * [1、四大组件](#1四大组件)
@@ -73,10 +72,8 @@
   * [地图](#地图)
   * [推送](#推送)
   * [二维码](#二维码)
-  * [九、Android新技术](#九android新技术)
-
-
-
+* [九、Android新技术](#九android新技术)
+  * [1、AR](#1ar)
 
 # 一、语言基础
 
@@ -217,7 +214,7 @@
 
 ## Android App启动过程
 
-* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
+* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
 ## JNI与NDK
 
