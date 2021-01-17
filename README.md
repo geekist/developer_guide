@@ -205,11 +205,11 @@
 
 ## Android系统框架
 
-* [Android系统框架](https://cloud.tencent.com/developer/article/1415759)
+* [Android系统框架](https://developer.android.com/guide/platform?hl=zh-cn)
 
 ## Android系统启动过程
 
-* [Android系统启动过程](https://www.jianshu.com/p/45cf56172d22)
+* [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
 
 ## Android App启动过程
 
@@ -687,7 +687,9 @@ material design中新引入的布局layout
 ## 二维码
 
 
-## 九、Android新技术 
+# 九、Android新技术 
+
+## 1、AR
 
 * [关于AR的基本概念和现状](https://blog.csdn.net/qq_32138419/article/details/106850796)
 
