@@ -199,8 +199,6 @@
 
 * [git基本操作](https://www.runoob.com/git/git-basic-operations.html)
 
-
-
 # 三、Android系统原理
 
 ## Android系统框架
@@ -211,13 +209,15 @@
 
 * [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
 
-## Android App启动过程
-
-* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
-
 ## Android 系统进程间通信机制
 
 * [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
+
+* [binder机制详细介绍](https://zhuanlan.zhihu.com/p/35519585)
+
+## Android App启动过程
+
+* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
 
 ## JNI与NDK
 
