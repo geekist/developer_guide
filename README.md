@@ -1,5 +1,6 @@
 
 # Android Developer Guide
+
 * [Android Developer Guide](#android-developer-guide)
 * [一、语言基础](#一语言基础)
   * [1、java语言](#1java语言)
@@ -20,43 +21,40 @@
     * [设计模式](#设计模式)
     * [组件化、MVP、MVVM](#组件化mvpmvvm)
   * [源代码管理SVN和git](#源代码管理svn和git)
-* [2、Android系统开发基本知识](#2android系统开发基本知识)
-  * [四大组件](#四大组件)
-    * [Activity](#activity)
-    * [BroadcastReceiver](#broadcastreceiver)
-    * [ContentProvider](#contentprovider)
-    * [Service](#service)
-    * [其他](#其他)
-  * [用户界面](#用户界面)
-    * [Material Design](#material-design)
-    * [外观和风格](#外观和风格)
-    * [布局layout](#布局layout)
-      * [LinearLayout](#linearlayout)
-      * [RelativeLayout](#relativelayout)
-      * [FrameLayout](#framelayout)
-      * [ConstraintLayout](#constraintlayout)
-      * [AppBarLayout](#appbarlayout)
-      * [CoordinatorLayout](#coordinatorlayout)
-      * [DrawerLayout](#drawerlayout)
-      * [SwipeRefreshLayout](#swiperefreshlayout)
-      * [CollapsingToolbarLayout](#collapsingtoolbarlayout)
-    * [UI 控件](#ui-控件)
-    * [Material Desgin UI](#material-desgin-ui)
+* [三、Android系统原理](#三android系统原理)
+  * [Android系统框架](#android系统框架)
+  * [Android系统启动过程](#android系统启动过程)
+  * [Android App启动过程](#android-app启动过程)
+  * [Android 系统进程间通信机制](#android-系统进程间通信机制)
+  * [JNI与NDK](#jni与ndk)
+* [四、Android基础开发知识](#四android基础开发知识)
+  * [1、四大组件](#1四大组件)
+  * [2、用户界面开发](#2用户界面开发)
+      * [Material Design](#material-design)
+      * [外观和风格](#外观和风格)
+      * [布局layout](#布局layout)
+    * [UI控件](#ui控件)
     * [动画](#动画)
     * [通知](#通知)
     * [多媒体](#多媒体)
-  * [数据存储](#数据存储)
-  * [网络编程（WebView）](#网络编程webview)
-  * [线程](#线程)
-  * [Jetpack](#jetpack)
-* [3、Android系统开发高阶理论知识](#3android系统开发高阶理论知识)
-  * [Android系统基本框架](#android系统基本框架)
-* [4、Android开发基本实践](#4android开发基本实践)
-  * [兼容](#兼容)
-    * [Android不同版本兼容性](#android不同版本兼容性)
-    * [Android不同屏幕兼容性](#android不同屏幕兼容性)
-    * [Android不同厂商系统兼容性](#android不同厂商系统兼容性)
-  * [优化](#优化)
+    * [数据存储](#数据存储)
+    * [网络编程（WebView）](#网络编程webview)
+    * [线程](#线程)
+    * [Jetpack](#jetpack)
+* [四、Android发布相关](#四android发布相关)
+  * [1、APK资源分析](#1apk资源分析)
+  * [2、APK编译(打包)、安装、反编译、热修复](#2apk编译打包安装反编译热修复)
+    * [编译(打包)过程](#编译打包过程)
+    * [gradle](#gradle)
+    * [混淆](#混淆)
+    * [安装](#安装)
+    * [反编译](#反编译)
+    * [hook](#hook)
+    * [热修复](#热修复)
+    * [常见问题](#常见问题)
+* [五、Android实践基础知识](#五android实践基础知识)
+  * [1、Android兼容性](#1android兼容性)
+  * [2、Android性能](#2android性能)
     * [启动优化](#启动优化)
     * [UI优化](#ui优化)
     * [存储优化](#存储优化)
@@ -68,26 +66,14 @@
     * [卡顿优化](#卡顿优化)
     * [安装包优化](#安装包优化)
     * [进程保活](#进程保活)
-* [5、APK相关](#5apk相关)
-  * [APK资源分析](#apk资源分析)
-  * [APK编译(打包)、安装、反编译、热修复](#apk编译打包安装反编译热修复)
-    * [编译(打包)过程](#编译打包过程)
-    * [gradle](#gradle)
-    * [混淆](#混淆)
-    * [安装](#安装)
-    * [反编译](#反编译)
-    * [hook](#hook)
-    * [热修复](#热修复)
-    * [常见问题](#常见问题)
-* [6、测试框架](#6测试框架)
-* [7、第三方架构及库原理](#7第三方架构及库原理)
-* [8、第三方使用库引入：](#8第三方使用库引入)
+* [六、Android测试框架](#六android测试框架)
+* [七、Android常用框架库原理](#七android常用框架库原理)
+* [八、Android应用SDK](#八android应用sdk)
   * [支付](#支付)
   * [地图](#地图)
   * [推送](#推送)
   * [二维码](#二维码)
-* [9、Android新技术](#9android新技术)
-  * [AR、VR开发](#arvr开发)
+  * [九、Android新技术](#九android新技术)
 
 
 
@@ -215,30 +201,41 @@
 
 
 
-# 2、Android系统开发基本知识
+# 三、Android系统原理
 
-## 四大组件
+## Android系统框架
 
-### Activity
+* [Android系统框架](https://cloud.tencent.com/developer/article/1415759)
+
+## Android系统启动过程
+
+* [Android系统启动过程](https://www.jianshu.com/p/45cf56172d22)
+
+## Android App启动过程
+
+* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
+
+## Android 系统进程间通信机制
+
+* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
+
+## JNI与NDK
+
+* [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
+
+
+# 四、Android基础开发知识
+
+## 1、四大组件
 
 * [Activity][activity] （[Fragment][fragment]）
 
-activity原理与源码
-
-### BroadcastReceiver
-
 * [BroadcastReceiver][broadcastReceiver]
-
-### ContentProvider
 
 * [ContentProvider][contentprovider]
 
-### Service
-
 * [Service][service]
 
-
-### 其他
 * [Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
 
 * [Context](https://www.jianshu.com/p/94e0f9ab3f1d)
@@ -249,28 +246,23 @@ activity原理与源码
 [contentprovider]:https://github.com/geekist/developer_guide/blob/main/android/4-components/ContentProvider.md
 [service]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Service.md
 
-## 用户界面
+## 2、用户界面开发
 
-### Material Design
+#### Material Design
 
 * [material design](https://github.com/geekist/developer_guide/blob/main/android/design/MaterialDesign.md)
 
-### 外观和风格
+#### 外观和风格
 * [attrs、style和theme介绍](https://github.com/geekist/developer_guide/blob/main/android/ui/attrs.md)
 
-### 布局layout
-
-#### LinearLayout
+#### 布局layout
 
 * [LinearLayout][linearlayout]
 
-#### RelativeLayout
 * [RelativeLayout][relativelayout]
 
-#### FrameLayout
 * [FrameLayout][framelayout]
 
-#### ConstraintLayout
 * [ConstraintLayout][constraintlayout]
 
 [linearlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/LinearLayout.md
@@ -283,57 +275,39 @@ activity原理与源码
 
 material design中新引入的布局layout
 
-#### AppBarLayout
 * [AppBarLayout][appbarlayout]
 
-#### CoordinatorLayout
 * [CoordinatorLayout][coordinatorlayout]
 
-#### DrawerLayout
 * [DrawerLayout][drawerlayout]
-
-#### SwipeRefreshLayout
 
 * [SwipeRefreshLayout][swiperefreshlayout]
 
 * [第三开源库SmartRefreshLayout实现更多功能](https://github.com/scwang90/SmartRefreshLayout)
 
-#### CollapsingToolbarLayout
-
 * [CollapsingToolbarLayout][collapsingtoolbarlayout]
 
-
-### UI 控件
+### UI控件
 
 * [控件常用的属性][common]
 
-
 * [TextView][textview]
-
 
 * [Button][button]
 
-
 * [EditText][edittext]
-
 
 * [ImageView][imageview]
 
-
 * [ProgressBar][progressbar]
-
 
 * [AlertDialog][alertdialog]
 
-
 * [ListView][listview]
-
 
 * [Toast][toast]
 
-
 * [Menu][menu]
-
 
 * [自定义控件][self]
 
@@ -351,7 +325,7 @@ material design中新引入的布局layout
 
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
 
-### Material Desgin UI
+**Material Desgin UI**
 
 * [Toolbar][toolbar]
 
@@ -375,7 +349,6 @@ material design中新引入的布局layout
 
 **RecyclerView**
 
-
 * [RecyclerView][recyclerview]
 
 **沉浸式状态栏**
@@ -387,7 +360,6 @@ material design中新引入的布局layout
 **Paging**
 
 * [Paging](https://github.com/geekist/developer_guide/blob/main/android/ui/paging.md)
-
 
 [navigationview]:https://github.com/geekist/developer_guide/blob/main/android/ui/NavigationView.md
 [appbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/AppBarLayout.md
@@ -426,7 +398,7 @@ material design中新引入的布局layout
 [audio]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Audio.md
 [video]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Video.md
 
-## 数据存储
+### 数据存储
 
 * [SharedPreference][sharedpreference]
 
@@ -441,7 +413,7 @@ material design中新引入的布局layout
 [fileio]:https://github.com/geekist/developer_guide/blob/main/android/database/FileIO.md
 [sqlite]:https://github.com/geekist/developer_guide/blob/main/android/database/SQLite.md
 
-## 网络编程（WebView）
+### 网络编程（WebView）
 
 * [webview](https://github.com/geekist/developer_guide/blob/main/android/ui/webview.md)
 
@@ -449,7 +421,7 @@ material design中新引入的布局layout
 
 * [第三方开源库agentweb封装webview实现带进度条的webview](https://github.com/Justson/AgentWeb)
 
-## 线程
+### 线程
 
 * [Java线程][javathread]
 
@@ -472,7 +444,7 @@ material design中新引入的布局layout
 [asynctask]:https://github.com/geekist/developer_guide/blob/main/android/thread/AsyncTask.md
 [intentservice]:https://github.com/geekist/developer_guide/blob/main/android/thread/IntentService.md
 
-## Jetpack
+### Jetpack
 * [Lifecycles][lifecycles]
 
 
@@ -499,33 +471,85 @@ material design中新引入的布局layout
 
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
-# 3、Android系统开发高阶理论知识
+# 四、Android发布相关
 
-## Android系统基本框架
+## 1、APK资源分析
 
-框架基本知识： JNI NDK 进程间通信、 组件启动过程、底层框架、内核
+* [Android.manifest文件介绍]()
 
-* [Android系统框架](https://cloud.tencent.com/developer/article/1415759)
+## 2、APK编译(打包)、安装、反编译、热修复
 
-* [Android系统启动过程](https://www.jianshu.com/p/45cf56172d22)
+### 编译(打包)过程
 
-* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动流程分析.md)
+* [Java程序编译和运行原理](https://github.com/geekist/developer_guide/blob/main/android/studio/java编译运行原理.md)
 
-* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
+* [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md) **[命令行记忆](https://www.cnblogs.com/sjm19910902/p/6416022.html)**
 
-* [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
+* [Android MultiDex原理及实现记录](https://www.jianshu.com/p/1c5e8f281d0d)
+
+* [启用MultiDex](https://github.com/geekist/developer_guide/blob/main/android/studio/MultiDex.md)
+
+### gradle
+
+* [build.gradle文件介绍](https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md)
+
+* [深入理解gradle编译-Android基础篇](https://blog.csdn.net/chouhuan1877/article/details/100808667)
+
+* [gradle实现Androidapp的编译过程](http://www.voidcn.com/article/p-meuukmnh-bch.html)
+
+### 混淆
+
+* [Android 代码混淆配置总结](https://www.cnblogs.com/renhui/p/9299786.html)
+
+* [Android App代码混淆终极解决方案](http://www.androidchina.net/8367.html)
+
+* [android 混淆的项目实例](https://github.com/geekist/developer_guide/blob/main/android/studio/混淆实例.md)
+
+### 安装
+
+* [Android安装apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
+
+* [Android版本检测和安装](https://github.com/geekist/developer_guide/blob/main/android/studio/Update.md)
 
 
-# 4、Android开发基本实践
+[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
+
+### 反编译
+
+* [Android APK反编译讲解](https://www.cnblogs.com/geeksongs/p/10864200.html)
+
+* [Android逆向破解工具Android Killer使用](https://www.jianshu.com/p/61a93a6c0c1b)
+
+* [加固apk破解方式](https://blog.csdn.net/mr_jianrong/article/details/78958995)
+
+### hook
+ 
+* [Android Hook入门](https://www.jianshu.com/p/74c12164ffca?tdsourcetag=s_pcqq_aiomsg)
+
+* [Android三大hook框架](https://www.dazhuanlan.com/2020/03/13/5e6a86cc0efb9/)
+
+* [Android Hook技术防范漫谈](https://tech.meituan.com/2018/02/02/android-anti-hooking.html)
+
+### 热修复
+
+* [Android热修复学习指南](https://juejin.cn/post/6844903784330575879)
+
+* [Andrid热修复技术回顾](https://segmentfault.com/a/1190000011365008)
+
+### 常见问题
+
+* [编译过程中常见问题][qa]
+[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 
-## 兼容
+# 五、Android实践基础知识
 
-###  Android不同版本兼容性
+##  1、Android兼容性
 
+**Android版本兼容性**
 * [Android平台版本兼容性问题总结](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
-### Android不同屏幕兼容性
+**Android不同屏幕兼容性**
 
 * [Android屏幕适配解决方案](https://www.jianshu.com/p/ec5a1a30694b)
 
@@ -533,11 +557,12 @@ material design中新引入的布局layout
 
 * [AndroidAutoSize代码分析](https://blog.csdn.net/u012588160/article/details/105876735) && [Autosize使用](https://www.xiaoheidiannao.com/220402.html)
 
-### Android不同厂商系统兼容性
+**Android不同厂商系统兼容性**
 
 * [android不同厂商问题合集](https://www.zhihu.com/question/65594088/answer/232791937)
 
-## 优化
+
+## 2、Android性能
 
 ### 启动优化
 
@@ -616,84 +641,13 @@ material design中新引入的布局layout
 
 * [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
 
-# 5、APK相关
-
-
-## APK资源分析
-
-* [Android.manifest文件介绍]()
-
-## APK编译(打包)、安装、反编译、热修复
-
-### 编译(打包)过程
-
-* [Java程序编译和运行原理](https://github.com/geekist/developer_guide/blob/main/android/studio/java编译运行原理.md)
-
-* [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md) **[命令行记忆](https://www.cnblogs.com/sjm19910902/p/6416022.html)**
-
-* [Android MultiDex原理及实现记录](https://www.jianshu.com/p/1c5e8f281d0d)
-
-* [启用MultiDex](https://github.com/geekist/developer_guide/blob/main/android/studio/MultiDex.md)
-
-### gradle
-
-* [build.gradle文件介绍](https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md)
-
-* [深入理解gradle编译-Android基础篇](https://blog.csdn.net/chouhuan1877/article/details/100808667)
-
-* [gradle实现Androidapp的编译过程](http://www.voidcn.com/article/p-meuukmnh-bch.html)
-
-### 混淆
-
-* [Android 代码混淆配置总结](https://www.cnblogs.com/renhui/p/9299786.html)
-
-* [Android App代码混淆终极解决方案](http://www.androidchina.net/8367.html)
-
-* [android 混淆的项目实例](https://github.com/geekist/developer_guide/blob/main/android/studio/混淆实例.md)
-
-### 安装
-
-* [Android安装apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
-
-* [Android版本检测和安装](https://github.com/geekist/developer_guide/blob/main/android/studio/Update.md)
-
-
-[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
-
-### 反编译
-
-* [Android APK反编译讲解](https://www.cnblogs.com/geeksongs/p/10864200.html)
-
-* [Android逆向破解工具Android Killer使用](https://www.jianshu.com/p/61a93a6c0c1b)
-
-* [加固apk破解方式](https://blog.csdn.net/mr_jianrong/article/details/78958995)
-
-### hook
- 
-* [Android Hook入门](https://www.jianshu.com/p/74c12164ffca?tdsourcetag=s_pcqq_aiomsg)
-
-* [Android三大hook框架](https://www.dazhuanlan.com/2020/03/13/5e6a86cc0efb9/)
-
-* [Android Hook技术防范漫谈](https://tech.meituan.com/2018/02/02/android-anti-hooking.html)
-
-### 热修复
-
-* [Android热修复学习指南](https://juejin.cn/post/6844903784330575879)
-
-* [Andrid热修复技术回顾](https://segmentfault.com/a/1190000011365008)
-
-### 常见问题
-
-* [编译过程中常见问题][qa]
-[qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
-
-# 6、测试框架
+# 六、Android测试框架
 
 * [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
 
 * [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
 
-# 7、第三方架构及库原理
+# 七、Android常用框架库原理
 
 * [ARouter][arouter]
 
@@ -719,8 +673,7 @@ material design中新引入的布局layout
 
 [litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
 
-
-# 8、第三方使用库引入：
+# 八、Android应用SDK
 
 
 ## 支付
@@ -733,15 +686,12 @@ material design中新引入的布局layout
 
 ## 二维码
 
-# 9、Android新技术
 
-## AR、VR开发
+## 九、Android新技术 
 
 * [关于AR的基本概念和现状](https://blog.csdn.net/qq_32138419/article/details/106850796)
 
 * [ARCore学习之旅：基础概念](https://juejin.cn/post/6844903493900173319)
-
-
 
 ----------
 
