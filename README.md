@@ -3,10 +3,10 @@
 
 [一、语言基础](#一、语言基础)
 
-- [1、java语言](#1、java语言)
+- [java语言](#java语言)
 - [2、Kotlin语言](#2、Kotlin语言)
 - [3、Flutter](#3、Flutter)
-- [4、其他前端语言和技术](#4、其他前端语言和技术)
+- [其他前端语言和技术](#其他前端语言和技术)
 
 [二、计算机基础知识](#二、计算机基础知识)
 [一、语言基础](#一、语言基础)
@@ -18,7 +18,7 @@
 
 # 一、语言基础
 
-## 1、java语言
+## java语言
 
 * [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
 
