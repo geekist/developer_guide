@@ -1,6 +1,24 @@
-# 1、理论知识
 
-## java语言
+# Android Developer Guide
+
+[一、语言基础](#一、语言基础)
+
+- [1、java语言](#1、java语言)
+- [2、Kotlin语言](#2、Kotlin语言)
+- [3、Flutter](#3、Flutter)
+- [4、其他前端语言和技术](#4、其他前端语言和技术)
+
+[二、计算机基础知识](#二、计算机基础知识)
+[一、语言基础](#一、语言基础)
+[一、语言基础](#一、语言基础)
+[一、语言基础](#一、语言基础)
+[一、语言基础](#一、语言基础)
+
+
+
+# 一、语言基础
+
+## 1、java语言
 
 * [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
 
@@ -12,7 +30,7 @@
 
 * [java容器](https://github.com/geekist/developer_guide/blob/main/java/Java%20容器.md)
 
-## Kotlin语言
+## 2、Kotlin语言
 
 * [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin基础.md)
 
@@ -30,8 +48,23 @@
 
 * [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
 
-## 网络基础知识：http、tcp、udp、mqtt
+## 3、Flutter
 
+## 4、其他前端语言和技术
+
+* [JavaScript](https://www.w3school.com.cn/js/index.asp)
+
+* [Hybrid app](https://github.com/geekist/developer_guide/blob/main/other/hybrid.md)
+
+* [React Native](https://github.com/geekist/developer_guide/blob/main/other/reactnative.md)
+
+* [Flutter](https://github.com/geekist/developer_guide/blob/main/other/flutter.md)
+
+* [Week](https://www.jianshu.com/p/ae1d7a2b0a8a) 
+
+# 二、计算机基础知识
+
+## 1、网络基础知识
 
 ### TCP协议
 
@@ -58,7 +91,6 @@
 
 * [Android Wifi开发总结](https://blog.csdn.net/qq_34773981/article/details/79163579)
 
-
 ### Ble
 
 * [Android BLE 蓝牙开发入门](https://www.jianshu.com/p/3a372af38103)
@@ -75,11 +107,11 @@
 
 * [阿里云IOT开发](https://github.com/geekist/developer_guide/blob/main/IoT/Android连接阿里云MQTT.md)
 
-### 计算机硬件知识、串口等
+## 2、计算机硬件知识
 
 * [硬件基础知识](https://github.com/geekist/developer_guide/blob/main/IoT/硬件基础知识.md)
 
-## 软件工程
+## 3、软件工程知识
 
 ### 数据结构与算法 
 
@@ -105,17 +137,7 @@
 
 * [git基本操作](https://www.runoob.com/git/git-basic-operations.html)
 
-## Android系统开发的前端技术
 
-* [JavaScript](https://www.w3school.com.cn/js/index.asp)
-
-* [Hybrid app](https://github.com/geekist/developer_guide/blob/main/other/hybrid.md)
-
-* [React Native](https://github.com/geekist/developer_guide/blob/main/other/reactnative.md)
-
-* [Flutter](https://github.com/geekist/developer_guide/blob/main/other/flutter.md)
-
-* [Week](https://www.jianshu.com/p/ae1d7a2b0a8a) 
 
 # 2、Android系统开发基本知识
 
@@ -140,9 +162,10 @@ activity原理与源码
 * [Service][service]
 
 
-### Intent && Seriable && Parcable
+### 其他
+* [Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
 
-* 附：[Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
+* [Context](https://www.jianshu.com/p/94e0f9ab3f1d)
 
 [activity]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Activity.md
 [fragment]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Fragment.md

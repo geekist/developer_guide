@@ -1,5 +1,41 @@
 # Android版本兼容性问题
 
+## Android版本新增的变化主要是为了加强安全性和用户体验：
+
+* 对系统权限的规定
+
+  从6.0开始增加了危险权限列表和动态申请权限。对于危险权限，不仅仅要在manifest文件里面申请，而且要在开始使用时请求用户通过，用户可以拒绝，且不再接受申请。
+
+  对于wifi的使用权限增加了精细定位和粗略定位的规定
+
+  对于安装apk的权限做了新的规定
+
+* 外部文件的读取权限增强
+
+  从4.0开始，增加了对外部存储的控制。
+  
+  从7.0开始，读取外部文件需要用fileprovider来取代url形式。
+
+* Service
+
+  对后台service增强了限制，会被随时kill。
+
+  隐式申请服务需要提供包名，防止常驻后台
+
+* BroadcastReceiver 
+
+  在manifest文件中静态注册的广播接收器不可用，需要动态注册。
+
+* Notification
+
+  默认关闭消息通知，需要提醒用户开启消息通知。
+
+  新的版本对消息新增了消息渠道
+
+* 非SDK方法禁止用反射调用
+
+* http被禁用，apache http模式被禁用。
+
 [**Android版本名称及Api版本对照表**](https://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels)
 
 
