@@ -152,13 +152,19 @@
 
 ### Ble
 
+* [Android 蓝牙介绍](https://github.com/geekist/developer_guide/blob/main/bluetooth/ble介绍.md)
+
 * [Android BLE 蓝牙开发入门](https://www.jianshu.com/p/3a372af38103)
+
+* [Android Ble开发介绍2](https://www.jianshu.com/p/d991f0fdec63)
+
+封装的几个蓝牙库
 
 * [fastble](https://github.com/Jasonchenlijian/FastBle/wiki)
 
 * [rxble](https://github.com/Belolme/RxBLE)
 
-* [Android 蓝牙开发技术分析](https://github.com/geekist/developer_guide/blob/main/bluetooth/bluetooth.md)
+
 
 ### MQTT
 
@@ -169,6 +175,8 @@
 ## 2、计算机硬件知识
 
 * [硬件基础知识](https://github.com/geekist/developer_guide/blob/main/IoT/硬件基础知识.md)
+
+* [Android CPU 架构详解](https://www.jianshu.com/p/44650eaceb18)
 
 ## 3、软件工程知识
 
