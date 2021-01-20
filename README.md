@@ -179,6 +179,8 @@
 
 * [Android CPU 架构详解](https://www.jianshu.com/p/44650eaceb18)
 
+* [Java位运算符和逻辑运算符](https://github.com/geekist/developer_guide/blob/main/network/operator.md)
+
 ## 3、软件工程知识
 
 ### 数据结构与算法 
