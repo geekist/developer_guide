@@ -127,10 +127,10 @@
 
 ### TCP协议
 
-* [Tcp概述](https://github.com/geekist/developer_guide/blob/main/network/tcp.md)
+* [Tcp/IP协议簇概述](https://github.com/geekist/developer_guide/blob/main/network/tcp.md)
 
 
-* [Android开发TCP](https://github.com/geekist/developer_guide/blob/main/network/tcp_android.md)
+* [Android开发TCP](https://blog.csdn.net/VNanyesheshou/article/details/74896575)
 
 * [tcpclient.java](https://github.com/geekist/developer_guide/blob/main/network/TCPClient.java)
 
@@ -138,9 +138,11 @@
 
 ### UDP协议
 
+* [UDP协议简介](https://blog.csdn.net/yangwu007/article/details/109411342)
+
 * [Android开发UDP](https://github.com/geekist/developer_guide/blob/main/network/udp_android.md)
 
-* [UDPDemo](https://github.com/geekist/developer_guide/blob/main/network/UdpHub.java)
+* [UDPHub.java](https://github.com/geekist/developer_guide/blob/main/network/UdpHub.java)
 
 ### Http协议
 
@@ -163,7 +165,6 @@
 * [fastble](https://github.com/Jasonchenlijian/FastBle/wiki)
 
 * [rxble](https://github.com/Belolme/RxBLE)
-
 
 
 ### MQTT
