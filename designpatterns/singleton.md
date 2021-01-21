@@ -7,7 +7,7 @@
 
 public class Singleton {
 
-	private Singleton instance = new Singleton();
+	private static Singleton instance = new Singleton();
 
 	private singleton() {
 	}
