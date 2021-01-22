@@ -63,7 +63,7 @@ public class Context {
 ```
 
 这时候我们准备一个main方法来测试一下他
-
+```java
 public class StrategyTest {
     public static void main(String[] args) {
         Strategy stgB = new StrategyB();
@@ -74,3 +74,6 @@ public class StrategyTest {
 }
 
 ```
+
+## state和strategy的区别
+strategy的抽象主要是算法的抽象，state侧重的是对状态的抽象

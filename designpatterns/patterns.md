@@ -54,7 +54,7 @@
 
 共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
 
-#### 6、[迭代器-Iterator](https://github.com/geekist/developer_guide/blob/main/designpatterns/iterator.md)
+#### 6、[迭代器-Iterator](https://github.com/geekist/developer_guide/blob/main/designpatterns/Iterator.md)
 
 #### 7、[观察者-Observer](https://github.com/geekist/developer_guide/blob/main/designpatterns/observer.md)
 

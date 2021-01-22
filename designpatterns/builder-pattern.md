@@ -16,6 +16,7 @@ The intent of the Builder design pattern is to separate the construction of a co
 
 当一个类的构造函数参数超过4个，而且这些参数有些是可选的时，我们通常有两种办法来构建它的对象。 例如我们现在有如下一个类计算机类Computer，其中cpu与ram是必填参数，而其他3个是可选参数，那么我们如何构造这个类的实例呢,
 
+```java
 public class Computer {
     private String cpu;//必须
     private String ram;//必须
@@ -23,6 +24,7 @@ public class Computer {
     private String keyboard;//可选
     private String display;//可选
 }
+```
 
 通常有两种常用的方式：
 

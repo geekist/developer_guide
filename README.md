@@ -117,7 +117,7 @@
 
 * [React Native](https://github.com/geekist/developer_guide/blob/main/other/reactnative.md)
 
-* [Flutter](https://github.com/geekist/developer_guide/blob/main/other/flutter.md)
+* [Flutter](https://github.com/geekist/developer_guide/blob/main/flutter/flutter.md)
 
 * [Week](https://www.jianshu.com/p/ae1d7a2b0a8a) 
 
@@ -129,6 +129,7 @@
 
 * [Tcp/IP协议簇概述](https://github.com/geekist/developer_guide/blob/main/network/tcp.md)
 
+* [TCP连接的三次握手与四次挥手](https://blog.csdn.net/qzcsu/article/details/72861891)
 
 * [Android开发TCP](https://blog.csdn.net/VNanyesheshou/article/details/74896575)
 
