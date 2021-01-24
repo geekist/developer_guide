@@ -15,11 +15,12 @@
 **5、Activity的声明周期**
 
 ## Activity概念
-Activity 是用户与 Android 应用程序交互的接口，通过这个组件中可以放置各种控件。
 
-从设计层面上来讲，类似于Mvc设计模式中的Controller控制层，在Android中，通过Activity选择要显示的View,从View中获取数据然后传给Model层进行处理，最后显示出来。
+Activity是一个应用程序组件，它提供一个屏幕作为用户与Android应用程序交互的接口，通过这个组件可以放置各种控件，通过setContentView(View)来显示指定控件，可以监听并处理用户的事件做出响应。Activity之间通过Intent进行通信。
 
-## 创建一个activity
+从设计层面上来讲，activity是Mvc设计模式中的Controller控制层，在Android中，通过Activity选择要显示的View,从View中获取数据然后传给Model层进行处理，最后显示出来。
+
+## 创建一个Activity
 
 * 1-在AndroidStudio中创建一个NoActivity的工程，添加一个Activity，命名位FirstActivity。
 ```java
@@ -159,10 +160,14 @@ intent = Intent(Intent.ACTION_DIAL)
 
 * activity.finish（）
 
-* 如果需要将应用程序彻底清除，则需要调用killProcess：
+* 如果需要将应用程序彻底清除，则需要调用killProcess或者system.exit：
 
 ```java
-android.os.Process.killProcess(android.os.Process.myPid())
+
+System.exit(0)；
+
+Process.killProcess(Process.myPid())；
+
 ```
 
 
@@ -195,6 +200,8 @@ setTitle(msg)
 val Intent = Intent("com.example.activitytest.ACTION_START")
 intent.addCategory("com.example.activitytest.MY_CATEGORY")
 startActivityForResult(intent)
+
+startActivityForResult(new Intent(MainActivity.this, OtherActivity.class), 1);
 
 ```
 * 被启动的activity添加数据,在关闭Activity前使用setResult函数

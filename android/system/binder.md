@@ -1,22 +1,6 @@
 
 # Android系统进行间通讯机制Binder介绍
 
-* [Android系统进行间通讯机制Binder介绍](#android系统进行间通讯机制binder介绍)
-  * [一、Android应用进程空间介绍](#一android应用进程空间介绍)
-    * [1、Android应用的安全机制](#1android应用的安全机制)
-    * [2、Android应用进程空间解析](#2android应用进程空间解析)
-  * [二、Android系统的进程间通信机制\-\-binder](#二android系统的进程间通信机制--binder)
-    * [1、Linux的进程间通信机制和binder的比较](#1linux的进程间通信机制和binder的比较)
-    * [2、binder底层实现逻辑\-\-内存映射](#2binder底层实现逻辑--内存映射)
-    * [3、binder机制架构](#3binder机制架构)
-    * [4、Binder 通信过程](#4binder-通信过程)
-      * [第一步：Service Manager注册并启动](#第一步service-manager注册并启动)
-      * [第二步：server向ServiceManager注册。](#第二步server向servicemanager注册)
-      * [第三步：client通过serviceManager的接口中的binder，到底层binder 驱动程序中找到server，然后响应client的请求。](#第三步client通过servicemanager的接口中的binder到底层binder-驱动程序中找到server然后响应client的请求)
-    * [5、 Binder 通信中的代理模式](#5-binder-通信中的代理模式)
-
-
-
 ## 一、Android应用进程空间介绍
 
 ### 1、Android应用的安全机制
@@ -40,24 +24,39 @@ Android 系统实现了最小权限原则。换言之，默认情况下，每个
 可以安排两个应用共享同一 Linux 用户 ID，在此情况下，二者便能访问彼此的文件。为节省系统资源，也可安排拥有相同用户 ID 的应用在同一 Linux 进程中运行，并共享同一 VM。应用还必须使用相同的证书进行签名。
 应用可以请求访问设备数据（如用户的联系人、短信消息、可装载存储装置（SD 卡）、相机、蓝牙等）的权限。用户必须明确授予这些权限。如需了解详细信息，请参阅使用系统权限。
 
-### 2、Android应用进程空间解析
+## 二、Linux系统进程间通信的原理及方法介绍
+
+### 1、Android应用进程空间解析
 
 一个Android进程空间由内核空间和用户空间组成。内核空间是所有进程共享的空间。用户空间是应有独有的空间。即内核空间是可以通过一定方式共享的，而用户空间是不可以共享的。
 
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy85NDQzNjUtMTNkNTkwNThkNGUwY2JhMS5wbmc_aW1hZ2VNb2dyMi9hdXRvLW9yaWVudC9zdHJpcCU3Q2ltYWdlVmlldzIvMi93LzEyNDA)
 
 
-## 二、Android系统的进程间通信机制--binder
+### 2、Linux的进程间通信机制和binder的比较
 
-### 1、Linux的进程间通信机制和binder的比较
+Linux的通信机制IPC有：
 
-Linux的通信机制IPC有：管道：pipe，信号：signal，跟踪：trace等，messageQueue，sharedMemory，semaphore（信号量）等。
+* 管道：pipe，
+
+* 信号：signal，
+
+* 跟踪：trace，
+
+* messageQueue，
+
+* sharedMemory，
+
+* semaphore（信号量）等。
 
 Android使用了Binder机制作为进程间通信的机制。和其他通信机制相比，有性能、安全和稳定方面的优势。
 
 ![](https://pic3.zhimg.com/80/v2-30dce36be4e6617596b5fab96ef904c6_720w.jpg)
 
-### 2、binder底层实现逻辑--内存映射
+
+## 三、Android系统的进程间通信机制--binder
+
+### 1、binder底层实现逻辑--内存映射
 
 一次完整的 Binder IPC 通信过程通常是这样：
 
@@ -72,7 +71,7 @@ Android使用了Binder机制作为进程间通信的机制。和其他通信机�
 ![](https://pic4.zhimg.com/80/v2-cbd7d2befbed12d4c8896f236df96dbf_720w.jpg)
 
 
-### 3、binder机制架构
+### 2、binder机制架构
 
 Android系统的Binder机制由一系统组件组成，分别是Client、Server、Service Manager和Binder驱动程序.
 
@@ -106,7 +105,7 @@ binder驱动为这个穿越进程边界的 Binder 创建位于内核中的实体
 
 ServierManager 是一个进程，Server 是另一个进程，Server 向 ServiceManager 中注册 Binder 必然涉及到进程间通信。当前实现进程间通信又要用到进程间通信，这就好像蛋可以孵出鸡的前提却是要先找只鸡下蛋！Binder 的实现比较巧妙，就是预先创造一只鸡来下蛋。ServiceManager 和其他进程同样采用 Bidner 通信，ServiceManager 是 Server 端，有自己的 Binder 实体，其他进程都是 Client，需要通过这个 Binder 的引用来实现 Binder 的注册，查询和获取。ServiceManager 提供的 Binder 比较特殊，它没有名字也不需要注册。当一个进程使用 BINDERSETCONTEXT_MGR 命令将自己注册成 ServiceManager 时 Binder 驱动会自动为它创建 Binder 实体（这就是那只预先造好的那只鸡）。其次这个 Binder 实体的引用在所有 Client 中都固定为 0 而无需通过其它手段获得。也就是说，一个 Server 想要向 ServiceManager 注册自己的 Binder 就必须通过这个 0 号引用和 ServiceManager 的 Binder 通信。类比互联网，0 号引用就好比是域名服务器的地址，你必须预先动态或者手工配置好。要注意的是，这里说的 Client 是相对于 ServiceManager 而言的，一个进程或者应用程序可能是提供服务的 Server，但对于 ServiceManager 来说它仍然是个 Client。
 
-### 4、Binder 通信过程
+### 3、Binder 通信过程
 
 #### 第一步：Service Manager注册并启动
 

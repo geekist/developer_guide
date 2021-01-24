@@ -257,6 +257,12 @@
 
 ## 2、用户界面开发
 
+### View
+
+* [Android View体系的简单介绍](https://juejin.cn/post/6844903970255667208)
+
+* [自定义View][self]
+
 #### Material Design
 
 * [material design](https://github.com/geekist/developer_guide/blob/main/android/design/MaterialDesign.md)
@@ -317,8 +323,6 @@ material design中新引入的布局layout
 * [Toast][toast]
 
 * [Menu][menu]
-
-* [自定义控件][self]
 
 [common]:https://github.com/geekist/developer_guide/blob/main/android/ui/Common.md
 [toast]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toast.md
@@ -390,13 +394,13 @@ material design中新引入的布局layout
 
 * [Animation](https://github.com/geekist/developer_guide/blob/main/android/ui/Animation.md)
 
-### 通知
+## 3、通知
 * [Notification][notification]
 
 
 [notification]:https://github.com/geekist/developer_guide/blob/main/android/notification/Notification.md
 
-### 多媒体
+## 4、多媒体
 * [图片][photo]
 
 * [音频][audio]
@@ -407,7 +411,7 @@ material design中新引入的布局layout
 [audio]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Audio.md
 [video]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Video.md
 
-### 数据存储
+## 5、数据存储
 
 * [SharedPreference][sharedpreference]
 
@@ -422,7 +426,7 @@ material design中新引入的布局layout
 [fileio]:https://github.com/geekist/developer_guide/blob/main/android/database/FileIO.md
 [sqlite]:https://github.com/geekist/developer_guide/blob/main/android/database/SQLite.md
 
-### 网络编程（WebView）
+## 6、网络编程（WebView）
 
 * [webview](https://github.com/geekist/developer_guide/blob/main/android/ui/webview.md)
 
@@ -430,7 +434,7 @@ material design中新引入的布局layout
 
 * [第三方开源库agentweb封装webview实现带进度条的webview](https://github.com/Justson/AgentWeb)
 
-### 线程
+## 7、线程
 
 * [Java线程][javathread]
 
@@ -453,7 +457,7 @@ material design中新引入的布局layout
 [asynctask]:https://github.com/geekist/developer_guide/blob/main/android/thread/AsyncTask.md
 [intentservice]:https://github.com/geekist/developer_guide/blob/main/android/thread/IntentService.md
 
-### Jetpack
+## 8、Jetpack
 * [Lifecycles][lifecycles]
 
 
