@@ -1,79 +1,5 @@
 
 # Android Developer Guide
-* [Android Developer Guide](#android-developer-guide)
-* [一、语言基础](#一语言基础)
-  * [1、java语言](#1java语言)
-  * [2、Kotlin语言](#2kotlin语言)
-  * [3、Flutter](#3flutter)
-  * [4、其他前端语言和技术](#4其他前端语言和技术)
-* [二、计算机基础知识](#二计算机基础知识)
-  * [1、网络基础知识](#1网络基础知识)
-    * [TCP协议](#tcp协议)
-    * [UDP协议](#udp协议)
-    * [Http协议](#http协议)
-    * [Wifi](#wifi)
-    * [Ble](#ble)
-    * [MQTT](#mqtt)
-  * [2、计算机硬件知识](#2计算机硬件知识)
-  * [3、软件工程知识](#3软件工程知识)
-    * [数据结构与算法](#数据结构与算法)
-    * [设计模式](#设计模式)
-    * [组件化、MVP、MVVM](#组件化mvpmvvm)
-  * [源代码管理SVN和git](#源代码管理svn和git)
-* [三、Android系统原理](#三android系统原理)
-  * [Android系统框架](#android系统框架)
-  * [Android系统启动过程](#android系统启动过程)
-  * [Android 系统进程间通信机制](#android-系统进程间通信机制)
-  * [Android App启动过程](#android-app启动过程)
-  * [JNI与NDK](#jni与ndk)
-* [四、Android基础开发知识](#四android基础开发知识)
-  * [1、四大组件](#1四大组件)
-  * [2、用户界面开发](#2用户界面开发)
-      * [Material Design](#material-design)
-      * [外观和风格](#外观和风格)
-      * [布局layout](#布局layout)
-    * [UI控件](#ui控件)
-    * [动画](#动画)
-    * [通知](#通知)
-    * [多媒体](#多媒体)
-    * [数据存储](#数据存储)
-    * [网络编程（WebView）](#网络编程webview)
-    * [线程](#线程)
-    * [Jetpack](#jetpack)
-* [四、Android发布相关](#四android发布相关)
-  * [1、APK资源分析](#1apk资源分析)
-  * [2、APK编译(打包)、安装、反编译、热修复](#2apk编译打包安装反编译热修复)
-    * [编译(打包)过程](#编译打包过程)
-    * [gradle](#gradle)
-    * [混淆](#混淆)
-    * [安装](#安装)
-    * [反编译](#反编译)
-    * [hook](#hook)
-    * [热修复](#热修复)
-    * [常见问题](#常见问题)
-* [五、Android实践基础知识](#五android实践基础知识)
-  * [1、Android兼容性](#1android兼容性)
-  * [2、Android性能](#2android性能)
-    * [启动优化](#启动优化)
-    * [UI优化](#ui优化)
-    * [存储优化](#存储优化)
-    * [IO优化](#io优化)
-    * [网络优化](#网络优化)
-    * [耗电优化](#耗电优化)
-    * [崩溃优化](#崩溃优化)
-    * [内存优化](#内存优化)
-    * [卡顿优化](#卡顿优化)
-    * [安装包优化](#安装包优化)
-    * [进程保活](#进程保活)
-* [六、Android测试框架](#六android测试框架)
-* [七、Android常用框架库原理](#七android常用框架库原理)
-* [八、Android应用SDK](#八android应用sdk)
-  * [支付](#支付)
-  * [地图](#地图)
-  * [推送](#推送)
-  * [二维码](#二维码)
-* [九、Android新技术](#九android新技术)
-  * [1、AR](#1ar)
 
 # 一、语言基础
 
@@ -214,23 +140,24 @@
 
 * [Android系统框架](https://developer.android.com/guide/platform?hl=zh-cn)
 
+## Android系统启动过程
+
+* [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
+
+## Android 系统进程间通信机制
+
+* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
+
+* [binder机制详细介绍](https://zhuanlan.zhihu.com/p/35519585)
+
+## Android App启动过程
+
+* [Android app 启动流程分析](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
+
 ## JNI与NDK
 
 * [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
 
-* [JNI与NDK编程](https://blog.yorek.xyz/android/framework/JNI%E4%B8%8ENDK/)
-
-##  Android版本迭代
-
-**Android版本兼容性**
-* [Android平台版本兼容性问题总结](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
-
-
-## Android厂商兼容性问题
-
-**Android不同厂商系统兼容性**
-
-* [android不同厂商问题合集](https://www.zhihu.com/question/65594088/answer/232791937)
 
 # 四、Android基础开发知识
 
@@ -247,8 +174,6 @@
 * [Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
 
 * [Context](https://www.jianshu.com/p/94e0f9ab3f1d)
-
-* [四大组件启动过程](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
 
 [activity]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Activity.md
 [fragment]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Fragment.md
@@ -489,7 +414,7 @@ material design中新引入的布局layout
 
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
-# 四、Android应用编译和发布
+# 四、Android发布相关
 
 ## 1、APK资源分析
 
@@ -560,27 +485,12 @@ material design中新引入的布局layout
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 
-# 五、Android性能优化
+# 五、Android实践基础知识
 
-* [Android性能优化](https://blog.yorek.xyz/android/framework/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/)
+##  1、Android兼容性
 
-## 1、启动优化
-
-* [Android启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
-
-* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/) 
-
-* [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
-
-* [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
-
-* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
-
-* [binder机制详细介绍](https://zhuanlan.zhihu.com/p/35519585)
-
-* [四大组件启动过程代码分析](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
-
-## 2、UI优化
+**Android版本兼容性**
+* [Android平台版本兼容性问题总结](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
 **Android不同屏幕兼容性**
 
@@ -590,23 +500,51 @@ material design中新引入的布局layout
 
 * [AndroidAutoSize代码分析](https://blog.csdn.net/u012588160/article/details/105876735) && [Autosize使用](https://www.xiaoheidiannao.com/220402.html)
 
-## 3、崩溃优化
+**Android不同厂商系统兼容性**
 
-* [崩溃优化分析](https://github.com/geekist/developer_guide/blob/main/android/system/android崩溃优化.md)
+* [android不同厂商问题合集](https://www.zhihu.com/question/65594088/answer/232791937)
 
-## 4、内存优化
 
-* [Android内存管理机制](https://www.jianshu.com/p/258229426da4)
+## 2、Android性能
 
-* [Android内存优化技巧](https://www.jianshu.com/p/51e28a2c609c)
+### 启动优化
 
-## 5、卡顿优化
+* [Android 启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
-* [深入探索Android卡顿优化-1](https://juejin.cn/post/6844904062610046990)
+参考：
 
-* [深入探索Android卡顿优化-2](https://juejin.cn/post/6844904066259091469)
+* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/) 
 
-## 6、耗电优化
+* [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
+### UI优化
+* []()
+
+* []()
+
+* []()
+
+### 存储优化
+* [Android存储优化系列专题](https://www.jianshu.com/p/9dc63f605981)
+
+* [Contentprovider的启动过程分析](https://www.jianshu.com/p/414fd401194b)
+
+* []()
+
+### IO优化
+* []()
+
+* []()
+
+* []()
+
+### 网络优化
+* []()
+
+* []()
+
+* []()
+
+### 耗电优化
 
 * [androird耗电分析与优化-1](https://blog.yorek.xyz/android/paid/master/battery_1/)
 
@@ -616,17 +554,33 @@ material design中新引入的布局layout
 
 * [深入探索 Android 电量优化](https://juejin.cn/post/6844904195523346439)
 
-## 7、存储优化
 
-* [sharePreference存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)---腾讯[MMKV](https://github.com/Tencent/MMKV/blob/master/README_CN.md)
+### 崩溃优化
+* []()
 
-* [contentproviver存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)
+* []()
 
-* [file存储优化](https://blog.yorek.xyz/android/paid/master/storage_2/)
+* []()
 
-* [数据库sqlite存储优化](https://blog.yorek.xyz/android/paid/master/storage_3/)
+### 内存优化
 
-## 进程保活
+* [Android性能问题](https://github.com/geekist/developer_guide/blob/main/android/android性能调优.md)
+
+### 卡顿优化
+* []()
+
+* []()
+
+* []()
+
+### 安装包优化
+* []()
+
+* []()
+
+* []()
+
+### 进程保活
 
 * [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
 
