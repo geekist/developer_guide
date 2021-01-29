@@ -29,6 +29,7 @@ Async需要重载的方法：
 ## AsyncTask的调用
 
 MyAsyncTask asyncTask = new MyAsyncTask(); 
+
 asyncTask.execute("http://www.google.com");/这里的参数会被传入到doInbackground中去。
 
 

@@ -210,11 +210,23 @@
 
 # 三、Android系统原理
 
-## Android系统框架
+## 3.1 Android系统框架和启动过程
 
 * [Android系统框架](https://developer.android.com/guide/platform?hl=zh-cn)
+ 
+* [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
 
-## JNI与NDK
+## 3.2 Android 进程间通信机制
+
+* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
+
+* [Binder简介](https://blog.yorek.xyz/android/paid/zsxq/week11-binder/)
+
+* [binder机制详细介绍](https://zhuanlan.zhihu.com/p/35519585)
+
+* [ServiceManager介绍](https://blog.yorek.xyz/android/framework/binder2/)
+
+## 3.3 JNI与NDK
 
 * [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
 
@@ -572,11 +584,6 @@ material design中新引入的布局layout
 
 * [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
 
-* [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
-
-* [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
-
-* [binder机制详细介绍](https://zhuanlan.zhihu.com/p/35519585)
 
 * [四大组件启动过程代码分析](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
 
