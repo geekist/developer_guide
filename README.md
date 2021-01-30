@@ -248,6 +248,8 @@
 
 ## 1、四大组件
 
+### 1.1 四大组件的简介和基本用法
+
 * [Activity][activity] （[Fragment][fragment]）
 
 * [BroadcastReceiver][broadcastReceiver]
@@ -260,6 +262,8 @@
 
 * [Context](https://www.jianshu.com/p/94e0f9ab3f1d)
 
+### 1.2 四大组件启动过程
+
 * [四大组件启动过程](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
 
 [activity]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Activity.md
@@ -268,142 +272,26 @@
 [contentprovider]:https://github.com/geekist/developer_guide/blob/main/android/4-components/ContentProvider.md
 [service]:https://github.com/geekist/developer_guide/blob/main/android/4-components/Service.md
 
-## 2、用户界面开发
+## 2、View
 
-### View
+### 2.1 android UI 控件的介绍基本用法
+
+* [Android 控件介绍](https://github.com/geekist/developer_guide/blob/main/android/ui/ui控件介绍.md)
+
+
+### 2.2 window和view
+
+* [window和window manager](https://blog.yorek.xyz/android/framework/Window%E4%B8%8EWindowManager/)
 
 * [Android View体系的简单介绍](https://juejin.cn/post/6844903970255667208)
 
+* [View事件分发体系](https://blog.yorek.xyz/android/framework/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BD%93%E7%B3%BB/)
+
+* [View的绘制原理](https://blog.yorek.xyz/android/framework/View%E7%9A%84%E7%BB%98%E5%88%B6%E5%8E%9F%E7%90%86/)[RemoteViews](https://blog.yorek.xyz/android/framework/RemoteViews/)
+
 * [自定义View][self]
-
-#### Material Design
-
-* [material design](https://github.com/geekist/developer_guide/blob/main/android/design/MaterialDesign.md)
-
-#### 外观和风格
-* [attrs、style和theme介绍](https://github.com/geekist/developer_guide/blob/main/android/ui/attrs.md)
-
-#### 布局layout
-
-* [LinearLayout][linearlayout]
-
-* [RelativeLayout][relativelayout]
-
-* [FrameLayout][framelayout]
-
-* [ConstraintLayout][constraintlayout]
-
-[linearlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/LinearLayout.md
-
-[relativelayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/RelativeLayout.md
-
-[framelayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/FrameLayout.md
-
-[constraintlayout]:https://github.com/geekist/developer_guide/blob/main/android/layout/ConstraintLayout.md
-
-material design中新引入的布局layout
-
-* [AppBarLayout][appbarlayout]
-
-* [CoordinatorLayout][coordinatorlayout]
-
-* [DrawerLayout][drawerlayout]
-
-* [SwipeRefreshLayout][swiperefreshlayout]
-
-* [第三开源库SmartRefreshLayout实现更多功能](https://github.com/scwang90/SmartRefreshLayout)
-
-* [CollapsingToolbarLayout][collapsingtoolbarlayout]
-
-### UI控件
-
-* [控件常用的属性][common]
-
-* [TextView][textview]
-
-* [Button][button]
-
-* [EditText][edittext]
-
-* [ImageView][imageview]
-
-* [ProgressBar][progressbar]
-
-* [AlertDialog][alertdialog]
-
-* [ListView][listview]
-
-* [Toast][toast]
-
-* [Menu][menu]
-
-[common]:https://github.com/geekist/developer_guide/blob/main/android/ui/Common.md
-[toast]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toast.md
-[menu]:https://github.com/geekist/developer_guide/blob/main/android/ui/Menu.md
-[textview]:https://github.com/geekist/developer_guide/blob/main/android/ui/TextView.md
-[button]:https://github.com/geekist/developer_guide/blob/main/android/ui/Button.md
-[edittext]:https://github.com/geekist/developer_guide/blob/main/android/ui/EditText.md
-[imageview]:https://github.com/geekist/developer_guide/blob/main/android/ui/ImageView.md
-[progressbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/ProgressBar.md
-[alertdialog]:https://github.com/geekist/developer_guide/blob/main/android/ui/AlertDialog.md
-
-[listview]:https://github.com/geekist/developer_guide/blob/main/android/ui/ListView.md
-
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
 
-**Material Desgin UI**
-
-* [Toolbar][toolbar]
-
-* [NavigationView][navigationview]--DrawerLayout+NavigationView实现侧滑栏
-
-**TabLayout和ViewPager2**
-
-* [TabLayout介绍](https://www.jianshu.com/p/88679fed9ecb)
-
-* [TableLayout+ViewPager][table+viewPager]--多个Fragments在TableLayout下实现fragments横向滑动
-
-* [TableLayout+ViewPager2][table+viewPager2]--多个Fragments在TableLayout下实现fragments横向滑动
-
-* [第三方开源库FlycoTabLayout实现更加灵活的TabLayout功能](https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md)
-
-* [第三方开源库Banner实现轮播容器](https://github.com/youth5201314/banner)
-
-**CardView**
-
-* [MaterialCardView][cardview]
-
-**RecyclerView**
-
-* [RecyclerView][recyclerview]
-
-**沉浸式状态栏**
-
-* [沉浸式状态栏][transparentstatusbar]
-
-* [第三方开源库ImmersionBar实现沉浸式状态栏](https://github.com/gyf-dev/ImmersionBar)
-
-* [ImmersionBar的wiki](https://www.jianshu.com/p/2a884e211a62)
-
-**Paging**
-
-* [Paging](https://github.com/geekist/developer_guide/blob/main/android/ui/paging.md)
-
-[navigationview]:https://github.com/geekist/developer_guide/blob/main/android/ui/NavigationView.md
-[appbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/AppBarLayout.md
-
-[drawerlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/DrawerLayout.md
-
-[coordinatorlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CoordinatorLayout.md
-[swiperefreshlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/SwipeRefreshLayout.md
-[collapsingtoolbarlayout]:https://github.com/geekist/developer_guide/blob/main/android/ui/CollapsingToolbarLayout.md
-
-[toolbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/Toolbar.md
-[cardview]:https://github.com/geekist/developer_guide/blob/main/android/ui/MaterialCardView.md
-[transparentstatusbar]:https://github.com/geekist/developer_guide/blob/main/android/ui/StatusBar.md
-[recyclerview]:https://github.com/geekist/developer_guide/blob/main/android/ui/RecyclerView.md
-[table+viewPager]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager.md
-[table+viewPager2]:https://github.com/geekist/developer_guide/blob/main/android/ui/Activity+Fragments+TableLayout+ViewPager2.md
 
 ### 动画
 

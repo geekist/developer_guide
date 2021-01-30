@@ -1,6 +1,22 @@
 
 # Android系统进行间通讯机制Binder介绍
 
+关于binder需要掌握六点：
+
+* 1、android系统-- 多用户linux系统
+
+* 2、linux系统的进程空间--用户空间和内核空间
+
+* 3、linux进程间通信的方法--通过内核空间：管道、信号、信号量、消息队列、共享内存、socket。。。
+
+* 4、android的通信方法binder的特点--一次拷贝，两次映射
+
+* 5、binder系统的组成部分---client、server、servicemanager、binder驱动
+
+* 6、binder系统的工作流程--servicemanager注册、server add，clientget
+
+
+
 ## 一、Android应用进程空间介绍
 
 ### 1、Android应用的安全机制
