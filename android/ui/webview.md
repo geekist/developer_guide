@@ -242,6 +242,7 @@ WebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
 常见方法：
 
+```java
 shouldOverrideUrlLoading()
 作用：打开网页时，不调用系统浏览器进行打开，而是在本WebView中直接显示。
 
@@ -358,6 +359,7 @@ webView.setWebViewClient(new WebViewClient() {
 
 });
 
+```
  
 
 ### 4.3 WebChromeClient类
@@ -366,6 +368,7 @@ webView.setWebViewClient(new WebViewClient() {
 
 常见方法：
 
+```java
 onProgressChanged()
 作用：获得网页的加载进度并显示
 
@@ -398,7 +401,7 @@ webview.setWebChromeClient(new WebChromeClient(){
       titleview.setText(title)；
 
  }
-
+```
  
 ### 4.3 如何避免WebView内存泄露?
 

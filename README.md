@@ -216,6 +216,10 @@
  
 * [Android系统启动流程](https://github.com/geekist/developer_guide/blob/main/android/system/android系统启动流程.md)
 
+* [Android Application启动流程](https://www.jianshu.com/p/a5532ecc8377)
+
+* 结合优化部分的[AndroidApp启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)来了解App启动流程
+
 ## 3.2 Android 进程间通信机制
 
 * [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
@@ -244,25 +248,23 @@
 
 * [android不同厂商问题合集](https://www.zhihu.com/question/65594088/answer/232791937)
 
-# 四、Android基础开发知识
+# 四、Android Framework 基础知识
 
 ## 1、四大组件
 
-### 1.1 四大组件的简介和基本用法
+### 1.1 四大组件的简介和启动过程
 
-* [Activity][activity] （[Fragment][fragment]）
+* [Activity][activity] （[Fragment][fragment]）---  [Activity启动过程--三个步骤，分两个层次描述](https://bbs.huaweicloud.com/blogs/168409)
 
-* [BroadcastReceiver][broadcastReceiver]
+* [Service][service] --- [Service启动流程分析](https://www.jiangkang.tech/2020/08/23/android/service-qi-dong-liu-cheng-fen-xi/)
 
-* [ContentProvider][contentprovider]
+* [ContentProvider][contentprovider] --- [ContentProvider启动过程](https://juejin.cn/post/6844903992514838541)
 
-* [Service][service]
+* [BroadcastReceiver][broadcastReceiver] ---[broadcastreceiver启动过程--简单描述，和activity类似](https://juejin.cn/post/6844903990329606158#heading-14)
 
 * [Intent和Seriable以及Parcable](https://github.com/geekist/developer_guide/blob/main/android/4-components/Intent.md)
 
 * [Context](https://www.jianshu.com/p/94e0f9ab3f1d)
-
-### 1.2 四大组件启动过程
 
 * [四大组件启动过程](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
 
@@ -293,17 +295,18 @@
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
 
 
-### 动画
+### 3、动画
 
 * [Animation](https://github.com/geekist/developer_guide/blob/main/android/ui/Animation.md)
 
-## 3、通知
+## 4、通知
 * [Notification][notification]
 
 
 [notification]:https://github.com/geekist/developer_guide/blob/main/android/notification/Notification.md
 
 ## 4、多媒体
+
 * [图片][photo]
 
 * [Android图片相关知识总结](https://www.jianshu.com/p/8c1d3283ea1c)
@@ -318,18 +321,18 @@
 
 ## 5、数据存储
 
-* [SharedPreference][sharedpreference]
+* [SharedPreference][sharedpreference] ---  [sharePreference存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)---腾讯[MMKV](https://github.com/Tencent/MMKV/blob/master/README_CN.md)
 
 
-* [FileIO][fileio]
+* [FileIO][fileio] ---  [file存储优化](https://blog.yorek.xyz/android/paid/master/storage_2/)
 
 
-* [SQLite][sqlite]
-
+* [SQLite][sqlite] ---  [数据库sqlite存储优化](https://blog.yorek.xyz/android/paid/master/storage_3/)
 
 [sharedpreference]:https://github.com/geekist/developer_guide/blob/main/android/database/SharedPreference.md
 [fileio]:https://github.com/geekist/developer_guide/blob/main/android/database/FileIO.md
 [sqlite]:https://github.com/geekist/developer_guide/blob/main/android/database/SQLite.md
+
 
 ## 6、网络编程（WebView）
 
@@ -339,21 +342,29 @@
 
 * [第三方开源库agentweb封装webview实现带进度条的webview](https://github.com/Justson/AgentWeb)
 
-## 7、线程
+## 7、Android消息机制与Android线程和线程池
+
+### 7.1 线程和线程池
 
 * [Java线程][javathread]
 
+* [Android线程和线程池](https://blog.yorek.xyz/android/framework/Android%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/)
+
+### 7.2消息机制--Handler、Looper，Message、MessageQueue
+
+* [Android消息机制](https://blog.yorek.xyz/android/framework/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/)
 
 * [Handler][handler]
 
-
 * [HandlerThread][handlerthread]
 
+### 7.3 Android的异步调用方法
 
 * [AsyncTask][asynctask]
 
-
 * [IntentService][intentservice]
+
+* Activity.runOnUIThread(runable)以及View.post(runable)
 
 
 [javathread]:https://github.com/geekist/developer_guide/blob/main/android/thread/JavaThread.md
