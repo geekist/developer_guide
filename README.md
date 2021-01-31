@@ -91,6 +91,8 @@
 
 ## 2、Kotlin语言
 
+* [kotlin语言教程](https://www.kotlincn.net/docs/reference/basic-syntax.html)
+
 * [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin基础.md)
 
 * [Kotlin标准函数库](https://github.com/geekist/developer_guide/blob/main/kotlin/standard.md)
@@ -401,6 +403,25 @@
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
 # 五、Android主流第三方库源码解析
+
+
+* [okhttp框架设计](https://juejin.cn/post/6844903743951994887)---[okhttp拦截器分析](https://juejin.cn/post/6844904008646295566)
+
+* [retrofit使用方法](https://www.jianshu.com/p/a3e162261ab6)---[retrofit源码解析](https://www.jianshu.com/p/0c055ad46b6c)
+
+* [glide源码解析](https://juejin.cn/post/6844903605728706573) ---[主流图片加载库的比较](https://blog.csdn.net/carson_ho/article/details/51939774)---[guolin-blog](https://guolin.blog.csdn.net/article/details/53759439)
+
+* [Rxjava使用方法](https://blog.csdn.net/carson_ho/article/details/78179340)---[Rxjava源码解析](https://blog.csdn.net/carson_ho/article/details/79168523)
+
+* [Eventbus]()
+
+* [Arouter]()
+
+* [Butterknife]()
+
+* [GreenDao]()
+
+
 
 * [安卓主流三方库源码分析](https://jsonchao.github.io/categories/%E5%AE%89%E5%8D%93%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/)
 

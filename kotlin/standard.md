@@ -2,43 +2,10 @@
 
 只有十多个函数，但是用处非常大。
 
-## NotImplementedError 顶层函数
 
-参数为一个字符串，返回值是一个Error
+## 一、五个作用域函数
 
-```java
-/**
- * An exception is thrown to indicate that a method body remains to be implemented.
- */
-public class NotImplementedError(message: String = "An operation is not implemented.") : Error(message)
-```
-
-## TODO 顶层函数
-
-参数无或字符串，返回值无，会抛出一个Error异常。
-
-```java
-/**
- * Always throws [NotImplementedError] stating that operation is not implemented.
- */
-
-@kotlin.internal.InlineOnly
-public inline fun TODO(): Nothing = throw NotImplementedError()
-```
-
-```java
-/**
- * Always throws [NotImplementedError] stating that operation is not implemented.
- *
- * @param reason a string explaining why the implementation is missing.
- */
-@kotlin.internal.InlineOnly
-public inline fun TODO(reason: String): Nothing = throw NotImplementedError("An operation is not implemented: $reason")
-```
-
-## 作用域函数
-
-### 作用域函数的定义
+### 1、作用域函数的定义
 
 Kotlin 标准库包含几个函数，它们的唯一目的是在对象的上下文中执行代码块。
 
@@ -49,7 +16,7 @@ Kotlin 标准库包含几个函数，它们的唯一目的是在对象的上下�
 这些函数基本上做了同样的事情：在一个对象上执行一个代码块。不同的是这个对象在块中如何使用，以及整个表达式的结果是什么。
 
 
-### 5个作用域函数的使用
+### 2、个作用域函数的使用
 
 
 ### let 扩展函数 上下文对象作为 lambda 表达式的参数（it）来访问。返回值是 lambda 表达式的结果。
@@ -354,8 +321,7 @@ numbers
 The list elements before adding new one: [one, two, three]
 
 ```
-
-### 作用域函数的区别
+### 3、作用域函数的区别
 
 作用域函数没有引入任何新的技术，但是它们可以使你的代码更加简洁易读。
 
@@ -393,7 +359,45 @@ The list elements before adding new one: [one, two, three]
 
 尽管作用域函数是使代码更简洁的一种方法，但请避免过度使用它们：这会降低代码的可读性并可能导致错误。避免嵌套作用域函数，同时链式调用它们时要小心：此时很容易对当前上下文对象及 this 或 it 的值感到困惑。
 
-## takeIf 
+## 二、两个语法函数
+
+### 1、NotImplementedError 顶层函数
+
+参数为一个字符串，返回值是一个Error
+
+```java
+/**
+ * An exception is thrown to indicate that a method body remains to be implemented.
+ */
+public class NotImplementedError(message: String = "An operation is not implemented.") : Error(message)
+```
+
+### TODO 顶层函数
+
+参数无或字符串，返回值无，会抛出一个Error异常。
+
+```java
+/**
+ * Always throws [NotImplementedError] stating that operation is not implemented.
+ */
+
+@kotlin.internal.InlineOnly
+public inline fun TODO(): Nothing = throw NotImplementedError()
+```
+
+```java
+/**
+ * Always throws [NotImplementedError] stating that operation is not implemented.
+ *
+ * @param reason a string explaining why the implementation is missing.
+ */
+@kotlin.internal.InlineOnly
+public inline fun TODO(reason: String): Nothing = throw NotImplementedError("An operation is not implemented: $reason")
+```
+
+## 三、其他函数
+
+###  takeIf 
  
 ```java
 /**
@@ -411,7 +415,7 @@ public inline fun <T> T.takeIf(predicate: (T) -> Boolean): T? {
 
 ```
 
-## takeUnless
+### takeUnless
 
 ```java
 
@@ -429,7 +433,7 @@ public inline fun <T> T.takeUnless(predicate: (T) -> Boolean): T? {
 
 ```
 
-## repeat 顶层函数，将一个函数执行制定的次数
+### repeat 顶层函数，将一个函数执行制定的次数
 
 ```java
 
