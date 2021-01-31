@@ -305,7 +305,7 @@
 
 [notification]:https://github.com/geekist/developer_guide/blob/main/android/notification/Notification.md
 
-## 4、多媒体
+## 5、多媒体
 
 * [图片][photo]
 
@@ -319,7 +319,7 @@
 [audio]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Audio.md
 [video]:https://github.com/geekist/developer_guide/blob/main/android/multimedia/Video.md
 
-## 5、数据存储
+## 6、数据存储
 
 * [SharedPreference][sharedpreference] ---  [sharePreference存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)---腾讯[MMKV](https://github.com/Tencent/MMKV/blob/master/README_CN.md)
 
@@ -334,7 +334,7 @@
 [sqlite]:https://github.com/geekist/developer_guide/blob/main/android/database/SQLite.md
 
 
-## 6、网络编程（WebView）
+## 7、网络编程（WebView）
 
 * [webview](https://github.com/geekist/developer_guide/blob/main/android/ui/webview.md)
 
@@ -342,15 +342,15 @@
 
 * [第三方开源库agentweb封装webview实现带进度条的webview](https://github.com/Justson/AgentWeb)
 
-## 7、Android消息机制与Android线程和线程池
+## 8、Android消息机制与Android线程和线程池
 
-### 7.1 线程和线程池
+### 8.1 线程和线程池
 
 * [Java线程][javathread]
 
 * [Android线程和线程池](https://blog.yorek.xyz/android/framework/Android%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/)
 
-### 7.2消息机制--Handler、Looper，Message、MessageQueue
+### 8.2消息机制--Handler、Looper，Message、MessageQueue
 
 * [Android消息机制](https://blog.yorek.xyz/android/framework/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/)
 
@@ -358,7 +358,7 @@
 
 * [HandlerThread][handlerthread]
 
-### 7.3 Android的异步调用方法
+### 8.3 Android的异步调用方法
 
 * [AsyncTask][asynctask]
 
@@ -373,7 +373,7 @@
 [asynctask]:https://github.com/geekist/developer_guide/blob/main/android/thread/AsyncTask.md
 [intentservice]:https://github.com/geekist/developer_guide/blob/main/android/thread/IntentService.md
 
-## 8、Jetpack
+## 9、Jetpack
 * [Lifecycles][lifecycles]
 
 
@@ -400,7 +400,111 @@
 
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
-# 四、Android应用编译和发布
+# 五、Android主流第三方库源码解析
+
+* [安卓主流三方库源码分析](https://jsonchao.github.io/categories/%E5%AE%89%E5%8D%93%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/)
+
+* [android 第三方源码库分析](https://blog.yorek.xyz/android/3rd-library/3rd-library-source-code/)
+
+
+* [ARouter][arouter]
+
+* [EventBus][eventbus]
+
+* [AutoSize][autosize]
+
+* [OkGo][okgo]
+
+* [Rxjava][rxjava]
+
+* [Glide][glide]
+
+* [Litepal][litepal]
+
+[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
+[eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
+[autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
+[okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
+[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
+
+[glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
+
+[litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
+
+# 六、Android性能调优
+
+
+* [Android性能优化](https://blog.yorek.xyz/android/framework/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/)
+
+## 1、启动优化
+
+* [Android启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
+
+* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/) 
+
+* [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
+
+
+* [四大组件启动过程代码分析](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
+
+## 2、UI优化
+
+**Android不同屏幕兼容性**
+
+* [Android屏幕适配解决方案](https://www.jianshu.com/p/ec5a1a30694b)
+
+* [屏幕适配方案总结](https://juejin.cn/post/6844903599495970830)
+
+* [AndroidAutoSize代码分析](https://blog.csdn.net/u012588160/article/details/105876735) && [Autosize使用](https://www.xiaoheidiannao.com/220402.html)
+
+## 3、崩溃优化
+
+* [崩溃优化分析](https://github.com/geekist/developer_guide/blob/main/android/system/android崩溃优化.md)
+
+## 4、内存优化
+
+* [Android内存管理机制](https://www.jianshu.com/p/258229426da4)
+
+* [Android内存优化技巧](https://www.jianshu.com/p/51e28a2c609c)
+
+## 5、卡顿优化
+
+* [深入探索Android卡顿优化-1](https://juejin.cn/post/6844904062610046990)
+
+* [深入探索Android卡顿优化-2](https://juejin.cn/post/6844904066259091469)
+
+## 6、耗电优化
+
+* [androird耗电分析与优化-1](https://blog.yorek.xyz/android/paid/master/battery_1/)
+
+* [androird耗电分析与优化-2](https://blog.yorek.xyz/android/paid/master/battery_2/)
+
+* [Android性能优化系列之电量优化](https://blog.csdn.net/u012124438/article/details/74617649)
+
+* [深入探索 Android 电量优化](https://juejin.cn/post/6844904195523346439)
+
+## 7、存储优化
+
+* [sharePreference存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)---腾讯[MMKV](https://github.com/Tencent/MMKV/blob/master/README_CN.md)
+
+* [contentproviver存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)
+
+* [file存储优化](https://blog.yorek.xyz/android/paid/master/storage_2/)
+
+* [数据库sqlite存储优化](https://blog.yorek.xyz/android/paid/master/storage_3/)
+
+## 进程保活
+
+* [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
+
+# 七、Android测试框架
+
+
+* [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
+
+* [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
+
+# 八、Android应用编译和发布
 
 ## 1、APK资源分析
 
@@ -471,104 +575,16 @@
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 
-# 五、Android性能优化
-
-* [Android性能优化](https://blog.yorek.xyz/android/framework/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/)
-
-## 1、启动优化
-
-* [Android启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
-
-* [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/) 
-
-* [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
 
 
-* [四大组件启动过程代码分析](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
 
-## 2、UI优化
 
-**Android不同屏幕兼容性**
 
-* [Android屏幕适配解决方案](https://www.jianshu.com/p/ec5a1a30694b)
 
-* [屏幕适配方案总结](https://juejin.cn/post/6844903599495970830)
 
-* [AndroidAutoSize代码分析](https://blog.csdn.net/u012588160/article/details/105876735) && [Autosize使用](https://www.xiaoheidiannao.com/220402.html)
 
-## 3、崩溃优化
 
-* [崩溃优化分析](https://github.com/geekist/developer_guide/blob/main/android/system/android崩溃优化.md)
-
-## 4、内存优化
-
-* [Android内存管理机制](https://www.jianshu.com/p/258229426da4)
-
-* [Android内存优化技巧](https://www.jianshu.com/p/51e28a2c609c)
-
-## 5、卡顿优化
-
-* [深入探索Android卡顿优化-1](https://juejin.cn/post/6844904062610046990)
-
-* [深入探索Android卡顿优化-2](https://juejin.cn/post/6844904066259091469)
-
-## 6、耗电优化
-
-* [androird耗电分析与优化-1](https://blog.yorek.xyz/android/paid/master/battery_1/)
-
-* [androird耗电分析与优化-2](https://blog.yorek.xyz/android/paid/master/battery_2/)
-
-* [Android性能优化系列之电量优化](https://blog.csdn.net/u012124438/article/details/74617649)
-
-* [深入探索 Android 电量优化](https://juejin.cn/post/6844904195523346439)
-
-## 7、存储优化
-
-* [sharePreference存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)---腾讯[MMKV](https://github.com/Tencent/MMKV/blob/master/README_CN.md)
-
-* [contentproviver存储优化](https://blog.yorek.xyz/android/paid/master/storage_1/)
-
-* [file存储优化](https://blog.yorek.xyz/android/paid/master/storage_2/)
-
-* [数据库sqlite存储优化](https://blog.yorek.xyz/android/paid/master/storage_3/)
-
-## 进程保活
-
-* [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
-
-# 六、Android测试框架
-
-* [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
-
-* [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
-
-# 七、Android常用框架库原理
-
-* [ARouter][arouter]
-
-* [EventBus][eventbus]
-
-* [AutoSize][autosize]
-
-* [OkGo][okgo]
-
-* [Rxjava][rxjava]
-
-* [Glide][glide]
-
-* [Litepal][litepal]
-
-[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
-[eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
-[autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
-[okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
-[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
-
-[glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
-
-[litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
-
-# 八、Android应用SDK
+# 九、Android应用SDK
 
 
 ## 支付
@@ -582,7 +598,7 @@
 ## 二维码
 
 
-# 九、Android新技术 
+# 十、Android新技术 
 
 ## 1、AR
 
