@@ -91,7 +91,7 @@
 
 ## 2、Kotlin语言
 
-* [kotlin语言教程](https://www.kotlincn.net/docs/reference/basic-syntax.html)
+* [kotlin语言教程](https://www.kotlincn.net/docs/kotlin-docs.pdf)
 
 * [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin基础.md)
 
@@ -411,7 +411,13 @@
 
 * [glide源码解析](https://juejin.cn/post/6844903605728706573) ---[主流图片加载库的比较](https://blog.csdn.net/carson_ho/article/details/51939774)---[guolin-blog](https://guolin.blog.csdn.net/article/details/53759439)
 
+**Rxjava是一个薄弱环节，需要多加学习**
+
+* [Rxjava][rxjava]
+
 * [Rxjava使用方法](https://blog.csdn.net/carson_ho/article/details/78179340)---[Rxjava源码解析](https://blog.csdn.net/carson_ho/article/details/79168523)
+
+* [Rxjava2系列](https://blog.csdn.net/carson_ho/category_7227390.html)
 
 * [Eventbus]()
 
@@ -436,7 +442,6 @@
 
 * [OkGo][okgo]
 
-* [Rxjava][rxjava]
 
 * [Glide][glide]
 
