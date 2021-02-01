@@ -419,33 +419,16 @@
 
 * [Rxjava2系列](https://blog.csdn.net/carson_ho/category_7227390.html)
 
-* [Eventbus]()
-
-* [Arouter]()
-
-* [Butterknife]()
-
-* [GreenDao]()
-
-
-
-* [安卓主流三方库源码分析](https://jsonchao.github.io/categories/%E5%AE%89%E5%8D%93%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/)
-
-* [android 第三方源码库分析](https://blog.yorek.xyz/android/3rd-library/3rd-library-source-code/)
-
-
-* [ARouter][arouter]
-
-* [EventBus][eventbus]
-
-* [AutoSize][autosize]
-
-* [OkGo][okgo]
-
-
-* [Glide][glide]
+* [GreenDao源码分析](https://jsonchao.github.io/2018/12/22/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E5%9B%9B%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GreenDao%E6%BA%90%E7%A0%81%EF%BC%89/)
 
 * [Litepal][litepal]
+
+
+* [Eventbus](https://juejin.cn/post/6844904007199113229)
+
+* [ARouter使用介绍][arouter]--[ARouter源码分析](https://juejin.cn/post/6844903505937842183)
+
+* [ARouter官方文档](https://developer.aliyun.com/article/71687)
 
 [arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
 [eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
