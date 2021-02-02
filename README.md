@@ -458,6 +458,8 @@
 
 ## 1、启动优化
 
+* [Activity启动过程-类分析](https://github.com/geekist/developer_guide/blob/main/android/system/android_app启动流程分析.md) ---  [Activity启动过程代码分析--三个步骤，分两个层次描述](https://bbs.huaweicloud.com/blogs/168409)
+
 * [Android启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)
 
 * [启动优化分析-1](https://blog.yorek.xyz/android/paid/master/start_1/) 
@@ -477,15 +479,21 @@
 
 * [AndroidAutoSize代码分析](https://blog.csdn.net/u012588160/article/details/105876735) && [Autosize使用](https://www.xiaoheidiannao.com/220402.html)
 
-## 3、崩溃优化
+## 3、ANR与崩溃定位与分析
 
 * [崩溃优化分析](https://github.com/geekist/developer_guide/blob/main/android/system/android崩溃优化.md)
 
+* [ANR问题的定位与分析](https://github.com/geekist/developer_guide/blob/main/android/system/android_ANR.md)
+
 ## 4、内存优化
 
-* [Android内存管理机制](https://www.jianshu.com/p/258229426da4)
+* [Android内存管理与内存回收机制](https://www.jianshu.com/p/258229426da4)
 
 * [Android内存优化技巧](https://www.jianshu.com/p/51e28a2c609c)
+
+* [内存泄漏分析与查找](https://juejin.cn/post/6844904067534159880#heading-24)
+
+* [LeakCanary使用详细教程](https://www.jianshu.com/p/c32f9aa85f18)
 
 ## 5、卡顿优化
 
@@ -513,9 +521,10 @@
 
 * [数据库sqlite存储优化](https://blog.yorek.xyz/android/paid/master/storage_3/)
 
-## 进程保活
+## 8、进程保活
+* [关于消息推送](https://www.mdeditor.tw/pl/pN5J)
 
-* [Android进程保活](https://carsonho.blog.csdn.net/article/details/79522975)
+* [Android进程保活](http://www.52im.net/thread-3033-1-1.html)
 
 # 七、Android测试框架
 

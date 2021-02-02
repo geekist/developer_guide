@@ -13,6 +13,7 @@
 ### 2.1 用UncaughtExceptionHandler接口处理Java层crash [UncaughtExceptionHandler demo](https://blog.csdn.net/qq_30379689/article/details/53731646)
 
 主要方法如下：
+
 1、创建BaseApplication继承Application并实现Thread.UncaughtExceptionHandler
 
 2、通过Thread.setDefaultUncaughtExceptionHandler(this)设置默认的异常捕获
