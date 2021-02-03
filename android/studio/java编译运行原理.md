@@ -116,9 +116,14 @@ JVM的类加载是通过ClassLoader及其子类来完成的，类的层次关系
 
 
 * 当使用animal.printName()的时候，JVM根据animal引用找到Animal对象，然后根据Animal对象持有的引用定位到方法区中Animal类的类型信息的方法表，获得printName()函数的字节码的地址。
+
+
 * 开始运行printName()函数。
 
-![](https://img-blog.csdnimg.cn/20210110204317434.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbmd3dTAwNw==,size_16,color_FFFFFF,t_70)
+![](https://img-blog.csdnimg.cn/20210110204317434.png)
+
+
+至此，一个完成的加载过程就结束了。
 
 
 
