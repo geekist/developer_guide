@@ -120,8 +120,7 @@ JVM的类加载是通过ClassLoader及其子类来完成的，类的层次关系
 
 * 开始运行printName()函数。
 
-![](https://img-blog.csdnimg.cn/20210110204317434.png)
-
+![](https://img-blog.csdnimg.cn/20210203110230107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbmd3dTAwNw==,size_16,color_FFFFFF,t_70)
 
 至此，一个完成的加载过程就结束了。
 
