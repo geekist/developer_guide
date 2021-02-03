@@ -2,6 +2,8 @@
 
 # MultiDex
 
+*[AndroidDex分包方案](https://www.jianshu.com/p/a67a560903fa)
+
 ## 关于 64K 引用限制
 Android 应用 (APK) 文件包含 Dalvik Executable (DEX) 文件形式的可执行字节码文件，这些文件包含用来运行应用的已编译代码。Dalvik Executable 规范将可在单个 DEX 文件内引用的方法总数限制为 65536，其中包括 Android 框架方法、库方法以及您自己的代码中的方法。在计算机科学领域内，术语千（简称 K）表示 1024（即 2^10）。由于 65536 等于 64 X 1024，因此这一限制称为“64K 引用限制”。
 

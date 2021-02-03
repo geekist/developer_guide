@@ -528,12 +528,9 @@
 
 # 七、Android测试框架
 
-
 * [Android自动化测试框架介绍](https://github.com/geekist/developer_guide/blob/main/android/test/autotest.md)
 
 * [Andoid单元测试介绍](https://github.com/geekist/developer_guide/blob/main/android/test/unittest.md)
-
-* [Android 单元测试和 UI 测试初步实践](https://juejin.cn/post/6844903877339250695)
 
 # 八、Android应用编译和发布
 
