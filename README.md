@@ -21,26 +21,46 @@
     * [组件化、MVP、MVVM](#组件化mvpmvvm)
   * [源代码管理SVN和git](#源代码管理svn和git)
 * [三、Android系统原理](#三android系统原理)
-  * [Android系统框架](#android系统框架)
-  * [Android系统启动过程](#android系统启动过程)
-  * [Android 系统进程间通信机制](#android-系统进程间通信机制)
-  * [Android App启动过程](#android-app启动过程)
-  * [JNI与NDK](#jni与ndk)
-* [四、Android基础开发知识](#四android基础开发知识)
+  * [3\.1 Android系统框架和启动过程](#31-android系统框架和启动过程)
+  * [3\.2 Android 进程间通信机制](#32-android-进程间通信机制)
+  * [3\.3 JNI与NDK](#33-jni与ndk)
+  * [Android版本迭代](#android版本迭代)
+  * [Android厂商兼容性问题](#android厂商兼容性问题)
+* [四、Android Framework 基础知识](#四android-framework-基础知识)
   * [1、四大组件](#1四大组件)
-  * [2、用户界面开发](#2用户界面开发)
-      * [Material Design](#material-design)
-      * [外观和风格](#外观和风格)
-      * [布局layout](#布局layout)
-    * [UI控件](#ui控件)
-    * [动画](#动画)
-    * [通知](#通知)
-    * [多媒体](#多媒体)
-    * [数据存储](#数据存储)
-    * [网络编程（WebView）](#网络编程webview)
-    * [线程](#线程)
-    * [Jetpack](#jetpack)
-* [四、Android发布相关](#四android发布相关)
+    * [1\.1 四大组件的简介和启动过程](#11-四大组件的简介和启动过程)
+  * [2、View](#2view)
+    * [2\.1 android UI 控件的介绍基本用法](#21-android-ui-控件的介绍基本用法)
+    * [2\.2 window和view](#22-window和view)
+    * [3、动画](#3动画)
+  * [4、通知](#4通知)
+  * [5、多媒体](#5多媒体)
+  * [6、数据存储](#6数据存储)
+  * [7、网络编程（WebView）](#7网络编程webview)
+  * [8、Android消息机制与Android线程和线程池](#8android消息机制与android线程和线程池)
+    * [8\.1 线程和线程池](#81-线程和线程池)
+    * [8\.2消息机制\-\-Handler、Looper，Message、MessageQueue](#82消息机制--handlerloopermessagemessagequeue)
+    * [8\.3 Android的异步调用方法](#83-android的异步调用方法)
+  * [9、Jetpack](#9jetpack)
+* [五、Android主流第三方库源码解析](#五android主流第三方库源码解析)
+  * [1、OKHttp](#1okhttp)
+  * [2、Retrofit](#2retrofit)
+  * [3、Glide](#3glide)
+  * [4、Rxjava](#4rxjava)
+  * [5、GReenDao and LitePal](#5greendao-and-litepal)
+  * [6、EventBus](#6eventbus)
+  * [7、ARouter](#7arouter)
+* [六、Android性能调优](#六android性能调优)
+  * [1、启动优化](#1启动优化)
+  * [2、UI优化](#2ui优化)
+  * [3、ANR与崩溃定位与分析](#3anr与崩溃定位与分析)
+  * [4、内存优化](#4内存优化)
+  * [5、卡顿优化](#5卡顿优化)
+  * [6、耗电优化](#6耗电优化)
+  * [7、存储优化](#7存储优化)
+  * [8、进程保活](#8进程保活)
+* [七、Android测试框架](#七android测试框架)
+* [八、Android应用编译和发布](#八android应用编译和发布)
   * [1、APK资源分析](#1apk资源分析)
   * [2、APK编译(打包)、安装、反编译、热修复](#2apk编译打包安装反编译热修复)
     * [编译(打包)过程](#编译打包过程)
@@ -51,28 +71,12 @@
     * [hook](#hook)
     * [热修复](#热修复)
     * [常见问题](#常见问题)
-* [五、Android实践基础知识](#五android实践基础知识)
-  * [1、Android兼容性](#1android兼容性)
-  * [2、Android性能](#2android性能)
-    * [启动优化](#启动优化)
-    * [UI优化](#ui优化)
-    * [存储优化](#存储优化)
-    * [IO优化](#io优化)
-    * [网络优化](#网络优化)
-    * [耗电优化](#耗电优化)
-    * [崩溃优化](#崩溃优化)
-    * [内存优化](#内存优化)
-    * [卡顿优化](#卡顿优化)
-    * [安装包优化](#安装包优化)
-    * [进程保活](#进程保活)
-* [六、Android测试框架](#六android测试框架)
-* [七、Android常用框架库原理](#七android常用框架库原理)
-* [八、Android应用SDK](#八android应用sdk)
+* [九、Android应用SDK](#九android应用sdk)
   * [支付](#支付)
   * [地图](#地图)
   * [推送](#推送)
   * [二维码](#二维码)
-* [九、Android新技术](#九android新技术)
+* [十、Android新技术](#十android新技术)
   * [1、AR](#1ar)
 
 # 一、语言基础
@@ -572,6 +576,8 @@
 
 * [Android版本检测和安装](https://github.com/geekist/developer_guide/blob/main/android/studio/Update.md)
 
+* [Android Apk安装过程分析](https://www.jianshu.com/p/953475cea991)
+
 
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
@@ -602,15 +608,11 @@
 * [编译过程中常见问题][qa]
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
+* [切面编程](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649550494&idx=1&sn=6982c5aee321ed731970c763708ae7ec&chksm=f11805e3c66f8cf57a02bde8bea85adf41b3aed795aab4feb08e599e71c0ee991b73a557c52c&mpshare=1&scene=1&srcid=0820H3HbpXCZMCMcYnhhZ8pL&sharer_sharetime=1598321087796&sharer_shareid=11fdebba4d506eab0c1cc6d88064dd1e&exportkey=AYQW7eWxwPr2ZnJQntTlbQ4=&pass_ticket=Zm5QkYXc5qNbpMJX3wz0O3EsJVGcfP55Vvi%2bLlz58prd1vsPjYwJ4xSQUL5Uds46&wx_header=0#rd)
 
+* [Java注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102413966176)
 
-
-
-
-
-
-
-
+* [Java反射](https://www.liaoxuefeng.com/wiki/1252599548343744/1264799402020448)
 
 # 九、Android应用SDK
 
@@ -633,6 +635,9 @@
 * [关于AR的基本概念和现状](https://blog.csdn.net/qq_32138419/article/details/106850796)
 
 * [ARCore学习之旅：基础概念](https://juejin.cn/post/6844903493900173319)
+
+* [ARCore总结整理](https://blog.csdn.net/yangwu007?t=1)
+
 
 ----------
 
