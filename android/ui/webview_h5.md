@@ -1,8 +1,10 @@
 # Android通过WebView与JS交互
 
-## 1、Android通过WebView调用JS代码
+## 一、Android通过WebView调用JS代码
 
 ### 1.1 通过WebView的loadUrl（）
+
+**首先loadUrl加载url到webview中，然后再次loadUrl（JavaScript：：method（））**
 
 * 首先将需要调用的JS代码以html的格式放到src/main/assets文件夹里（如果服务器文件，不需要html文件，直接将js文件路径改为url即可
 
@@ -118,7 +120,7 @@
 }
 ```
 
-## 2、JS通过WebView调用Android代码
+## 二、JS通过WebView调用Android代码
 
 
 ### 2.1 通过 WebView的addJavascriptInterface（）进行对象映射

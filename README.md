@@ -83,7 +83,18 @@
 
 ## 1、java语言
 
+* [java语法速查](https://www.runoob.com/java/java-basic-datatypes.html)
+
 * [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
+
+
+* [Java位运算符和逻辑运算符](https://github.com/geekist/developer_guide/blob/main/network/operator.md)
+
+
+* [Java注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102413966176)
+
+* [Java反射](https://www.liaoxuefeng.com/wiki/1252599548343744/1264799402020448)
+
 
 * [java虚拟机](https://github.com/geekist/developer_guide/blob/main/java/Java%20虚拟机.md)
 
@@ -155,6 +166,8 @@
 
 * [Http概述](https://github.com/geekist/developer_guide/blob/main/network/Http.md)
 
+* [关于restful API的介绍](https://www.cnblogs.com/jiujuan/p/12791574.html)
+
 ### Wifi
 
 * [Android Wifi开发总结](https://blog.csdn.net/qq_34773981/article/details/79163579)
@@ -182,11 +195,8 @@
 
 ## 2、计算机硬件知识
 
-* [硬件基础知识](https://github.com/geekist/developer_guide/blob/main/IoT/硬件基础知识.md)
-
 * [Android CPU 架构详解](https://www.jianshu.com/p/44650eaceb18)
 
-* [Java位运算符和逻辑运算符](https://github.com/geekist/developer_guide/blob/main/network/operator.md)
 
 ## 3、软件工程知识
 
@@ -197,6 +207,8 @@
 ### 设计模式
 
 * [设计模式](https://github.com/geekist/developer_guide/blob/main/designpatterns/patterns.md)
+
+* [uml各种图表](https://zhuanlan.zhihu.com/p/44518805)
 
 ### 组件化、MVP、MVVM
 
@@ -416,8 +428,6 @@
 
 * [retrofit使用方法](https://www.jianshu.com/p/a3e162261ab6)---[retrofit源码解析](https://www.jianshu.com/p/0c055ad46b6c)
 
-* [关于restful API的介绍](https://www.cnblogs.com/jiujuan/p/12791574.html)
-
 ## 3、Glide
 * [glide源码解析](https://juejin.cn/post/6844903605728706573) ---[主流图片加载库的比较](https://blog.csdn.net/carson_ho/article/details/51939774)---[guolin-blog](https://guolin.blog.csdn.net/article/details/53759439)
 
@@ -609,10 +619,6 @@
 [qa]:https://github.com/geekist/developer_guide/blob/main/android/studio/QA.md
 
 * [切面编程](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649550494&idx=1&sn=6982c5aee321ed731970c763708ae7ec&chksm=f11805e3c66f8cf57a02bde8bea85adf41b3aed795aab4feb08e599e71c0ee991b73a557c52c&mpshare=1&scene=1&srcid=0820H3HbpXCZMCMcYnhhZ8pL&sharer_sharetime=1598321087796&sharer_shareid=11fdebba4d506eab0c1cc6d88064dd1e&exportkey=AYQW7eWxwPr2ZnJQntTlbQ4=&pass_ticket=Zm5QkYXc5qNbpMJX3wz0O3EsJVGcfP55Vvi%2bLlz58prd1vsPjYwJ4xSQUL5Uds46&wx_header=0#rd)
-
-* [Java注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102413966176)
-
-* [Java反射](https://www.liaoxuefeng.com/wiki/1252599548343744/1264799402020448)
 
 # 九、Android应用SDK
 

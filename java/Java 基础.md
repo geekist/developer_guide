@@ -48,14 +48,15 @@
 
 |类型    | 位 |字节|
 |----   |----|----|
+|boolean| 1  |    |
 |byte   |8   | 1  |
 |char   |16  | 2  |
 |short  |16  | 2  |
 |int    |32  |  4 |
-|float  | 32 |  4 |
 |long   | 64 | 8  |
-|double | 64 |    |
-|boolean| 1  |    |
+|float  | 32 |  4 |
+|double | 64 | 8  |
+
 
 
 boolean 只有两个值：true、false，可以使用 1 bit 来存储，但是具体大小没有明确规定。JVM 会在编译时期将 boolean 类型的数据转换为 int，使用 1 来表示 true，0 表示 false。JVM 支持 boolean 数组，但是是通过读写 byte 数组来实现的。
@@ -741,6 +742,9 @@ public class EqualExample {
 ```
 
 ### hashCode()
+* [hashcode 介绍](https://www.jianshu.com/p/b2c8335fca32)
+
+* [hashcode 为什么31](https://blog.csdn.net/tayanxunhua/article/details/20525251?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs)
 
 hashCode() 返回哈希值，而 equals() 是用来判断两个对象是否等价。等价的两个对象散列值一定相同，但是散列值相同的两个对象不一定等价，这是因为计算哈希值具有随机性，两个值不同的对象可能计算出相同的哈希值。
 
