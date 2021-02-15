@@ -168,6 +168,8 @@
 
 * [关于restful API的介绍](https://www.cnblogs.com/jiujuan/p/12791574.html)
 
+* [https通讯过程](https://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
+
 ### Wifi
 
 * [Android Wifi开发总结](https://blog.csdn.net/qq_34773981/article/details/79163579)
@@ -219,6 +221,12 @@
 * [android MVC、MVP and MVVM](https://www.jianshu.com/p/b9549aa0e1fe)
 
 
+
+* [谈谈自己项目管理的方法--敏捷开发](http://www.ruanyifeng.com/blog/2019/03/agile-development.html)
+
+* [敏捷开发的介绍](https://www.jianshu.com/p/f4dc76f46af0)
+
+
 ## 源代码管理SVN和git
 
 * [git介绍](https://www.cnblogs.com/tugenhua0707/p/4050072.html)
@@ -247,6 +255,8 @@
 * [binder机制详细介绍](https://zhuanlan.zhihu.com/p/35519585)
 
 * [ServiceManager介绍](https://blog.yorek.xyz/android/framework/binder2/)
+
+* [AIDL实现跨进程通信](https://www.jianshu.com/p/29999c1a93cd)
 
 ## 3.3 JNI与NDK
 
@@ -309,7 +319,9 @@
 
 * [View的绘制原理](https://blog.yorek.xyz/android/framework/View%E7%9A%84%E7%BB%98%E5%88%B6%E5%8E%9F%E7%90%86/)[RemoteViews](https://blog.yorek.xyz/android/framework/RemoteViews/)
 
-* [自定义View][self]
+* [自定义View](https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md)
+
+
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
 
 
@@ -370,7 +382,7 @@
 
 ### 8.2消息机制--Handler、Looper，Message、MessageQueue
 
-* [Android消息机制](https://blog.yorek.xyz/android/framework/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/)
+* [Android消息机制](https://blog.yorek.xyz/android/framework/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/) Activity.runOnUIThread(runable)以及View.post(runable)
 
 * [Handler][handler]
 
@@ -382,7 +394,7 @@
 
 * [IntentService][intentservice]
 
-* Activity.runOnUIThread(runable)以及View.post(runable)
+
 
 
 [javathread]:https://github.com/geekist/developer_guide/blob/main/android/thread/JavaThread.md
@@ -431,7 +443,7 @@
 ## 3、Glide
 * [glide源码解析](https://juejin.cn/post/6844903605728706573) ---[主流图片加载库的比较](https://blog.csdn.net/carson_ho/article/details/51939774)---[guolin-blog](https://guolin.blog.csdn.net/article/details/53759439)
 
-
+* [Glide常问的点](https://juejin.cn/post/6844903986412126216)
 ## 4、Rxjava
 **Rxjava是一个薄弱环节，需要多加学习**
 
@@ -649,5 +661,6 @@
 
 [老版本入口](https://github.com/geekist/developer_guide/blob/main/README2.md)
 
+[复习汇总](https://github.com/geekist/developer_guide/blob/main/面试.md)
 
 

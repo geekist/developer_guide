@@ -166,3 +166,6 @@ gDefaultServiceManager = new BpServiceManager(new BpBinder(0));
 
 当 Binder 驱动接收到 A 进程的消息后，发现这是个 objectProxy 就去查询自己维护的表单，一查发现这是 B 进程 object 的代理对象。于是就会去通知 B 进程调用 object 的方法，并要求 B 进程把返回结果发给自己。当驱动拿到 B 进程的返回结果后就会转发给 A 进程，一次通信就完成了。
 
+### System Server进程和Service Manager进程
+system server 进程是zygotefork出来的，用来创建各种服务。比如AMS，WM等。
+service Manager进程用来管理上面创建的各种服务。

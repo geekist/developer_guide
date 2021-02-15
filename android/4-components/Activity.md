@@ -4,7 +4,7 @@
 
 **1、Activity概念**
 
-**2、创建一个Fragment**
+**2、创建一个Activity**
 
 **3、启动和销毁activity**
 
@@ -12,7 +12,7 @@
 
 **5、Activity的启动模式**
 
-**5、Activity的声明周期**
+**5、Activity的生命周期**
 
 ## Activity概念
 

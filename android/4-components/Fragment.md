@@ -142,6 +142,8 @@ if(activity != null) {
 可用通过activity得到不同的fragment，然后可以实现通信。
 
 ## fragment的生命周期
+
+![](http://res.mianshigee.com/upload/article/20200111/1354170682_3824.png)
 ```java
 package com.jon.chapter0501
 
