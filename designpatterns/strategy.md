@@ -8,6 +8,8 @@
 
 ## 场景
 
+![](https://design-patterns.readthedocs.io/zh_CN/latest/_images/Strategy.jpg)
+
 ## 实例
 
 

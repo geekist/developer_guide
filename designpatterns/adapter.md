@@ -13,7 +13,9 @@
 适配器模式的形式分为：类的适配器模式和对象的适配器模式
 
 ## 场景
-![](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzk0NDM2NS0yNGM2YmY0NGRhMWI3OWFkLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMTI0MA)
+![](https://design-patterns.readthedocs.io/zh_CN/latest/_images/Adapter.jpg)
+
+![](https://design-patterns.readthedocs.io/zh_CN/latest/_images/Adapter_classModel.jpg)
 
 ## 实例
 

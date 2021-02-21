@@ -168,6 +168,8 @@
 
 * [关于restful API的介绍](https://www.cnblogs.com/jiujuan/p/12791574.html)
 
+* [restful api设计规范](https://www.cnblogs.com/tugenhua0707/p/12153857.html)
+
 * [https通讯过程](https://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
 
 ### Wifi
@@ -492,7 +494,7 @@
 
 * [启动优化分析-2](https://blog.yorek.xyz/android/paid/master/start_2/)
 
-
+* [启动优化的点](https://github.com/geekist/developer_guide/blob/main/android/system/启动优化的点.md)
 * [四大组件启动过程代码分析](https://blog.yorek.xyz/android/framework/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/)
 
 ## 2、UI优化

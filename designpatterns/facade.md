@@ -6,7 +6,7 @@
 
 ## 场景
 
-![](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzk0NDM2NS1mOGExOWY3Y2M5NzcxYTcxLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMTI0MA)
+![](https://design-patterns.readthedocs.io/zh_CN/latest/_images/Facade.jpg)
 
 门面角色(Facade)：客户端可以调用这个角色的方法。此角色知晓相关的(一个或多个)子系统的功能和责任。在正常情况下，本角色会将所有从客户端发来的请求委派到相应的子系统去。
 

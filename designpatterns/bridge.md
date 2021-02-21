@@ -8,6 +8,7 @@
 
 不必要的继承导致类爆炸
 汽车可按品牌分（本例中只考虑BMT，BenZ，Land Rover），也可按手动档、自动档、手自一体来分。如果对于每一种车都实现一个具体类，则一共要实现3*3=9个类。
+![](https://design-patterns.readthedocs.io/zh_CN/latest/_images/Bridge.jpg)
 ![](http://www.jasongj.com/img/designpattern/bridge/Bridge.png)
 
 

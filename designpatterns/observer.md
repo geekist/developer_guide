@@ -8,6 +8,8 @@
 
 ![](http://www.jasongj.com/img/designpattern/observer/observer.png)
 
+
+
 ## 实例
 
 ```java
