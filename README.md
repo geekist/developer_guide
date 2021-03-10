@@ -1,4 +1,6 @@
-# 服务器知识 [](https://github.com/geekist/developer_guide/blob/main/server/server.md)
+# 服务器知识 
+[服务器基础](https://github.com/geekist/developer_guide/blob/main/server/server.md)
+
 # Android Developer Guide
 * [Android Developer Guide](#android-developer-guide)
 * [一、语言基础](#一语言基础)
