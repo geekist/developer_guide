@@ -106,6 +106,8 @@
 
 * [java容器](https://github.com/geekist/developer_guide/blob/main/java/Java%20容器.md)
 
+* [java函数式接口和lambd表达式](https://github.com/geekist/developer_guide/blob/main/java/lambda.md)
+
 ## 2、Kotlin语言
 
 * [kotlin语言教程](https://www.kotlincn.net/docs/kotlin-docs.pdf)
