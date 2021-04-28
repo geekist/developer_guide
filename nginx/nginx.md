@@ -73,8 +73,7 @@ Nginx 中文介绍见 http://tengine.taobao.org/nginx_docs/cn/
 
 正向代理对我们是透明的，对服务端是非透明的，即服务端并不知道自己收到的是来自代理的访问还是来自真实客户端的访问。
 
-![正向代理](/assets/images/nginx/delegate.png)
-
+![正向代理](https://github.com/geekist/developer_guide/blob/main/nginx/assets/delegate.png){:class="img-responsive"}
 **反向代理**
 
 反向代理（Reverse Proxy）方式是指以代理服务器来接受 internet 上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给 internet 上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。
@@ -82,8 +81,8 @@ Nginx 中文介绍见 http://tengine.taobao.org/nginx_docs/cn/
 反向代理是为服务端服务的，反向代理可以帮助服务器接收来自客户端的请求，帮助服务器做请求转发，负载均衡等。
 
 反向代理对服务端是透明的，对我们是非透明的，即我们并不知道自己访问的是代理服务器，而服务器知道反向代理在为他服务。
+![正向代理](https://github.com/geekist/developer_guide/blob/main/nginx/assets/reverse_delegate.png){:class="img-responsive"}
 
-![反向代理](/assets/images/nginx/reverse_delegate.png)
 
 - 二、负载均衡
 
@@ -131,8 +130,8 @@ IO多路复用epoll（IO复用）
 Master进程的作用是读取并验证配置文件nginx.conf；管理worker进程；
 
 Worker进程的作用是：每一个Worker进程都维护一个线程（避免线程切换），处理连接和请求；注意Worker进程的个数由配置文件决定，一般和CPU个数相关（有利于进程切换），配置几个就有几个Worker进程。
-![工作进程](/assets/images/nginx/worker.jpg)
 
+![工作进程](https://github.com/geekist/developer_guide/blob/main/nginx/assets/worker.jpg){:class="img-responsive"}
 
 Nginx如何做到热部署？
 
