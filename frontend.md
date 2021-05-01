@@ -12,5 +12,9 @@
 ## [javascript基础知识](https://www.runoob.com/js/js-tutorial.html)
 ---
 
+## [web的发展历史](https://github.com/geekist/developer_guide/blob/main/frontend/web_history.md)
+
 ## [前端开发的历史和趋势](https://github.com/geekist/developer_guide/blob/main/frontend/history.md)
+
+
 
