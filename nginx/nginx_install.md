@@ -10,8 +10,47 @@ nginx.org
 
 解压到安装目录下即可
 
+### 查看nginx版本
+
+nginx -v
+
 ### 配置
+
 在conf/nginx.conf文件中，修改
+
+```java
+
+server {
+        listen       80;
+        server_name  localhost;
+
+```
+
+### 运行nginx
+
+* 如果nginx没有运行，则运行nginx
+
+start nginx 
+
+* 如果nginx已经运行，则重新启动nginx
+
+nginx -s reload
+
+### 终止nginx
+
+* 快速停止nginx
+
+nginx -s stop
+
+* 完整有序的关闭
+
+nginx -s quit
+
+### 检查配置文件
+
+nginx -t -c /nginx-1.15.2/conf/nginx.conf
+
+### 一个配置文件的例子
 
 ```java
 
@@ -134,27 +173,3 @@ http {
 
 
 ```
-
-### 运行nginx
-
-如果nginx没有运行，则运行nginx
-
-start nginx 
-
-如果nginx已经运行，则重新启动nginx
-
-nginx -s reload
-
-### 终止nginx
-
-快速停止nginx
-
-nginx -s stop
-
-完整有序的关闭
-
-nginx -s quit
-
-### 检查配置文件
-
-nginx -t -c /nginx-1.15.2/conf/nginx.conf
