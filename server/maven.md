@@ -1,11 +1,11 @@
 
 # 一、Maven介绍
 
+## 1、java项目依赖
 
-## 1、什么是Maven
-Maven是一个Java项目管理和构建工具，它可以定义项目结构、项目依赖，并使用统一的方式进行自动化构建，是Java项目不可缺少的工具。
+在了解Maven之前，我们先来看看一个Java项目需要的东西。
 
-在了解Maven之前，我们先来看看一个Java项目需要的东西。首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons logging的jar包放入classpath。如果我们还需要log4j，就需要把log4j相关的jar包都放到classpath中。这些就是依赖包的管理。
+首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons logging的jar包放入classpath。如果我们还需要log4j，就需要把log4j相关的jar包都放到classpath中。这些就是依赖包的管理。
 
 其次，我们要确定项目的目录结构。例如，src目录存放Java源码，resources目录存放配置文件，bin目录存放编译生成的.class文件。
 
@@ -15,15 +15,52 @@ Maven是一个Java项目管理和构建工具，它可以定义项目结构、�
 
 这些工作难度不大，但是非常琐碎且耗时。如果每一个项目都自己搞一套配置，肯定会一团糟。我们需要的是一个标准化的Java项目管理和构建工具。
 
-Maven就是是专门为Java项目打造的管理和构建工具，它的主要功能有：
+## 2、Maven介绍
 
-提供了一套标准化的项目结构；
+Maven是一个Java项目管理和构建工具，它可以定义项目结构、项目依赖，并使用统一的方式进行自动化构建，是Java项目不可缺少的工具。
 
-提供了一套标准化的构建流程（编译，测试，打包，发布……）；
+Maven的主要功能有：
 
-提供了一套依赖管理机制。
+- 提供了一套标准化的项目结构；
 
-## 2、Maven项目结构
+- 提供了一套标准化的构建流程（编译，测试，打包，发布……）；
+
+- 提供了一套依赖管理机制。
+
+# 二、安装Maven
+
+要安装Maven，可以从Maven官网下载最新的Maven 3.6.x，然后在本地解压，设置几个环境变量：
+
+M2_HOME=/path/to/maven-3.6.x
+
+PATH=$PATH:$M2_HOME/bin
+
+Windows可以把%M2_HOME%\bin添加到系统Path变量中。
+
+然后，打开命令行窗口，输入mvn -version，应该看到Maven的版本信息：
+
+```java
+┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\> mvn -version                                       │
+│Apache Maven 3.6.0 (97c98ec64a1fdfee7767ce5ffb20918...) │
+│Maven home: C:\Users\liaoxuefeng\maven                  │
+│Java version: ...                                       │
+│...                                                     │
+│C:\> _                                                  │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+如果提示命令未找到，说明系统PATH路径有误，需要修复后再运行。
+
+# 三、Maven项目结构
+
+## 1、Maven项目结构
 
 一个使用Maven管理的普通的Java项目，它的目录结构默认如下：
 
@@ -42,9 +79,11 @@ a-maven-project
 
 所有的目录结构都是约定好的标准结构，我们千万不要随意修改目录结构。使用标准结构不需要做任何配置，Maven就可以正常使用。
 
+## 2、项目描述文件
+
 我们再来看最关键的一个项目描述文件pom.xml，它的内容长得像下面：
 
-```java
+```xml
 <project ...>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.itranswarp.learnjava</groupId>
@@ -62,7 +101,125 @@ a-maven-project
         </dependency>
 	</dependencies>
 </project>
+```
+### POM介绍
 
+POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项目描述文件，它类似与antx的project.xml文件。pom.xml文件以xml的 形式描述项目的信息，包括项目名称、版本、项目id、项目的依赖关系、编译环境、持续集成、项目团队、贡献管理、生成报表等等。总之，它包含了所有的项目信息。
+
+modelVersion 描述这个POM文件是遵从哪个版本的项目描述符。
+
+groupId 针对一个项目的普遍唯一识别符。通常用一个完全正确的包的名字来与其他项目的类似名字来进行区分（比如：org.apache.maven)。
+
+artifactId 在给定groupID 的group里面为artifact 指定的标识符是唯一的 ， artifact 代表的是被制作或者被一个project应用的组件(产出物)。
+
+version 当前项目产生的artifact的版本。
+
+以上4个元素缺一不可，其中groupId, artifactId, version描述依赖的项目唯一标志。
+
+### POM的基本配置
+
+pom.xml的基本配置。
+
+```xml
+
+<project>  
+<modelVersion>4.0.0</modelVersion>  
+<!- The Basics 项目的基本信息->  
+<groupId>...</groupId>  
+<artifactId>...</artifactId>  
+<version>...</version>  
+<packaging>...</packaging>  
+<dependencies>...</dependencies>  
+<parent>...</parent>  
+<dependencyManagement>...</dependencyManagement>  
+<modules>...</modules>  
+<properties>...</properties>  
+<!- Build Settings 项目的编译设置->  
+<build>...</build>  
+<reporting>...</reporting>  
+<!- More Project Information 其它项目信息 ->  
+<name>...</name>  
+<description>...</description>  
+<url>...</url>  
+<inceptionYear>...</inceptionYear>  
+<licenses>...</licenses>  
+<organization>...</organization>  
+<developers>...</developers>  
+<contributors>...</contributors>  
+<!-- Environment Settings ->  
+<issueManagement>...</issueManagement>  
+<ciManagement>...</ciManagement>  
+<mailingLists>...</mailingLists>   
+<scm>...</scm>  
+<prerequisites>...</prerequisites>  
+<repositories>...</repositories>  
+<pluginRepositories>...</pluginRepositories>  
+<distributionManagement>...</distributionManagement>  
+<profiles>...</profiles>  
+</project>  
+
+```
+### POM的依赖关系
+
+```xml
+
+<dependencies>  
+<dependency>  
+<groupId>junit</groupId>  
+<artifactId>junit</artifactId>  
+<version>4.0</version>  
+<type>jar</type>  
+<scope>test</scope>  
+<optional>true</optional>  
+</dependency>  
+...  
+</dependencies> 
+ 
+```
+
+### POM的继承关系
+
+首先定义父项目
+
+```xml
+<project>  
+    <modelVersion>4.0.0</modelVersion>  
+    <groupId>com.mygroup </groupId>  
+    <artifactId>my-parent</artifactId>  
+    <version>2.0</version>  
+    <packaging>pom</packaging>  
+</project> 
+```
+
+子项目配置
+
+```xml
+<project>  
+    <modelVersion>4.0.0</modelVersion>  
+    <groupId>com.mygroup </groupId>  
+    <artifactId>my-child-project</artifactId>  
+    <parent>  
+        <groupId>com.mygroup </groupId>  
+        <artifactId>my-parent</artifactId>  
+        <version>2.0</version>  
+        <relativePath>../my-parent</relativePath>  
+    </parent>  
+</project> 
+```
+
+### POM的合成关系
+
+```java
+<project>  
+<modelVersion>4.0.0</modelVersion>  
+<groupId>com.mygroup </groupId>  
+<artifactId>my-parent</artifactId>  
+<version>2.0</version>  
+<modules>  
+<module>my-child-project1<module>  
+<module>my-child-project2<module>  
+</modules>  
+</project>  
 ```
 
 其中，groupId类似于Java的包名，通常是公司或组织名称，
@@ -82,32 +239,7 @@ artifactId类似于Java的类名，通常是项目名称.
 
 使用<dependency>声明一个依赖后，Maven就会自动下载这个依赖包并把它放到classpath中。
 
-## 安装Maven
 
-要安装Maven，可以从Maven官网下载最新的Maven 3.6.x，然后在本地解压，设置几个环境变量：
-
-M2_HOME=/path/to/maven-3.6.x
-PATH=$PATH:$M2_HOME/bin
-Windows可以把%M2_HOME%\bin添加到系统Path变量中。
-
-然后，打开命令行窗口，输入mvn -version，应该看到Maven的版本信息：
-
-┌────────────────────────────────────────────────────────┐
-│Command Prompt                                    - □ x │
-├────────────────────────────────────────────────────────┤
-│Microsoft Windows [Version 10.0.0]                      │
-│(c) 2015 Microsoft Corporation. All rights reserved.    │
-│                                                        │
-│C:\> mvn -version                                       │
-│Apache Maven 3.6.0 (97c98ec64a1fdfee7767ce5ffb20918...) │
-│Maven home: C:\Users\liaoxuefeng\maven                  │
-│Java version: ...                                       │
-│...                                                     │
-│C:\> _                                                  │
-│                                                        │
-│                                                        │
-└────────────────────────────────────────────────────────┘
-如果提示命令未找到，说明系统PATH路径有误，需要修复后再运行。
 
 ## Maven的依赖管理
 
@@ -433,3 +565,326 @@ goal的命名总是abc:xyz这种形式。
 大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，例如，启动Tomcat服务器：
 
 mvn tomcat:run
+
+## Maven插件
+
+我们在前面介绍了Maven的lifecycle，phase和goal：使用Maven构建项目就是执行lifecycle，执行到指定的phase为止。每个phase会执行自己默认的一个或多个goal。goal是最小任务单元。
+
+我们以compile这个phase为例，如果执行：
+
+mvn compile
+Maven将执行compile这个phase，这个phase会调用compiler插件执行关联的compiler:compile这个goal。
+
+实际上，执行每个phase，都是通过某个插件（plugin）来执行的，Maven本身其实并不知道如何执行compile，它只是负责找到对应的compiler插件，然后执行默认的compiler:compile这个goal来完成编译。
+
+所以，使用Maven，实际上就是配置好需要使用的插件，然后通过phase调用它们。
+
+Maven已经内置了一些常用的标准插件：
+
+插件名称	对应执行的phase
+
+clean	clean
+
+compiler	compile
+
+surefire	test
+
+jar	package
+
+如果标准插件无法满足需求，我们还可以使用自定义插件。使用自定义插件的时候，需要声明。例如，使用maven-shade-plugin可以创建一个可执行的jar，要使用这个插件，需要在pom.xml中声明它：
+
+```java
+<project>
+    ...
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+                            ...
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+```
+
+自定义插件往往需要一些配置，例如，maven-shade-plugin需要指定Java程序的入口，它的配置是：
+
+```java
+<configuration>
+    <transformers>
+        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+            <mainClass>com.itranswarp.learnjava.Main</mainClass>
+        </transformer>
+    </transformers>
+</configuration>
+```
+
+注意，Maven自带的标准插件例如compiler是无需声明的，只有引入其它的插件才需要声明。
+
+下面列举了一些常用的插件：
+
+maven-shade-plugin：打包所有依赖包并生成可执行jar；
+
+cobertura-maven-plugin：生成单元测试覆盖率报告；
+
+findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
+
+## 使用Maven进行模块化管理
+
+在软件开发中，把一个大项目分拆为多个模块是降低软件复杂度的有效方法：
+
+
+                        ┌ ─ ─ ─ ─ ─ ─ ┐
+                          ┌─────────┐
+                        │ │Module A │ │
+                          └─────────┘
+┌──────────────┐ split  │ ┌─────────┐ │
+│Single Project│───────>  │Module B │
+└──────────────┘        │ └─────────┘ │
+                          ┌─────────┐
+                        │ │Module C │ │
+                          └─────────┘
+                        └ ─ ─ ─ ─ ─ ─ ┘
+
+对于Maven工程来说，原来是一个大项目：
+
+
+single-project
+├── pom.xml
+└── src
+
+现在可以分拆成3个模块：
+
+
+mutiple-project
+├── module-a
+│   ├── pom.xml
+│   └── src
+├── module-b
+│   ├── pom.xml
+│   └── src
+└── module-c
+    ├── pom.xml
+    └── src
+
+Maven可以有效地管理多个模块，我们只需要把每个模块当作一个独立的Maven项目，它们有各自独立的pom.xml。例如，模块A的pom.xml：
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itranswarp.learnjava</groupId>
+    <artifactId>module-a</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>module-a</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.28</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+
+
+模块B的pom.xml：
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itranswarp.learnjava</groupId>
+    <artifactId>module-b</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>module-b</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.28</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+
+可以看出来，模块A和模块B的pom.xml高度相似，因此，我们可以提取出共同部分作为parent：
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itranswarp.learnjava</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <name>parent</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.28</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+
+注意到parent的<packaging>是pom而不是jar，因为parent本身不含任何Java代码。编写parent的pom.xml只是为了在各个模块中减少重复的配置。现在我们的整个工程结构如下：
+
+multiple-project
+├── pom.xml
+├── parent
+│   └── pom.xml
+├── module-a
+│   ├── pom.xml
+│   └── src
+├── module-b
+│   ├── pom.xml
+│   └── src
+└── module-c
+    ├── pom.xml
+    └── src
+这样模块A就可以简化为：
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.itranswarp.learnjava</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>module-a</artifactId>
+    <packaging>jar</packaging>
+    <name>module-a</name>
+</project>
+
+
+模块B、模块C都可以直接从parent继承，大幅简化了pom.xml的编写。
+
+如果模块A依赖模块B，则模块A需要模块B的jar包才能正常编译，我们需要在模块A中引入模块B：
+
+    ...
+    <dependencies>
+        <dependency>
+            <groupId>com.itranswarp.learnjava</groupId>
+            <artifactId>module-b</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+最后，在编译的时候，需要在根目录创建一个pom.xml统一编译：
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.itranswarp.learnjava</groupId>
+    <artifactId>build</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>build</name>
+
+    <modules>
+        <module>parent</module>
+        <module>module-a</module>
+        <module>module-b</module>
+        <module>module-c</module>
+    </modules>
+</project>
+
+
+这样，在根目录执行mvn clean package时，Maven根据根目录的pom.xml找到包括parent在内的共4个<module>，一次性全部编译。
+
+中央仓库
+其实我们使用的大多数第三方模块都是这个用法，例如，我们使用commons logging、log4j这些第三方模块，就是第三方模块的开发者自己把编译好的jar包发布到Maven的中央仓库中。
+
+私有仓库
+私有仓库是指公司内部如果不希望把源码和jar包放到公网上，那么可以搭建私有仓库。私有仓库总是在公司内部使用，它只需要在本地的~/.m2/settings.xml中配置好，使用方式和中央仓位没有任何区别。
+
+本地仓库
+本地仓库是指把本地开发的项目“发布”在本地，这样其他项目可以通过本地仓库引用它。但是我们不推荐把自己的模块安装到Maven的本地仓库，因为每次修改某个模块的源码，都需要重新安装，非常容易出现版本不一致的情况。更好的方法是使用模块化编译，在编译的时候，告诉Maven几个模块之间存在依赖关系，需要一块编译，Maven就会自动按依赖顺序编译这些模块。
