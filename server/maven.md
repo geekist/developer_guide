@@ -124,39 +124,39 @@ pom.xml的基本配置。
 ```xml
 
 <project>  
-<modelVersion>4.0.0</modelVersion>  
-<!- The Basics 项目的基本信息->  
-<groupId>...</groupId>  
-<artifactId>...</artifactId>  
-<version>...</version>  
-<packaging>...</packaging>  
-<dependencies>...</dependencies>  
-<parent>...</parent>  
-<dependencyManagement>...</dependencyManagement>  
-<modules>...</modules>  
-<properties>...</properties>  
-<!- Build Settings 项目的编译设置->  
-<build>...</build>  
-<reporting>...</reporting>  
-<!- More Project Information 其它项目信息 ->  
-<name>...</name>  
-<description>...</description>  
-<url>...</url>  
-<inceptionYear>...</inceptionYear>  
-<licenses>...</licenses>  
-<organization>...</organization>  
-<developers>...</developers>  
-<contributors>...</contributors>  
-<!-- Environment Settings ->  
-<issueManagement>...</issueManagement>  
-<ciManagement>...</ciManagement>  
-<mailingLists>...</mailingLists>   
-<scm>...</scm>  
-<prerequisites>...</prerequisites>  
-<repositories>...</repositories>  
-<pluginRepositories>...</pluginRepositories>  
-<distributionManagement>...</distributionManagement>  
-<profiles>...</profiles>  
+    <modelVersion>4.0.0</modelVersion>  
+    <!- The Basics 项目的基本信息->  
+    <groupId>...</groupId>  
+    <artifactId>...</artifactId>  
+    <version>...</version>  
+    <packaging>...</packaging>  
+    <dependencies>...</dependencies>  
+    <parent>...</parent>  
+    <dependencyManagement>...</dependencyManagement>  
+    <modules>...</modules>  
+    <properties>...</properties>  
+    <!- Build Settings 项目的编译设置->  
+    <build>...</build>  
+    <reporting>...</reporting>  
+    <!- More Project Information 其它项目信息 ->  
+    <name>...</name>  
+    <description>...</description>  
+    <url>...</url>  
+    <inceptionYear>...</inceptionYear>  
+    <licenses>...</licenses>  
+    <organization>...</organization>  
+    <developers>...</developers>  
+    <contributors>...</contributors>  
+    <!-- Environment Settings ->  
+    <issueManagement>...</issueManagement>  
+    <ciManagement>...</ciManagement>  
+    <mailingLists>...</mailingLists>   
+    <scm>...</scm>  
+    <prerequisites>...</prerequisites>  
+    <repositories>...</repositories>  
+    <pluginRepositories>...</pluginRepositories>  
+    <distributionManagement>...</distributionManagement>  
+    <profiles>...</profiles>  
 </project>  
 
 ```
@@ -165,14 +165,14 @@ pom.xml的基本配置。
 ```xml
 
 <dependencies>  
-<dependency>  
-<groupId>junit</groupId>  
-<artifactId>junit</artifactId>  
-<version>4.0</version>  
-<type>jar</type>  
-<scope>test</scope>  
-<optional>true</optional>  
-</dependency>  
+    <dependency>  
+        <groupId>junit</groupId>  
+        <artifactId>junit</artifactId>  
+        <version>4.0</version>  
+        <type>jar</type>  
+        <scope>test</scope>  
+        <optional>true</optional>  
+    </dependency>  
 ...  
 </dependencies> 
  
@@ -212,14 +212,14 @@ pom.xml的基本配置。
 
 ```java
 <project>  
-<modelVersion>4.0.0</modelVersion>  
-<groupId>com.mygroup </groupId>  
-<artifactId>my-parent</artifactId>  
-<version>2.0</version>  
-<modules>  
-<module>my-child-project1<module>  
-<module>my-child-project2<module>  
-</modules>  
+    <modelVersion>4.0.0</modelVersion>  
+    <groupId>com.mygroup </groupId>  
+    <artifactId>my-parent</artifactId>  
+    <version>2.0</version>  
+    <modules>  
+         <module>my-child-project1<module>  
+         <module>my-child-project2<module>  
+    </modules>  
 </project>  
 ```
 
@@ -251,7 +251,7 @@ artifactId类似于Java的类名，通常是项目名称.
 类似的依赖还包括：JUnit，JavaMail，MySQL驱动等等，一个可行的方法是通过搜索引擎搜索到项目的官网，然后手动下载zip包，解压，放入classpath。但是，这个过程非常繁琐。
 
 Maven解决了依赖管理问题。例如，我们的项目依赖abc这个jar包，而abc又依赖xyz这个jar包：
-
+```java
 ┌──────────────┐
 │Sample Project│
 └──────────────┘
@@ -265,6 +265,7 @@ Maven解决了依赖管理问题。例如，我们的项目依赖abc这个jar包
 ┌──────────────┐
 │     xyz      │
 └──────────────┘
+```
 
 当我们声明了abc的依赖时，Maven自动把abc和xyz都加入了我们的项目依赖，不需要我们自己去研究abc是否需要依赖xyz。
 
