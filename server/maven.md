@@ -434,10 +434,9 @@ spring-boot-starter-web
 
 Maven定义了几种依赖关系，分别是compile、test、runtime和provided：
 
-
 |scope|说明|示例|
 
-|===|===|==|
+|---|---|---|
 
 |compile|编译时需要用到该jar包（默认）|commons-logging|
 
@@ -483,6 +482,8 @@ provided依赖表示编译时需要，但运行时不需要。最典型的provid
 </dependency>
 ```
 
+## Maven仓库
+
 最后一个问题是，Maven如何知道从何处下载所需的依赖？也就是相关的jar包？答案是Maven维护了一个中央仓库（repo1.maven.org），所有第三方库将自身的jar以及相关信息上传至中央仓库，Maven就可以从中央仓库把所需依赖下载到本地。
 
 
@@ -506,7 +507,7 @@ version：该jar包的版本。
 
 Maven镜像
 除了可以从Maven的中央仓库下载外，还可以从Maven的镜像仓库下载。如果访问Maven的中央仓库非常慢，我们可以选择一个速度较快的Maven的镜像仓库。Maven镜像仓库定期从中央仓库同步：
-
+```xml
            slow    ┌───────────────────┐
     ┌─────────────>│Maven Central Repo.│
     │              └───────────────────┘
@@ -517,6 +518,7 @@ Maven镜像
 │ User  │─────────>│Maven Mirror Repo. │
 └───────┘          └───────────────────┘
 
+```
 中国区用户可以使用阿里云提供的Maven镜像仓库。使用Maven镜像仓库需要一个配置，在用户主目录下进入.m2目录，创建一个settings.xml配置文件，内容如下：
 
 ```java
@@ -539,21 +541,6 @@ Maven镜像
 最后一个问题：如果我们要引用一个第三方组件，比如okhttp，如何确切地获得它的groupId、artifactId和version？方法是通过search.maven.org搜索关键字，找到对应的组件后，直接复制：
 
 copy-maven
-
-命令行编译
-
-在命令中，进入到pom.xml所在目录，输入以下命令：
-
-$ mvn clean package
-
-如果一切顺利，即可在target目录下获得编译后自动打包的jar。
-
-在IDE中使用Maven
-
-几乎所有的IDE都内置了对Maven的支持。在Eclipse中，可以直接创建或导入Maven项目。如果导入后的Maven项目有错误，可以尝试选择项目后点击右键，选择Maven - Update Project...更新：
-
-update-maven-project
-
 
 
 ## Maven插件
@@ -583,7 +570,7 @@ jar	package
 
 如果标准插件无法满足需求，我们还可以使用自定义插件。使用自定义插件的时候，需要声明。例如，使用maven-shade-plugin可以创建一个可执行的jar，要使用这个插件，需要在pom.xml中声明它：
 
-```java
+```xml
 <project>
     ...
 	<build>
@@ -635,6 +622,7 @@ findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
 
 在软件开发中，把一个大项目分拆为多个模块是降低软件复杂度的有效方法：
 
+```xml
 
                         ┌ ─ ─ ─ ─ ─ ─ ┐
                           ┌─────────┐
@@ -647,17 +635,18 @@ findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
                         │ │Module C │ │
                           └─────────┘
                         └ ─ ─ ─ ─ ─ ─ ┘
-
+```
 对于Maven工程来说，原来是一个大项目：
 
-
+```xml
 single-project
 ├── pom.xml
 └── src
+```
 
 现在可以分拆成3个模块：
 
-
+```xml
 mutiple-project
 ├── module-a
 │   ├── pom.xml
@@ -668,9 +657,11 @@ mutiple-project
 └── module-c
     ├── pom.xml
     └── src
+```
 
 Maven可以有效地管理多个模块，我们只需要把每个模块当作一个独立的Maven项目，它们有各自独立的pom.xml。例如，模块A的pom.xml：
 
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -711,10 +702,11 @@ Maven可以有效地管理多个模块，我们只需要把每个模块当作一
         </dependency>
     </dependencies>
 </project>
-
+```
 
 模块B的pom.xml：
 
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -755,9 +747,11 @@ Maven可以有效地管理多个模块，我们只需要把每个模块当作一
         </dependency>
     </dependencies>
 </project>
+```
 
 可以看出来，模块A和模块B的pom.xml高度相似，因此，我们可以提取出共同部分作为parent：
 
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -798,9 +792,11 @@ Maven可以有效地管理多个模块，我们只需要把每个模块当作一
         </dependency>
     </dependencies>
 </project>
+```
 
 注意到parent的<packaging>是pom而不是jar，因为parent本身不含任何Java代码。编写parent的pom.xml只是为了在各个模块中减少重复的配置。现在我们的整个工程结构如下：
 
+```
 multiple-project
 ├── pom.xml
 ├── parent
@@ -814,8 +810,11 @@ multiple-project
 └── module-c
     ├── pom.xml
     └── src
+```
+
 这样模块A就可以简化为：
 
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -832,12 +831,13 @@ multiple-project
     <packaging>jar</packaging>
     <name>module-a</name>
 </project>
-
+```
 
 模块B、模块C都可以直接从parent继承，大幅简化了pom.xml的编写。
 
 如果模块A依赖模块B，则模块A需要模块B的jar包才能正常编译，我们需要在模块A中引入模块B：
 
+```xml
     ...
     <dependencies>
         <dependency>
@@ -846,8 +846,10 @@ multiple-project
             <version>1.0</version>
         </dependency>
     </dependencies>
+```
 最后，在编译的时候，需要在根目录创建一个pom.xml统一编译：
 
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -866,15 +868,6 @@ multiple-project
         <module>module-c</module>
     </modules>
 </project>
-
+```
 
 这样，在根目录执行mvn clean package时，Maven根据根目录的pom.xml找到包括parent在内的共4个<module>，一次性全部编译。
-
-中央仓库
-其实我们使用的大多数第三方模块都是这个用法，例如，我们使用commons logging、log4j这些第三方模块，就是第三方模块的开发者自己把编译好的jar包发布到Maven的中央仓库中。
-
-私有仓库
-私有仓库是指公司内部如果不希望把源码和jar包放到公网上，那么可以搭建私有仓库。私有仓库总是在公司内部使用，它只需要在本地的~/.m2/settings.xml中配置好，使用方式和中央仓位没有任何区别。
-
-本地仓库
-本地仓库是指把本地开发的项目“发布”在本地，这样其他项目可以通过本地仓库引用它。但是我们不推荐把自己的模块安装到Maven的本地仓库，因为每次修改某个模块的源码，都需要重新安装，非常容易出现版本不一致的情况。更好的方法是使用模块化编译，在编译的时候，告诉Maven几个模块之间存在依赖关系，需要一块编译，Maven就会自动按依赖顺序编译这些模块。
