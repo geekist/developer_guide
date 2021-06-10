@@ -435,17 +435,17 @@ spring-boot-starter-web
 Maven定义了几种依赖关系，分别是compile、test、runtime和provided：
 
 
-|scope	|说明	                        |示例|
+|scope|说明|示例|
 
-|=======|===============================|====|
+|===|===|==|
 
-|compile|编译时需要用到该jar包（默认）|	  commons-logging|
+|compile|编译时需要用到该jar包（默认）|commons-logging|
 
-|test	|编译Test时需要用到该jar包	  |  junit|
+|test|编译Test时需要用到该jar包|junit|
 
-|runtime|编译时不需要，但运行时需要用到|  mysql|
+|runtime|编译时不需要，但运行时需要用到|mysql|
 
-|provided|	编译时需要用到，但运行时由JDK或某个服务器提供|servlet-api|
+|provided|编译时需要用到，但运行时由JDK或某个服务器提供|servlet-api|
 
 
 其中，默认的compile是最常用的，Maven会把这种类型的依赖直接放入classpath。
