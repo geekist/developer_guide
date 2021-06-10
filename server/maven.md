@@ -210,7 +210,7 @@ pom.xml的基本配置。
 
 ### POM的合成关系
 
-```java
+```xml
 <project>  
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.mygroup </groupId>  
@@ -223,26 +223,144 @@ pom.xml的基本配置。
 </project>  
 ```
 
-其中，groupId类似于Java的包名，通常是公司或组织名称，
-artifactId类似于Java的类名，通常是项目名称.
+# 四、Maven构建流程
 
-再加上version，
+Maven不但有标准化的项目结构，而且还有一套标准化的构建流程，可以自动化实现编译，打包，发布，等等。
 
-一个Maven工程就是由groupId，artifactId和version作为唯一标识。我们在引用其他第三方库的时候，也是通过这3个变量确定。例如，依赖commons-logging：
+## Lifecycle和Phase
+
+使用Maven时，我们首先要了解什么是Maven的生命周期（lifecycle）。
+
+Maven的生命周期由一系列阶段（phase）构成，以内置的生命周期default为例，它包含以下phase：
 
 ```java
-<dependency>
-    <groupId>commons-logging</groupId>
-    <artifactId>commons-logging</artifactId>
-    <version>1.2</version>
-</dependency>
+validate
+
+initialize
+
+generate-sources
+
+process-sources
+
+generate-resources
+
+process-resources
+
+compile
+
+process-classes
+
+generate-test-sources
+
+process-test-sources
+
+generate-test-resources
+
+process-test-resources
+
+test-compile
+
+process-test-classes
+
+test
+
+prepare-package
+
+package
+
+pre-integration-test
+
+integration-test
+
+post-integration-test
+
+verify
+
+install
+
+deploy
 ```
 
-使用<dependency>声明一个依赖后，Maven就会自动下载这个依赖包并把它放到classpath中。
+如果我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
+
+validate
+...
+
+package
+
+
+如果我们运行mvn compile，Maven也会执行default生命周期，但这次它只会运行到compile，即以下几个phase：
+
+validate
+...
+compile
+
+Maven另一个常用的生命周期是clean，它会执行3个phase：
+
+```java
+pre-clean
+
+clean （注意这个clean不是lifecycle而是phase）
+
+post-clean
+```
+
+
+所以，我们使用mvn这个命令时，后面的参数是phase，Maven自动根据生命周期运行到指定的phase。
+
+更复杂的例子是指定多个phase，例如，运行mvn clean package，Maven先执行clean生命周期并运行到clean这个phase，然后执行default生命周期并运行到package这个phase，实际执行的phase如下：
+
+```java
+pre-clean
+clean （注意这个clean是phase）
+validate
+...
+package
+```
+
+在实际开发过程中，经常使用的命令有：
+
+mvn clean：清理所有生成的class和jar；
+
+mvn clean compile：先清理，再执行到compile；
+
+mvn clean test：先清理，再执行到test，因为执行test前必须执行compile，所以这里不必指定compile；
+
+mvn clean package：先清理，再执行到package。
+
+大多数phase在执行过程中，因为我们通常没有在pom.xml中配置相关的设置，所以这些phase什么事情都不做。
+
+经常用到的phase其实只有几个：
+
+clean：清理
+
+compile：编译
+
+test：运行测试
+
+package：打包
+
+## Goal
+
+执行一个phase又会触发一个或多个goal：
+
+执行的Phase	对应执行的Goal
+
+compile	compiler:compile
+
+test	compiler:testCompile
+
+surefire:test
+
+goal的命名总是abc:xyz这种形式。
+
+大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，例如，启动Tomcat服务器：
+
+mvn tomcat:run
 
 
 
-## Maven的依赖管理
+# 五、Maven的依赖管理机制
 
 如果我们的项目依赖第三方的jar包，例如commons logging，那么问题来了：commons logging发布的jar包在哪下载？
 
@@ -251,7 +369,8 @@ artifactId类似于Java的类名，通常是项目名称.
 类似的依赖还包括：JUnit，JavaMail，MySQL驱动等等，一个可行的方法是通过搜索引擎搜索到项目的官网，然后手动下载zip包，解压，放入classpath。但是，这个过程非常繁琐。
 
 Maven解决了依赖管理问题。例如，我们的项目依赖abc这个jar包，而abc又依赖xyz这个jar包：
-```java
+
+```xml
 ┌──────────────┐
 │Sample Project│
 └──────────────┘
@@ -273,7 +392,7 @@ Maven解决了依赖管理问题。例如，我们的项目依赖abc这个jar包
 
 我们来看一个复杂依赖示例：
 
-```java
+```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -315,15 +434,12 @@ spring-boot-starter-web
 
 Maven定义了几种依赖关系，分别是compile、test、runtime和provided：
 
-scope	说明	                        示例
-
-compile	编译时需要用到该jar包（默认）	                   commons-logging
-
-test	编译Test时需要用到该jar包	                          junit
-
-runtime	编译时不需要，但运行时需要用到	                     mysql
-
-provided	编译时需要用到，但运行时由JDK或某个服务器提供	servlet-api
+|scope	|说明	                        |示例|
+|=======|===============================|====|
+|compile|编译时需要用到该jar包（默认）|	  commons-logging|
+|test	|编译Test时需要用到该jar包	  |  junit|
+|runtime|编译时不需要，但运行时需要用到|  mysql|
+|provided|	编译时需要用到，但运行时由JDK或某个服务器提供|servlet-api|
 
 其中，默认的compile是最常用的，Maven会把这种类型的依赖直接放入classpath。
 
@@ -431,142 +547,7 @@ $ mvn clean package
 
 update-maven-project
 
-# Maven构建流程
 
-Maven不但有标准化的项目结构，而且还有一套标准化的构建流程，可以自动化实现编译，打包，发布，等等。
-
-Lifecycle和Phase
-
-使用Maven时，我们首先要了解什么是Maven的生命周期（lifecycle）。
-
-Maven的生命周期由一系列阶段（phase）构成，以内置的生命周期default为例，它包含以下phase：
-
-```java
-validate
-
-initialize
-
-generate-sources
-
-process-sources
-
-generate-resources
-
-process-resources
-
-compile
-
-process-classes
-
-generate-test-sources
-
-process-test-sources
-
-generate-test-resources
-
-process-test-resources
-
-test-compile
-
-process-test-classes
-
-test
-
-prepare-package
-
-package
-
-pre-integration-test
-
-integration-test
-
-post-integration-test
-
-verify
-
-install
-
-deploy
-```
-
-如果我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
-
-validate
-...
-
-package
-
-
-如果我们运行mvn compile，Maven也会执行default生命周期，但这次它只会运行到compile，即以下几个phase：
-
-validate
-...
-compile
-
-Maven另一个常用的生命周期是clean，它会执行3个phase：
-
-pre-clean
-
-clean （注意这个clean不是lifecycle而是phase）
-
-post-clean
-
-
-所以，我们使用mvn这个命令时，后面的参数是phase，Maven自动根据生命周期运行到指定的phase。
-
-更复杂的例子是指定多个phase，例如，运行mvn clean package，Maven先执行clean生命周期并运行到clean这个phase，然后执行default生命周期并运行到package这个phase，实际执行的phase如下：
-
-pre-clean
-clean （注意这个clean是phase）
-validate
-...
-package
-
-
-在实际开发过程中，经常使用的命令有：
-
-mvn clean：清理所有生成的class和jar；
-
-mvn clean compile：先清理，再执行到compile；
-
-mvn clean test：先清理，再执行到test，因为执行test前必须执行compile，所以这里不必指定compile；
-
-mvn clean package：先清理，再执行到package。
-
-大多数phase在执行过程中，因为我们通常没有在pom.xml中配置相关的设置，所以这些phase什么事情都不做。
-
-经常用到的phase其实只有几个：
-
-clean：清理
-
-compile：编译
-
-test：运行测试
-
-package：打包
-
-Goal
-
-执行一个phase又会触发一个或多个goal：
-
-执行的Phase	对应执行的Goal
-
-compile	compiler:compile
-
-test	compiler:testCompile
-
-surefire:test
-
-goal的命名总是abc:xyz这种形式。
-
-看到这里，相信大家对lifecycle、phase和goal已经明白了吧？
-
-
-
-
-大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，例如，启动Tomcat服务器：
-
-mvn tomcat:run
 
 ## Maven插件
 
