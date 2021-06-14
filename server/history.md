@@ -73,11 +73,15 @@ print '</html>'
 OK，知道了CGI是可执行的程序或脚本，但是怎么工作的呢？
 
 CGI怎么用
-image.png
+
+![](./assets/history-3.png)
+
+
 如上图，当浏览器发送一个CGI请求后，服务器会启动一个进程运行CGI程序或脚本，由CGI来处理数据，并将结果返回给服务器，服务器再将结果返回给浏览器。
 
 举个表单提交的例子：
 
+```html
 <form id="form" name="form" method="post" action="http://localhost/cgi-bin/test/cgi_test.cgi">
   <p>输入内容：
     <input type="text" name="user" id="user" />
@@ -86,43 +90,67 @@ image.png
     <input type="submit" name="submit" id="submit" value="提交" />
   </p>
 </form>
+```
+
 上面是一个表单提交的html代码，展示的效果是下面这个样子：
 
-image.png
+![](./assets/history-4.png)
+
 细心的你会发现，action的值是http://localhost/cgi-bin/test/cgi_test.cgi。这里，cgi_test.cgi就是一个cgi程序。
+
 还记得上面那段C++代码吗？
 
+```cpp
 int _tmain(int argc, _TCHAR* argv[])
 {
     printf("Content-type:text/html\n\n");
     printf("%s",getenv("QUERY_STRING")); //打印get获取的信息
     return 0;
 }
+```
+
 cgi_test.cgi就是这段代码编译出来的可执行程序。
+
 这段代码的作用是什么呢？
+
 作用是将表单提交的信息直接打印出来。
+
 如何做到的？
+
 只有两行代码，第二行代码是关键。getenv()是C函数库中的函数，getenv("QUERY_STRING")的意思是读取环境变量QUERY_STRING的值。而QUERY_STRING的值就是表单提交的信息。
+
 OK，这个CGI的功能就清晰了。表单提交后展示下面的结果也就不奇怪了：
-image.png
+
+![](./assets/history-5.png)
+
 我们再通过一个图梳理下上述流程：
 
-image.png
+![](./assets/history-6.png)
+
 综上，CGI工作模式示意图如下：
 
-image.png
+![](./assets/history-7.png)
+
 CGI的特点
+
 由Http Server唤起。常见的Http Server如Apache，Lighttpd，nginx都支持CGI
+
 CGI单独启动进程，并且每次调用都会重新启动进程
+
 可以用任何语言编写，只要该语言支持标准输入、输出和环境变量
+
 CGI的缺点
+
 消耗资源多：每个请求都会启动一个CGI进行，进程消耗资源15M内存的话，同时到达100个请求的话，就会占用1.5G内存。如果请求更多，资源消耗是不可想象的。
+
 慢：启动进程本身就慢。每次启动进程都需要重新初始化数据结构等，会变得更慢。
+
 引申
 
 为了解决CGI重复启动进程和初始化的问题，后来出现了FastCGI
 
-开荒期 - Servlet时代
+# 三、开荒期 - Servlet时代
+
 在CGI繁荣发展的时代，Java还没有发展起来。当Java开始参与历史，引领潮流的时候，也必然会借鉴和改进之前的技术和思想。
 
 鉴于CGI的一些缺点，Java Web在开始设计的时候就想出了一种解决方案 -- Servlet
