@@ -397,6 +397,8 @@
 
 * [切面编程](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649550494&idx=1&sn=6982c5aee321ed731970c763708ae7ec&chksm=f11805e3c66f8cf57a02bde8bea85adf41b3aed795aab4feb08e599e71c0ee991b73a557c52c&mpshare=1&scene=1&srcid=0820H3HbpXCZMCMcYnhhZ8pL&sharer_sharetime=1598321087796&sharer_shareid=11fdebba4d506eab0c1cc6d88064dd1e&exportkey=AYQW7eWxwPr2ZnJQntTlbQ4=&pass_ticket=Zm5QkYXc5qNbpMJX3wz0O3EsJVGcfP55Vvi%2bLlz58prd1vsPjYwJ4xSQUL5Uds46&wx_header=0#rd)
 
+* [如何生成签名文件---从jks转keystore文件](https://github.com/geekist/developer_guide/blob/main/android/studio/keystore.md)
+
 # 七、Android应用SDK
 
 
@@ -420,3 +422,8 @@
 * [ARCore学习之旅：基础概念](https://juejin.cn/post/6844903493900173319)
 
 * [ARCore总结整理](https://blog.csdn.net/yangwu007?t=1)
+
+# 九 Android项目
+
+* [MediaPicker](https://github.com/geekist/developer_guide/blob/main/android/project/mediapicker.md)
+
