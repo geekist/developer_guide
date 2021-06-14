@@ -154,32 +154,46 @@ CGI的缺点
 在CGI繁荣发展的时代，Java还没有发展起来。当Java开始参与历史，引领潮流的时候，也必然会借鉴和改进之前的技术和思想。
 
 鉴于CGI的一些缺点，Java Web在开始设计的时候就想出了一种解决方案 -- Servlet
+
 同样，第一个问题，Servlet是啥？
 
 Servlet是啥？
+
 举个例子，网站一般都有注册功能。当用户填写好注册信息，点击“注册”按钮时，谁来处理这个请求？用户名是否重复谁来校验？用户名和密码需要写入数据库，谁来写入？是Servlet！
+
 
 Servlet是实现javax.servlet.Servlet接口的类。一般处理Web请求的Servlet还需要继承javax.servlet.http.HttpServlet
 
+```java
 abstract class HttpServlet implements Servlet{
     void doGet();
     void doPost();
 }
+```
+
 doGet()方法处理GET请求
+
 doPost()方法处理POST请求
 
 浏览器发来的请求是怎么被Servlet处理的呢？还是举表单提交的例子。
+
 我们假设表单样式如下，只是简单提交两个数据：网址名和网址。并假设处理URL为http://localhost:8080/TomcatTest/HelloForm
 
-image.png
+![](./assets/history-8.png)
+
 浏览器工作
-当表单使用GET方式提交时，浏览器会把表单数据组装成这样的URL：http://localhost:8080/TomcatTest/HelloForm?name=菜鸟教程&url=www.runoob.com
+
+当表单使用GET方式提交时，浏览器会把表单数据组装成这样的URL：
+
+***http://localhost:8080/TomcatTest/HelloForm?name=菜鸟教程&url=www.runoob.com***
 
 好，现在浏览器的任务暂时告一段落，开始Java Web服务工作了。
 
 Java Web服务
+
 首先，我们得指定http://localhost:8080/TomcatTest/HelloForm这个URL由谁来处理。这个映射关系需要在web.xml中配置：
 
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
   <servlet>
@@ -191,10 +205,13 @@ Java Web服务
     <url-pattern>/TomcatTest/HelloForm</url-pattern>
   </servlet-mapping>
 </web-app>
+```
+
 web.xml中配置的意思是：当URI为/TomcatTest/HelloForm时，交给com.runoob.test.HelloForm处理。而HelloForm正是个Servlet。
 
 因此，我们需要编写HelloForm这样一个Servlet：
 
+```java
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -250,25 +267,38 @@ public class HelloForm extends HttpServlet {
         doGet(request, response);
     }
 }
+```
+
 由于请求方式是GET，因此需要doGet()方法来处理。仔细阅读doGet()方法的代码，发现处理逻辑只是把表单数据放入到了一段html代码中。这段html代码会被传输给浏览器，然后浏览器渲染出结果，如下图所示：
 
-image.png
+![](./assets/history-9.png)
+
 Servlet的特点
+
 Servlet相对于CGI有了很大的改进，效率更高，功能更强大，更容易移植。主要表现在一下几个方面：
 
 CGI每个请求启动一个进程，而Servlet是更轻量的线程。线程和进程的对比和优劣请自行Google。
+
 CGI每个进程都需要初始化，Servlet只初始化一次实例就行
+
 Servlet依托于Java语言，具有很好的跨平台型。CGI根据语言的不同，跨平台型不同
+
 CGI与数据库连接需要重连，Servlet可以使用数据库连接池。
+
 Java有丰富的、各种各样的库函数
+
 Servlet的缺点
+
 看上面的代码，会发现，html代码是写在Java代码中的。对于前端人员来说，这种形式非常非常难以开发和修改。
 
 Servlet的升级 -- JSP
+
 Servlet是在Java代码中写HTML代码。与之对应的就是在HTML代码中写Java代码，这就是JSP。
 
 JSP是啥？
+
 JSP：JavaServer Pages
+
 简单点说，就是可以在html中写Java代码。
 
 还是先从例子中大概了解下JSP：
@@ -276,8 +306,10 @@ JSP：JavaServer Pages
 还是上面表单处理的例子。表单的html代码就不展示了，我们直接模拟GET请求，即在浏览器中输入地址：http://localhost:8080/testjsp/main.jsp?name=菜鸟教程&url=http://www.runoob.com
 
 很明显，这个URL的关键是main.jsp。这个文件的内容是啥呢？
+
 main.jsp
 
+```javascript
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*" %>
@@ -299,14 +331,20 @@ main.jsp
 </ul>
 </body>
 </html>
+```
+
 这就是JSP，在html代码中插入Java代码。java代码被<% %>所包围。
+
 <%= request.getParameter("name")%>表示获取请求参数name的值，<%= request.getParameter("url")%>表示获取请求参数url的值。最终展示结果是怎样的呢？看下图：
 
-image.png
+![](./assets/history-10.png)
+
 JSP是如何工作的？
+
 为啥html代码中可以写Java代码呢？看下图：
 
-image.png
+![](./assets/history-11.png)
+
 其实原理是这样的：
 
 就像其他普通的网页一样，您的浏览器发送一个HTTP请求给服务器。
@@ -326,11 +364,13 @@ Web服务器以静态HTML网页的形式将HTTP response返回到您的浏览器
 用一句话来讲：每个JSP都最终会变成对应的Servlet执行
 
 JSP的缺点
+
 在HTML代码中写Java代码，方便了前端人员，但是苦了后端人员。因此，单纯使用JSP，开发效率依旧不高。
 
 后来，有牛人发现，Servlet天生非常适合逻辑处理(因为主要是Java代码)，而JSP非常适合页面展示(因为主要是html代码)，那么在结合Servlet和JSP各自的优缺点后，诞生了Web开发中最常用和最重要的架构设计模式：MVC
 
-发展期 - MVC时代
+# 四、发展期 - MVC时代
+
 MVC模式（Model-View-Controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）：
 
 Controller——负责转发请求，对请求进行处理
