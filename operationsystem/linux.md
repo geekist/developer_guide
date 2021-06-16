@@ -1,4 +1,6 @@
 　
+# [Linux教程](https://www.runoob.com/linux/linux-tutorial.html)
+
 # 一、Linux操作系统介绍
 
 Linux是基于Linux的操作系统是20世纪1991年推出的一个多用户、多任务的操作系统。它与UNIX完全兼容。Linux最初是由芬兰赫尔辛基大学计算机系学生Linus Torvalds在基于UNIX的基础上开发的一个操作系统的内核程序,Linux的设计是为了在Intel微处理器上更有效的运用。其后在理查德·斯托曼的建议下以GNU通用公共许可证发布，成为自由软件Unix变种。它的最大的特点在于他是一个源代码公开的自由及开放源码的操作系统，其内核源代码可以自由传播。
