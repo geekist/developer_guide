@@ -1,6 +1,7 @@
 
 # * [计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
 
+# * [操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
 
 # * [开发语言](https://github.com/geekist/developer_guide/blob/main/developing_language.md)
 

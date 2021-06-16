@@ -2,14 +2,13 @@
 
 ## 1、java语言
 
-* [java简介](https://github.com/geekist/developer_guide/blob/main/java/Java简介.md)
+* [java简介](https://github.com/geekist/developer_guide/blob/main/java/java简介.md)
 
 * [java开发环境配置](http://www.51gjie.com/java/43.html)
 
 * [java语法速查](https://www.runoob.com/java/java-basic-datatypes.html)
 
 * [java基础](https://github.com/geekist/developer_guide/blob/main/java/Java%20基础.md)
-
 
 * [Java位运算符和逻辑运算符](https://github.com/geekist/developer_guide/blob/main/network/operator.md)
 
