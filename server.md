@@ -6,9 +6,19 @@
 
 # Java Web 开发架构
 
-## Spring 介绍
+
+## 预备知识
+
+- [Java SDK 介绍](https://github.com/geekist/developer_guide/blob/main/java/java简介.md)
+ 
+- [Jar包介绍](https://github.com/geekist/developer_guide/blob/main/server/jar.md)
 
 - [Spring预备知识---依赖注入](https://github.com/geekist/developer_guide/blob/main/server/spring.md)
+
+- [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
+
+
+## Spring 介绍
 
 - [Spring介绍](https://www.w3cschool.cn/wkspring/)
 
@@ -20,13 +30,19 @@
 
 - [SpringBoot2.02官方参考指南（译）](https://www.w3cschool.cn/seansblog/)
 
-# Java Web 环境配置
+# Spring Boot 环境配置
 
-- [Java SDK 介绍](https://github.com/geekist/developer_guide/blob/main/java/java简介.md) 与 [配置](http://www.51gjie.com/java/43.html)
+ - [step1: Java SDK安装与配置](http://www.51gjie.com/java/43.html)
 
-- [Jar包介绍](https://github.com/geekist/developer_guide/blob/main/server/jar.md)
+ - [step2: Maven安装与配置](https://www.runoob.com/maven/maven-setup.html)
 
-- [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
+ - [step3: Spring Boot安装与配置](https://www.yiibai.com/spring-boot/installing-spring-boot.html)
+
+
+
+
+
+
 
 ## - [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
 
