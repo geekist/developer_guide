@@ -22,6 +22,8 @@
 
 # Java Web 环境配置
 
+- [Java SDK 介绍](https://github.com/geekist/developer_guide/blob/main/java/java简介.md) 与 [配置](http://www.51gjie.com/java/43.html)
+
 - [Jar包介绍](https://github.com/geekist/developer_guide/blob/main/server/jar.md)
 
 - [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
