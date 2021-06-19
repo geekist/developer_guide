@@ -29,7 +29,11 @@ Maven的主要功能有：
 
 # 二、安装Maven
 
-要安装Maven，可以从Maven官网下载最新的Maven 3.6.x，然后在本地解压，设置几个环境变量：
+要安装Maven，可以从Maven[官网](https://maven.apache.org/)下载最新的Maven 3.8.x.
+
+![](https://github.com/geekist/developer_guide/blob/main/server/assets/maven-download.png)
+
+然后在本地解压，设置几个环境变量：
 
 M2_HOME=/path/to/maven-3.6.x
 
