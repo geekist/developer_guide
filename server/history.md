@@ -157,7 +157,7 @@ CGI的缺点
 
 同样，第一个问题，Servlet是啥？
 
-Servlet是啥？
+## Servlet是啥？
 
 举个例子，网站一般都有注册功能。当用户填写好注册信息，点击“注册”按钮时，谁来处理这个请求？用户名是否重复谁来校验？用户名和密码需要写入数据库，谁来写入？是Servlet！
 
@@ -295,7 +295,7 @@ Servlet的升级 -- JSP
 
 Servlet是在Java代码中写HTML代码。与之对应的就是在HTML代码中写Java代码，这就是JSP。
 
-JSP是啥？
+## JSP是啥？
 
 JSP：JavaServer Pages
 
