@@ -30,13 +30,17 @@
 
 - [SpringBoot2.02官方参考指南（译）](https://www.w3cschool.cn/seansblog/)
 
-# Spring Boot 环境配置
+- [SpringBoot 教程](https://www.yiibai.com/spring-boot/)
+
+## Spring Boot 环境配置
 
  - [step1: Java SDK安装与配置](http://www.51gjie.com/java/43.html)
 
  - [step2: Maven安装与配置](https://www.runoob.com/maven/maven-setup.html)
 
  - [step3: Spring Boot安装与配置](https://www.yiibai.com/spring-boot/installing-spring-boot.html)
+
+ - [Idea 环境下第一个Spring Boot项目](https://blog.csdn.net/u012561176/article/details/91039237)
 
 
 
