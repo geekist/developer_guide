@@ -28,7 +28,7 @@
 
 ## 2、Kotlin语言
 
-* [kotlin语言教程](https://www.kotlincn.net/docs/kotlin-docs.pdf)
+* [kotlin语言教程-PDF版本](https://www.kotlincn.net/docs/kotlin-docs.pdf)[       网页版](https://www.kotlincn.net/docs/reference/basic-syntax.html)
 
 * [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin基础.md)
 
