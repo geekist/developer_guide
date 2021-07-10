@@ -210,3 +210,36 @@ reload --重新加载，reload会重新加载配置文件，Nginx服务不会中
 ```
 
 ## 四、Nginx的卸载
+
+* 1.查看nginx运行情况
+
+***ps -ef |grep nginx***
+
+* 2.停止Nginx
+
+***nginx -s stop***
+
+* 3.查看nginx的安装情况
+
+***nginx -V***
+
+* 4. 删除Nginx的自动启动。
+
+***chkconfig nginx off***
+
+
+* 5.从源头删除Nginx。
+
+```
+[root@idroot.net ~]# rm -rf /usr/sbin/nginx
+
+[root@idroot.net ~]# rm -rf /etc/nginx
+
+[root@idroot.net ~]# rm -rf /etc/init.d/nginx
+
+```
+
+* 6.检查nginx的残留
+
+***whereis nginx
+***
