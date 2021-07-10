@@ -243,3 +243,20 @@ reload --重新加载，reload会重新加载配置文件，Nginx服务不会中
 
 ***whereis nginx
 ***
+
+## 五、检查nginx是否启动成功
+
+* 1、首先查看nginx的配置文件是否正确
+
+***nginx -t***
+
+会检查配置文件是否正确。
+
+* 2、查看nginx是否启动成功
+
+***ps -ef |grep nginx ***
+
+会查看nginx的端口
+
+* 3、检查阿里云服务器的安全组是否开放了指定的端口。
+![](https://github.com/geekist/developer_guide/blob/main/server/assets/aliyun_safe.png)
