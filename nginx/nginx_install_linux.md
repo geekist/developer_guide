@@ -254,9 +254,31 @@ reload --重新加载，reload会重新加载配置文件，Nginx服务不会中
 
 * 2、查看nginx是否启动成功
 
-***ps -ef |grep nginx ***
+***ps -ef |grep nginx***
 
 会查看nginx的端口
 
 * 3、检查阿里云服务器的安全组是否开放了指定的端口。
 ![](https://github.com/geekist/developer_guide/blob/main/server/assets/aliyun_safe.png)
+
+* 4、检查linux服务器是否开启了防火墙关闭了端口
+
+```
+ufw status
+ufw disable
+ufw enable
+
+```
+
+检查端口是否开放
+
+***telnet ip port  # telnet 59.110.155.32 8001***
+
+检查所有服务端口
+
+***netstat -a # 查看所有服务端口***
+
+查询端口是否有进程守护用如下命令grep对应端口，如80为端口号
+
+例：netstat -nalp|grep 80
+
