@@ -46,6 +46,6 @@
 ## 进入pom.xml所在的目录，运行mvn clean package -Dmaven.test.skip=true命令打包。
 实测中因为该插件无法下载，导致编译失败
 
-![](https://github.com/geekist/developer_guide/blob/main/server/assets/spring_jar.png)
+![](https://github.com/geekist/developer_guide/blob/main/server/assets/spring-jar.png)
 
 ## 运行--进入target目录，运行java -jar xxx.jar，则运行起来了。
