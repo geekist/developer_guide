@@ -1,4 +1,4 @@
-
+# 在本地运行Spring boot 项目
 
 对于传统的Web项目，可能大部分都要部署到web容器中，如Tomcat。Spring Boot提供了一种超级简单的部署方式，就是直接将应用打成jar包，在生产上只需要执行java -jar就可以运行了。
 
@@ -49,3 +49,32 @@
 ![](https://github.com/geekist/developer_guide/blob/main/server/assets/spring-jar.png)
 
 ## 运行--进入target目录，运行java -jar xxx.jar，则运行起来了。
+linux 环境下：
+
+通过 java -jar 命令运行该 jar 包，例如：
+java -jar love-0.0.1-SNAPSHOT.jar
+
+这个问题是因为配置环境变量的问题，把环境配置刷新即可
+source /etc/profile
+如果服务器上没有部署JDK则参考文章：Linux上安装JDK以及配置环境（服务器）
+
+项目启动成功后，按 Ctrl + Z 使得进程后台运行
+如果项目想要更新需要关闭后台正在运行的进程
+#列出后台进程
+ps -ef | grep java
+#杀死进程，-9：无条件终止进程，xxxx：要关闭进程的pid
+kill -9 xxxx
+
+
+## 停止spring boot
+
+windows下关闭spring boot 的jar，直接关闭dos窗口即可。或者到任务管理器中去关闭。
+
+使用 spring-boot-starter-actuator 提供的 /shutdown 进行优雅停机
+
+
+@echo off
+curl -X POST http://127.0.0.1:18881/eurekaManagement/shutdown
+echo
+echo backend-eureka-server-0.0.1-SNAPSHOT.jar
+pause
