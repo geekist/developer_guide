@@ -41,6 +41,9 @@
 *  [vue开发框架](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
 
 
+*  [vue开发环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
+
+
 
 
 
