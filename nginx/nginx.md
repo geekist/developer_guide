@@ -1,7 +1,9 @@
 
 ## [Nginx介绍](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_intro.md)
 
-## [Nginx安装和配置](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_install.md)
+## [Linux环境下Nginx安装和配置](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_install_linux.md)
+
+## [Windows环境下Nginx安装和配置](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_install.md)
 
 ## [nginx配置文件详解](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_config.md)
 
