@@ -49,10 +49,13 @@
 - [Spring Boot在远程服务器运行](https://github.com/geekist/developer_guide/blob/main/server/spring_jar_server.md)
 
 
+## Spring Boot 实践之一：编写Restful API Service
 
+* [Restful API 简介](https://github.com/geekist/developer_guide/blob/main/server/restful_api.md)
 
+* [SpringBoot创建Restful API Service](https://github.com/geekist/developer_guide/blob/main/server/spring_restful_api.md)
 
-
+* [使用Swagger生成API文档](https://github.com/geekist/developer_guide/blob/main/server/swagger.md)
 
 ## - [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
 
