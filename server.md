@@ -57,6 +57,10 @@
 
 * [使用Swagger生成API文档](https://github.com/geekist/developer_guide/blob/main/server/swagger.md)
 
+## 3.6 Spring Boot 实践之二： 阿里云数据库RDS的使用
+
+* [阿里云数据库RDS简介](https://github.com/geekist/developer_guide/blob/main/server/aliyun_rds.md)
+
 # 四、用JFinal开发JavaWeb应用
 
 ## 4.1 JFinal介绍
@@ -68,6 +72,9 @@
 * [JFinal创建JavaWeb应用](https://github.com/geekist/developer_guide/blob/main/server/jfinal_build.md)
 
 * [JFinal的Undertow配置](https://github.com/geekist/developer_guide/blob/main/server/undertow_config.md)
+
+
+
 
 
 ## - [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
