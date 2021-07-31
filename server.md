@@ -65,6 +65,7 @@
 
 ## 4.2 JFinal环境创建
 
+* [JFinal创建JavaWeb](https://github.com/geekist/developer_guide/blob/main/server/jfinal_build.md)
 
 
 ## - [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
