@@ -43,6 +43,10 @@
 
 *  [vue开发环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
 
+## 五、前端开发杂项
+
+* [GIF、JPG、PNG、WEBP图片格式](https://segmentfault.com/a/1190000013589397)
+
 
 
 
