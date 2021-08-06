@@ -10,6 +10,8 @@
 
 ## 二、前端开发的基础知识：
 
+* [web开发基础知识](https://developer.mozilla.org/zh-CN/docs/Web)
+
 * [html基础知识](https://www.runoob.com/html/html-basic.html)
 
 * [css基础知识](https://www.runoob.com/css/css-tutorial.html)

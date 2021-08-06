@@ -16,9 +16,6 @@ JS引擎则是解析Javascript语言，执行javascript语言来实现网页的�
 
 最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。
 
-
-有一个网页标准计划小组制作了一个 ACID 来测试引擎的兼容性和性能。内核的种类很多，如加上没什么人使用的非商业的免费内核，可能会有 10 多种，但是常见的浏览器内核可以分这四种：Trident、Gecko、Blink、Webkit。
-
 ### 三、五大主流浏览器和四大内核
 
 五大主流浏览器：IE、Firefox、Google Chrome、Safari、Opera。
@@ -90,9 +87,6 @@ Trident实际上是一款开放的内核，其接口内核设计的相当成熟�
 
 国内很多的双核浏览器的其中一核便是 Trident，美其名曰 "兼容模式"。
 
-Window10 发布后，IE 将其内置浏览器命名为 Edge，Edge 最显著的特点就是新内核 EdgeHTML。关于 Edge 浏览器更多可以参考 如何评价 Microsoft Edge 浏览器？ 以及 微软开源Edge的JS引擎ChakraCore
-
-关于 IE 的历史，推荐这篇文章 激荡20年：IE浏览器的辉煌与落寞
 
 * Gecko (['gekəʊ])
 
