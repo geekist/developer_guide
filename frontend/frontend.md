@@ -36,6 +36,10 @@
 
 * [ECMAScript6代码规范](https://es6.ruanyifeng.com/#docs/style)
 
+## 四、关于浏览器开发
+
+*  [五大浏览器四大内核](https://github.com/geekist/developer_guide/blob/main/frontend/browser.md)
+
 ## 四、前端开发框架
 
 *  [vue开发框架](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
