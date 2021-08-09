@@ -10,6 +10,8 @@
 
 ## 二、前端开发的基础知识：
 
+* [web开发基础知识](https://developer.mozilla.org/zh-CN/docs/Web)
+
 * [html基础知识](https://www.runoob.com/html/html-basic.html)
 
 * [css基础知识](https://www.runoob.com/css/css-tutorial.html)
@@ -40,14 +42,18 @@
 
 * [VSCode 开发静态页面](https://github.com/geekist/developer_guide/blob/main/frontend/static_html.md)
 
-## 四、前端开发框架
+## 五、关于浏览器开发
+
+*  [五大浏览器四大内核](https://github.com/geekist/developer_guide/blob/main/frontend/browser.md)
+
+## 六、前端开发框架
 
 *  [vue开发框架](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
 
 
 *  [vue开发环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
 
-## 五、前端开发杂项
+## 七、前端开发杂项
 
 * [GIF、JPG、PNG、WEBP图片格式](https://segmentfault.com/a/1190000013589397)
 
