@@ -36,6 +36,10 @@
 
 * [ECMAScript6代码规范](https://es6.ruanyifeng.com/#docs/style)
 
+## 四、静态页面开发
+
+* [VSCode 开发静态页面](https://github.com/geekist/developer_guide/blob/main/frontend/static_html.md)
+
 ## 四、前端开发框架
 
 *  [vue开发框架](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
