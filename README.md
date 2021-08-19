@@ -16,7 +16,7 @@
 
 ## 移动端开发
 
- * [移动端iOS开发](https://github.com/geekist/developer_guide/blob/main/ios.md)
+ * [移动端iOS开发](https://github.com/geekist/developer_guide/blob/main/iOS.md)
 
 * [移动端Android开发](https://github.com/geekist/developer_guide/blob/main/android.md)
 
