@@ -429,3 +429,7 @@
 
 * [MediaPicker](https://github.com/geekist/developer_guide/blob/main/android/project/mediapicker.md)
 
+
+## 十、疑难杂症
+
+* [Android开发过程中的疑难杂症](https://github.com/geekist/developer_guide/blob/main/android/others/question.md)
