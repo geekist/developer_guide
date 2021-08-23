@@ -81,4 +81,9 @@
 
 [服务器基础](https://www.yiibai.com/spring-boot/getting-started-with-spring-boot.html)
 
+# 五、WebSocket技术开发
+
+## 5.1 WebSocket介绍
+
+* [WebSocket介绍](https://github.com/geekist/developer_guide/blob/main/server/websocket.md)
 

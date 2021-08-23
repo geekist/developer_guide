@@ -4,7 +4,7 @@
 
 ## ios开发教程
 
-* [ios教程](https://www.runoob.com/ios/ios-tutorial.html）
+* [ios教程](https://www.runoob.com/ios/ios-tutorial.html)
 
 * [ios开发教程集锦](https://cloud.tencent.com/developer/article/1387518)
 
