@@ -42,7 +42,7 @@
 
 ## 3.4 Spring Boot 编译和运行
 
- - [Idea 环境下第一个Spring Boot项目](https://blog.csdn.net/u012561176/article/details/91039237)
+ - [Idea 环境下第一个Spring Boot项目](https://github.com/geekist/developer_guide/blob/main/server/springboot_dev.md)
 
 - [Spring Boot项目打包成jar并在本地服务器运行](https://github.com/geekist/developer_guide/blob/main/server/spring_jar.md)
 
