@@ -46,7 +46,11 @@
 
 * [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
 
-## 3.Swift
+## 3.Objective C 语言
+
+* [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
+
+## 4.Swift 语言
 
 * [swift编程语言](https://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/chapter1/chapter1.html)
 
