@@ -87,3 +87,7 @@
 
 * [WebSocket介绍](https://github.com/geekist/developer_guide/blob/main/server/websocket.md)
 
+## 5.2 SpringBoot开发WebSocket服务器
+
+* [用SpringBoot框架开发WebSocket](https://github.com/geekist/developer_guide/blob/main/server/spring_websocket.md)
+
