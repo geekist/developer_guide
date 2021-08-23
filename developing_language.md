@@ -50,6 +50,8 @@
 
 * [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
 
+* [Objective C在线教程](http://gitbook.net/objective_c/index.html)
+
 ## 4.Swift 语言
 
 * [swift编程语言](https://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/chapter1/chapter1.html)
