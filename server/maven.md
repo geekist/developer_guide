@@ -1,15 +1,24 @@
 
 # 一、Maven介绍
 
-## 1、java项目依赖
+## 1、java项目开发需要的琐碎配置
 
 在了解Maven之前，我们先来看看一个Java项目需要的东西。
 
+* 依赖
+
 首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons logging的jar包放入classpath。如果我们还需要log4j，就需要把log4j相关的jar包都放到classpath中。这些就是依赖包的管理。
+
+* 目录结构
+
 
 其次，我们要确定项目的目录结构。例如，src目录存放Java源码，resources目录存放配置文件，bin目录存放编译生成的.class文件。
 
+* 环境配置
+
 此外，我们还需要配置环境，例如JDK的版本，编译打包的流程，当前代码的版本号。
+
+* 编译
 
 最后，除了使用Eclipse这样的IDE进行编译外，我们还必须能通过命令行工具进行编译，才能够让项目在一个独立的服务器上编译、测试、部署。
 
@@ -17,15 +26,23 @@
 
 ## 2、Maven介绍
 
-Maven是一个Java项目管理和构建工具，它可以定义项目结构、项目依赖，并使用统一的方式进行自动化构建，是Java项目不可缺少的工具。
+Maven是Apache软件基金会唯一维护的一款自动化构建工具，专注于服务Java平台的项目构建和依赖管理。
+
+Maven是基于项目对象模型（POM），可以通过一小段描述信息来管理项目的构建、报告和文档的软件项目管理工具。
+
+Maven可以定义项目结构、项目依赖，并使用统一的方式进行自动化构建，是Java项目不可缺少的工具。
 
 Maven的主要功能有：
 
-- 提供了一套标准化的项目结构；
+- 添加第三方jar包
 
-- 提供了一套标准化的构建流程（编译，测试，打包，发布……）；
+-  jar包之间的依赖关系： Maven 可以替我们自动的将当前 jar 包所依赖的其他所有 jar 包全部导入进来
+ 
+- 获取第三方jar包： Maven 提供了一个完全统一规范的 jar 包管理体系，只需要在项目中以坐标的方式依赖一个 jar 包，Maven 就会自动从中央仓库进行下载到本地仓库
 
-- 提供了一套依赖管理机制。
+- 将项目拆分成多个工程模块
+
+- 构建项目（打包，编译等）
 
 # 二、安装Maven
 
@@ -80,11 +97,13 @@ a-maven-project
 └── target
 ```
 
+![](./assets/maven-file.png)
+
 项目的根目录a-maven-project是项目名，它有一个项目描述文件pom.xml，存放Java源码的目录是src/main/java，存放资源文件的目录是src/main/resources，存放测试源码的目录是src/test/java，存放测试资源的目录是src/test/resources，最后，所有编译、打包生成的文件都放在target目录里。这些就是一个Maven项目的标准目录结构。
 
 所有的目录结构都是约定好的标准结构，我们千万不要随意修改目录结构。使用标准结构不需要做任何配置，Maven就可以正常使用。
 
-## 2、项目描述文件
+## 2、项目描述文件pom.xml
 
 我们再来看最关键的一个项目描述文件pom.xml，它的内容长得像下面：
 
@@ -111,13 +130,23 @@ a-maven-project
 
 POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项目描述文件，它类似与antx的project.xml文件。pom.xml文件以xml的 形式描述项目的信息，包括项目名称、版本、项目id、项目的依赖关系、编译环境、持续集成、项目团队、贡献管理、生成报表等等。总之，它包含了所有的项目信息。
 
-modelVersion 描述这个POM文件是遵从哪个版本的项目描述符。
+* <modelVersion> 
 
-groupId 针对一个项目的普遍唯一识别符。通常用一个完全正确的包的名字来与其他项目的类似名字来进行区分（比如：org.apache.maven)。
+描述这个POM文件是遵从哪个版本的项目描述符。
 
-artifactId 在给定groupID 的group里面为artifact 指定的标识符是唯一的 ， artifact 代表的是被制作或者被一个project应用的组件(产出物)。
+* <groupId> 
 
-version 当前项目产生的artifact的版本。
+针对一个项目的普遍唯一识别符。通常用一个完全正确的包的名字来与其他项目的类似名字来进行区分（比如：org.apache.maven)。
+
+
+* <artifactId> 
+
+在给定groupID 的group里面为artifact 指定的标识符是唯一的 ， artifact 代表的是被制作或者被一个project应用的组件(产出物)。
+
+
+* <version>
+
+当前项目产生的artifact的版本。
 
 以上4个元素缺一不可，其中groupId, artifactId, version描述依赖的项目唯一标志。
 
@@ -287,17 +316,22 @@ deploy
 
 如果我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
 
+```xml
 validate
 ...
 
 package
-
+```
 
 如果我们运行mvn compile，Maven也会执行default生命周期，但这次它只会运行到compile，即以下几个phase：
+
+```xml
 
 validate
 ...
 compile
+
+```
 
 Maven另一个常用的生命周期是clean，它会执行3个phase：
 
@@ -361,7 +395,6 @@ goal的命名总是abc:xyz这种形式。
 大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，例如，启动Tomcat服务器：
 
 mvn tomcat:run
-
 
 
 # 五、Maven的依赖管理机制
