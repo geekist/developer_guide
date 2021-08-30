@@ -260,61 +260,97 @@ pom.xml的基本配置。
 
 Maven不但有标准化的项目结构，而且还有一套标准化的构建流程，可以自动化实现编译，打包，发布，等等。
 
-## Lifecycle和Phase
+## maven 生命周期
 
-使用Maven时，我们首先要了解什么是Maven的生命周期（lifecycle）。
+Maven 生命周期定义了各个构建环节的执行顺序，有了这个清单，Maven 就可以自动化的执行构建命令了。
 
-Maven的生命周期由一系列阶段（phase）构成，以内置的生命周期default为例，它包含以下phase：
+Maven 有三套相互独立的生命周期，分别是：
 
-```java
-validate
+* Clean Lifecycle 在进行真正的构建之前进行一些清理工作
 
-initialize
 
-generate-sources
+* Default Lifecycle 构建的核心部分，编译，测试，打包，安装，部署等等
 
-process-sources
+Default 生命周期是 Maven 生命周期中最重要的一个，绝大部分工作都发生在这个生命周期中（列出一些重要阶段）
 
-generate-resources
+* Site Lifecycle 生成项目报告，站点，发布站点
 
-process-resources
 
-compile
+它们是相互独立的，你可以仅仅调用 clean 来清理工作目录，仅仅调用 site 来生成站点。当然你也可以直接运行 mvn clean install site 运行所有这三套生命周期。 
 
-process-classes
+每套生命周期都由一组阶段(Phase)组成，我们平时在命令行输入的命令总会对应于一个特定的阶段。
 
-generate-test-sources
+比如，运行 mvn clean，这个 clean 是 Clean 生命周期的一个阶段。有 Clean 生命周期，也有 clean 阶段。
 
-process-test-sources
 
-generate-test-resources
+## 阶段
 
-process-test-resources
+Maven的生命周期由一系列阶段（phase）构成。
 
-test-compile
+* Clean 生命周期一共包含了三个阶段：
 
-process-test-classes
+pre-clean 执行一些需要在 clean 之前完成的工作
 
-test
+clean 移除所有上一次构建生成的文件
 
-prepare-package
+post-clean 执行一些需要在 clean 之后立刻完成的工作
 
-package
+* default 生命周期包含了下面的阶段：
 
-pre-integration-test
+validate：验证工程是否正确，所有需要的资源是否可用。
 
-integration-test
+compile：编译项目的源代码。
 
-post-integration-test
+test：使用合适的单元测试框架来测试已编译的源代码。这些测试不需要已打包和布署。
 
-verify
+package：把已编译的代码打包成可发布的格式，比如 jar、war 等。
 
-install
+integration-test：如有需要，将包处理和发布到一个能够进行集成测试的环境。
 
-deploy
-```
+verify：运行所有检查，验证包是否有效且达到质量标准。
 
-如果我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
+install：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。
+
+deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享
+
+* Site 生命周期包含4个阶段：
+
+pre-site 执行一些需要在生成站点文档之前完成的工作
+
+site 生成项目的站点文档
+
+post-site 执行一些需要在生成站点文档之后完成的工作，并且为部署做准备
+
+site-deploy 将生成的站点文档部署到特定的服务器上 这里经常用到的是 site 阶段和 site-deploy 阶段，用以生成和发布 Maven 站点，这可是 Maven 相当强大 的功能，Manager 比较喜欢，文档及统计数据自动生成，很好看。
+
+## Goal
+
+执行一个phase又会触发一个或多个goal：
+
+例如：我们执行mvn compile，实际上是执行了下面的goal：
+compile	compiler:compile
+
+我们执行mvn test，实际上是执行了下面的goal：
+
+test	compiler:testCompile
+
+大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，
+
+例如，启动Tomcat服务器：
+mvn tomcat:run
+
+
+## maven命令的执行过程：
+
+maven 命令的常用格式是：  mvn phase名
+
+其执行过程是：
+
+使用mvn这个命令时，Maven自动根据生命周期，从某一个生命周期的第一个阶段开始，运行到指定的阶段为止。
+
+例如：
+
+我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
 
 ```xml
 validate
@@ -333,19 +369,6 @@ compile
 
 ```
 
-Maven另一个常用的生命周期是clean，它会执行3个phase：
-
-```java
-pre-clean
-
-clean （注意这个clean不是lifecycle而是phase）
-
-post-clean
-```
-
-
-所以，我们使用mvn这个命令时，后面的参数是phase，Maven自动根据生命周期运行到指定的phase。
-
 更复杂的例子是指定多个phase，例如，运行mvn clean package，Maven先执行clean生命周期并运行到clean这个phase，然后执行default生命周期并运行到package这个phase，实际执行的phase如下：
 
 ```java
@@ -356,45 +379,46 @@ validate
 package
 ```
 
+## maven 常用命令：
+
 在实际开发过程中，经常使用的命令有：
 
-mvn clean：清理所有生成的class和jar；
+### 版本信息
 
-mvn clean compile：先清理，再执行到compile；
+* mvn -version/-v 显示版本信息
 
-mvn clean test：先清理，再执行到test，因为执行test前必须执行compile，所以这里不必指定compile；
+### 清理
 
-mvn clean package：先清理，再执行到package。
+* mvn clean 清空生成的文件
 
-大多数phase在执行过程中，因为我们通常没有在pom.xml中配置相关的设置，所以这些phase什么事情都不做。
+### 编译
 
-经常用到的phase其实只有几个：
+* mvn compile 编译
 
-clean：清理
+* mvn clean compile 表示先运行清理之后运行编译，会将代码编译到target文件夹中
 
-compile：编译
+### 打包
 
-test：运行测试
+* mvn package 生成target目录，编译、测试代码，生成测试报告，生成jar/war文件
 
-package：打包
+* mvn clean package 运行清理和打包
 
-## Goal
 
-执行一个phase又会触发一个或多个goal：
+### 安装
+* mvn clean install 运行清理和安装，会将打好的包安装到本地仓库中，以便其他的项目可以调用
 
-执行的Phase	对应执行的Goal
 
-compile	compiler:compile
+### 发布
+* mvn clean deploy 运行清理和发布
 
-test	compiler:testCompile
+### 测试
 
-surefire:test
+* mvn test 编译并测试
 
-goal的命名总是abc:xyz这种形式。
+### 生成站点信息
 
-大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，例如，启动Tomcat服务器：
+* mvn site 生成项目相关信息的网站
 
-mvn tomcat:run
 
 
 # 五、Maven的依赖管理机制
