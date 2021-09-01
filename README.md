@@ -34,4 +34,6 @@
  * [数据库](https://github.com/geekist/developer_guide/blob/main/database/aliyun_rds.md)
 
  * [第三方接入](https://github.com/geekist/developer_guide/blob/main/3rd/3rd.md)
+
+## [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
   
