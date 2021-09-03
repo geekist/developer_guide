@@ -12,6 +12,145 @@
 
 ## 二、根据MVC的架构思想创建model和controller
 
+
+在MVC/Model 中， 将Web 应用划分为模型、视图与控制器三个部分：
+
+### 控制器（Controller）的职责，桥梁
+
+  * 接受请求
+
+  * 验证请求
+
+  * 判断要转发请求给哪个模型
+
+ * 判断要转发请求给哪个视图
+
+### 模型（Model）的职责
+
+  * 保存应用程式状态
+
+  * 执行应用程序业务逻辑（Business logic）
+
+### 视图（View）的职责
+
+  * 提取模型状态
+
+  * 执行呈现回应画面
+
+![](./assets/mvc.png)
+
+创建一个实体类
+
+```java
+
+
+public class User {
+    private String id;
+    private String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+
+```
+
+创建一个controller类
+
+```java
+package com.xiaobaiai;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1")
+public class UserServiceController {
+    private static Map<String, User> userRepo = new HashMap<>();
+    static {
+        User ethan = new User();
+        ethan.setId("1");
+        ethan.setName("Ethan");
+        userRepo.put(ethan.getId(), ethan);
+
+        User xiaoming = new User();
+        xiaoming.setId("2");
+        xiaoming.setName("Xiaoming");
+        userRepo.put(xiaoming.getId(), xiaoming);
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> delete(@PathVariable("id") String id) {
+        userRepo.remove(id);
+        return new ResponseEntity<>("User is deleted successsfully", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody User user) {
+        userRepo.remove(id);
+        user.setId(id);
+        userRepo.put(id, user);
+        return new ResponseEntity<>("User is updated successsfully", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public ResponseEntity<Object> createProduct(@RequestBody User user) {
+        userRepo.put(user.getId(), user);
+        return new ResponseEntity<>("User is created successfully", HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/users")
+    public ResponseEntity<Object> getProduct() {
+        return new ResponseEntity<>(userRepo.values(), HttpStatus.OK);
+    }
+}
+
+```
+
+添加应用类
+
+```java
+
+ackage com.xiaobaiai;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Test05HelloworldApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Test05HelloworldApplication.class, args);
+    }
+
+}
+
+
+```
+
+
 ### 2.1 @RestControl注解
 ```java
 
@@ -102,6 +241,23 @@ public @interface GetMapping {
 }
 ```
 Spring4.3中引进了｛@GetMapping、@PostMapping、@PutMapping、@DeleteMapping、@PatchMapping｝，来帮助简化常用的HTTP方法的映射，并更好地表达被注解方法的语义。
+
+
+### 测试
+
+```xml
+
+# 获取所有用户信息
+GET http://localhost:8080/api/v1/users
+# 新增一个用户，参数通过body传递
+POST http://localhost:8080/api/v1/users
+# 更新一个用户信息
+PUT http://localhost:8080/api/v1/users/{id}
+# 删除指定用户
+DELETE http://localhost:8080/api/v1/users/{id}
+
+
+```
 
 
 
