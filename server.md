@@ -38,7 +38,9 @@
 
 
 - [application.properties和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/springboot_yml.md)
-- 
+
+- [Spring boot项目框架](https://github.com/geekist/developer_guide/blob/main/server/springboot_init.md)
+ 
 
 ## 3.3 Spring Boot 环境配置
 
