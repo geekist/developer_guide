@@ -34,6 +34,12 @@
 
 - [SpringBoot 教程](https://www.yiibai.com/spring-boot/)
 
+## Spring Boot 开发基本知识
+
+
+- [application.properties和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/springboot_yml.md)
+- 
+
 ## 3.3 Spring Boot 环境配置
 
  - [step1: Java SDK安装与配置](http://www.51gjie.com/java/43.html)
