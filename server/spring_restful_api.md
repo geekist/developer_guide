@@ -150,8 +150,9 @@ public class Test05HelloworldApplication {
 
 ```
 
+## 三、controller中关于注解的解释
 
-### 2.1 @RestControl注解
+### 3.1 @RestControl注解
 ```java
 
 @Target(value=TYPE)  
@@ -243,7 +244,7 @@ public @interface GetMapping {
 Spring4.3中引进了｛@GetMapping、@PostMapping、@PutMapping、@DeleteMapping、@PatchMapping｝，来帮助简化常用的HTTP方法的映射，并更好地表达被注解方法的语义。
 
 
-### 测试
+### 四、测试
 
 ```xml
 
@@ -262,7 +263,7 @@ DELETE http://localhost:8080/api/v1/users/{id}
 
 
 
-### 2.2 SpringBoot 工程目录
+## 五、SpringBoot 工程目录
 
 根目录：src.main.java
 
