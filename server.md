@@ -100,7 +100,13 @@
 * [java WebSocket开发入门WebSocket](https://www.jianshu.com/p/d79bf8174196)
 
 * [Java开发WebSocket实战](https://github.com/geekist/developer_guide/blob/main/server/websocket_java.md)
-* 
+
+
+* [Spring boot封装websocket之一：原生注解](https://github.com/geekist/developer_guide/blob/main/server/websocket_springboot_1.md)
+
+* [Spring boot封装websocket之二：Spring封装](https://github.com/geekist/developer_guide/blob/main/server/websocket_springboot_2.md)
+
+
 ## 5.2 SpringBoot开发WebSocket服务器
 
 * [用SpringBoot框架开发WebSocket](https://github.com/geekist/developer_guide/blob/main/server/spring_websocket.md)
