@@ -17,12 +17,7 @@
 ## 二、WebSocketConfig类
 
 ```java
-/*
- * *
- *  * blog.coder4j.cn
- *  * Copyright (C) 2016-2019 All Rights Reserved.
- *
- */
+
 package cn.coder4j.study.example.websocket.config;
 
 import org.springframework.context.annotation.Bean;
