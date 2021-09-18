@@ -40,7 +40,7 @@
 
 ## 四、静态页面开发
 
-* [VSCode 开发静态页面](https://github.com/geekist/developer_guide/blob/main/frontend/static_html.md)
+* [VSCode 开发静态页面](https://guohaomeng.github.io/post/yong-vscode-xie-wang-ye-ji-chu-an-zhuang-pian/)
 
 ## 五、关于浏览器开发
 
