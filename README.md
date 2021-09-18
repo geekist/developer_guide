@@ -25,6 +25,8 @@
 
 ## 其他
 
+* [Json最佳实践](http://kimmking.github.io/2017/06/06/json-best-practice/)
+
 * [项目构建工具maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 
  * [杂项](https://github.com/geekist/developer_guide/blob/main/杂项.md)
