@@ -38,20 +38,23 @@
 
 * [ECMAScript6代码规范](https://es6.ruanyifeng.com/#docs/style)
 
-## 四、静态页面开发
-
-* [VSCode 开发静态页面](https://guohaomeng.github.io/post/yong-vscode-xie-wang-ye-ji-chu-an-zhuang-pian/)
-
-## 五、关于浏览器开发
+## 四、关于浏览器
 
 *  [五大浏览器四大内核](https://github.com/geekist/developer_guide/blob/main/frontend/browser.md)
 
+## 五、VSCode开发工具
+
+* [VSCode 基础安装](https://guohaomeng.github.io/post/yong-vscode-xie-wang-ye-ji-chu-an-zhuang-pian/)
+
 ## 六、前端开发框架
 
-*  [vue开发框架](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
+
+*  [vue基础介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
 
 
 *  [vue开发环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
+
+*  [vue开发第一个项目](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev.md)
 
 ## 七、前端开发杂项
 
