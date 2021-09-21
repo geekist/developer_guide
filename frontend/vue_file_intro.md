@@ -21,6 +21,7 @@ npm 加载的项目依赖模块
 * **src**
 
 这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件： 
+
  assets：放置一些图片
 
  components：放置一些组件
@@ -805,6 +806,299 @@ if (config.build.bundleAnalyzerReport) {
 module.exports = webpackConfig
 
 ```
+
+## 三、config目录
+
+### 3.1 index.js 主要配置
+
+```xml
+
+'use strict'
+// Template version: 1.3.1
+// see http://vuejs-templates.github.io/webpack for documentation.
+// 引入 node.js 的路径模块
+const path = require('path')
+
+module.exports = {
+  dev: {
+
+    // Paths
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
+    // 建一个虚拟 api 服务器用来代理本机的请求，只能用于开发模式
+    proxyTable: {},
+
+    // 服务 host
+    host: 'localhost',
+    // 服务端口号
+    port: 8080,
+    // 自动打开浏览器浏览器
+    autoOpenBrowser: false,
+    errorOverlay: true,
+    notifyOnErrors: true,
+    poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
+
+    // Use Eslint Loader?
+    // If true, your code will be linted during bundling and
+    // linting errors and warnings will be shown in the console.
+    useEslint: true,
+    // If true, eslint errors and warnings will also be shown in the error overlay
+    // in the browser.
+    showEslintErrorsInOverlay: false,
+
+    /**
+     * Source Maps
+     */
+
+    // https://webpack.js.org/configuration/devtool/#development
+    devtool: 'cheap-module-eval-source-map',
+
+    // If you have problems debugging vue-files in devtools,
+    // set this to false - it *may* help
+    // https://vue-loader.vuejs.org/en/options.html#cachebusting
+    cacheBusting: true,
+
+    cssSourceMap: true
+  },
+
+  build: {
+    // 下面是相对路径的拼接，假如当前跟目录是 config，那么下面配置的 index 属性的属性值就是 dist/index.html
+    index: path.resolve(__dirname, '../dist/index.html'),
+
+    // 定义的是静态资源的根目录 也就是 dist 目录
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    // 定义的是静态资源根目录的子目录 static，也就是 dist 目录下面的 static
+    assetsSubDirectory: 'static',
+    // 定义的是静态资源的公开路径，也就是真正的引用路径
+    assetsPublicPath: '/',
+
+    /**
+     * Source Maps
+     */
+    productionSourceMap: true,
+    // https://webpack.js.org/configuration/devtool/#production
+    devtool: '#source-map',
+
+    // Gzip off by default as many popular static hosts such as
+    // Surge or Netlify already gzip all static assets for you.
+    // Before setting to `true`, make sure to:
+    // npm install --save-dev compression-webpack-plugin
+    // 是否压缩代码
+    productionGzip: false,
+    // 定义要压缩哪些类型的文件
+    productionGzipExtensions: ['js', 'css'],
+
+    // Run the build command with an extra argument to
+    // View the bundle analyzer report after build finishes:
+    // `npm run build --report`
+    // Set to `true` or `false` to always turn it on or off
+    // 编译完成后的报告，可以通过设置值为 true 和 false 来开启或关闭
+    bundleAnalyzerReport: process.env.npm_config_report
+  }
+}
+
+
+```
+
+### 3.2 dev.env.js	开发环境配置
+
+```xml
+
+'use strict'
+// 配置文件合并模块
+const merge = require('webpack-merge')
+// 导入 prod.env.js 配置文件
+const prodEnv = require('./prod.env')
+
+module.exports = merge(prodEnv, {
+  // 导出一个对象，NODE_ENV 是一个环境变量，指定 development 环境
+  NODE_ENV: '"development"'
+})
+
+
+
+```
+
+
+### 3.3 prod.env.js 生产环境配置
+
+```xml
+
+'use strict'
+module.exports = {
+  // 导出一个对象，NODE_ENV 是一个环境变量，指定 production 环境
+  NODE_ENV: '"production"'
+}
+
+```
+
+## 四、node_modules目录
+
+node_modules 是安装 node 后用来存放用包管理工具下载安装的包的文件夹。比如 webpack 等这些工具。
+
+## 五、src目录
+
+### 51. assets：
+
+放置静态资源，包括公共的 css 文件、 js 文件、iconfont 字体文件、img 图片文件 以及其他资源类文件。之所以强调是公共的 css 文件，是因为要在组件的 css 标签里加入 ‘scoped‘ 标记，将其作用范围限制在此组件以及调用它的父级组件中，避免污染全局样式；
+
+### 5.2 components：
+
+放置通用模块组件。项目里总会有一些复用的组件，例如弹出框、发送手机验证码、图片上传等，将它们作为通用组件，避免重复工作；
+
+### 5.3 views：
+
+放置主要页面的组件。例如登录页、用户信息页等。通常是这里的组件本身写入一些结构，再引入通用模块组件，形成完整的页面；
+
+
+### 5.4 router：放置路由设置文件，指定路由对应的组件；
+
+[Vue Router介绍](https://blog.csdn.net/Demo_Null/article/details/107443259)
+
+### 5.5 App.vue：
+
+入口组件，views 里的组件会被插入此组件中，此组件再插入 index.html 文件里，形成单页面应用；
+
+```xml
+
+<template>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <!-- 显示的是当前路由地址对应的内容 -->
+    <router-view/>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+
+
+
+```
+
+
+### 5.6 main.js：
+
+入口 js 文件，影响全局，作用是引入全局使用的库、公共的样式和方法、设置路由等
+
+```xml
+
+// 引入 vue
+import Vue from 'vue'
+// 自动寻找名字为 App 的文件，如 app.vue app.js...
+import App from './App'
+// 引入 router
+import router from './router'
+
+Vue.config.productionTip = false
+
+/* eslint-disable no-new */
+new Vue({
+  // 绑定
+  el: '#app',
+  // 路由
+  router,
+  // 组件
+  components: { App },
+  // 将 App 局部组件显示在页面上
+  template: '<App/>'
+})
+
+
+```
+
+## 六、 static 目录
+
+src 目录下的 assets 目录和根目录下的 static 目录都是存放静态文件的，但是 assets 里的文件编译过程中会被 webpack 处理理解为模块依赖，只支持相对路径的形式。
+ 
+assets 放可能会变动的文件；
+
+static 里的文件不会被 webpack 解析，会直接被复制到最终的打包(默认是dist/static)下，必须使用绝对路径引用这些文件。static 放不会变动的文件。这是通过在 config.js 文件中的 build.assetsPublicPath 和 build.assetsSubDirectory 连接来设置的。任何放在 static/ 中文件需要以绝对路径的形式引用：/static/[filename]。如果更改 assetSubDirectory 的值为 assets，那么路径需改为 /assets/[filename]。
+
+## 六、 .editorconfig;.eslintignore;.eslintrc.js;.gitignore;.postcssrc.js
+
+配置文件；
+
+## 七、package.json和package-lock.json
+
+package.json 文件其实就是对项目或者模块包的描述，里面包含许多元信息。比如项目名称，项目版本，项目执行入口文件，项目贡献者等等。npm install 命令会根据这个文件下载所有依赖模块。
+
+```java
+
+{
+  // 项目/模块名称，长度必须小于等于 214 个字符，不能以"."(点)或者"_"(下划线)开头，不能包含大写字母
+  "name": "myvue",
+  // 项目版本
+  "version": "1.0.0",
+  // 项目描述
+  "description": "project",
+  // 作者
+  "author": "Demo_Null",
+  // 是否私有，设置为 true 时，npm 拒绝发布
+  "private": true,
+  // 执行 npm 脚本命令简写，执行前面的简写就代表执行后面的命令
+  "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "unit": "jest --config test/unit/jest.conf.js --coverage",
+    "e2e": "node test/e2e/runner.js",
+    "test": "npm run unit && npm run e2e",
+    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "build": "node build/build.js"
+  },
+  // 生产环境下，项目运行所需依赖
+  "dependencies": {
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+  },
+  // 开发环境下，项目所需依赖
+  "devDependencies": {
+    "autoprefixer": "^7.1.2",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^8.2.1",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-jest": "^21.0.2",
+    "babel-loader": "^7.1.1",
+    "vue-style-loader": "^3.0.1",
+    "vue-template-compiler": "^2.5.2",
+    "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-merge": "^4.1.0"
+  },
+  // 项目运行的平台
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
+  // 供浏览器使用的版本列表
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
+
+
+```
+
+## 八、dist目录
+
+vue发布包，放在服务器目录下即可；
 
 
 
