@@ -86,6 +86,8 @@ cd vuedemo
 
 ## PS：
 
+**命令行终端**
+
 使用vscode的过程中，我们可能会用到终端，
 
 虽然系统自带有，但是还要另外打开，有点不方便，vscode中就有这个功能，
@@ -99,7 +101,7 @@ cd vuedemo
 选择vscode的 “查看”，然后选择“集成终端” ，打开即可；
 
 
-* 无法打开vue.ps1文件
+**无法打开vue.ps1文件**
 
 
 原因：首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，防止执行不信任的脚本。
@@ -111,7 +113,7 @@ cd vuedemo
 set-executionpolicy remotesigned
 再次执行命令创建vue项目就可以啦。
 
-**版本问题： **
+**版本不兼容问题**
 
 需要删除node-modules，
 

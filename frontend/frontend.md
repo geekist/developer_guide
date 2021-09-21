@@ -56,6 +56,8 @@
 
 *  [vue开发第一个项目](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev.md)
 
+*  [vue项目文件目录介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue_file_intro.md)
+
 ## 七、前端开发杂项
 
 * [GIF、JPG、PNG、WEBP图片格式](https://segmentfault.com/a/1190000013589397)
