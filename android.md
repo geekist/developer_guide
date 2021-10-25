@@ -1,6 +1,10 @@
 
 # 一、Android系统原理
 
+## 1.0 Android的CPU架构
+
+* [Android的CPU架构](https://github.com/geekist/developer_guide/blob/main/android/system/cpu.md)
+
 ## 1.1 Android系统框架和启动过程
 
 * [Android系统框架](https://developer.android.com/guide/platform?hl=zh-cn)
