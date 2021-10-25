@@ -337,6 +337,9 @@
 
 * [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md) **[命令行记忆](https://www.cnblogs.com/sjm19910902/p/6416022.html)**
 
+* [Android打包Jar和aar流程](https://github.com/geekist/developer_guide/blob/main/android/studio/jar-and-aar.md)
+
+
 * [Android MultiDex原理及实现记录](https://www.jianshu.com/p/1c5e8f281d0d)
 
 * [启用MultiDex](https://github.com/geekist/developer_guide/blob/main/android/studio/MultiDex.md)
