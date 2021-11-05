@@ -1,4 +1,6 @@
 
+* [日积月累](https://github.com/geekist/developer_guide/blob/main/android/diary.md)
+
 # 一、Android系统原理
 
 ## 1.0 Android的CPU架构
