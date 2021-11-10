@@ -56,7 +56,12 @@
 
 *  [vue开发第一个项目](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev.md)
 
+
+*  [Nginx部署vue项目](https://github.com/geekist/developer_guide/blob/main/frontend/vue_release.md)
+
 *  [vue项目文件目录介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue_file_intro.md)
+
+*  [vue项目常用库介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue_library.md)
 
 ## 七、前端开发杂项
 
