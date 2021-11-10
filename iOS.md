@@ -20,4 +20,7 @@
 
 ## 发布
 
-[服务器基础](https://github.com/geekist/developer_guide/blob/main/server/server.md)
+* [ios产品发布基本概念](https://github.com/geekist/developer_guide/blob/main/ios/release_concept.md)
+
+* [ios产品发布流程](https://github.com/geekist/developer_guide/blob/main/ios/release.md)
+

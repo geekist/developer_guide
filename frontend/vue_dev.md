@@ -72,9 +72,19 @@ cd vuedemo
 
 打开浏览器输入http://localhost:8080，如果出现vue的欢迎页面则说明成功
 
+
+如何停止vue项目？
+
+在终端里 运行 Crtl+C 来停止vue项目。
+
+
 ## 三、构建生产包
 
-其他命令，npm run build用户构建生产包
+** npm run build**
+
+用npm run build 构建生产包
+
+生产包构建成功后，在根目录生成dist文件夹，里面包含了所有项目相关的内容。
 
 ## 四、运行生产包
 

@@ -1,5 +1,11 @@
 
+* [日积月累](https://github.com/geekist/developer_guide/blob/main/android/diary.md)
+
 # 一、Android系统原理
+
+## 1.0 Android的CPU架构
+
+* [Android的CPU架构](https://github.com/geekist/developer_guide/blob/main/android/system/cpu.md)
 
 ## 1.1 Android系统框架和启动过程
 
@@ -336,6 +342,9 @@
 * [Java程序编译和运行原理](https://github.com/geekist/developer_guide/blob/main/android/studio/java编译运行原理.md)
 
 * [Android打包apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md) **[命令行记忆](https://www.cnblogs.com/sjm19910902/p/6416022.html)**
+
+* [Android打包Jar和aar流程](https://github.com/geekist/developer_guide/blob/main/android/studio/jar-and-aar.md)
+
 
 * [Android MultiDex原理及实现记录](https://www.jianshu.com/p/1c5e8f281d0d)
 
