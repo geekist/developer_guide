@@ -1,11 +1,12 @@
 
 # ios产品发布的基本概念
 
-苹果为了控制应用的开发与发布流程，制定了一套非常复杂的机制。这里面的关键词有：个人开发者账号，企业开发者账号，bundle ID，开发证书，发布证书（又叫“生产证书”），开发描述文件，发布描述文件，推送证书等…。初级开发者很难理解这中间的关系和作用。下文就对上述列出的关键内容和它们的关系做个详细介绍。
+苹果为了控制应用的开发与发布流程，制定了一套非常复杂的机制。初级开发者很难理解这中间的关系和作用。下文就对上述列出的关键内容以及产品的开发发布流程。
 
 
-## 一、开发者账号 --- Apple ID
+## 一、创建开发者账号，添加团队成员
 
+### 1.1 开发者账号
 
 开发者账号其实就是apple id，只不过要成为开发者，需要去苹果开发者中心激活开发权限。
 
@@ -20,13 +21,18 @@
 
 注：邓氏编码（D-U-N-S® Number）是一种实时动态的企业身份标识。它源自于一个独一无二的9位数字全球编码系统DUNS，相当于企业的身份识别码 （就像是个人的身份证），被广泛应用于企业识别、商业信息的组织及整理。可以帮助识别和迅速定位全球4亿家企业的信息。
 
-所以如果应用需要上appstroe，就要创建个人或者公司类型的账号；
 
-如果只想内部发布，就可以申请企业账号；
+* 如果应用需要上appstroe，就要创建个人或者公司类型的账号；
 
-个人账号和公司账号的区别就是公司账号能邀请多个账号，他们可以和你共享资源协同开发此应用，而不需要总是问你要你的账号使用。
+* 如果只想内部发布，就可以申请企业账号；
 
-## 开发者账号添加团队成员
+* 个人账号和公司账号的区别就是公司账号能邀请多个账号，他们可以和你共享资源协同开发此应用，而不需要总是问你要你的账号使用。
+
+
+**育伢开发者账号：  yuyaapp@163.com    WWJ520yll**
+
+
+### 1.2 添加团队成员
 
 申请了一个公司或企业级的苹果开发者账号，可以添加团队成员协同开发。
 
@@ -38,10 +44,16 @@
 
 成员: 没有管理权限，只能下载和请求数据，可以有多个。
 
-![](../assets/yuya_account.png)
+
+开发者账号可以到[App Store Connect](https://appstoreconnect.apple.com)上去添加团队成员。
+
+![](./assets/ios_account.png)
 
 
-## 二、 bundle ID  --- APP ID
+## 二、 创建App ID（bundle ID）
+
+
+### 2.1 App ID
 
 bundle ID可以翻译成包ID,也可以叫APP ID 或应用ID,它是每一个ios应用的全球唯一标识。
 
@@ -53,27 +65,39 @@ Explicit App ID（明确的APP ID），一般格式是：com.domainname.appname�
 
 Wildcard App ID(通配符APP ID), 一般格式是：com.domainname.*。这种id可以用在多个应用上，虽然方便，但是使用这种id的应用不能使用通知功能，所以并不常用。
 
+### 2.2 创建App ID
+
+进入developer.apple.com，在账户（account）中选择appID
+
+![](./assets/certificate_0.png)
+
+下图列出了育伢的app id
+
+![](./assets/app_id_0.png)
+
+创建一个app id的步骤如下：
+
 ![](./assets/yuya_account.png)
 
 yuyaparent的AppID
 
-
 ![](./assets/certificate_5.png)
 
 
+## 三、创建开发证书和产品证书 iOS Certificates 
 
-## 三、 iOS Certificates ---证书
+### 3.1 根证书、开发证书和产品证书
 
 ios certificates就是证书。它的作用就是证明你的mac具有开发或发布某个开发者账号下应用的权限。
 
-证书分成两种，一种是开发证书，也叫Development certificate; 另一种是发布证书或叫生产证书，英文名叫Production certificate。
+证书分成两种：
 
-* development certificate
+* 开发证书（development certificate）--用于开发和测试
 
-开发证书是证明你的mac具有开发和真机调试你的程序的东西。***每个证书关联着一个开发者账号***，也就是说，你只能使用这个证书开发这个账号底下的应用，它是通过bundle id来知道该应用是不是属于自己的账号。所以，每次为一个开发者帐号开发应用，就得需要这个账号创建的开发证书。
+开发证书是证明你的mac具有开发和真机调试你的程序的东西。***每个证书关联着一个开发者账号***，也就是说，你只能使用这个证书开发这个账号下的应用，它是通过bundle id来知道该应用是不是属于自己的账号。所以，每次为一个开发者帐号开发应用，就得需要这个账号创建的开发证书。
 
 
-*Production certificate
+*（发布证书或生产证书）Production certificate  --用于打包ipa上传app store
 
 生产证书是证明你的mac是否具有发布应用的权限。在archive到appstore的时候，必须有生产证书，否则时上传不成功的。
 
@@ -82,20 +106,24 @@ ios certificates就是证书。它的作用就是证明你的mac具有开发或�
 无论是开发证书还是生产证书，都必须从根证书上派生。根证书就是根mac产生的证书，member center上保存的那个证书就是根证书，它只能安装在创建它的那台mac上，其他的开发mac必须从那台根mac上导出证书使用。也就是所有的子证书都只能从根证书派生而来。
 
 
-开发和产品证书的生成和获取
+### 3.2 开发和产品证书的生成和获取
 
-1 .生成开发和发布证书
+#### 3.2.1 申请签名请求证书
+
+创建证书之前需要现在Mac电脑上面申请certSigningRequest(CSR)文件，打开工具--钥匙串访问程序 - 证书助理 - 从证书颁发机构请求证书
 
 (1).通过钥匙串获取证书请求文件Certificate Signing Request (CSR)文件。
 选择“钥匙串访问”-“证书助理”-“从证书颁发机构请求证书…”,如下图：
 
-![](./assets/certificate_1.png)
+![](./assets/certificate_01.png)
 
 填写邮件地址和常用名称，选择“存储到磁盘”,会生成一个CSR文件到本地磁盘。
 
 ![](./assets/certificate_2.png)
 
+注：钥匙串是一个已加密的容器，用以安全储存 Mac、App、服务器和网站的帐户名和密码，以及机密信息，如信用卡号或银行帐户 PIN 码。访问网站、电子邮件帐户、网络服务器或其他受密码保护的项目时，您可以选取将密码存储在钥匙串中，这样您无需每次都记住或输入密码。
 
+#### 3.2.2 申请开发证书
 登录开发者中心，选择Certificates, Indentifiers & Profiles可以获取开发和发布证书。
 Certificates -> All -> +
 
@@ -103,9 +131,26 @@ Certificates -> All -> +
 
 ![](./assets/certificate_4.png)
 
+点击+，开始申请开发者证书，选择app development，continue。。。
 
-选择下载，可以将cer文件下载到本地
+![](./assets/certificate_02.png)
 
+选择刚才创建的文件，继续
+
+![](./assets/certificate_03.png)
+
+确定信息后，下载证书到本地
+
+![](./assets/certificate_04.png)
+
+
+#### 3.2.3 申请发布证书
+
+重复刚刚的步骤创建一个iOS Distribution证书（注意是iOS Distribution，不是Apple Distribution）
+
+#### 3.2.4 导入开发证书和发布证书
+
+双击刚刚下载的证书，导入到电脑，两个都要。
 
 ## 四、iOS Provisioning Profiles ---描述文件
 
