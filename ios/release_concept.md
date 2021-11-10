@@ -36,7 +36,7 @@ Explicit App ID（明确的APP ID），一般格式是：com.domainname.appname�
 
 Wildcard App ID(通配符APP ID), 一般格式是：com.domainname.*。这种id可以用在多个应用上，虽然方便，但是使用这种id的应用不能使用通知功能，所以并不常用。
 
-![](../assets/yuya_account.png)
+![](./assets/yuya_account.png)
 
 ##  iOS Certificates ---证书
 
