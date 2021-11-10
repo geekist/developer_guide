@@ -1,35 +1,23 @@
 
 
-iOS App 发布就是将App的 .ipa文件上传到App Store中。
+iOS App 发布就是将App的 .ipa文件上传到App Store中。将app发布到应用市场需要八个步骤：
 
 
+## 1、申请iOS证书
 
-## appstore 账号管理
+## 2、导入证书到钥匙串
 
-* iOS开发者账号管理级别权限：
+## 3、xcode配置iOS证书
 
-Admin Legal权限：超级管理员。可以管理开发者和管理app store中的应用。
+## 4、配置xcode打包环境
 
-Admin权限：管理员，可以管理开发者。添加测试机子和管理团队证书。
+## 5、打包并导出IPA包
 
-Member权限：是普通开发者。只能下载证书和使用证书。
+## 6、在iTunes Connect创建App
 
-No Access权限：没有相应的权限。
+## 7、上传IPA到iTunes Connect
 
-![](../assets/yuya_account.png)
+## 8、上传IPA成功后到iTunes Connect提交审核
 
 
-* APP由本公司开发者账号发布
-
-由相应Admin Legal或Admin权限本公司管理员操作
-
-* APP由外公司账号发布
-
-1、外部开发者账号提供Admin授权
-
-本公司相应被授权的开发者，操作管理
-
-2、外部开发者账号不提供Admin授权
-
-本公司开发人员，把需要发布的ipa包，提供给外部开发者账号管理员，用于上传AppStore
 
