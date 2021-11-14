@@ -41,7 +41,7 @@
 
 - [Spring boot项目框架](https://github.com/geekist/developer_guide/blob/main/server/springboot_init.md)
 
-- [Spring boot注解](./spring_boot_annotation.md)
+- [Spring boot注解](./server/spring_boot_annotation.md)
 
 - [无效的源发行版本11](https://segmentfault.com/a/1190000023536478)
  
