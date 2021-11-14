@@ -1,14 +1,87 @@
 
 ## 一、创建一个SpringBoot的Web项目
 
-建立一个Spring Starter Project项目，将Spring Boot Starter Web依赖项添加到构建配置文件pom.xml(使用Marven构建)中：
+在IDEA中创建一个Springboot的项目：
+
+![](./assets/rest_api_1.png)
+
+配置可以都不用写：
+
+![](./assets/rest_api_2.png)
+
+框架默认生成的maven文件目录如下：
+
+![](./assets/rest_api_3.png)
+
+默认生成的pom.xml配置文件如下：
 
 ```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.ytech</groupId>
+    <artifactId>restapi</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>restapi</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
 ```
+
+框架默认生成的入口文件如下：
+
+
+```java
+
+package com.ytech.restapi;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RestapiApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RestapiApplication.class, args);
+    }
+
+}
+
+
+```
+
 
 ## 二、根据MVC的架构思想创建model和controller
 
