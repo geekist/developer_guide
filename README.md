@@ -1,20 +1,21 @@
 
-## [计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
+[计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
 
 
-##  [操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
+[操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
 
 
-## [开发语言](https://github.com/geekist/developer_guide/blob/main/developing_language.md)
+[开发语言](https://github.com/geekist/developer_guide/blob/main/developing_language.md)
+
+[服务器开发](https://github.com/geekist/developer_guide/blob/main/server.md)
 
 
-## [服务器开发](https://github.com/geekist/developer_guide/blob/main/server.md)
+[前端开发](https://github.com/geekist/developer_guide/blob/main/frontend/frontend.md)
+
+项目构建和管理
 
 
-## [前端开发](https://github.com/geekist/developer_guide/blob/main/frontend/frontend.md)
-
-
-## 移动端开发
+移动端开发
 
  * [移动端iOS开发](https://github.com/geekist/developer_guide/blob/main/iOS.md)
 
@@ -23,7 +24,9 @@
 * [移动端开发常见问题](https://github.com/geekist/developer_guide/blob/main/other/screen-campatible.md)
 
 
-## 其他
+其他
+
+* [工具](./tools/tools.md)
 
 * [Json最佳实践](http://kimmking.github.io/2017/06/06/json-best-practice/)
 
@@ -36,6 +39,9 @@
  * [数据库](https://github.com/geekist/developer_guide/blob/main/database/aliyun_rds.md)
 
  * [第三方接入](https://github.com/geekist/developer_guide/blob/main/3rd/3rd.md)
+
+* [移动端开发常见问题](https://github.com/geekist/developer_guide/blob/main/other/screen-campatible.md)
+
 
 ## [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
   
