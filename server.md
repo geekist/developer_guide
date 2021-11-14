@@ -69,7 +69,9 @@
 
 * [SpringBoot创建Restful API Service](https://github.com/geekist/developer_guide/blob/main/server/spring_restful_api.md)
 
-* [使用Swagger生成API文档](https://github.com/geekist/developer_guide/blob/main/server/swagger.md)
+* [使用Swagger生成API文档](https://www.cnblogs.com/progor/p/13297904.html)
+
+* [类似Swagger的接口完档API工具](https://www.cxyzjd.com/article/qq_34065636/112648032)
 
 ## 3.6 Spring Boot 实践之二： 阿里云数据库RDS的使用
 
