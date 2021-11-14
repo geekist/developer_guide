@@ -2,7 +2,8 @@
 
 ## 如何在github中创建目录
 
-使用[gh-md-toc](https://github.com/ekalinin/github-markdown-toc)工具来实现生成目录。
+github下生成目录不太方便，多方搜索后，发现可以使用[gh-md-toc](https://github.com/ekalinin/github-markdown-toc)工具来实现生成目录。
+
 
 该工具在windows下面不太友好，但是提供了go语言的包，可以直接下载go语言的二进制文件，然后使用即可。
 
@@ -10,22 +11,36 @@ go语言的二进制包下面目录如下：
 
 https://github.com/ekalinin/github-markdown-toc.go/releases
 
+
+
+
+使用步骤：
+
+* 1、 下载windows的压缩包
+
 ![](./assets/markdown_1.png)
 
 
-下载下来之后，发现没有后缀名无法识别，实际上这是个exe文件，所以只需要暴力地在后面加上.exe就可以开始愉快使用了。
+* 2、用解压工具解压缩windows工具包，得到一个文件
 
-首先将README.md文档复制到gh-md-toc.exe的根目录下。
+解压缩后目录下有一个名称为gh-md-toc的文件
 
-接着按住shift键同时右击。
+将该文件添加后缀，重命名为：  gh-md-toc.exe
 
 
 
-打开Powershell窗口后，直接键入。
+* 3、使用命令可以创建toc目录
 
+在该工具所在的文件夹菜单输入框中输入cmd，打开powershell界面
+
+![](./assets/markdown_2.png)
+
+输入
 ./gh-md-toc.exe README.md
-1
 
+![](./assets/markdown_3.png)
+
+* 4、将创建的toc目录复制到文档中
 
 接下来只需将这段话复制粘贴到README.md里面即可。
 
