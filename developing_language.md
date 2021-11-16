@@ -48,7 +48,7 @@
 
 ## 3.Objective C 语言
 
-* [Objective C语言介绍](./objective-c/objective-c.mds)
+* [Objective C语言介绍](./objective-c/objective-c.md)
 
 * [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
 
