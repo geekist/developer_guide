@@ -52,6 +52,10 @@
 
 * [Foundation 框架介绍](./objective-c/foundation.md)
 
+* [Foundatiaon框架中的存储](./objective-c/storage.md)
+
+* [Foundatiaon中的内存管理](./objective-c/memory_managment.md)
+
 * [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
 
 * [Objective C在线教程](http://gitbook.net/objective_c/index.html)
