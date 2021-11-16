@@ -474,6 +474,327 @@ setter=method:同get方法类似，在声明的属性可写的前提下，使用
 
 ![](./assets/obj-1.png)
 
+规范：
+类名每个单词首字母大写
+类中属性名第一个单词首字母小写，后边每个单词首字母大写
+类中方法名第一个单词首字母小写，后边每个单词首字母大写，参数命名规则和属性相同。
+ 
+同时还要注意的是，类名不能和属性名或者方法名相同。）
+
+### 消息机制
+
+在前段时间的OC学习中，总是不断地提到：调用一个类的方法，其实这种说法对于OC语言来说是不正确的。
+ 
+对于OC来说，调用方法被称为:向这个类（类方法）或者类对象（对象方法）发送消息。那么，疑问就来了，为什么OC非要说是发送消息，而不是方法调用呢？这要从程序运行的底层去分析。
+ 
+当程序编写完成，进入编译阶段时，例如［person say］，当它编译的时候就变成了：
+
+objc_msgsend(person @selector(say));（简单了解一下）
+
+对于这个底层代码的理解应该是，向person这个对象发送say的消息。所以OC称调用方法为向某个接受者发送某个消息。
+ 
+在学习C语言的时候，大家可能都有这个编程经历，那就是C语言程序在编译的时候就去寻找函数的具体实现，如果这个函数没有实现，程序编译就不能通过。但是OC可以成功编译，运行时才会报错。
+ 
+OC的动态特性
+ 
+给大家介绍一下OC所具有的动态特性：动态类型、动态绑定、动态加载。学习它们，有助于深入了解OC程序编译运行的具体过程。通过下面的学习，相信大家会对OC有一个新的认识。
+ 
+动态类型
+
+在OC中提到动态类型，简单的理解，指的就是：id类型。它可以表示任何类的对象。当我们无法知道数据的具体类型时，我们就可以将数据直接存储到id类型的对象中。
+ 
+但是需要说明的是id是动态类型绝不仅仅因为它能够存储任何类的对象。主要的原因是：由于id类型在程序编译时无法确定其中具体存储的对象类型，只有在程序通过编译到达运行阶段时，才能确定id类型对象所存储的具体对象的类型。
+          
+简单的总结上面所说，动态类型就是指id类型，而说它是动态类型是因为只有在程序运行时才能确定id对象中存储的具体类型。
+ 
+动态绑定
+ 
+动态绑定，是基于动态类型的，简单的理解就是：只有在程序运行时才能确定对象的具体属性和方法，进而进行绑定。
+ 
+当程序中包含id动态类型时，编译过程无法确定id类型代表哪个类的对象，也就无法确定id类型调用的是哪个方法。在程序编译阶段，编译器会在你的工程文件中查找id对象调用方法的方法名是不是存在，如果存在，编译通过；反之，程序报错，提示你没有找到对象的方法。
+
+（提示：对于id这种动态类型，它本身并不属于类对象，所以在程序中如果使用id对象通过点语法的方法调用属性，程序会报错。即使程序逻辑上是对的，但是首先要弄清楚的一点是：id不是类对象，没有属性，更不用说通过点语法来调用某个类对象的属性）。
+ 
+下面，举一个例子来具体感受一下OC的动态类型和动态绑定：
+1、    先独立创建一个OC工程，例如Demo；
+2、    在工程中，创建一个类，例如Person类；
+在Person.h文件中：
+
+```c
+
+#import <Foundation/Foundation.h>
+@interface Person : NSObject
+-(void)exercise;
+@end
+在Person.m文件中：
+#import "Person.h"
+@implementation Person
+-(void)exercise{
+    NSLog(@"I am running!!!");
+}
+@end
+在main.m文件中：
+#import <Foundation/Foundation.h>
+#import "Person.h"
+int main(int argc, const char * argv[]) {
+    Person * person=[[Person alloc] init];
+    id person1=[[NSObject alloc] init];
+    [person1 exercise];
+    [person exercise];
+    return 0;
+}
+```
+
+做完以上的工作，代码就编写完成了，下面亲身感受一下，这段代码中体现到的动态特性。
+ 
+首先，先编译一下我们的工程（快捷键：“command+B”），发现程序并没有报错，编译成功。
+ 
+下面，运行一下程序（快捷键：“command+R”），发现程序崩溃，反馈给一堆错误数据；（在初学一门语言时，出错是很正常的，我们要从不断的出错过程中，总结错误的原因，不断的积累，不断的提高调程序的能力）
+ 
+从错误中看到：
+'-[NSObject exercise]: unrecognized selector sent to instance 0x1006000a0'（提示我们没有找到这个方法的实现）
+          
+上边的例子中，我们可以看到，虽然编译没问题，但是一运行就报错。这充分体现出了OC的动态特征。
+ 
+在编译时，由于OC无法确定id类型的person1具体指的是哪个类的对象。所以无法确定是否能像这个对象发送exercise消息，而在本工程中，的确含有这个方法，所以程序编译通过。
+ 
+这些不确定只有等到程序运行阶段，确定了person1对象的类型以后，一切就都能知道了，所以在程序运行时，发现person1对象所属的类中并没有exercise的方法，程序报错。
+
+（在程序运行时遇到id类型的对象，首先会判断它具体指的是哪个类，拿上边的例子来说，id具体指的是NSObject这个类，所以首先会去NSObject这个类中查找看看是否有exercise这个方法，如果没有，再去它的父类中去找（一层层往上找），但是我们这个例子中，NSObject类是一个基类，他没有父类，所以程序因为找不到这个方法报错）
+          
+动态加载
+动态加载，简单的理解就是在需要时才会加载。
+ 
+动态加载在实际编程过程中哪些情况体现出动态加载呢？例如，用类别这种方式给某个类添加一些方法之后，只有当程序运行过程中用到类别文件中的方法时才会加载。
+
+
+### 类别Caategory
+
+类别，别名：扩展类、类目。意思是：在现有类的基础上为该类增添一些新的方法(注意：只能是方法，不能添加属性)，如果类别中的方法和现有类中的方法相同，就覆盖原有方法。
+ 
+类别的用途
+ 
+简单的说，就是如果我们想在一个类中增加一些可供外界调用的方法，但是又不想影响它的子类，我们就要用类别。类别能够在原有类的基础上添加新的方法，而且还不会让子类继承。这也是类别的优点所在。
+ 
+类别和类扩展的区别：
+同：（类扩展和类别都可以为原有类添加新的方法）。
+异：（通过类扩展添加的方法外界无法调用。而类别可以；类扩展能添加属性，而类别只能添加方法）。
+ 
+类别的创建
+ 
+1、首先，我们要创建一个工程，命名Demo1；
+2、在Demo1工程中，创建一个Person类；
+3、在Person类，我们声明几个本类应该具备的属性和方法。例如：每一个人都应该有姓名和年龄，每个人都会跑，代码如下；
+
+Person.h文件中:
+
+```c
+#import <Foundation/Foundation.h>
+@interface Person : NSObject
+@property (nonatomic,copy)NSString * name;
+@property (nonatomic,assign)int age;
+-(void)run;
+@end
+```
+
+Person.m文件中:
+
+```c
+#import "Person.h"
+@implementation Person
+-(void)run{
+       NSLog(@"the person is running!");
+}
+@end
+```
+ 
+4、为Person类添加类别。
+
+右键点击Demo1文件名，选择“New File”：
+
+弹出新建文件菜单，选择：
+
+点击“next”，进入下面菜单：
+
+
+在这一步骤中，File Type选择类别，Class表示你要对哪个类做类别，填写完成后，直接next，然后默认创建.
+可以看到，在Demo1中新增加了两个文件，文件名采用“类名+类别名”的方式，这样看起来更清楚，同时也是类别文件的显著特征(改变类别的名字并不会出错，只是没必要)。
+ 
+类别框架分析
+ 
+Person+NewFuntion.h文件：
+
+```c
+#import "Person.h"
+@interface Person (NewFuntion)
+//添加方法
+@end
+
+```
+
+类别的创建和类的创建类似。不同的是：
+ 
+1、在创建类的时候，我们会引入Foundation框架，而类别是引入原有类的头文件。
+2、在创建类的时候，父类的地方被“(类别名)”替代了。
+（创建类别的过程，就是为Person类添加一些方法，这些方法在NewFuntion文件中，所以实现了类别能够为某一个类添加方法而不会影响子类的功能）
+ 
+Person+NewFuntion.m 文件：
+
+```c
+#import "Person+NewFuntion.h"
+@implementation Person (NewFuntion)
+//实现方法
+@end
+
+```
+类别.m文件中在@implementation+原有类名的后面，还添加了一个“(类别名)”.
+
+### OC中的协议--delegate
+
+```c
+
+#import <Foundation/Foundation.h>
+
+@protocol ChildrenDelegate <NSObject>//协议声明
+
+-(void)eat;
+
+@end
+
+@interface Children : NSObject
+
+@property(nonatomic,weak)id<ChildrenDelegate>delegete;
+
+@end   
+
+```
+
+@protocol是定义协议的关键字，告诉编译器，要开始声明协议了。
+ 
+ChildrenDelegate是协议的名字，规范命名为：类名+Delegate。
+ 
+<NSObject>是一个协议，其中提供了很多方法供我们使用，通过main.m中代码的解释我们会看到服从这个协议的好处。（协议用“<>”）
+ 
+@end告诉编译器我的协议声明完了。
+ 
+在协议中，有几个方法的修饰词供我们使用：
+
+@required(表示以下方法必须实现)
+
+@optional(表示以下方法可以不实现)
+
+如果不使用任何关键字修饰，默认情况下是@required。
+ 
+例如在这个协议中：
+
+-(void)eat;
+
+这个方法没有用关键字修饰，编译器默认情况下，认为它是必须实现的方法。
+      
+我们还可以向协议中添加带有@required和@optional关键字修饰的方法：
+
+@required
+-(void)takeCare;
+
+这个方法用@required修饰，所以是协议实现方必须实现的方法。 
+    
+@optional
+-(void)cook;
+
+这个方法用@optional修饰，表明协议实现方可以选择是否实现这个协议。
+
+
+delegate的创建
+
+@property(nonatomic,weak)id<ChildrenDelegate>delegete;
+
+
+之前讲过，协议是需要让其他人来帮你实现的，那么就产生了一个问题：怎么规定这个帮你实现方法的人是谁呢？
+为了解决这个问题，需要声明这么一个属性来确定谁是代理实现方。
+
+@property是定义属性的关键字。
+ 
+nonatomic表明这个属性是非原子性的，加快了运行效率;weak是弱引用，是使用协议时用到的属性。
+ 
+id：前面提到，可以表示任何数据类型，使用id 的原因是无法确定谁会成为这个代理的实现方。
+ 
+<ChildrenDelegate>表明这个属性方法和这个协议相关联。
+ 
+delegete：是代理属性名(代理属性名的命名也是有潜规则的，一般命名为delegate，表明这是一个代理属性。还有一个原因就是因为Foundation框架中的代理属性也是这么命名的，所以我们为了让自己变得专业，也要和专业开发人员学习。如果一个类中还需要一个代理，就命名为dataSource)，一般一个类最多也就有两个协议。
+ 
+通过上面的工作，我们在Children这个文件中，定义了一个协议，并将这个协议和我们的类进行关联(由于我们在类中声明了和协议相关联的属性，所以使整个类都和协议产生了关联。
+
+### 单例
+
+OC中单例的定义
+
+```c
+
+#import <Foundation/Foundation.h>
+@interface Car : NSObject
+@property (nonatomic,assign)int driveHours;
++(instancetype)car;
+@end
+
+
+#import "Car.h"
+static Car * car=nil;
+@implementation Car
++(instancetype)car{
+         if (car==nil) {
+             car=[[Car alloc] init];
+         }
+         return car;
+}
+@end
+
+
+```
+单例的应用
+
+```c
+
+#import <Foundation/Foundation.h>
+#import "Car.h"
+
+@interface Person : NSObject
+
+@property (nonatomic,copy)NSString * name;
+
+@property (nonatomic,strong)Car * car;
+
+-(void)displayWithDriveHours:(int)hours;
+@end
+
+
+#import "Person.h"
+
+@implementation Person
+
+-(instancetype)init{
+
+if (self=[super init]) {
+        self.car=[Car car];//创建对象的car属性实际上就是Car类的那个唯一的实例。
+        self.name=nil;
+    }
+    return self;
+}
+
+-(void)displayWithDriveHours:(int)hours{
+    self.car.driveHours+=hours;
+}
+
+@end
+
+
+```
+
+
+
+ 
+
+
+
 
 
 
