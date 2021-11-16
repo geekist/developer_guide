@@ -50,6 +50,8 @@
 
 * [Objective C语言介绍](./objective-c/objective-c.md)
 
+* [Foundation 框架介绍](./objective-c/foundation.md)
+
 * [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
 
 * [Objective C在线教程](http://gitbook.net/objective_c/index.html)
