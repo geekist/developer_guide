@@ -22,6 +22,24 @@
 |view.mas_baseline	|NSLayoutAttributeBaseline
 
 
+Masonry基础API
+
+mas_makeConstraints() //    添加约束
+
+mas_remakeConstraints() //  移除之前的约束，重新添加新的约束
+
+mas_updateConstraints() //  更新约束、写哪条更新哪条，其他约束不变
+
+
+equalTo()   //  参数是对象类型，一般是视图对象或者mas_width这样的坐标系对象
+
+mas_equalTo()   //  和上面功能相同，参数可以传递基础数据类型对象，可以理解为比上面的API更强大
+
+width() //  用来表示宽度，例如代表view的宽度
+
+mas_width() //  用来获取宽度的值。和上面的区别在于，一个代表某个坐标系对象，一个用来获取坐标系对象的值
+
+
 ### 2.UIView
 
 
@@ -363,6 +381,29 @@ self.buttonSize = CGSize(200, 200);
 }
 
 ```
+
+
+举例如下：
+
+```c
+/** 
+ 设置yellow视图和self.view等大，并且有10的内边距。
+ 注意根据UIView的坐标系，下面right和bottom进行了取反。所以不能写成下面这样，否则right、bottom这两个方向会出现问题。
+ make.edges.equalTo(self.view).with.offset(10);
+
+ 除了下面例子中的offset()方法，还有针对不同坐标系的centerOffset()、sizeOffset()、valueOffset()之类的方法。
+ */
+[self.yellowView mas_makeConstraints: ^(MASConstraintMaker *make) {
+    make.left.equalTo(self.view).with.offset(10);
+    make.top.equalTo(self.view).with.offset(10);
+    make.right.equalTo(self.view).with.offset(-10);
+    make.bottom.equalTo(self.view).with.offset(-10);
+}];
+
+```
+
+
+
 
 ## 六、Layout必备知识
 
