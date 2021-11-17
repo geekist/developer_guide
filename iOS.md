@@ -14,6 +14,10 @@
 
 ## 开发
 
+* [AppDelegate介绍]()
+
+* [UIViewController](https://github.com/geekist/developer_guide/blob/main/ios/uiviewcontroller.md))
+
 ## 调试
 
 ## 测试
