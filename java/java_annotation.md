@@ -492,6 +492,8 @@ public class OverrideTest {
 这也意味着，我们可以在反射中解析并使用 Annotation。
 AnnotationTest.java
 
+```java
+
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
@@ -506,9 +508,12 @@ import java.lang.reflect.Method;
 @interface MyAnnotation {
     String[] value() default "unknown";
 }
+
+
 /**
  * Person类。它会使用MyAnnotation注解。
  */
+
 class Person {
    
     /**
@@ -531,6 +536,9 @@ class Person {
         System.out.println("\nsomebody: "+name+", "+age);
     }
 }
+```
+
+```java
 public class AnnotationTest {
     public static void main(String[] args) throws Exception {
        
@@ -570,6 +578,8 @@ public class AnnotationTest {
         }
     }
 }
+
+```
 运行结果：
 
 somebody: lily, 18
