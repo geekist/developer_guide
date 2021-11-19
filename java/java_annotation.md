@@ -1,6 +1,23 @@
 
+* [一、Java注解概念](#一java注解概念)
+* [二、Java内置的注解](#二java内置的注解)
+  * [2\.1 定义在java\.lang中的注解：](#21-定义在javalang中的注解)
+  * [2\.2 定义在java\.lang\.annotation中的注解\-\-\-元注解](#22-定义在javalangannotation中的注解---元注解)
+  * [2\.3 java 7 后新增的注解](#23-java-7-后新增的注解)
+* [三、Annotation的组成](#三annotation的组成)
+  * [3\.1 Annotation\.java](#31-annotationjava)
+  * [3\.2 ElementType\.java](#32-elementtypejava)
+  * [3\.3 RetentionPolicy\.java](#33-retentionpolicyjava)
+* [四、自定义Annotation](#四自定义annotation)
+  * [4\.1 Annotation通用定义](#41-annotation通用定义)
+  * [4\.2 java 常用的 Annotation：](#42-java-常用的-annotation)
+* [五、Annotation的用途](#五annotation的用途)
+  * [5\.1 编译检查](#51-编译检查)
+  * [5\.2 在反射中使用 Annotation 相当于一个配置](#52-在反射中使用-annotation-相当于一个配置)
 
-## Java注解
+
+
+## 一、Java注解概念
 
 Java 注解（Annotation）又称 Java 标注，是 JDK5.0 引入的一种注释机制。
 
@@ -11,25 +28,25 @@ Java 语言中的类、方法、变量、参数和包等都可以被注解。
 Java 标注可以通过反射获取标注内容。在编译器生成类文件时，标注可以被嵌入到字节码中。Java 虚拟机可以保留标注内容，在运行时可以获取到标注内容 。 当然它也支持自定义 Java 标注。
 
 
-## Java内置的注解
+## 二、Java内置的注解
 
-### 定义在java.lang中的注解：
+### 2.1 定义在java.lang中的注解：
 
-* @Override 
+*  @Override 
 
 检查该方法是否是重写方法。如果发现其父类，或者是引用的接口中并没有该方法时，会报编译错误。
 
-* @Deprecated 
+*  @Deprecated 
 
 标记过时方法。如果使用该方法，会报编译警告。
 
-* @SuppressWarnings 
+*  @SuppressWarnings 
 
 指示编译器去忽略注解中声明的警告。
 
-### 定义在java.lang.annotation中的注解---元注解
+### 2.2 定义在java.lang.annotation中的注解---元注解
 
-* @Retention 
+*  @Retention 
 
  标识这个注解怎么保存，是只在代码中，还是编入class文件中，或者是在运行时可以通过反射访问。
 
@@ -45,7 +62,7 @@ Java 标注可以通过反射获取标注内容。在编译器生成类文件时
 
  标记这个注解是继承于哪个注解类(默认 注解并没有继承于任何子类)
 
-### java 7 后新增的注解
+### 2.3 java 7 后新增的注解
 
 * @SafeVarargs 
 
@@ -59,12 +76,12 @@ Java 8 开始支持，标识一个匿名函数或函数式接口。
 
 Java 8 开始支持，标识某注解可以在同一个声明上使用多次。
 
-## Annotation的组成
+## 三、Annotation的组成
 
 Annotation 的组成中，有 3 个非常重要的主干类。它们分别是：
 
 
-Annotation.java
+### 3.1 Annotation.java
 
 ```java
 package java.lang.annotation;
@@ -76,7 +93,7 @@ public interface Annotation {
 }
 
 ```
-ElementType.java
+### 3.2 ElementType.java
 
 ```java
 package java.lang.annotation;
@@ -93,7 +110,7 @@ public enum ElementType {
 
 ```
 
-RetentionPolicy.java
+### 3.3 RetentionPolicy.java
 
 ```
 package java.lang.annotation;
@@ -106,23 +123,23 @@ public enum RetentionPolicy {
 
 说明：
 
-- Annotation 就是个接口, ElementType 和 RetentionPolicy是属性。
+- Annotation是接口, ElementType和RetentionPolicy是属性。
 
-- 1个Annotation对象，都会有唯一的 RetentionPolicy 属性，可以有多个ElementType属性。
+- 1个Annotation对象，都会有唯一的RetentionPolicy属性，可以有多个ElementType属性。
 
-- ElementType是Enum枚举类型，它用来指定 Annotation 的类型。当Annotation与某个 ElementType关联时，就意味着Annotation有了某种用途。 例如，若一个Annotation对象是 METHOD 类型，则该 Annotation只能用来修饰方法。
+- ElementType是Enum枚举类型，它用来指定 Annotation 的类型。当Annotation与某个ElementType关联时，就意味着Annotation有了某种用途。 例如，若一个Annotation对象是 METHOD 类型，则该 Annotation只能用来修饰方法。
 
-- RetentionPolicy是Enum枚举类型，它用来指定 Annotation 的策略。通俗点说，就是不同 RetentionPolicy 类型的 Annotation 的作用域不同。
+- RetentionPolicy是Enum枚举类型，它用来指定 Annotation的策略。通俗点说，就是不同RetentionPolicy型的 Annotation 的作用域不同。例如：
 
-若Annotation的类型为 SOURCE，则意味着：Annotation仅存在于编译器处理期间，编译器处理完之后，该Annotation就没用了。 例如，" @Override" 标志就是一个 Annotation。当它修饰一个方法的时候，就意味着该方法覆盖父类的方法；并且在编译期间会进行语法检查！编译器处理后，"@Override" 就没有任何作用了。
+    若Annotation的类型为SOURCE，则意味着：Annotation仅存在于编译器处理期间，编译器处理完之后，该Annotation就没用了。 例如，" @Override" 标志就是一个 Annotation。当它修饰一个方法的时候，就意味着该方法覆盖父类的方法；并且在编译期间会进行语法检查！编译器处理后，"@Override" 就没有任何作用了。
 
-若Annotation的类型为 CLASS，则意味着：编译器将Annotation存储于类对应的.class 文件中，它是 Annotation 的默认行为。
+    若Annotation的类型为 CLASS，则意味着：编译器将Annotation存储于类对应的.class 文件中，它是 Annotation 的默认行为。
 
-若Annotation的类型为 RUNTIME，则意味着：编译器将 Annotation 存储于class文件中，并且可由JVM读入。
+    若Annotation的类型为 RUNTIME，则意味着：编译器将 Annotation 存储于class文件中，并且可由JVM读入。
 
-## 使用Annotation
+## 四、自定义Annotation
 
-### Annotation 通用定义
+### 4.1 Annotation通用定义
 
 ```java
 @Documented
@@ -135,71 +152,65 @@ public @interface MyAnnotation1 {
 
 说明：
 
-上面的作用是定义一个Annotation，它的名字是MyAnnotation1。定义了 MyAnnotation1之后，我们可以在代码中通过 "@MyAnnotation1"来使用它。 其它的，@Documented, @Target, @Retention, @interface 都是来修饰 MyAnnotation1 的。下面分别说说它们的含义：
+- 上面的作用是定义一个名字是MyAnnotation1的Annotation，我们可以在代码中通过 "@MyAnnotation1"来使用它。 
 
-@interface
+- @Documented, @Target, @Retention, @interface 都是来修饰 MyAnnotation1的：
+
+- @interface
+
 使用 @interface 定义注解时，意味着它实现了 java.lang.annotation.Annotation 接口，即该注解就是一个Annotation。定义 Annotation 时，@interface 是必须的。
 
-注意：它和我们通常的 implemented 实现接口的方法不同。Annotation 接口的实现细节都由编译器完成。通过 @interface 定义注解后，该注解不能继承其他的注解或接口。
+    注意：它和我们通常的 implemented 实现接口的方法不同。Annotation 接口的实现细节都由编译器完成。通过 @interface 定义注解后，该注解不能继承其他的注解或接口。
 
-@Documented
+- @Documented
 
-类和方法的 Annotation 在缺省情况下是不出现在 javadoc 中的。如果使用 @Documented 修饰该 Annotation，则表示它可以出现在 javadoc 中。
+    类和方法的 Annotation 在缺省情况下是不出现在 javadoc 中的。如果使用 @Documented 修饰该 Annotation，则表示它可以出现在 javadoc 中。
 
-定义 Annotation 时，@Documented 可有可无；若没有定义，则 Annotation 不会出现在 javadoc 中。
+    定义 Annotation 时，@Documented 可有可无；若没有定义，则 Annotation 不会出现在 javadoc 中。
 
-@Target(ElementType.TYPE)
+- @Target(ElementType.TYPE)
 
-前面我们说过，ElementType 是 Annotation 的类型属性。而 @Target 的作用，就是来指定 Annotation 的类型属性。
+    前面我们说过，ElementType 是 Annotation 的类型属性。而 @Target 的作用，就是来指定 Annotation 的类型属性。
 
-@Target(ElementType.TYPE) 的意思就是指定该 Annotation 的类型是 ElementType.TYPE。这就意味着，MyAnnotation1 是来修饰"类、接口（包括注释类型）或枚举声明"的注解。
+    @Target(ElementType.TYPE) 的意思就是指定该 Annotation 的类型是 ElementType.TYPE。这就意味着，MyAnnotation1 是来修饰"类、接口（包括注释类型）或枚举声明"的注解。
 
-定义 Annotation 时，@Target 可有可无。若有 @Target，则该 Annotation 只能用于它所指定的地方；若没有 @Target，则该 Annotation 可以用于任何地方。
+    定义 Annotation 时，@Target 可有可无。若有 @Target，则该 Annotation 只能用于它所指定的地方；若没有 @Target，则该 Annotation 可以用于任何地方。
 
-@Retention(RetentionPolicy.RUNTIME)
+- @Retention(RetentionPolicy.RUNTIME)
 
-前面我们说过，RetentionPolicy 是 Annotation 的策略属性，而 @Retention 的作用，就是指定 Annotation 的策略属性。
+    前面我们说过，RetentionPolicy 是 Annotation 的策略属性，而 @Retention 的作用，就是指定 Annotation 的策略属性。
 
-@Retention(RetentionPolicy.RUNTIME) 的意思就是指定该 Annotation 的策略是 RetentionPolicy.RUNTIME。这就意味着，编译器会将该 Annotation 信息保留在 .class 文件中，并且能被虚拟机读取。
+    @Retention(RetentionPolicy.RUNTIME) 的意思就是指定该 Annotation 的策略是 RetentionPolicy.RUNTIME。这就意味着，编译器会将该 Annotation 信息保留在 .class 文件中，并且能被虚拟机读取。
 
-定义 Annotation 时，@Retention 可有可无。若没有 @Retention，则默认是 RetentionPolicy.CLASS。
+    定义 Annotation 时，@Retention 可有可无。若没有 @Retention，则默认是 RetentionPolicy.CLASS。
 
-java自带的Annotation
-通过上面的示例，我们能理解：@interface 用来声明 Annotation，@Documented 用来表示该 Annotation 是否会出现在 javadoc 中， @Target 用来指定 Annotation 的类型，@Retention 用来指定 Annotation 的策略。
-理解这一点之后，我们就很容易理解 java 中自带的 Annotation 的实现类，即 Annotation 架构图的右半边。如下图：
 
-### java 常用的 Annotation：
+### 4.2 java 常用的 Annotation：
 
-@Deprecated -- @Deprecated 所标注内容，不再被建议使用。
 
-@Override -- @Override 只能标注方法，表示该方法覆盖父类中的方法。
-
-@Documented -- @Documented 所标注内容，可以出现在javadoc中。
-
-@Inherited -- @Inherited只能被用来标注“Annotation类型”，它所标注的Annotation具有继承性。
-
-@Retention -- @Retention只能被用来标注“Annotation类型”，而且它被用来指定Annotation的RetentionPolicy属性。
-
-@Target -- @Target只能被用来标注“Annotation类型”，而且它被用来指定Annotation的ElementType属性。
-
-@SuppressWarnings -- @SuppressWarnings 所标注内容产生的警告，编译器会对这些警告保持静默。
 
 由于 "@Deprecated 和 @Override" 类似，"@Documented, @Inherited, @Retention, @Target" 类似；下面，我们只对 @Deprecated, @Inherited, @SuppressWarnings 这 3 个 Annotation 进行说明。
 
 
- @Deprecated
+- @Deprecated -- @Deprecated 所标注内容，不再被建议使用。
+
+
 @Deprecated 的定义如下：
 
+```java
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Deprecated {
+
+
 }
+```
 
 说明：
 
 @interface -- 它的用来修饰 Deprecated，意味着 Deprecated 实现了 java.lang.annotation.Annotation 接口；即 Deprecated 就是一个注解。 
 
- @Documented -- 它的作用是说明该注解能出现在 javadoc 中。
+@Documented -- 它的作用是说明该注解能出现在 javadoc 中。
 
 
 @Retention(RetentionPolicy.RUNTIME) -- 它的作用是指定 Deprecated 的策略是 RetentionPolicy.RUNTIME。这就意味着，编译器会将Deprecated 的信息保留在 .class 文件中，并且能被虚拟机读取。
@@ -243,6 +254,13 @@ public class DeprecatedTest {
     }
 }
 ```
+
+@Override -- @Override 只能标注方法，表示该方法覆盖父类中的方法。
+
+@Documented -- @Documented 所标注内容，可以出现在javadoc中。
+
+@Inherited -- @Inherited只能被用来标注“Annotation类型”，它所标注的Annotation具有继承性。
+
 
 
 @Inherited
@@ -360,6 +378,19 @@ InheritableFather:true
 InheritableSon:false
 对比上面的两个结果，我们发现：当注解 Inheritable 被 @Inherited 标注时，它具有继承性。否则，没有继承性。
 
+
+
+
+
+
+@Retention -- @Retention只能被用来标注“Annotation类型”，而且它被用来指定Annotation的RetentionPolicy属性。
+
+@Target -- @Target只能被用来标注“Annotation类型”，而且它被用来指定Annotation的ElementType属性。
+
+@SuppressWarnings -- @SuppressWarnings 所标注内容产生的警告，编译器会对这些警告保持静默。
+
+
+
 @SuppressWarnings
 
 @SuppressWarnings 的定义如下：
@@ -409,14 +440,24 @@ serial -- 当在可序列化的类上缺少 serialVersionUID 定义时的警告�
 finally -- 任何 finally 子句不能正常完成时的警告。
 all -- 关于以上所有情况的警告。
 
-## Annotation的用途
 
-4、Annotation 的作用Annotation 是一个辅助类，它在 Junit、Struts、Spring 等工具框架中被广泛使用。
-我们在编程中经常会使用到的 Annotation 作用有：1）编译检查
+
+
+
+## 五、Annotation的用途
+
+Annotation 是一个辅助类，它在 Junit、Struts、Spring 等工具框架中被广泛使用。
+我们在编程中经常会使用到的 Annotation 作用有：
+
+### 5.1 编译检查
+
 Annotation 具有"让编译器进行编译检查的作用"。
+
 例如，@SuppressWarnings, @Deprecated 和 @Override 都具有编译检查作用。
-(01) 关于 @SuppressWarnings 和 @Deprecated，已经在"第3部分"中详细介绍过了。这里就不再举例说明了。
-(02) 若某个方法被 @Override 的标注，则意味着该方法会覆盖父类中的同名方法。如果有方法被 @Override 标示，但父类中却没有"被 @Override 标注"的同名方法，则编译器会报错。示例如下：
+
+关于 @SuppressWarnings 和 @Deprecated，已经在"第3部分"中详细介绍过了。这里就不再举例说明了。
+
+若某个方法被 @Override 的标注，则意味着该方法会覆盖父类中的同名方法。如果有方法被 @Override 标示，但父类中却没有"被 @Override 标注"的同名方法，则编译器会报错。示例如下：
 
 OverrideTest.java
 
@@ -442,7 +483,11 @@ public class OverrideTest {
     }
 }
 上面是该程序在 eclipse 中的截图。从中，我们可以发现 "getString()" 函数会报错。这是因为 "getString() 被 @Override 所标注，但在OverrideTest 的任何父类中都没有定义 getString1() 函数"。
-"将 getString() 上面的 @Override注释掉"，即可解决该错误。2) 在反射中使用 Annotation
+"将 getString() 上面的 @Override注释掉"，即可解决该错误。
+
+
+### 5.2 在反射中使用 Annotation 相当于一个配置
+
 在反射的 Class, Method, Field 等函数中，有许多于 Annotation 相关的接口。
 这也意味着，我们可以在反射中解析并使用 Annotation。
 AnnotationTest.java

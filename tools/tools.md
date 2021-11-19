@@ -48,6 +48,10 @@ https://github.com/ekalinin/github-markdown-toc.go/releases
 
 ## MacOS环境下如何使用
 
+mac OS需要下载 dawin 和amd64的版本
+
+GOOS=darwin GOARCH=amd64 go build -o  http -v ./main.go
+
 安装 github-md-toc
 
 从官网下载工具，并解压缩
