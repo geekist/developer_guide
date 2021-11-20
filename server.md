@@ -39,6 +39,8 @@
 
 - [application.properties和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/springboot_yml.md)
 
+- [使用dependencyManagement管理依赖版本](https://github.com/geekist/developer_guide/blob/main/server/dependencyManagement.md)
+
 - [Spring boot项目框架](https://github.com/geekist/developer_guide/blob/main/server/springboot_init.md)
 
 
