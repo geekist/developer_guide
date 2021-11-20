@@ -3,23 +3,14 @@
 
 ### 0.前言
 
-_大家好，我是 Guide 哥！这是我的 221 篇优质原创文章。如需转载，请在文首注明地址，蟹蟹！_
 
-本文已经收录进我的 75K Star 的 Java 开源项目 JavaGuide：[https://github.com/Snailclimb/JavaGuide](https://github.com/Snailclimb/JavaGuide)。
 
-可以毫不夸张地说，这篇文章介绍的 Spring/SpringBoot 常用注解基本已经涵盖你工作中遇到的大部分常用的场景。对于每一个注解我都说了具体用法，掌握搞懂，使用 SpringBoot 来开发项目基本没啥大问题了！
-
-**为什么要写这篇文章？**
-
-最近看到网上有一篇关于 SpringBoot 常用注解的文章被转载的比较多，我看了文章内容之后属实觉得质量有点低，并且有点会误导没有太多实际使用经验的人（这些人又占据了大多数）。所以，自己索性花了大概 两天时间简单总结一下了。
-
-**因为我个人的能力和精力有限，如果有任何不对或者需要完善的地方，请帮忙指出！Guide 哥感激不尽！**
 
 ### 1. `@SpringBootApplication`
 
 这里先单独拎出`@SpringBootApplication` 注解说一下，虽然我们一般不会主动去使用它。
 
-_Guide 哥：这个注解是 Spring Boot 项目的基石，创建 SpringBoot 项目之后会默认在主类加上。_
+这个注解是 Spring Boot 项目的基石，创建 SpringBoot 项目之后会默认在主类加上。_
 
 ```java
 @SpringBootApplication
@@ -33,6 +24,7 @@ public class SpringSecurityJwtGuideApplication {
 我们可以把 `@SpringBootApplication`看作是 `@Configuration`、`@EnableAutoConfiguration`、`@ComponentScan` 注解的集合。
 
 ```java
+
 package org.springframework.boot.autoconfigure;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -46,7 +38,10 @@ package org.springframework.boot.autoconfigure;
 public @interface SpringBootApplication {
    ......
 }
+```
 
+
+```java
 package org.springframework.boot;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -60,7 +55,9 @@ public @interface SpringBootConfiguration {
 根据 SpringBoot 官网，这三个注解的作用分别是：
 
 - `@EnableAutoConfiguration`：启用 SpringBoot 的自动配置机制
+
 - `@ComponentScan`： 扫描被`@Component` (`@Service`,`@Controller`)注解的 bean，注解默认会扫描该类所在的包下所有的类。
+
 - `@Configuration`：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类
 
 ### 2. Spring Bean 相关
@@ -78,7 +75,8 @@ public class UserService {
 @RestController
 @RequestMapping("/users")
 public class UserController {
-   @Autowired
+   
+@Autowired
    private UserService userService;
    ......
 }
@@ -89,19 +87,24 @@ public class UserController {
 我们一般使用 `@Autowired` 注解让 Spring 容器帮我们自动装配 bean。要想把类标识成可用于 `@Autowired` 注解自动装配的 bean 的类,可以采用以下注解实现：
 
 - `@Component` ：通用的注解，可标注任意类为 `Spring` 组件。如果一个 Bean 不知道属于哪个层，可以使用`@Component` 注解标注。
+
 - `@Repository` : 对应持久层即 Dao 层，主要用于数据库相关操作。
+
 - `@Service` : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao 层。
+
 - `@Controller` : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 Service 层返回数据给前端页面。
 
 #### 2.3. `@RestController`
 
 `@RestController`注解是`@Controller`和`@ResponseBody`的合集,表示这是个控制器 bean,并且是将函数的返回值直接填入 HTTP 响应体中,是 REST 风格的控制器。
 
-_Guide 哥：现在都是前后端分离，说实话我已经很久没有用过`@Controller`。如果你的项目太老了的话，就当我没说。_
+现在都是前后端分离，说实话我已经很久没有用过`@Controller`。如果你的项目太老了的话，就当我没说。_
 
 单独使用 `@Controller` 不加 `@ResponseBody`的话一般是用在要返回一个视图的情况，这种情况属于比较传统的 Spring MVC 的应用，对应于前后端不分离的情况。`@Controller` +`@ResponseBody` 返回 JSON 或 XML 形式数据
 
+
 关于`@RestController` 和 `@Controller`的对比，请看这篇文章：[@RestController vs @Controller](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485544&idx=1&sn=3cc95b88979e28fe3bfe539eb421c6d8&chksm=cea247a3f9d5ceb5e324ff4b8697adc3e828ecf71a3468445e70221cce768d1e722085359907&token=1725092312&lang=zh_CN#rd)。
+
 
 #### 2.4. `@Scope`
 
@@ -118,8 +121,11 @@ public Person personSingleton() {
 **四种常见的 Spring Bean 的作用域：**
 
 - singleton : 唯一 bean 实例，Spring 中的 bean 默认都是单例的。
+
 - prototype : 每次请求都会创建一个新的 bean 实例。
+
 - request : 每一次 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP request 内有效。
+
 - session : 每一次 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP session 内有效。
 
 #### 2.5. `@Configuration`
@@ -142,14 +148,18 @@ public class AppConfig {
 **5 种常见的请求类型:**
 
 - **GET** ：请求从服务器获取特定资源。举个例子：`GET /users`（获取所有学生）
+
 - **POST** ：在服务器上创建一个新的资源。举个例子：`POST /users`（创建学生）
+
 - **PUT** ：更新服务器上的资源（客户端提供更新后的整个资源）。举个例子：`PUT /users/12`（更新编号为 12 的学生）
+
 - **DELETE** ：从服务器删除特定的资源。举个例子：`DELETE /users/12`（删除编号为 12 的学生）
+
 - **PATCH** ：更新服务器上的资源（客户端提供更改的属性，可以看做作是部分更新），使用的比较少，这里就不举例子了。
 
 #### 3.1. GET 请求
 
-`@GetMapping("users")` 等价于`@RequestMapping(value="/users",method=RequestMethod.GET)`
+`@GetMapping("users")` 等价于 `@RequestMapping(value="/users",method=RequestMethod.GET)`
 
 ```java
 @GetMapping("/users")
@@ -217,6 +227,7 @@ public ResponseEntity deleteUser(@PathVariable(value = "userId") Long userId){
 举个简单的例子：
 
 ```java
+
 @GetMapping("/klasses/{klassId}/teachers")
 public List<Teacher> getKlassRelatedTeachers(
          @PathVariable("klassId") Long klassId,
