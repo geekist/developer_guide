@@ -18,6 +18,8 @@
 
 - [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 
+- [Java持久层技术](https://github.com/geekist/developer_guide/blob/main/server/java_persistence.md)
+
 # 三、用SpringBoot开发JavaWeb应用
 
 ## 3.1 Spring 介绍
