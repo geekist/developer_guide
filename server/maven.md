@@ -130,21 +130,21 @@ a-maven-project
 
 POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项目描述文件，它类似与antx的project.xml文件。pom.xml文件以xml的 形式描述项目的信息，包括项目名称、版本、项目id、项目的依赖关系、编译环境、持续集成、项目团队、贡献管理、生成报表等等。总之，它包含了所有的项目信息。
 
-* <modelVersion> 
+* modelVersion 
 
 描述这个POM文件是遵从哪个版本的项目描述符。
 
-* <groupId> 
+* groupId
 
 针对一个项目的普遍唯一识别符。通常用一个完全正确的包的名字来与其他项目的类似名字来进行区分（比如：org.apache.maven)。
 
 
-* <artifactId> 
+* artifactId 
 
 在给定groupID 的group里面为artifact 指定的标识符是唯一的 ， artifact 代表的是被制作或者被一个project应用的组件(产出物)。
 
 
-* <version>
+* version
 
 当前项目产生的artifact的版本。
 
