@@ -86,6 +86,8 @@
 
 - [Java持久层技术](https://github.com/geekist/developer_guide/blob/main/server/java_persistence.md)
 
+- [jdbctemplate连接阿里云数据库](https://github.com/geekist/developer_guide/blob/main/server/dbctemplate.md)
+
 
 # 四、用JFinal开发JavaWeb应用
 
