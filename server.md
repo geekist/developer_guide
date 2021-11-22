@@ -88,6 +88,11 @@
 
 - [jdbctemplate连接阿里云数据库](https://github.com/geekist/developer_guide/blob/main/server/jdbctemplate.md)
 
+- Spring Data JPA连接阿里云数据库:(](https://github.com/geekist/developer_guide/blob/main/server/springdatajpa.md)
+
+- Mybatis连接阿里云数据库](https://github.com/geekist/developer_guide/blob/main/server/mybatis.md)
+
+
 
 # 四、用JFinal开发JavaWeb应用
 
