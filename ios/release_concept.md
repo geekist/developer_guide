@@ -267,6 +267,12 @@ iOS Provisioning Profiles也叫描述文件，它用来标识某个设备是否�
 
 上传到
 
+首先打包ipa文件：
+
+选择product--archive
+
+![](./assets/ios-11.png)
+
 
 
 
