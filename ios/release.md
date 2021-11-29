@@ -62,13 +62,26 @@ APP IDs在后面创建发布文件，创建APP时都要用到。
 
 ## 3、xcode配置iOS证书
 
+
+
 ## 4、配置xcode打包环境
+
+
+
 
 ## 5、打包并导出IPA包
 
+选择product--archive
+
+![](./assets/ios-11.png)
+
 ## 6、在iTunes Connect创建App
 
+
+
 ## 7、上传IPA到iTunes Connect
+
+
 
 ## 8、上传IPA成功后到iTunes Connect提交审核
 
