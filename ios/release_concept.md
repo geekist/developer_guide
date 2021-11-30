@@ -269,9 +269,49 @@ iOS Provisioning Profiles也叫描述文件，它用来标识某个设备是否�
 
 首先打包ipa文件：
 
+1.选择Any iOS Device，选择其他模拟器是不能Archive的
 选择product--archive
 
 ![](./assets/ios-11.png)
+
+2、打包成功后，首先ad-hoc，放到蒲公英测试
+
+
+![](./assets/release-12.png)
+
+2-x：如果archive包的窗口被关闭了，可以在window-organizer的菜单中重新唤起
+
+
+![](./assets/release-13.png)
+
+测试通过后，将app保存到appstore-connector上去
+
+3、保存到appstore-connector上面去
+
+![](./assets/release-14.png)
+
+4、登录appstore-connect，点击发布，可以发布产品
+
+首先登录appstore-connect，点击我的app
+
+![](./assets/release-15.png)
+
+点击app旁边的加号，输入一个新的版本名称，如3.7.3
+
+![](./assets/release-16.png)
+
+选择构建版本，找到刚才上传到appstore-connect的构建包
+
+![](./assets/release-17.png)
+
+然后，输入本次更新的内容后，点击提交审核即可
+
+![](./assets/release-18.png)
+
+
+
+
+
 
 
 
