@@ -18,7 +18,7 @@
 
 - [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 
-
+- [Cron Trigger介绍](https://blog.csdn.net/yangshangwei/article/details/78172982)
 
 # 三、用SpringBoot开发JavaWeb应用
 
