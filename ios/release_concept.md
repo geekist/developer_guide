@@ -276,6 +276,9 @@ iOS Provisioning Profiles也叫描述文件，它用来标识某个设备是否�
 
 2、打包成功后，首先ad-hoc，放到蒲公英测试
 
+![](./assets/ios-111.png)
+
+
 
 ![](./assets/release-12.png)
 
