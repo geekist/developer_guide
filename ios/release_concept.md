@@ -278,6 +278,12 @@ iOS Provisioning Profiles也叫描述文件，它用来标识某个设备是否�
 
 ![](./assets/ios-111.png)
 
+![](./assets/ios-112.png)
+
+
+![](./assets/ios-113.png)
+s
+
 
 
 ![](./assets/release-12.png)
