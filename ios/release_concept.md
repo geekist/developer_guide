@@ -281,12 +281,11 @@ iOS Provisioning Profiles也叫描述文件，它用来标识某个设备是否�
 ![](./assets/ios-112.png)
 
 
-![](./assets/ios-113.png)
-s
-
-
-
 ![](./assets/release-12.png)
+
+
+![](./assets/ios-113.png)
+
 
 2-x：如果archive包的窗口被关闭了，可以在window-organizer的菜单中重新唤起
 
@@ -295,7 +294,13 @@ s
 
 测试通过后，将app保存到appstore-connector上去
 
-3、保存到appstore-connector上面去
+3、保存到appstore-connector上面去:
+
+
+首先打开appstore-connector的网站：https://appstoreconnect.apple.com/login
+
+yuyaappppp@163.com  WWJ520yll
+
 
 ![](./assets/release-14.png)
 
