@@ -1,9 +1,5 @@
 
-
-* [操作系统介绍](./operationsystem/intro.md)
-
- 
-* 操作系统，英文名称 Operating System，是一门起源于美国的计算机科学。目前比较为人所知的操作系统有 Microsoft 的 Windows 系统，以及 Apple 的 MacOS 家族，还有以 linux 为内核的各种 Linux 发行版（Centos/Ubuntu 等）。
+操作系统，英文名称 Operating System，是一门起源于美国的计算机科学。目前比较为人所知的操作系统有 Microsoft 的 Windows 系统，以及 Apple 的 MacOS 家族，还有以 linux 为内核的各种 Linux 发行版（Centos/Ubuntu 等）。
 
 
 # 一、操作系统的定义
@@ -83,24 +79,3 @@
 
 根据信号处理的实时性可以分为实时操作系统和非实时操作系统。实时指的是当向计算机发送指令后可在一个规定的时间内获取反馈。我们常用的计算机并不是实时操作系统，很多情况下都会有卡顿的情况。
 
-
-# 四、主要操作系统简介
-
-##  Windows操作系统
-
-## Unix操作系统
-
-## [Linux操作系统]
-
-* [Linux操作系统简介](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
-
-* [Linux教程](https://www.runoob.com/linux/linux-tutorial.html)
-
-* [Linux常用命令](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_command.md)
-
-
-## Mac操作系统
-
-## iOS操作系统
-
-## Android操作系统
