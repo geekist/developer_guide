@@ -1,7 +1,9 @@
 
-## nginx配置文件详解
+ * nginx配置文件详解
 
-### nginx配置文件的层级结构
+##  一、nginx配置文件的层级结构
+
+### 1.1、nginx配置文件层级结构
 
 Nginx的主配置文件是nginx.conf，这个配置文件一共由三部分组成，分别为：
 
@@ -15,13 +17,13 @@ Nginx的主配置文件是nginx.conf，这个配置文件一共由三部分组�
 
    |--server块1
 
-      |--server块
+     |--server块
 
-      |--location块1
+     |--location块1
 
-      |--location块2
+     |--location块2
 
-      |--location块n
+     |--location块n
 
    |--server块2
 
@@ -39,7 +41,7 @@ Nginx的主配置文件是nginx.conf，这个配置文件一共由三部分组�
 
 如果某个指令在两个不同层级的块中同时出现，则采用“就近原则”，即以较低层级块中的配置为准。比如，某指令同时出现在http全局块中和server块中，并且配置不同，则应该以server块中的配置为准。
 
-### 配置文件的结构
+### 1.2 配置文件的结构
 
 配置文件的结构大致如下：
 ```code
@@ -83,9 +85,9 @@ http {
 }
 ```
 
-### 各个块的说明
+##  二、各个块的说明
 
-#### 全局块
+### 2.1 全局块
 
 全局块是默认配置文件从开始到events块之间的一部分内容，主要设置一些影响Nginx服务器整体运行的配置指令，因此，这些指令的作用域是Nginx服务器全局。
 
@@ -100,16 +102,19 @@ user [user] [group]
 user指令在Windows上不生效，如果你制定具体用户和用户组会报小面警告
 nginx: [warn] "user" is not supported, ignored in D:\software\nginx-1.18.0/conf/nginx.conf:2
 
+例子：所有用户都可以运行nginx
 ```java
-# user nobody nobody;
+user nobody nobody;
 ```
 
 * **worker_processes number | auto；**
 
->指定工作线程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
+>指定工作进程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
 worker_processes number | auto；
-例子：指定4个工作线程，这种情况下会生成一个master进程和4个worker进程
+一般一个进程足够了，你可以把连接数设得很大。如果有SSL、gzip这些比较消耗CPU的工作，而且是多核CPU的话，可以设为和CPU的数量一样。或者要处理很多很多的小文件，而且文件总大小比内存大很多的时候，也可以把进程数增加，以充分利用IO带宽（主要似乎是IO操作有block）。
 
+
+例子：指定4个工作进程，这种情况下会生成一个master进程和4个worker进程
 ```
 # worker_processes 4;
 ```
@@ -119,6 +124,7 @@ worker_processes number | auto；
 >指定pid文件存放的路径，这个指令只能在全局块配置
 pid logs/nginx.pid;
 
+例子：
 ```
 # pid logs/nginx.pid;
 ```
@@ -131,32 +137,41 @@ error_log [path] [debug | info | notice | warn | error | crit | alert | emerg]
 error_log  logs/error.log  notice;
 error_log  logs/error.log  info;
 
+例子：
 ```
 # error_log  logs/error.log  notice;
 ```
 
 
-#### events块
+### 2.2 events块
 
 events块涉及的指令主要影响Nginx服务器与用户的网络连接。常用到的设置包括是否开启对多worker process下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型处理连接请求，每个worker process可以同时支持的最大连接数等。
 
 这一部分的指令对Nginx服务器的性能影响较大，在实际配置中应该根据实际情况灵活调整。
 
-```java
-# 当某一时刻只有一个网络连接到来时，多个睡眠进程会被同时叫醒，但只有一个进程可获得连接。如果每次唤醒的进程数目太多，会影响一部分系统性能。在Nginx服务器的多进程下，就有可能出现这样的问题。
-# 开启的时候，将会对多个Nginx进程接收连接进行序列化，防止多个进程对连接的争抢
-# 默认是开启状态，只能在events块中进行配置
+* **accept_mutex on | off;**
+
+>当某一时刻只有一个网络连接到来时，多个睡眠进程会被同时叫醒，但只有一个进程可获得连接。如果每次唤醒的进程数目太多，会影响一部分系统性能。在Nginx服务器的多进程下，就有可能出现这样的问题。
+开启的时候，将会对多个Nginx进程接收连接进行序列化，防止多个进程对连接的争抢
+默认是开启状态，只能在events块中进行配置
+
+```
 # accept_mutex on | off;
+```
 
 # 如果multi_accept被禁止了，nginx一个工作进程只能同时接受一个新的连接。否则，一个工作进程可以同时接受所有的新连接。 
 # 如果nginx使用kqueue连接方法，那么这条指令会被忽略，因为这个方法会报告在等待被接受的新连接的数量。
 # 默认是off状态，只能在event块配置
 # multi_accept on | off;
 
-# 指定使用哪种网络IO模型，method可选择的内容有：select、poll、kqueue、epoll、rtsig、/dev/poll以及eventport，一般操作系统不是支持上面所有模型的。
-# 只能在events块中进行配置
-# use method
+ * **use method **
+
+>指定使用哪种网络IO模型，method可选择的内容有：select、poll、kqueue、epoll、rtsig、/dev/poll以及eventport，一般操作系统不是支持上面所有模型的。
+只能在events块中进行配置
+
+```
 # use epoll
+```
 
 # 设置允许每一个worker process同时开启的最大连接数，当每个工作进程接受的连接数超过这个值时将不再接收连接
 # 当所有的工作进程都接收满时，连接进入logback，logback满后连接被拒绝
@@ -164,7 +179,7 @@ events块涉及的指令主要影响Nginx服务器与用户的网络连接。常
 # 注意：这个值不能超过超过系统支持打开的最大文件数，也不能超过单个进程支持打开的最大文件数，具体可以参考这篇文章：https://cloud.tencent.com/developer/article/1114773
 # worker_connections  1024;
 ```
-#### http块
+### 2.3 http块
 
 http块是Nginx服务器配置中的重要部分，代理、缓存和日志定义等绝大多数的功能和第三方模块的配置都可以放在这个模块中。
 
