@@ -209,7 +209,6 @@ include指令，用于包含其他的配置文件，可以放在配置文件的�
 include  mime.types;
 ```
 
-
 * **default_type  application/octet-stream;**
 
 >配置默认类型，如果不加此指令，默认值为text/plain。
@@ -285,10 +284,15 @@ server块和“虚拟主机”的概念有密切联系。
 
 和http块相同，server块也可以包含自己的全局块，同时可以包含多个location块。在server全局块中，最常见的两个配置项是本虚拟主机的监听配置和本虚拟主机的名称或IP配置。
 
-```java
-listen指令
-server块中最重要的指令就是listen指令，这个指令有三种配置语法。这个指令默认的配置值是：listen *:80 | *:8000；只能在server块种配置这个指令。
 
+* **listen指令**
+
+
+server块中最重要的指令就是listen指令，这个指令有三种配置语法。
+
+。这个指令默认的配置值是：listen *:80 | *:8000；只能在server块种配置这个指令。
+
+```
 //第一种
 listen address[:port] [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
 
@@ -298,48 +302,100 @@ listen port [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=numbe
 //第三种（可以不用重点关注）
 listen unix:path [default_server] [ssl] [http2 | spdy] [proxy_protocol] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
 listen指令的配置非常灵活，可以单独制定ip，单独指定端口或者同时指定ip和端口。
-
-listen 127.0.0.1:8000;  #只监听来自127.0.0.1这个IP，请求8000端口的请求
-listen 127.0.0.1; #只监听来自127.0.0.1这个IP，请求80端口的请求（不指定端口，默认80）
-listen 8000; #监听来自所有IP，请求8000端口的请求
-listen *:8000; #和上面效果一样
-listen localhost:8000; #和第一种效果一致
+```
 关于上面的一些重要参数做如下说明：
 
-address：监听的IP地址（请求来源的IP地址），如果是IPv6的地址，需要使用中括号“[]”括起来，比如[fe80::1]等。
-port：端口号，如果只定义了IP地址没有定义端口号，就使用80端口。这边需要做个说明：要是你压根没配置listen指令，那么那么如果nginx以超级用户权限运行，则使用*:80，否则使用*:8000。多个虚拟主机可以同时监听同一个端口,但是server_name需要设置成不一样；
-default_server：假如通过Host没匹配到对应的虚拟主机，则通过这台虚拟主机处理。具体的可以参考这篇文章，写的不错。
-backlog=number：设置监听函数listen()最多允许多少网络连接同时处于挂起状态，在FreeBSD中默认为-1，其他平台默认为511。
-accept_filter=filter，设置监听端口对请求的过滤，被过滤的内容不能被接收和处理。本指令只在FreeBSD和NetBSD 5.0+平台下有效。filter可以设置为dataready或httpready，感兴趣的读者可以参阅Nginx的官方文档。
-bind：标识符，使用独立的bind()处理此address:port；一般情况下，对于端口相同而IP地址不同的多个连接，Nginx服务器将只使用一个监听命令，并使用bind()处理端口相同的所有连接。
-ssl：标识符，设置会话连接使用SSL模式进行，此标识符和Nginx服务器提供的HTTPS服务有关。
+address：
+
+监听的IP地址（请求来源的IP地址），如果是IPv6的地址，需要使用中括号“[]”括起来，比如[fe80::1]等。
+
+port：
+
+端口号，如果只定义了IP地址没有定义端口号，就使用80端口。
+
+如果没配置listen指令，那么那么如果nginx以超级用户权限运行，则使用*:80，否则使用*:8000。
+
+多个虚拟主机可以同时监听同一个端口,但是server_name需要设置成不一样；
+
+default_server：
+
+假如通过Host没匹配到对应的虚拟主机，则通过这台虚拟主机处理。
+
+backlog=number：
+
+设置监听函数listen()最多允许多少网络连接同时处于挂起状态，在FreeBSD中默认为-1，其他平台默认为511。
+
+accept_filter=filter，
+
+设置监听端口对请求的过滤，被过滤的内容不能被接收和处理。本指令只在FreeBSD和NetBSD 5.0+平台下有效。filter可以设置为dataready或httpready，感兴趣的读者可以参阅Nginx的官方文档。
+
+bind：
+
+标识符，使用独立的bind()处理此address:port；一般情况下，对于端口相同而IP地址不同的多个连接，Nginx服务器将只使用一个监听命令，并使用bind()处理端口相同的所有连接。
+ssl：
+
+标识符，设置会话连接使用SSL模式进行，此标识符和Nginx服务器提供的HTTPS服务有关。
+
 listen指令的使用看起来比较复杂，但其实在一般的使用过程中，相对来说比较简单，并不会进行太复杂的配置。
 
-server_name指令
+
+举例如下：
+
+```
+listen 127.0.0.1:8000;  #只监听来自127.0.0.1这个IP，请求8000端口的请求
+
+listen 127.0.0.1; #只监听来自127.0.0.1这个IP，请求80端口的请求（不指定端口，默认80）
+
+listen 8000; #监听来自所有IP，请求8000端口的请求
+
+listen *:8000; #和上面效果一样
+
+listen localhost:8000; #和第一种效果一致
+
+```
+
+* **server_name指令**
+
 用于配置虚拟主机的名称。语法是：
 
+```
 Syntax:	server_name name ...;
 Default:	
 server_name "";
 Context:	server
-对于name 来说，可以只有一个名称，也可以由多个名称并列，之间用空格隔开。每个名字就是一个域名，由两段或者三段组成，之间由点号“.”隔开。比如
+```
 
+对于name 来说，可以只有一个名称，也可以由多个名称并列，之间用空格隔开。每个名字就是一个域名，由两段或者三段组成，之间由点号“.”隔开。
+
+比如:
+
+```
 server_name myserver.com www.myserver.com
+```
+
 在该例中，此虚拟主机的名称设置为myserver.com或www. myserver.com。Nginx服务器规定，第一个名称作为此虚拟主机的主要名称。
 
 在name 中可以使用通配符“*”，但通配符只能用在由三段字符串组成的名称的首段或尾段，或者由两段字符串组成的名称的尾段，如：
 
 server_name myserver.* *.myserver.com
+
 另外name还支持正则表达式的形式。这边就不详细展开了。
 
-由于server_name指令支持使用通配符和正则表达式两种配置名称的方式，因此在包含有多个虚拟主机的配置文件中，可能会出现一个名称被多个虚拟主机的server_name匹配成功。那么，来自这个名称的请求到底要交给哪个虚拟主机处理呢？Nginx服务器做出如下规定：
+由于server_name指令支持使用通配符和正则表达式两种配置名称的方式，因此在包含有多个虚拟主机的配置文件中，可能会出现一个名称被多个虚拟主机的server_name匹配成功。
+
+那么，来自这个名称的请求到底要交给哪个虚拟主机处理呢？Nginx服务器做出如下规定：
 
 a. 对于匹配方式不同的，按照以下的优先级选择虚拟主机，排在前面的优先处理请求。
 
 ① 准确匹配server_name
+
 ② 通配符在开始时匹配server_name成功
+
 ③ 通配符在结尾时匹配server_name成功
+
 ④ 正则表达式匹配server_name成功
+
+
 b. 在以上四种匹配方式中，如果server_name被处于同一优先级的匹配方式多次匹配成功，则首次匹配成功的虚拟主机处理请求。
 
 有时候我们希望使用基于IP地址的虚拟主机配置，比如访问192.168.1.31有虚拟主机1处理，访问192.168.1.32由虚拟主机2处理。
@@ -348,6 +404,7 @@ b. 在以上四种匹配方式中，如果server_name被处于同一优先级的
 
 绑定别名后进行以下配置即可：
 
+```
 http
 {
 	{
@@ -365,14 +422,23 @@ http
 
 ##### 2.3.2.1 location块
 
-每个server块中可以包含多个location块。在整个Nginx配置文档中起着重要的作用，而且Nginx服务器在许多功能上的灵活性往往在location指令的配置中体现出来。
+每个server块中可以包含多个location块。
 
-location块的主要作用是，基于Nginx服务器接收到的请求字符串（例如， server_name/uri-string），对除虚拟主机名称（也可以是IP别名，后文有详细阐述）之外的字符串（前例中“/uri-string”部分）进行匹配，对特定的请求进行处理。地址定向、数据缓存和应答控制等功能都是在这部分实现。许多第三方模块的配置也是在location块中提供功能。
+在整个Nginx配置文档中起着重要的作用，而且Nginx服务器在许多功能上的灵活性往往在location指令的配置中体现出来。
 
-在Nginx的官方文档中定义的location的语法结构为：
+location块的主要作用是: 基于Nginx服务器接收到的请求字符串（例如， server_name/uri-string），对除虚拟主机名称（也可以是IP别名，后文有详细阐述）之外的字符串（前例中“/uri-string”部分）进行匹配，对特定的请求进行处理。
 
+地址定向、数据缓存和应答控制等功能都是在这部分实现。许多第三方模块的配置也是在location块中提供功能。
+
+location的语法结构为：
+
+```
 location [ = | ~ | ~* | ^~ ] uri { ... }
-其中，uri变量是待匹配的请求字符串，可以是不含正则表达的字符串，如/myserver.php等；也可以是包含有正则表达的字符串，如 .php$（表示以.php结尾的URL）等。为了下文叙述方便，我们约定，不含正则表达的uri称为“标准uri”，使用正则表达式的uri称为“正则uri”。
+```
+
+其中，uri变量是待匹配的请求字符串，可以是不含正则表达的字符串，如/myserver.php等；也可以是包含有正则表达的字符串，如 .php$（表示以.php结尾的URL）等。
+
+为了下文叙述方便，我们约定，不含正则表达的uri称为“标准uri”，使用正则表达式的uri称为“正则uri”。
 
 其中方括号里的部分，是可选项，用来改变请求字符串与 uri 的匹配方式。在介绍四种标识的含义之前，我们需要先了解不添加此选项时，Nginx服务器是如何在server块中搜索并使用location块的uri和请求字符串匹配的。
 
