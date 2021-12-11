@@ -420,7 +420,21 @@ http
 }
 ```
 
-##### 2.3.2.1 location块
+* **root指令**
+
+用于设置请求寻找资源的根目录，此指令可以在http块、server块或者location块中配置。
+
+由于使用Nginx服务器多数情况下要配置多个location块对不同的请求分别做出处理，因此该指令通常在location块中进行设置。
+
+举例如下：
+
+```
+root   "/home/web";
+
+```
+
+
+* **location指令**
 
 每个server块中可以包含多个location块。
 
@@ -456,9 +470,104 @@ location [ = | ~ | ~* | ^~ ] uri { ... }
 
 我们知道，在浏览器传送URI时对一部分字符进行URL编码，比如空格被编码为“%20”，问号被编码为“%3f”等。“～”有一个特点是，它对uri中的这些符号将会进行编码处理。比如，如果location块收到的URI为“/html/%20/data”，则当Nginx服务器搜索到配置为“～ /html/ /data”的location时，可以匹配成功。
 
-```java
-root指令
-这个指令用于设置请求寻找资源的跟目录，此指令可以在http块、server块或者location块中配置。由于使用Nginx服务器多数情况下要配置多个location块对不同的请求分别做出处理，因此该指令通常在location块中进行设置。
+* **proxy_pass指令**
+
+当我们遇到跨域问题，而且客户端无法支持 CORS 时，最好的办法就是让服务器来做代理。
+
+在前端页面所在的服务器 nginx 配置上开一个路由，然后使用 proxy 去请求另一个域名下的资源。
+
+或者前后台分离后，前端独立开发后也可以通过proxy_pass来反向代理到后台服务，或者服务器部署地址不方便暴露也可以用proxy做反向代理。
+
+例如：
+
+```
+server {
+   	 listen 80;
+
+     server_name biz.iyuya.com;
+
+     root /home/web;
+
+     location /websocket {
+         proxy_pass http://127.0.0.1:8077;
+      		proxy_http_version 1.1;
+      		proxy_set_header Upgrade $http_upgrade;
+      		proxy_set_header Connection "upgrade";
+      		proxy_read_timeout 600s;
+        }  
+}
+```
+上述配置告诉我们，当我们访问
+
+ http://biz.iyuya.com/websocket时，
+
+实际上是被反向代理到了：
+
+http://127.0.0.1:8077/websocket目录下
+
+根据proxy_pass的最后面是否带有“/”,反向代理的路径也有所不同，有些是绝对路径，有些是相对路径。
+
+
+第一种：相对于第一种，最后少一个"/",代表相对路径，则location的路径会被加上；
+
+```
+location  /abc
+    {
+        proxy_pass http://106.12.74.123:83;
+        proxy_set_header Host   $host;
+        proxy_set_header X-Real-IP      $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+```
+ 
+结论：会被代理到http://106.12.74.123：83/abc/这个url
+
+
+第二种：带有“/”,表示是绝对路径 ，则location的路径会被忽略
+
+```
+location  /abc
+    {
+        proxy_pass http://106.12.74.123:83/;
+        proxy_set_header Host   $host;
+        proxy_set_header X-Real-IP      $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+```
+
+结论：会被代理到http://106.12.74.123：83/这个url
+ 
+第三种：带有“/”,表示是绝对路径 ，则location的路径会被忽略
+
+```
+location  /abc
+    {
+        proxy_pass http://106.12.74.123:83/linux/;
+        proxy_set_header Host   $host;
+        proxy_set_header X-Real-IP      $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+```
+ 
+结论：会被代理到http://106.12.74.123:83/linux/这个url。
+ 
+ 
+ 
+第四种(相对于第三种，最后少一个 / )：但location依然会被忽略
+
+```
+location  /abc
+    {
+        proxy_pass http://106.12.74.123:83/linux;
+        proxy_set_header Host   $host;
+        proxy_set_header X-Real-IP      $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+```
+ 
+结论：会被代理到http://106.12.74.123/linuxindex.html 这个url
+
+
 
 root path
 path变量中可以包含Nginx服务器预设的大多数变量，只有documentroot和realpath_root不可以使用。
@@ -466,4 +575,4 @@ path变量中可以包含Nginx服务器预设的大多数变量，只有document
 alisa指令
 index指令
 error_page指令
-```
+
