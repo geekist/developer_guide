@@ -111,18 +111,30 @@ worker_processes number | auto；
 例子：指定4个工作线程，这种情况下会生成一个master进程和4个worker进程
 
 ```
-#worker_processes 4;
+# worker_processes 4;
 ```
 
-# 指定pid文件存放的路径，这个指令只能在全局块配置
+* **pid logs/nginx.pid;**
+
+>指定pid文件存放的路径，这个指令只能在全局块配置
+pid logs/nginx.pid;
+
+```
 # pid logs/nginx.pid;
-
-# 指定错误日志的路径和日志级别，此指令可以在全局块、http块、server块以及location块中配置。(在不同的块配置有啥区别？？)
-# 其中debug级别的日志需要编译时使用--with-debug开启debug开关
-# error_log [path] [debug | info | notice | warn | error | crit | alert | emerg] 
-# error_log  logs/error.log  notice;
-# error_log  logs/error.log  info;
 ```
+
+* **error_log [path] [debug | info | notice | warn | error | crit | alert | emerg]** 
+
+>指定错误日志的路径和日志级别，此指令可以在全局块、http块、server块以及location块中配置。(在不同的块配置有啥区别？？)
+其中debug级别的日志需要编译时使用--with-debug开启debug开关
+error_log [path] [debug | info | notice | warn | error | crit | alert | emerg] 
+error_log  logs/error.log  notice;
+error_log  logs/error.log  info;
+
+```
+# error_log  logs/error.log  notice;
+```
+
 
 #### events块
 
