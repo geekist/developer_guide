@@ -91,7 +91,7 @@ http {
 
 通常包括配置运行Nginx服务器的用户（组）、允许生成的worker process数、Nginx进程PID存放路径、日志的存放路径和类型以及配置文件引入等。
 
-* **user [user] [group]**
+* **user [user] [group];**
 
 
 >指定可以运行nginx服务的用户和用户组，只能在全局块配置
@@ -104,11 +104,15 @@ nginx: [warn] "user" is not supported, ignored in D:\software\nginx-1.18.0/conf/
 # user nobody nobody;
 ```
 
+* **worker_processes number | auto；**
 
-# 指定工作线程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
-# worker_processes number | auto；
-# 例子：指定4个工作线程，这种情况下会生成一个master进程和4个worker进程
-# worker_processes 4;
+>指定工作线程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
+worker_processes number | auto；
+例子：指定4个工作线程，这种情况下会生成一个master进程和4个worker进程
+
+```
+#worker_processes 4;
+```
 
 # 指定pid文件存放的路径，这个指令只能在全局块配置
 # pid logs/nginx.pid;
