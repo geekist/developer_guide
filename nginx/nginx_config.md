@@ -159,10 +159,15 @@ events块涉及的指令主要影响Nginx服务器与用户的网络连接。常
 # accept_mutex on | off;
 ```
 
-# 如果multi_accept被禁止了，nginx一个工作进程只能同时接受一个新的连接。否则，一个工作进程可以同时接受所有的新连接。 
-# 如果nginx使用kqueue连接方法，那么这条指令会被忽略，因为这个方法会报告在等待被接受的新连接的数量。
-# 默认是off状态，只能在event块配置
-# multi_accept on | off;
+* **multi_accept on | off;**
+
+>如果multi_accept被禁止了，nginx一个工作进程只能同时接受一个新的连接。否则，一个工作进程可以同时接受所有的新连接。 
+如果nginx使用kqueue连接方法，那么这条指令会被忽略，因为这个方法会报告在等待被接受的新连接的数量。
+默认是off状态，只能在event块配置
+
+```
+multi_accept on | off;
+```
 
  * **use method **
 
@@ -173,11 +178,15 @@ events块涉及的指令主要影响Nginx服务器与用户的网络连接。常
 # use epoll
 ```
 
-# 设置允许每一个worker process同时开启的最大连接数，当每个工作进程接受的连接数超过这个值时将不再接收连接
-# 当所有的工作进程都接收满时，连接进入logback，logback满后连接被拒绝
-# 只能在events块中进行配置
-# 注意：这个值不能超过超过系统支持打开的最大文件数，也不能超过单个进程支持打开的最大文件数，具体可以参考这篇文章：https://cloud.tencent.com/developer/article/1114773
-# worker_connections  1024;
+* **worker_connections number;**
+
+>设置允许每一个worker process同时开启的最大连接数，当每个工作进程接受的连接数超过这个值时将不再接收连接
+当所有的工作进程都接收满时，连接进入logback，logback满后连接被拒绝
+只能在events块中进行配置
+注意：这个值不能超过超过系统支持打开的最大文件数，也不能超过单个进程支持打开的最大文件数，具体可以参考这篇文章：https://cloud.tencent.com/developer/article/1114773
+
+```
+worker_connections  1024;
 ```
 ### 2.3 http块
 
@@ -187,22 +196,32 @@ http块是Nginx服务器配置中的重要部分，代理、缓存和日志定�
 
 可以在http全局块中配置的指令包括文件引入、MIME-Type定义、日志自定义、是否使用sendfile传输文件、连接超时时间、单连接请求数上限等。
 
-```java
-# 常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体等资源，浏览器为区分这些资源，需要使用MIME Type。换言之，MIME Type是网络资源的媒体类型。Nginx服务器作为Web服务器，必须能够识别前端请求的资源类型。
+* **include  mime.types;**
 
-# include指令，用于包含其他的配置文件，可以放在配置文件的任何地方，但是要注意你包含进来的配置文件一定符合配置规范，比如说你include进来的配置是worker_processes指令的配置，而你将这个指令包含到了http块中，着肯定是不行的，上面已经介绍过worker_processes指令只能在全局块中。
-# 下面的指令将mime.types包含进来，mime.types和ngin.cfg同级目录，不同级的话需要指定具体路径
-# include  mime.types;
+>常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体等资源，浏览器为区分这些资源，需要使用MIME Type。换言之，MIME Type是网络资源的媒体类型。Nginx服务器作为Web服务器，必须能够识别前端请求的资源类型。
+include指令，用于包含其他的配置文件，可以放在配置文件的任何地方，但是要注意你包含进来的配置文件一定符合配置规范，比如说你include进来的配置是worker_processes指令的配置，而你将这个指令包含到了http块中，着肯定是不行的，上面已经介绍过worker_processes指令只能在全局块中。
 
-# 配置默认类型，如果不加此指令，默认值为text/plain。
-# 此指令还可以在http块、server块或者location块中进行配置。
-# default_type  application/octet-stream;
+下面的指令将mime.types包含进来，mime.types和ngin.cfg同级目录，不同级的话需要指定具体路径
+```
+include  mime.types;
+```
+
+
+* **default_type  application/octet-stream;**
+
+>配置默认类型，如果不加此指令，默认值为text/plain。
+此指令还可以在http块、server块或者location块中进行配置。
+
+```
+default_type  application/octet-stream;
+```
 
 # access_log配置，此指令可以在http块、server块或者location块中进行设置
 # 在全局块中，我们介绍过errer_log指令，其用于配置Nginx进程运行时的日志存放和级别，此处所指的日志与常规的不同，它是指记录Nginx服务器提供服务过程应答前端请求的日志
 # access_log path [format [buffer=size]]
 # 如果你要关闭access_log,你可以使用下面的命令
 # access_log off;
+
 
 # log_format指令，用于定义日志格式，此指令只能在http块中进行配置
 # log_format  main '$remote_addr - $remote_user [$time_local] "$request" '
