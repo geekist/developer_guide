@@ -565,7 +565,142 @@ location  /abc
     }
 ```
  
-结论：会被代理到http://106.12.74.123/linuxindex.html 这个url
+结论：会被代理到http://106.12.74.123/linux/ 这个url
+
+* **rewrite**
+
+rewrite的主要功能是实现RUL地址的重定向。其应用场景非常广泛，如：
+
+可以调整用户浏览的URL，看起来更规范，合乎开发及产品人员的需求。
+
+为了让搜索引擎搜录网站内容及用户体验更好，企业会将动态URL地址伪装成静态地址提供服务。
+
+网址换新域名后，让旧的访问跳转到新的域名上。例如，访问京东的360buy.com会跳转到jd.com
+
+根据特殊变量、目录、客户端的信息进行URL调整等
+
+rewrite语法格式及参数语法说明如下:
+
+```
+rewrite    <regex>    <replacement>    [flag];
+```
+
+rewrite：关键字
+
+regex： perl兼容正则表达式语句进行规则匹配
+
+replacement：将正则匹配的内容替换成replacement
+
+flag标记：rewrite支持的flag标记
+
+flag标记说明：
+
+last  #本条规则匹配完成后，继续向下匹配新的location URI规则
+
+break  #本条规则匹配完成即终止，不再匹配后面的任何规则
+
+redirect  #返回302临时重定向，浏览器地址会显示跳转后的URL地址
+
+permanent  #返回301永久重定向，浏览器地址栏会显示跳转后的URL地址
+
+
+例子：
+
+```
+rewrite ^/(.*) http://www.czlun.com/$1 permanent;
+```
+
+rewrite为固定关键字，表示开始进行rewrite匹配规则
+
+regex部分是 ^/(.*) ，这是一个正则表达式，匹配完整的域名和后面的路径地址
+
+replacement部分是http://www.czlun.com/$1 其中$1，是取自regex部分()里的内容。匹配成功后跳转到的URL。
+
+flag部分 permanent表示永久301重定向标记，即跳转到新的 http://www.czlun.com/$1 地址上
+
+regex 常用正则表达式说明
+
+
+\
+
+将后面接着的字符标记为一个特殊字符或一个原义字符或一个向后引用。如“\n”匹配一个换行符，而“\$”则匹配“$”
+
+^
+
+匹配输入字符串的起始位置
+
+$
+
+匹配输入字符串的结束位置
+
+*
+
+匹配前面的字符零次或多次。如“ol*”能匹配“o”及“ol”、“oll”
+
++
+
+匹配前面的字符一次或多次。如“ol+”能匹配“ol”及“oll”、“oll”，但不能匹配“o”
+
+?
+
+匹配前面的字符零次或一次，例如“do(es)?”能匹配“do”或者“does”，"?"等效于"{0,1}"
+
+.
+
+匹配除“\n”之外的任何单个字符，若要匹配包括“\n”在内的任意字符，请使用诸如“[.\n]”之类的模式。
+
+(pattern)
+
+匹配括号内pattern并可以在后面获取对应的匹配，常用$0...$9属性获取小括号中的匹配内容，要匹配圆括号字符需要\(Content\)
+
+* **index指令**
+
+指定网站初始页。
+
+该指令后面可以跟多个文件，用空格隔开；
+
+如果包括多个文件，Nginx会根据文件的枚举顺序来检查，直到查找的文件存在；
+
+文件可以是相对路径也可以是绝对路径，绝对路径需要放在最后；
+
+文件可以使用变量$来命名；
+
+```
+如： index  index.$geo.html  index.0.html  /index.html;
+
+```
+
+该指令拥有默认值，index index.html ，即，如果没有给出index，默认初始页为index.html
+
+如果文件存在，则使用文件作为路径，发起内部重定向。直观上看上去就像再一次从客户端发起请求，Nginx再一次搜索location一样。
+
+```
+server {
+    listen      80;
+    server_name example.org www.example.org;    
+    
+    location / {
+        root    /data/www;
+        index   index.html index.php;
+    }
+    
+    location ~ \.php$ {
+        root    /data/www/test;
+    }
+}
+```
+
+上面的例子中，如果你使用example.org或www.example.org直接发起请求，那么首先会访问到“/”的location，
+
+结合root与index指令，会先判断/data/www/index.html是否存在，如果不，则接着查看/data/www/index.php ，
+
+如果存在，则使用/index.php发起内部重定向，就像从客户端再一次发起请求一样;
+
+Nginx会再一次搜索location，毫无疑问匹配到第二个~ \.php$，从而访问到/data/www/test/index.php。
+
+
+
+
 
 
 
