@@ -192,6 +192,9 @@ worker_connections  1024;
 
 http块是Nginx服务器配置中的重要部分，代理、缓存和日志定义等绝大多数的功能和第三方模块的配置都可以放在这个模块中。
 
+
+#### 2.3.1 http全局块
+
 前面已经提到，http块中可以包含自己的全局块，也可以包含server块，server块中又可以进一步包含location块，在本书中我们使用“http全局块”来表示http中自己的全局块，即http块中不包含在server块中的部分。
 
 可以在http全局块中配置的指令包括文件引入、MIME-Type定义、日志自定义、是否使用sendfile传输文件、连接超时时间、单连接请求数上限等。
@@ -216,40 +219,61 @@ include  mime.types;
 default_type  application/octet-stream;
 ```
 
-# access_log配置，此指令可以在http块、server块或者location块中进行设置
-# 在全局块中，我们介绍过errer_log指令，其用于配置Nginx进程运行时的日志存放和级别，此处所指的日志与常规的不同，它是指记录Nginx服务器提供服务过程应答前端请求的日志
-# access_log path [format [buffer=size]]
-# 如果你要关闭access_log,你可以使用下面的命令
-# access_log off;
+* **access_log path [format [buffer=size]];**
 
+>access_log配置，此指令可以在http块、server块或者location块中进行设置
+在全局块中，我们介绍过errer_log指令，其用于配置Nginx进程运行时的日志存放和级别，此处所指的日志与常规的不同，它是指记录Nginx服务器提供服务过程应答前端请求的日志
 
-# log_format指令，用于定义日志格式，此指令只能在http块中进行配置
-# log_format  main '$remote_addr - $remote_user [$time_local] "$request" '
-#                  '$status $body_bytes_sent "$http_referer" '
-#                  '"$http_user_agent" "$http_x_forwarded_for"';
-# 定义了上面的日志格式后，可以以下面的形式使用日志
-# access_log  logs/access.log  main;
-
-# 开启关闭sendfile方式传输文件，可以在http块、server块或者location块中进行配置
-# sendfile  on | off;
-
-# 设置sendfile最大数据量,此指令可以在http块、server块或location块中配置
-# sendfile_max_chunk size;
-# 其中，size值如果大于0，Nginx进程的每个worker process每次调用sendfile()传输的数据量最大不能超过这个值(这里是128k，所以每次不能超过128k)；如果设置为0，则无限制。默认值为0。
-# sendfile_max_chunk 128k;
-
-# 配置连接超时时间,此指令可以在http块、server块或location块中配置。
-# 与用户建立会话连接后，Nginx服务器可以保持这些连接打开一段时间
-# timeout，服务器端对连接的保持时间。默认值为75s;header_timeout，可选项，在应答报文头部的Keep-Alive域设置超时时间：“Keep-Alive:timeout= header_timeout”。报文中的这个指令可以被Mozilla或者Konqueror识别。
-# keepalive_timeout timeout [header_timeout]
-# 下面配置的含义是，在服务器端保持连接的时间设置为120 s，发给用户端的应答报文头部中Keep-Alive域的超时时间设置为100 s。
-# keepalive_timeout 120s 100s
-
-# 配置单连接请求数上限，此指令可以在http块、server块或location块中配置。
-# Nginx服务器端和用户端建立会话连接后，用户端通过此连接发送请求。指令keepalive_requests用于限制用户通过某一连接向Nginx服务器发送请求的次数。默认是100
-# keepalive_requests number;
+如果你要关闭access_log,你可以使用下面的命令
 ```
-#### server块
+access_log off;
+```
+
+* **log_format**
+
+>log_format指令，用于定义日志格式，此指令只能在http块中进行配置
+log_format  main '$remote_addr - $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" "$http_x_forwarded_for"';
+定义了上面的日志格式后，可以以下面的形式使用日志
+
+```
+access_log  logs/access.log  main;
+```
+
+* **sendfile  on | off;**
+
+>开启关闭sendfile方式传输文件，可以在http块、server块或者location块中进行配置
+
+
+* **sendfile_max_chunk size;**
+
+>设置sendfile最大数据量,此指令可以在http块、server块或location块中配置
+其中，size值如果大于0，Nginx进程的每个worker process每次调用sendfile()传输的数据量最大不能超过这个值(这里是128k，所以每次不能超过128k)；如果设置为0，则无限制。默认值为0。
+
+```
+sendfile_max_chunk 128k;
+```
+
+* **timeout**
+
+>配置连接超时时间,此指令可以在http块、server块或location块中配置。
+与用户建立会话连接后，Nginx服务器可以保持这些连接打开一段时间
+服务器端对连接的保持时间。默认值为75s;header_timeout，可选项，在应答报文头部的Keep-Alive域设置超时时间：“Keep-Alive:timeout= header_timeout”。报文中的这个指令可以被Mozilla或者Konqueror识别。
+
+* **keepalive_timeout timeout [header_timeout]**
+
+
+>下面配置的含义是，在服务器端保持连接的时间设置为120 s，发给用户端的应答报文头部中Keep-Alive域的超时时间设置为100 s。
+keepalive_timeout 120s 100s
+
+* **keepalive_requests number;**
+
+>配置单连接请求数上限，此指令可以在http块、server块或location块中配置。
+Nginx服务器端和用户端建立会话连接后，用户端通过此连接发送请求。指令keepalive_requests用于限制用户通过某一连接向Nginx服务器发送请求的次数。默认是100
+
+
+#### 2.3.2 server块
 
 server块和“虚拟主机”的概念有密切联系。
 
@@ -339,7 +363,7 @@ http
 }
 ```
 
-#### location块
+##### 2.3.2.1 location块
 
 每个server块中可以包含多个location块。在整个Nginx配置文档中起着重要的作用，而且Nginx服务器在许多功能上的灵活性往往在location指令的配置中体现出来。
 
