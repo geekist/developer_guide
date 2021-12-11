@@ -91,13 +91,19 @@ http {
 
 通常包括配置运行Nginx服务器的用户（组）、允许生成的worker process数、Nginx进程PID存放路径、日志的存放路径和类型以及配置文件引入等。
 
+* **user [user] [group]**
+
+
+>指定可以运行nginx服务的用户和用户组，只能在全局块配置
+user [user] [group]
+将user指令注释掉，或者配置成nobody的话所有用户都可以运行
+user指令在Windows上不生效，如果你制定具体用户和用户组会报小面警告
+nginx: [warn] "user" is not supported, ignored in D:\software\nginx-1.18.0/conf/nginx.conf:2
+
 ```java
-# 指定可以运行nginx服务的用户和用户组，只能在全局块配置
-# user [user] [group]
-# 将user指令注释掉，或者配置成nobody的话所有用户都可以运行
 # user nobody nobody;
-# user指令在Windows上不生效，如果你制定具体用户和用户组会报小面警告
-# nginx: [warn] "user" is not supported, ignored in D:\software\nginx-1.18.0/conf/nginx.conf:2
+```
+
 
 # 指定工作线程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
 # worker_processes number | auto；
