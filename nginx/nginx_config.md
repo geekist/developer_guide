@@ -6,16 +6,27 @@
 Nginx的主配置文件是nginx.conf，这个配置文件一共由三部分组成，分别为：
 
 |--全局块
+
 |--events块
+
 |--http块
+
    |--http全局块
+
    |--server块1
+
       |--server块
+
       |--location块1
+
       |--location块2
+
       |--location块n
+
    |--server块2
+
    |--server块n
+
 
 
 在http块中，又包含http全局块、多个server块。
