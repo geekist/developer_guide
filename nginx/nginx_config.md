@@ -10,30 +10,31 @@ Nginx的主配置文件是nginx.conf，这个配置文件一共由三部分组�
 ### 配置文件的结构
 
 配置文件的结构大致如下：
-```java
+```code
 
-#全局块
+#-----------------------------------全局块---------------------------------------------------
 #user  nobody;
 worker_processes  1;
 
-#event块
+
+#----------------------------------event块--------------------------------------------------
 events {
     worker_connections  1024;
 }
 
-#http块
+#----------------------------------http块--------------------------------------------------
 http {
-    #http全局块
+    #------------------------------http全局块
     include       mime.types;
     default_type  application/octet-stream;
     sendfile        on;
     keepalive_timeout  65;
-    #server块
+    #-----------------------------server块
     server {
-        #server全局块
+        #-----------server全局块
         listen       8000;
         server_name  localhost;
-        #location块
+        #-----------location块
         location / {
             root   html;
             index  index.html index.htm;
@@ -43,7 +44,7 @@ http {
             root   html;
         }
     }
-    #这边可以有多个server块
+    #--------------server块
     server {
       ...
     }
