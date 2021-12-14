@@ -237,7 +237,6 @@ WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内�
 ### POM的依赖关系
 
 ```xml
-
 <dependencies>  
     <dependency>  
         <groupId>junit</groupId>  
@@ -249,8 +248,21 @@ WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内�
     </dependency>  
 ...  
 </dependencies> 
- 
 ```
+
+Maven会帮下载改依赖的jar包，并放到适当的位置。
+
+默认repository地址：当前用户的私人目录 + .m2
+
+如果你设置了Maven目录下的conf/setting.xml的local repository属性，则不再是默认的repository地址，而使用你指定的地址。
+
+找到下面这段，将它复制一份，放到注释外面，改成你自己的repository路径即可
+
+```
+<localRepository>c:\mvn repository\</localRepository>
+``` 
+当更新了maven的依赖，只需要在idea工程中右键--maven--reimport即可；
+
 
 ### POM的继承关系
 
