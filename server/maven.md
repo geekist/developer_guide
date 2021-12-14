@@ -103,6 +103,25 @@ a-maven-project
 
 所有的目录结构都是约定好的标准结构，我们千万不要随意修改目录结构。使用标准结构不需要做任何配置，Maven就可以正常使用。
 
+## .iml和.idea文件夹
+
+初次使用IDEA，创建一个maven工程，发现在目录结构中产生了两个不一样的东西——.iml文件和.idea文件夹。
+
+非常好奇，所以立刻上网查找了这两个东西的信息。
+
+iml是 intellij idea的工程配置文件，里面是当前project的一些配置信息。.Idea存放项目的配置信息，包括历史记录，版本控制信息等。其实可以不用理它。
+
+如果觉得看着麻烦的话，我们可以配置隐藏。点击file->Settings->File types,在右下角的Ignore files and folders中可以将.idea隐藏，但是似乎不可以隐藏.iml文件。
+
+解析二:
+idea 删除生成的.iml文件后 项目目录不显示 或者报错
+因为idea生成的.iml文件里面存的都是一些配置之类的东西 所以删了以后就会出现问题
+解决这个问题的办法很简单点击maven 刷新就好了 就会生成新的.iml文件
+
+解析三:
+iml是 intellij idea的工程配置文件，里面是当前projec的一些配置信息
+web.xml 是当前这个project是一个web project，里面是web 工程的具体配置信息 初始参数，servlet filter 等等
+
 ## 2、项目描述文件pom.xml
 
 我们再来看最关键的一个项目描述文件pom.xml，它的内容长得像下面：
