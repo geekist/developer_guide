@@ -129,12 +129,13 @@ Default:    gzip_types text/html;
 
 Context:    http, server, location
 
-|--字体类型扩展名--|--Content-type--|
-.eot	application/vnd.ms-fontobject
-.ttf	font/ttf
-.otf	font/opentype
-.woff	font/x-woff
-.svg	image/svg+xml
+| 字体类型扩展名 | Content-type |
+|----|----|
+|.eot|application/vnd.ms-fontobject|
+|.ttf|font/ttf|
+|.otf|font/opentype|
+|.woff|font/x-woff|
+|.svg|image/svg+xml|
 
 
 
