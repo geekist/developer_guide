@@ -30,6 +30,8 @@
 
 - [Spring bean介绍](./server/bean.md)
 
+- [Spring注解介绍](./server/spring_annotation_2.md)
+
 ## 3.2 Spring Boot 介绍
 
 - [Spring Boot 中文文档](https://www.bookstack.cn/read/springboot/README.md)
