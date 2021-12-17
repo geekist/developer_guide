@@ -34,6 +34,53 @@
 
 第一种，Spring Framework 的 Spring Task 模块，提供了轻量级的定时任务的实现。
 
+* 配置
+
+spring task 不需要特殊配置，是spring framework内置的；
+
+* 创建和执行任务
+
+```java
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Component
+//@Configuration // 1.主要用于标记配置类，兼备Component的效果。
+@EnableScheduling // 2.开启定时任务
+public class DemoJob {
+    private final AtomicInteger counts = new AtomicInteger();
+
+    @Scheduled(fixedRate = 2000)
+    public void execute() {
+        String str = "[execute][定时第" + counts.incrementAndGet() + "次执行]\"";
+        System.out.println(str);
+    }
+}
+
+
+```
+
+
+@EnableScheduling 开启对定时任务的支持
+@Scheduled 可以作为一个触发源添加到一个方法中
+
+   其中Scheduled注解中有以下几个参数：
+
+　　1.cron是设置定时执行的表达式，如 0 0/5 * * * ?每隔五分钟执行一次 秒 分 时 天 月
+
+　　2.zone表示执行时间的时区
+
+　　3.fixedDelay 和fixedDelayString 表示一个固定延迟时间执行，上个任务完成后，延迟多长时间执行
+
+　　4.fixedRate 和fixedRateString表示一个固定频率执行，上个任务开始后，多长时间后开始执行
+
+　　5.initialDelay 和initialDelayString表示一个初始延迟时间，第一次被调用前延迟的时间
+
+
+
 
 
 #### 2.2 Spring Boot Quartz
