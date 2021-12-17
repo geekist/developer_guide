@@ -51,6 +51,8 @@
 - [Spring boot注解](./server/spring_boot_annotation.md)
 
 - [无效的源发行版本11](https://segmentfault.com/a/1190000023536478)
+
+- [Spirng boot项目常见的依赖安装](./server/springboot_dependency.md)
  
 
 ## 3.3 Spring Boot 环境配置

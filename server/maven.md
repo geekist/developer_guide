@@ -103,6 +103,25 @@ a-maven-project
 
 所有的目录结构都是约定好的标准结构，我们千万不要随意修改目录结构。使用标准结构不需要做任何配置，Maven就可以正常使用。
 
+## .iml和.idea文件夹
+
+初次使用IDEA，创建一个maven工程，发现在目录结构中产生了两个不一样的东西——.iml文件和.idea文件夹。
+
+非常好奇，所以立刻上网查找了这两个东西的信息。
+
+iml是 intellij idea的工程配置文件，里面是当前project的一些配置信息。.Idea存放项目的配置信息，包括历史记录，版本控制信息等。其实可以不用理它。
+
+如果觉得看着麻烦的话，我们可以配置隐藏。点击file->Settings->File types,在右下角的Ignore files and folders中可以将.idea隐藏，但是似乎不可以隐藏.iml文件。
+
+解析二:
+idea 删除生成的.iml文件后 项目目录不显示 或者报错
+因为idea生成的.iml文件里面存的都是一些配置之类的东西 所以删了以后就会出现问题
+解决这个问题的办法很简单点击maven 刷新就好了 就会生成新的.iml文件
+
+解析三:
+iml是 intellij idea的工程配置文件，里面是当前projec的一些配置信息
+web.xml 是当前这个project是一个web project，里面是web 工程的具体配置信息 初始参数，servlet filter 等等
+
 ## 2、项目描述文件pom.xml
 
 我们再来看最关键的一个项目描述文件pom.xml，它的内容长得像下面：
@@ -193,10 +212,50 @@ pom.xml的基本配置。
 </project>  
 
 ```
+
+* packaging 标签
+
+
+maven作为一种XML标记语言，标签通常成对存在，目前packaging标签有3种配置：
+
+```xml
+<packaging>pom</packaging>
+<packaging>jar</packaging>
+<packaging>war</packaging>
+```
+***<packaging>pom</packaging>***
+
+在父级项目中的pom.xml文件使用的packaging配置一定为pom。父级的pom文件只作项目的子模块的整合，在maven install时不会生成jar/war压缩包。
+
+为什么需要一个父级pom文件呢？
+
+1、可以通过<modules>标签来整合子模块的编译顺序（Maven引入依赖使用最短路径原则，例如a<–b<–c1.0 ，d<–e<–f<–c1.1，由于路径最短，最终引入的为c1.0；但路径长度相同时，则会引入先申明的依赖）。因此尽量将更加底层的service放在更先的位置优先加载依赖较为合适。
+
+2、可以将一些子项目中共用的依赖或将其版本统一写到父级配置中，以便统一管理。
+
+3、groupId, artifactId, version能直接从父级继承，减少子项目的pom配置。
+
+***<packaging>jar</packaging>***
+
+Jar包是最为常见的打包方式，当pom文件中没有设置packaging参数时，默认使用jar方式打包。
+
+这种打包方式意味着在maven build时会将这个项目中的所有java文件都进行编译形成.class文件，且按照原来的java文件层级结构放置，最终压缩为一个jar文件。
+
+当我们使用mvn install命令的时候，能够发现在项目中与src文件夹同级新生成了一个target文件夹，这个文件夹内的classes文件夹即为刚才提到的编译后形成的文件夹。
+
+***<packaging>war</packaging>***
+
+war包与jar包非常相似，同样是编译后的.class文件按层级结构形成文件树后打包形成的压缩包。不同的是，它会将项目中依赖的所有jar包都放在WEB-INF/lib这个文件夹下，
+
+WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内容。
+
+可想而知，war包非常适合部署时使用，不再需要下载其他的依赖包，能够使用户拿到war包直接使用，因此它经常使用于微服务项目群中的入口项目的pom配置中。
+
+
+
 ### POM的依赖关系
 
 ```xml
-
 <dependencies>  
     <dependency>  
         <groupId>junit</groupId>  
@@ -208,8 +267,21 @@ pom.xml的基本配置。
     </dependency>  
 ...  
 </dependencies> 
- 
 ```
+
+Maven会帮下载改依赖的jar包，并放到适当的位置。
+
+默认repository地址：当前用户的私人目录 + .m2
+
+如果你设置了Maven目录下的conf/setting.xml的local repository属性，则不再是默认的repository地址，而使用你指定的地址。
+
+找到下面这段，将它复制一份，放到注释外面，改成你自己的repository路径即可
+
+```
+<localRepository>c:\mvn repository\</localRepository>
+``` 
+当更新了maven的依赖，只需要在idea工程中右键--maven--reimport即可；
+
 
 ### POM的继承关系
 

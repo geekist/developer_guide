@@ -28,9 +28,19 @@
 
 * [工具](./tools/tools.md)
 
+Json
+
 * [Json最佳实践](http://kimmking.github.io/2017/06/06/json-best-practice/)
 
+Maven
+
 * [项目构建工具maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
+
+
+* [maven项目的父类模板](./server/maven_parent.md)
+
+Git
+
 
  * [杂项](https://github.com/geekist/developer_guide/blob/main/杂项.md)
 
