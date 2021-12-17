@@ -20,6 +20,8 @@
 
 - [Cron Trigger介绍](https://blog.csdn.net/yangshangwei/article/details/78172982)
 
+- [Java 定时任务](./server/java_qurartz.md)
+
 # 三、用SpringBoot开发JavaWeb应用
 
 ## 3.1 Spring 介绍
