@@ -28,6 +28,8 @@
 
 - [Spring介绍](https://www.w3cschool.cn/wkspring/)
 
+- [Spring bean介绍](./server/bean.md)
+
 ## 3.2 Spring Boot 介绍
 
 - [Spring Boot 中文文档](https://www.bookstack.cn/read/springboot/README.md)
