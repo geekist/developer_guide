@@ -104,6 +104,24 @@
 
 ```
 
+* ***repositories依赖的地址***
+
+```xml
+    <repositories>
+        <repository>
+            <id>aliyun_central</id>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+        <repository>
+            <id>aliyun_public</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+```
+
+
+
+
 * ***build 标签***
 
 ```xml
@@ -119,6 +137,91 @@
 ```
 
 ### step3： 创建一个module继承父类
+
+* ***parent标签***
+
+```xml
+ <parent>
+        <groupId>com.ytech</groupId>
+        <artifactId>razor</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+```
+
+* ***项目描述标签***
+
+```xml
+<groupId>com.ytech</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>mybatis</name>
+    <description>Demo project for Spring Boot</description>
+```
+
+* ***属性标签***
+
+```xml
+ <properties>
+        <java.version>1.8</java.version>
+ </properties>
+
+```
+
+
+* ***依赖***
+
+```xml
+
+ <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Mysql驱动包 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!--阿里数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+```
+
+* ***build 标签***
+
+```xml
+ <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
+
 
 
 
