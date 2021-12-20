@@ -366,6 +366,10 @@
 
 * [android 混淆的项目实例](https://github.com/geekist/developer_guide/blob/main/android/studio/混淆实例.md)
 
+### 数字签名
+
+* [android 数字签名](./android/studio/android_signature.md)
+
 ### 安装
 
 * [Android安装apk的流程](https://github.com/geekist/developer_guide/blob/main/android/studio/android打包apk流程.md)
