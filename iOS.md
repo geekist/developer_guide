@@ -29,6 +29,9 @@
 ## 第三方类库
 
 * [CocoaPods使用详细介绍](./ios/CocoaPods/CocoaPods.md)
+
+* [CocaPods移除已安装的库](https://blog.csdn.net/touch929/article/details/78654656)
+
 ## 调试
 
 ## 测试
