@@ -1,6 +1,6 @@
 
 
-## 一、一个简单的java源程序
+## 一、Java源程序
 
 在记事本或java的IDE工具中创建java源文件MainApp.java
 
