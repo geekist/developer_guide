@@ -31,16 +31,10 @@
 
 - [Java程序的编译和运行](./java_compiler.md)
 
+- [Jar包介绍](https://github.com/geekist/developer_guide/blob/main/server/jar2.md)
 
-- [Jar包介绍](https://github.com/geekist/developer_guide/blob/main/server/jar.md)
+- [用Maven管理java项目](./maven_intro.md)
 
-- [Jar包介绍2](https://github.com/geekist/developer_guide/blob/main/server/jar2.md)
-
-- [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
-
-* [maven项目的父类模板](./server/maven_parent.md)
-
-- [Maven教程](https://www.runoob.com/maven/maven-tutorial.html)
 
 
 

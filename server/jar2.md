@@ -1,32 +1,33 @@
-文章主要分为以下六大模块。
-
-什么是jar包
-为什么要打jar包
-jar包和war包的区别
-如何打jar包
-jar包的依赖如何解决
-如何调用jar包
 
 
-## 一、什么是jar包
+
+## 一、Jar包介绍
 
 
-### 1.1 什么是jar包
+### 1.1 jar包定义
 
-jar包就是 Java Archive File，顾名思义，它的应用是与 Java 息息相关的，是 Java 的一种文档格式，是一种与平台无关的文件格式，可将多个文件合成一个文件。jar 包与 zip 包非常相似——准确地说，它就是 zip 包，所以叫它文件包。
+jar（Java Archive File），是 Java 的一种文档格式，是一种与平台无关的文件格式，可将多个文件合成一个文件。我们可以理解jar 是一种特殊的zip文件，所以叫它文件包。
+
+java项目中，往往有很多的class文件，分布在各层目录中，不方便管理和执行，jar可以将所有文件（包括.class文件和其他文件）都打成一个jar文件，这样一来，无论是备份，还是发布，简单多了。
 
 jar 与 zip 唯一的区别就是在 jar 文件的内容中，包含了一个 META-INF/MANIFEST.MF 文件，该文件是在生成 jar 文件的时候自动创建的，作为jar里面的"详情单"，包含了该Jar包的版本、创建人和类搜索路径Class-Path等信息，当然如果是可执行Jar包，会包含Main-Class属性，表明Main方法入口，尤其是较为重要的Class-Path和Main-Class，咱们一会在后续的内容里面会进行详细地讲解。
 
 此外，值得注意的是，因为jar包主要是对class文件进行打包，而java编译生成的class文件是平台无关的，这就意味着jar包是跨平台的，所以不必关心涉及具体平台的问题。
+
+### 1、2 jar包中的内容
 
 咱们来看看最普通的一个带有静态页面的springboot项目jar里面的内容，就会发现解压出来的
 
 jar并不简单，为了贴近实际咱们未做任何删减，可以看到有很多东西
 只需要运行如下指令，就能看到jar里面的内容（调用jar指令的前提是已经配置了jdk的环境变量）
 
-**jar -tf springbootdemo-0.0.1-SNAPSHOT.jar**
+```
 
-其中-tf 后接的jar就是我们要查看的jar
+jar -tf springbootdemo-0.0.1-SNAPSHOT.jar
+
+```
+
+其中-tf 后接的jar就是我们要查看的jar,我们可以看到解压后的jar包内容如下：
 
 ```xml
 META-INF/
@@ -36,73 +37,17 @@ org/springframework/
 org/springframework/boot/
 org/springframework/boot/loader/
 org/springframework/boot/loader/util/
-org/springframework/boot/loader/util/SystemPropertyUtils.class
-org/springframework/boot/loader/archive/
-org/springframework/boot/loader/archive/ExplodedArchive$FileEntryIterator.class
 org/springframework/boot/loader/PropertiesLauncher$ArchiveEntryFilter.class
-org/springframework/boot/loader/LaunchedURLClassLoader$UseFastConnectionExceptionsEnumeration.class
-org/springframework/boot/loader/PropertiesLauncher$PrefixMatchingArchiveFilter.class
-org/springframework/boot/loader/archive/Archive.class
-org/springframework/boot/loader/data/
-org/springframework/boot/loader/data/RandomAccessDataFile.class
-org/springframework/boot/loader/WarLauncher.class
-org/springframework/boot/loader/archive/ExplodedArchive.class
-org/springframework/boot/loader/archive/JarFileArchive.class
-org/springframework/boot/loader/Launcher.class
-org/springframework/boot/loader/archive/ExplodedArchive$FileEntry.class
-org/springframework/boot/loader/archive/ExplodedArchive$1.class
-org/springframework/boot/loader/archive/JarFileArchive$JarFileEntry.class
-org/springframework/boot/loader/jar/
-org/springframework/boot/loader/jar/JarFile$1.class
-org/springframework/boot/loader/jar/JarFile.class
-org/springframework/boot/loader/archive/ExplodedArchive$FileEntryIterator$EntryComparator.class
-org/springframework/boot/loader/jar/JarEntry.class
-org/springframework/boot/loader/jar/CentralDirectoryEndRecord.class
-org/springframework/boot/loader/jar/ZipInflaterInputStream.class
-org/springframework/boot/loader/archive/Archive$Entry.class
-org/springframework/boot/loader/PropertiesLauncher$1.class
-org/springframework/boot/loader/LaunchedURLClassLoader.class
-org/springframework/boot/loader/PropertiesLauncher.class
-org/springframework/boot/loader/jar/CentralDirectoryVisitor.class
-org/springframework/boot/loader/jar/Handler.class
-org/springframework/boot/loader/jar/JarURLConnection.class
-org/springframework/boot/loader/jar/JarURLConnection$JarEntryName.class
-org/springframework/boot/loader/jar/CentralDirectoryParser.class
-org/springframework/boot/loader/archive/Archive$EntryFilter.class
-org/springframework/boot/loader/ExecutableArchiveLauncher.class
-org/springframework/boot/loader/data/RandomAccessDataFile$1.class
-org/springframework/boot/loader/data/RandomAccessDataFile$FileAccess.class
-org/springframework/boot/loader/jar/CentralDirectoryFileHeader.class
-org/springframework/boot/loader/archive/JarFileArchive$EntryIterator.class
-org/springframework/boot/loader/JarLauncher.class
-org/springframework/boot/loader/data/RandomAccessDataFile$DataInputStream.class
-org/springframework/boot/loader/data/RandomAccessData.class
-org/springframework/boot/loader/MainMethodRunner.class
-org/springframework/boot/loader/jar/Bytes.class
-org/springframework/boot/loader/jar/StringSequence.class
-org/springframework/boot/loader/jar/JarEntryFilter.class
-org/springframework/boot/loader/jar/JarFileEntries.class
-org/springframework/boot/loader/jar/FileHeader.class
-org/springframework/boot/loader/jar/JarURLConnection$1.class
-org/springframework/boot/loader/jar/JarFile$JarFileType.class
-org/springframework/boot/loader/jar/JarFile$2.class
-org/springframework/boot/loader/jar/JarFileEntries$EntryIterator.class
-org/springframework/boot/loader/jar/AsciiBytes.class
+
+......
+
 org/springframework/boot/loader/jar/JarFileEntries$1.class
+org/springframework/boot/loader/LaunchedURLClassLoader$UseFastConnectionExceptionsEnumeration.class
+
 BOOT-INF/
 BOOT-INF/classes/
 BOOT-INF/classes/static/
-BOOT-INF/classes/static/css/
-BOOT-INF/classes/static/js/
-BOOT-INF/classes/static/img/
-BOOT-INF/classes/static/pages/
-BOOT-INF/classes/com/
-BOOT-INF/classes/com/imooc/
-BOOT-INF/classes/com/imooc/springbootdemo/
-BOOT-INF/classes/com/imooc/springbootdemo/web/
-META-INF/maven/
-META-INF/maven/com.imooc/
-META-INF/maven/com.imooc/springbootdemo/
+
 BOOT-INF/classes/static/js/index.js
 BOOT-INF/classes/com/imooc/springbootdemo/web/DemoController.class
 BOOT-INF/classes/com/imooc/springbootdemo/SpringbootdemoApplication.class
@@ -117,341 +62,89 @@ BOOT-INF/lib/spring-boot-starter-web-2.1.8.RELEASE.jar
 BOOT-INF/lib/spring-boot-starter-2.1.8.RELEASE.jar
 BOOT-INF/lib/spring-boot-2.1.8.RELEASE.jar
 BOOT-INF/lib/spring-boot-autoconfigure-2.1.8.RELEASE.jar
-BOOT-INF/lib/spring-boot-starter-logging-2.1.8.RELEASE.jar
-BOOT-INF/lib/logback-classic-1.2.3.jar
-BOOT-INF/lib/logback-core-1.2.3.jar
-BOOT-INF/lib/log4j-to-slf4j-2.11.2.jar
-BOOT-INF/lib/log4j-api-2.11.2.jar
-BOOT-INF/lib/jul-to-slf4j-1.7.28.jar
-BOOT-INF/lib/javax.annotation-api-1.3.2.jar
-BOOT-INF/lib/snakeyaml-1.23.jar
-BOOT-INF/lib/spring-boot-starter-json-2.1.8.RELEASE.jar
-BOOT-INF/lib/jackson-databind-2.9.9.3.jar
-BOOT-INF/lib/jackson-annotations-2.9.0.jar
-BOOT-INF/lib/jackson-core-2.9.9.jar
-BOOT-INF/lib/jackson-datatype-jdk8-2.9.9.jar
-BOOT-INF/lib/jackson-datatype-jsr310-2.9.9.jar
-BOOT-INF/lib/jackson-module-parameter-names-2.9.9.jar
-BOOT-INF/lib/spring-boot-starter-tomcat-2.1.8.RELEASE.jar
-BOOT-INF/lib/tomcat-embed-core-9.0.24.jar
-BOOT-INF/lib/tomcat-embed-el-9.0.24.jar
-BOOT-INF/lib/tomcat-embed-websocket-9.0.24.jar
-BOOT-INF/lib/hibernate-validator-6.0.17.Final.jar
-BOOT-INF/lib/validation-api-2.0.1.Final.jar
-BOOT-INF/lib/jboss-logging-3.3.3.Final.jar
-BOOT-INF/lib/classmate-1.4.0.jar
-BOOT-INF/lib/spring-web-5.1.9.RELEASE.jar
-BOOT-INF/lib/spring-beans-5.1.9.RELEASE.jar
-BOOT-INF/lib/spring-webmvc-5.1.9.RELEASE.jar
-BOOT-INF/lib/spring-aop-5.1.9.RELEASE.jar
-BOOT-INF/lib/spring-context-5.1.9.RELEASE.jar
-BOOT-INF/lib/spring-expression-5.1.9.RELEASE.jar
-BOOT-INF/lib/slf4j-api-1.7.28.jar
-BOOT-INF/lib/spring-core-5.1.9.RELEASE.jar
+
+......
+
 BOOT-INF/lib/spring-jcl-5.1.9.RELEASE.jar
 ```
 
 大致看看里面的东西我们可以发现，除了.MF以及.class文件之外，jar还能打包静态资源文件如.html、.css以及.js等项目所需的一切，这也就意味着咱们能将自己的项目打成jar，即不管是web应用还是底层框架，都能打成jar包。
 
-### 1.2 可执行的jar包
+
+### 1.3 jar包和war包的区别
+
+war包是Sun提出的一种web应用程序格式，与jar类似，是很多文件的压缩包
+
+war包中的文件按照一定目录结构来组织。根据其根目录下包含有html和jsp文件，或者包含有这两种文件的目录，另外还有WEB-INF目录。通常在WEB-INF目录下含有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的servlet类和jsp，或者servlet所依赖的其他类（如JavaBean）。通常这些所依赖的类也可以打包成jar包放在WEB-INF下的lib目录下。
+
+war是一个可以直接运行的web模块，通常应用于web项目中，将其打成war包部署到Tomcat等容器中。以大家熟悉的Tomcat举例，将war包放置在tomcat根目录的webapps目录下，如果Tomcat成功启动，这个包就会自动解压，就相当于发布了。
+
+目前，war相较于jar的唯一优势在于，就拿tomcat来讲，当tomcat的进程启动之后，将符合规范的war包放在tomcat的webapps目录下的时候，tomcat会自动将war包解压并对外提供web服务，而jar包则不行。
+
+war能自动被解压
+
+过去由于并未通过微服务将机器资源进行隔离，因此提倡的是一个tomcat实例管理多个java web项目，因此对于java web项目，都提倡将其打成war包然后放置于同一个tomcat的webapps下进行管理，便于资源的统一利用。而随着微服务成为主流，同一台机器上的多个web服务可以通过docker等容器进行隔离，因此我们可以让每个容器都单独运行一个tomcat实例，每个tomcat实例独立运行一个web服务，换句话说，我们可以像springboot一样，将tomcat和web项目打成jar放在一起，以内嵌的方式来启动web服务，使得所有服务的启动方式更优雅和统一，不管是Web服务还是后台服务，均使用java -jar指令来启动。
+
+## 二、jar包如何执行
 
 有的jar包是可以直接通过 java -jar 指令来执行的。我们都知道，有的类之所以能够执行，是因为它用你有main函数，该函数是程序的入口，同理，可执行的jar包中肯定是有某个.class文件提供了main函数才使得其可执行。那么问题来了，一个jar里面可能存在多个.class文件都有main函数的情况，我怎么知道该执行哪个？其实答案非常简单，就是看前面说的MANIFEST.MF里面的Main-Class属性，它会指定函数入口，相关知识咱们会在执行jar的时候进行讲解。
 
-## 二、为什么要打jar包
+## 三、jar命令介绍
 
-### 2.1 为什么要打jar包
+jar 命令是随jdk 自动安装的,在 jdk 安装目录的 bin 目录中,我们可能需要先将 tools.jar配置到classpath环境变量中,才能正常使用.(关于为什么需要配置环境变量才能使用,在文末会给出解释),下面让我们了解一下常用的 jar 命令吧!
 
-在大致了解了什么是jar包了之后，咱们来讲讲为什么要打jar包。
+### 3.1.创建JAR 文件
 
-主要从我们自身的需求出发，不难发现，当我们开发了一个程序以后，程序中有很多的类，如果需要提供给别人使用,发给对方一大堆源文件是非常不好的，因此通常需要把这些类以及相关的资源文件打包成一个 jar 包,把这个 jar 包提供给别人使用,同时提供给使用者清晰的文档。这样他人在拿到我们提供的jar之后，就能方便地进行调用，具体如何调用后面会进行讲解。
+```
+jar cvf test.jar test
 
-因此，建议大家在平时写代码搬砖的时候，注意把自己代码的通用部分抽离出来，主键积累一些通用的util类，将其逐渐模块化，最后打成jar包供自己在别的项目或者模块中使用，同时不断打磨jar里面的内容，将其做得越来越容易理解和通用，这样的好处是除了会对你的代码重构能力以及模块抽象能力有很好的帮助之外，更是一种从长期解放你的重复工作量，让你有更多的精力去做其他事情的方式，甚至当你抽象出业内足够通用的jar之后，jar包还能为你带来意想不到的利润（当然公司里该保密的东西还是得保密的）。这也是java发展得如此之好的原因，无论出于盈利或者非盈利的目的，将自己的通用工具或者框架抽取出来，打成jar包供他人调用，使得整个java生态圈变得越来越强大–几乎很多业务场景都能找到对应的jar包。
-
-## 三、jar包和war包的区别
-
-war包想必大家也都接触过，war是一个可以直接运行的web模块，通常应用于web项目中，将其打成war包部署到Tomcat等容器中。以大家熟悉的Tomcat举例，将war包放置在tomcat根目录的webapps目录下，如果Tomcat成功启动，这个包就会自动解压，就相当于发布了。
-
-我将我第一门实战课里面的war包解压，大家看看里面的结构，内容没有做任何删减
-
-```xml
-META-INF/MANIFEST.MF
-META-INF/
-META-INF/maven/
-META-INF/maven/com.imooc/
-META-INF/maven/com.imooc/myo2o/
-META-INF/maven/com.imooc/myo2o/pom.properties
-META-INF/maven/com.imooc/myo2o/pom.xml
-META-INF/maven/com.imooc/o2o/
-META-INF/maven/com.imooc/o2o/pom.properties
-META-INF/maven/com.imooc/o2o/pom.xml
-WEB-INF/
-WEB-INF/classes/
-WEB-INF/classes/com/
-WEB-INF/classes/com/imooc/
-WEB-INF/classes/com/imooc/o2o/
-WEB-INF/classes/com/imooc/o2o/cache/
-WEB-INF/classes/com/imooc/o2o/cache/JedisPoolWriper.class
-WEB-INF/classes/com/imooc/o2o/cache/JedisUtil$Hash.class
-WEB-INF/classes/com/imooc/o2o/cache/JedisUtil$Keys.class
-WEB-INF/classes/com/imooc/o2o/cache/JedisUtil$Lists.class
-WEB-INF/classes/com/imooc/o2o/cache/JedisUtil$Sets.class
-WEB-INF/classes/com/imooc/o2o/cache/JedisUtil$Strings.class
-WEB-INF/classes/com/imooc/o2o/cache/JedisUtil.class
-WEB-INF/classes/com/imooc/o2o/dao/
-WEB-INF/classes/com/imooc/o2o/dao/split/
-WEB-INF/classes/com/imooc/o2o/dao/split/DynamicDataSource.class
-WEB-INF/classes/com/imooc/o2o/dao/split/DynamicDataSourceHolder.class
-WEB-INF/classes/com/imooc/o2o/dao/split/DynamicDataSourceInterceptor.class
-WEB-INF/classes/com/imooc/o2o/dao/AreaDao.class
-WEB-INF/classes/com/imooc/o2o/dao/HeadLineDao.class
-WEB-INF/classes/com/imooc/o2o/dao/LocalAuthDao.class
-WEB-INF/classes/com/imooc/o2o/dao/PersonInfoDao.class
-WEB-INF/classes/com/imooc/o2o/dao/ProductCategoryDao.class
-WEB-INF/classes/com/imooc/o2o/dao/ProductDao.class
-WEB-INF/classes/com/imooc/o2o/dao/ProductImgDao.class
-WEB-INF/classes/com/imooc/o2o/dao/ShopCategoryDao.class
-WEB-INF/classes/com/imooc/o2o/dao/ShopDao.class
-WEB-INF/classes/com/imooc/o2o/dao/WechatAuthDao.class
-WEB-INF/classes/com/imooc/o2o/dto/
-WEB-INF/classes/com/imooc/o2o/dto/AreaExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/HeadLineExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/ImageHolder.class
-WEB-INF/classes/com/imooc/o2o/dto/LocalAuthExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/ProductCategoryExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/ProductExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/Result.class
-WEB-INF/classes/com/imooc/o2o/dto/ShopCategoryExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/ShopExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/UserAccessToken.class
-WEB-INF/classes/com/imooc/o2o/dto/WechatAuthExecution.class
-WEB-INF/classes/com/imooc/o2o/dto/WechatUser.class
-WEB-INF/classes/com/imooc/o2o/entity/
-WEB-INF/classes/com/imooc/o2o/entity/Area.class
-WEB-INF/classes/com/imooc/o2o/entity/Award.class
-WEB-INF/classes/com/imooc/o2o/entity/HeadLine.class
-WEB-INF/classes/com/imooc/o2o/entity/LocalAuth.class
-WEB-INF/classes/com/imooc/o2o/entity/PersonInfo.class
-WEB-INF/classes/com/imooc/o2o/entity/Product.class
-WEB-INF/classes/com/imooc/o2o/entity/ProductCategory.class
-WEB-INF/classes/com/imooc/o2o/entity/ProductImg.class
-WEB-INF/classes/com/imooc/o2o/entity/ProductSellDaily.class
-WEB-INF/classes/com/imooc/o2o/entity/Shop.class
-WEB-INF/classes/com/imooc/o2o/entity/ShopAuthMap.class
-WEB-INF/classes/com/imooc/o2o/entity/ShopCategory.class
-WEB-INF/classes/com/imooc/o2o/entity/UserAwardMap.class
-WEB-INF/classes/com/imooc/o2o/entity/UserProductMap.class
-WEB-INF/classes/com/imooc/o2o/entity/UserShopMap.class
-WEB-INF/classes/com/imooc/o2o/entity/WechatAuth.class
-WEB-INF/classes/com/imooc/o2o/enums/
-WEB-INF/classes/com/imooc/o2o/enums/AreaStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/HeadLineStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/LocalAuthStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/ProductCategoryStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/ProductStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/ShopCategoryStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/ShopStateEnum.class
-WEB-INF/classes/com/imooc/o2o/enums/WechatAuthStateEnum.class
-WEB-INF/classes/com/imooc/o2o/exceptions/
-WEB-INF/classes/com/imooc/o2o/exceptions/AreaOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/HeadLineOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/LocalAuthOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/ProductCategoryOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/ProductOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/ShopCategoryOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/ShopOperationException.class
-WEB-INF/classes/com/imooc/o2o/exceptions/WechatAuthOperationException.class
-WEB-INF/classes/com/imooc/o2o/interceptor/
-WEB-INF/classes/com/imooc/o2o/interceptor/shopadmin/
-WEB-INF/classes/com/imooc/o2o/interceptor/shopadmin/ShopLoginInterceptor.class
-WEB-INF/classes/com/imooc/o2o/interceptor/shopadmin/ShopPermissionInterceptor.class
-WEB-INF/classes/com/imooc/o2o/service/
-WEB-INF/classes/com/imooc/o2o/service/impl/
-WEB-INF/classes/com/imooc/o2o/service/impl/AreaServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/CacheServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/HeadLineServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/LocalAuthServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/PersonInfoServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/ProductCategoryServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/ProductServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/ShopCategoryServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/ShopServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/impl/WechatAuthServiceImpl.class
-WEB-INF/classes/com/imooc/o2o/service/AreaService.class
-WEB-INF/classes/com/imooc/o2o/service/CacheService.class
-WEB-INF/classes/com/imooc/o2o/service/HeadLineService.class
-WEB-INF/classes/com/imooc/o2o/service/LocalAuthService.class
-WEB-INF/classes/com/imooc/o2o/service/PersonInfoService.class
-WEB-INF/classes/com/imooc/o2o/service/ProductCategoryService.class
-WEB-INF/classes/com/imooc/o2o/service/ProductService.class
-WEB-INF/classes/com/imooc/o2o/service/ShopCategoryService.class
-WEB-INF/classes/com/imooc/o2o/service/ShopService.class
-WEB-INF/classes/com/imooc/o2o/service/WechatAuthService.class
-WEB-INF/classes/com/imooc/o2o/util/
-WEB-INF/classes/com/imooc/o2o/util/wechat/
-WEB-INF/classes/com/imooc/o2o/util/wechat/MyX509TrustManager.class
-WEB-INF/classes/com/imooc/o2o/util/wechat/SignUtil.class
-WEB-INF/classes/com/imooc/o2o/util/wechat/WechatUtil.class
-WEB-INF/classes/com/imooc/o2o/util/CodeUtil.class
-WEB-INF/classes/com/imooc/o2o/util/DESUtil.class
-WEB-INF/classes/com/imooc/o2o/util/EncryptPropertyPlaceholderConfigurer.class
-WEB-INF/classes/com/imooc/o2o/util/HttpServletRequestUtil.class
-WEB-INF/classes/com/imooc/o2o/util/ImageUtil.class
-WEB-INF/classes/com/imooc/o2o/util/MD5.class
-WEB-INF/classes/com/imooc/o2o/util/PageCalculator.class
-WEB-INF/classes/com/imooc/o2o/util/PathUtil.class
-WEB-INF/classes/com/imooc/o2o/web/
-WEB-INF/classes/com/imooc/o2o/web/frontend/
-WEB-INF/classes/com/imooc/o2o/web/frontend/FrontendController.class
-WEB-INF/classes/com/imooc/o2o/web/frontend/MainPageController.class
-WEB-INF/classes/com/imooc/o2o/web/frontend/ProductDetailController.class
-WEB-INF/classes/com/imooc/o2o/web/frontend/ShopDetailController.class
-WEB-INF/classes/com/imooc/o2o/web/frontend/ShopListController.class
-WEB-INF/classes/com/imooc/o2o/web/local/
-WEB-INF/classes/com/imooc/o2o/web/local/LocalAuthController.class
-WEB-INF/classes/com/imooc/o2o/web/local/LocalController.class
-WEB-INF/classes/com/imooc/o2o/web/shopadmin/
-WEB-INF/classes/com/imooc/o2o/web/shopadmin/ProductCategoryManagementController.class
-WEB-INF/classes/com/imooc/o2o/web/shopadmin/ProductManagementController.class
-WEB-INF/classes/com/imooc/o2o/web/shopadmin/ShopAdminController.class
-WEB-INF/classes/com/imooc/o2o/web/shopadmin/ShopController.class
-WEB-INF/classes/com/imooc/o2o/web/shopadmin/ShopManagementController.class
-WEB-INF/classes/com/imooc/o2o/web/superadmin/
-WEB-INF/classes/com/imooc/o2o/web/superadmin/AreaController.class
-WEB-INF/classes/com/imooc/o2o/web/wechat/
-WEB-INF/classes/com/imooc/o2o/web/wechat/WechatController.class
-WEB-INF/classes/com/imooc/o2o/web/wechat/WechatLoginController.class
-WEB-INF/classes/mapper/
-WEB-INF/classes/mapper/AreaDao.xml
-WEB-INF/classes/mapper/HeadLineDao.xml
-WEB-INF/classes/mapper/LocalAuthDao.xml
-WEB-INF/classes/mapper/PersonInfoDao.xml
-WEB-INF/classes/mapper/ProductCategoryDao.xml
-WEB-INF/classes/mapper/ProductDao.xml
-WEB-INF/classes/mapper/ProductImgDao.xml
-WEB-INF/classes/mapper/ShopCategoryDao.xml
-WEB-INF/classes/mapper/ShopDao.xml
-WEB-INF/classes/mapper/WechatAuthDao.xml
-WEB-INF/classes/spring/
-WEB-INF/classes/spring/spring-dao.xml
-WEB-INF/classes/spring/spring-redis.xml
-WEB-INF/classes/spring/spring-service.xml
-WEB-INF/classes/spring/spring-web.xml
-WEB-INF/classes/1.jpg
-WEB-INF/classes/AreaDao.xml
-WEB-INF/classes/HeadLineDao.xml
-WEB-INF/classes/LocalAuthDao.xml
-WEB-INF/classes/PersonInfoDao.xml
-WEB-INF/classes/ProductCategoryDao.xml
-WEB-INF/classes/ProductDao.xml
-WEB-INF/classes/ProductImgDao.xml
-WEB-INF/classes/ShopCategoryDao.xml
-WEB-INF/classes/ShopDao.xml
-WEB-INF/classes/WechatAuthDao.xml
-WEB-INF/classes/jdbc.properties
-WEB-INF/classes/logback.xml
-WEB-INF/classes/mybatis-config.xml
-WEB-INF/classes/redis.properties
-WEB-INF/classes/spring-dao.xml
-WEB-INF/classes/spring-redis.xml
-WEB-INF/classes/spring-service.xml
-WEB-INF/classes/spring-web.xml
-WEB-INF/classes/watermark.jpg
-WEB-INF/classes/weixin.properties
-WEB-INF/html/
-WEB-INF/html/frontend/
-WEB-INF/html/frontend/index.html
-WEB-INF/html/frontend/productdetail.html
-WEB-INF/html/frontend/shopdetail.html
-WEB-INF/html/frontend/shoplist.html
-WEB-INF/html/local/
-WEB-INF/html/local/accountbind.html
-WEB-INF/html/local/changepsw.html
-WEB-INF/html/local/login.html
-WEB-INF/html/shop/
-WEB-INF/html/shop/productcategorymanagement.html
-WEB-INF/html/shop/productmanagement.html
-WEB-INF/html/shop/productoperation.html
-WEB-INF/html/shop/shoplist.html
-WEB-INF/html/shop/shopmanagement.html
-WEB-INF/html/shop/shopoperation.html
-WEB-INF/index.jsp
-WEB-INF/web.xml
-WEB-INF/lib/
-WEB-INF/lib/logback-classic-1.2.3.jar
-WEB-INF/lib/logback-core-1.2.3.jar
-WEB-INF/lib/slf4j-api-1.7.25.jar
-WEB-INF/lib/spring-core-4.3.7.RELEASE.jar
-WEB-INF/lib/commons-logging-1.2.jar
-WEB-INF/lib/spring-beans-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-context-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-aop-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-expression-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-jdbc-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-tx-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-web-4.3.7.RELEASE.jar
-WEB-INF/lib/spring-webmvc-4.3.7.RELEASE.jar
-WEB-INF/lib/javax.servlet-api-3.1.0.jar
-WEB-INF/lib/jackson-databind-2.8.7.jar
-WEB-INF/lib/jackson-annotations-2.8.0.jar
-WEB-INF/lib/jackson-core-2.8.7.jar
-WEB-INF/lib/commons-collections-3.2.jar
-WEB-INF/lib/mybatis-3.4.2.jar
-WEB-INF/lib/mybatis-spring-1.3.1.jar
-WEB-INF/lib/mysql-connector-java-5.1.37.jar
-WEB-INF/lib/c3p0-0.9.1.2.jar
-WEB-INF/lib/thumbnailator-0.4.8.jar
-WEB-INF/lib/kaptcha-2.3.2.jar
-WEB-INF/lib/filters-2.0.235-1.jar
-WEB-INF/lib/commons-fileupload-1.3.2.jar
-WEB-INF/lib/commons-io-2.2.jar
-WEB-INF/lib/jedis-2.9.0.jar
-WEB-INF/lib/commons-pool2-2.4.2.jar
-index.jsp
-resources/
-resources/css/
-resources/css/frontend/
-resources/css/frontend/index.css
-resources/css/frontend/productdetail.css
-resources/css/frontend/shopdetail.css
-resources/css/frontend/shoplist.css
-resources/css/shop/
-resources/css/shop/productcategorymanagement.css
-resources/css/shop/productmanagement.css
-resources/css/shop/shoplist.css
-resources/css/shop/shopmanagement.css
-resources/js/
-resources/js/common/
-resources/js/common/common.js
-resources/js/frontend/
-resources/js/frontend/index.js
-resources/js/frontend/productdetail.js
-resources/js/frontend/shopdetail.js
-resources/js/frontend/shoplist.js
-resources/js/local/
-resources/js/local/accountbind.js
-resources/js/local/changepsw.js
-resources/js/local/login.js
-resources/js/local/logout.js
-resources/js/shop/
-resources/js/shop/productcategorymanagement.js
-resources/js/shop/productmanagement.js
-resources/js/shop/productoperation.js
-resources/js/shop/shoplist.js
-resources/js/shop/shopmanagement.js
-resources/js/shop/shopoperation.js
-resources/watermark.jpg
 ```
 
-就会发现除了目录结构外，jar里有的war里也都有。war包是Sun提出的一种web应用程序格式，与jar类似，是很多文件的压缩包
+-c 创建，
 
-。war包中的文件按照一定目录结构来组织。根据其根目录下包含有html和jsp文件，或者包含有这两种文件的目录，另外还有WEB-INF目录。通常在WEB-INF目录下含有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的servlet类和jsp，或者servlet所依赖的其他类（如JavaBean）。通常这些所依赖的类也可以打包成jar包放在WEB-INF下的lib目录下。
+-v 显示创建过程文件的详细信息
 
-这也就意味着，war能打包的内容，jar也都可以。
+cf 参数是必须的.
 
-有的同学会问了，那既然是这样，直接用jar来替代war不就可以了？诚然，对于现今的应用来讲，主流都是用jar来替代war了。因为war仅服务于Web应用，而jar的涵盖范围更广。目前，war相较于jar的唯一优势在于，就拿tomcat来讲，当tomcat的进程启动之后，将符合规范的war包放在tomcat的webapps目录下的时候，tomcat会自动将war包解压并对外提供web服务，而jar包则不行。
 
-war能自动被解压
-过去由于并未通过微服务将机器资源进行隔离，因此提倡的是一个tomcat实例管理多个java web项目，因此对于java web项目，都提倡将其打成war包然后放置于同一个tomcat的webapps下进行管理，便于资源的统一利用。而随着微服务成为主流，同一台机器上的多个web服务可以通过docker等容器进行隔离，因此我们可以让每个容器都单独运行一个tomcat实例，每个tomcat实例独立运行一个web服务，换句话说，我们可以像springboot一样，将tomcat和web项目打成jar放在一起，以内嵌的方式来启动web服务，使得所有服务的启动方式更优雅和统一，不管是Web服务还是后台服务，均使用java -jar指令来启动。
+该命令的意思是将 test 目录下的所有文件打包成一个 test.jar文件,如果 test.jar 文件已经存在则覆盖. 
+
+### 3.2.查看 JAR 文件内容列表
+
+```
+jar tvf test.jar
+
+```
+
+-t 显示列表 ,
+
+-v 显示文件的详细信息,如果不想显示详细信息可去掉参数 v,
+
+tf参数是必须的. 
+
+当 jar 包文件特别多的时候，我们可以使用命令 jar tvf test.jar > a.txt 将列表结果保存在 a.txt 文本中进行查看.
+
+### 3.3.解压JAR 文件
+
+```
+jar xvf test.jar
+
+```
+
+-v,显示详细解压缩信息
+
+将 test.jar 文件解压到当前的目录下,加上参数 
+
+### 3.4.更新 JAR 文件
+
+```
+jar uvf test.jar Hello.class
+
+```
+
+如果已经存在该文件,则替换该文件,如果不存在则添加该文件.
+
+
 
 ## 四、如何打jar包 jar的依赖如何处理 如何调用
 
@@ -459,7 +152,7 @@ war能自动被解压
 
 ### 1、含有多个类的jar，类之间存在调用关系** 
 
-咱们先创建一个java项目，编写两个非常简单的类，Welcome.java和Teacher.jar，其中Welcome类在main函数里调用了Teacher类的静态方法greeting
+咱们先创建一个java项目，编写两个非常简单的类，Welcome.java和Teacher.java，其中Welcome类在main函数里调用了Teacher类的静态方法greeting
 
 ```java
 Welcome.java
