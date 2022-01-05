@@ -60,6 +60,9 @@
 
 * [Objective-C 中 NULL、nil、Nil、NSNull 的定义及不同](./objective-c/NULL.md)
 
+* [Objective-C 中四种循环方式](./objective-c/continue.md)
+
+
 * [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
 
 * [Objective C在线教程](http://gitbook.net/objective_c/index.html)

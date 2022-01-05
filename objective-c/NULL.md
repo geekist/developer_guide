@@ -6,7 +6,7 @@ Objective-C 中 NULL、nil、Nil、NSNull 的定义及不同
 
 注：以下各种空值定义的源码摘自 iOS 10.0 SDK 中的相关头文件。
 
-## NULL
+## NULL---C指针空值
 
 NULL 定义在 usr/include/sys/_types/_null.h 文件里：
 
@@ -50,7 +50,7 @@ char *pointerToChar = NULL;
 struct TreeNode *rootNode = NULL;
 ```
 
-## nil
+## nil---指向 Objective-C 对象的指针为空
 
 nil 定义在 usr/include/objc/objc.h 文件里：
 
@@ -82,7 +82,8 @@ id someObject = nil;
 if (anotherObject == nil) // do something
 ```
 
-## Nil
+## Nil---指向 Objective-C 类（Class）类型的指针为空，：
+
 
 Nil 定义在 usr/include/objc/objc.h 文件里：
 
@@ -107,7 +108,7 @@ Class someClass = Nil;
 Class anotherClass = [NSString class];
 ```
 
-## NSNull
+## NSNull---Objective-C 对象，是一个用于表示空值的类，而且它只有一个单例方法
 
 NSNull 定义在 NSNull.h 文件里：
 
