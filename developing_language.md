@@ -62,6 +62,7 @@
 
 * [Objective-C 中四种循环方式](./objective-c/continue.md)
 
+* [Objective-C 中循环遍历同时删除数据](./objective-c/continue_remove.md)
 
 * [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
 
