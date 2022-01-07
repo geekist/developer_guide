@@ -3,20 +3,29 @@
 ## nginx如何设置gzip压缩
 
 
+### 一、一个gzip的压缩配置
 
 ```
 server{
     gzip on;
-    gzip_buffers 32 4K;
-    gzip_comp_level 6;
-    gzip_min_length 100;
-    gzip_http_version 1.1;
-    gzip_types application/javascript text/css text/xml;
+
+    gzip_buffers 32 4K; #内存分32快，每块4k
+
+    gzip_comp_level 1;  #压缩级别1，1-9，越高压缩比越大，但1就足够了
+
+    gzip_min_length 100k; #大于100k的文件压缩
+
+    gzip_http_version 1.1; #识别http协议版本1.1
+
+    gzip_types application/javascript text/css text/xml; #image/jpeg image/gif image/png图片压缩意义不大
+
     gzip_disable "MSIE [1-6]\."; #配置禁用gzip条件，支持正则。此处表示ie6及以下不启用gzip（因为ie低版本不支持）
-    gzip_vary on;
+
+    gzip_vary on; #开启http响应头
 }
 ```
 
+### 二、 配置项详解
 * ***gzip on | off;***
 
 
@@ -136,6 +145,36 @@ Context:    http, server, location
 |.otf|font/opentype|
 |.woff|font/x-woff|
 |.svg|image/svg+xml|
+
+
+* ***gzip_vary***
+
+
+增加响应头”Vary: Accept-Encoding”
+
+Syntax: gzip_vary on | off;
+
+Default:   
+ 
+gzip_vary off;
+
+Context:    http, server, location
+
+### 三、Nginx如何启动配置页面
+
+1、修改config页面
+
+vim /usr/local/nginx/conf/nginx.conf
+
+
+2、重新加载配置：
+
+nginx -s reload：reload 命令会重新加载配置文件，而nginx服务不会中断，服务启动，文件即加载成功。
+
+
+
+
+
 
 
 
