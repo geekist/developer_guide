@@ -13,6 +13,31 @@
 
 ## 常用命令
 
+### 如何重命名远程分支？
+
+分为三个步骤：
+
+* 删除远程分支
+
+>git push --delete origin test_branch
+
+* 修改本地分支名
+
+>git branch -m test_branch new_test_branch
+
+* 推送本地分支到远程
+
+>git push origin new_test_branch
+
+具体的操作步骤如下：
+
+1. git branch -r 查看远程分支，看到远程存在test_branch分支；
+2. git push --delete origin test_branch 删除远程分支 
+3. git branch -m test_branch new_branch 修改本地分支名称
+4. git push origin new_test_branch 推送改名的分支到远程服务器。 
+
+
+
 ### 如何移除远程代码仓库中的无用的分支？
 
   git remote prune 
