@@ -56,6 +56,8 @@ Git
 
  * [Git官方文档](https://git-scm.com/book/zh/v2)
 
+ * [Git介绍及安装](./git/git_intro.md)
+
  * [Git常用命令](https://github.com/geekist/developer_guide/blob/main/git/git_command.md)
 
  * [杂项](https://github.com/geekist/developer_guide/blob/main/杂项.md)
