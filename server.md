@@ -22,6 +22,8 @@
 
 - [Java 定时任务](./server/java_quartz.md)
 
+- [Java Web开发层级架构](./server/java_structure.md)
+
 # 三、用SpringBoot开发JavaWeb应用
 
 ## 3.1 Spring 介绍
