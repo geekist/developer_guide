@@ -207,5 +207,6 @@ BeanFactory 或者相关的接口，如 BeanFactoryAware，InitializingBean，Di
 
 此时容器会根据类中定义的 myUserService 成员属性(变量)自动关联到 UserService，在 UserController 中 setUserService 时自动装载 UserService 的实例。
 
+[<<用注解来配置依赖注入>>](./spring_ioc_3.md)
 
 
