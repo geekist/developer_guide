@@ -14,7 +14,7 @@
 
 - [Jar包介绍2](https://github.com/geekist/developer_guide/blob/main/server/jar2.md)
 
-- [依赖注入](https://github.com/geekist/developer_guide/blob/main/server/spring.md)
+- [Spring IOC介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_ioc.md)
 
 - [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 

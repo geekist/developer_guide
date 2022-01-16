@@ -21,6 +21,8 @@ public class Car{
 }
 ```
 
+再或者：
+
 ```java
 public class Teacher{
 	public int id；
@@ -129,3 +131,5 @@ public class Car implements EngineInterface {
 
 }
  ```
+
+ [<<下一节Spring IOC介绍>>](./spring_ioc_2.md)
