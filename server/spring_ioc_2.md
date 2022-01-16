@@ -148,6 +148,64 @@ BeanFactory 或者相关的接口，如 BeanFactoryAware，InitializingBean，Di
 ### 3.2 依赖注入的自动装载
 
 
+为了减少 XML 配置的数量，Spring 容器可以在不使用 和 <:property>元素的情况下配置 bean 之间的关系， 这种注入的方式称为自动装配。
+
+下面我们来看看几种自动装配的方式：
+
+* byType
+
+这种方式由属性数据类型自动装配。 
+
+如果在类中定义了与其他类的依赖关系，那么 Spring 容器在 XML 配置文件中会通过类型寻找对应依赖关系的 bean，然后与之关联。这个过程容器会尝试匹配和连接属性的类型。
+
+
+例如 bean A 定义了 X 类型的属性， Spring 会在 ApplicationContext 中寻找一个类型为 X 的 bean，并将其注入 bean A。
+
+
+如果还是觉得抽象，我们看下面的例子，如图 11 所示，UserController 设置 UserService 属性时定义了与 UserService 的依赖关系。
+
+![](./assets/spring_ioc_9.jpg)
+
+在 XML 配置文件中 UserController 就不需要使用 property 属性定义与 UserService 之间的关系，取而代之的是使用 autowire=“byType” 的方法。
+
+![](./assets/spring_ioc_10.jpg)
+
+容器通过类中 setUserService 传入的 UserService 类型自动在配置文件中寻找 UserService 对应的类型，从而完成 UserController 和 UserService 依赖关系，也就是依赖注入，这种方式也是基于类型的自动装载。
+
+* constructor
+
+用于构造函数参数类型的自动加载
+
+有了 byType 的基础这个很好理解，例如 bean A 的构造函数接受 X 类型的参数，容器会在 XML 寻找 X 类型的 bean，并将其注入到 bean A 的构造函数中。
+
+如图 所示，UserController 在构造函数中定义 UserService 作为初始化参数，确定了 UserController 对 UserService 的依赖。
+
+![](./assets/spring_ioc_11.jpg)
+
+在 XML 配置文件中 UserController 只需要设置 autowire=“constructor”。
+
+![](./assets/spring_ioc_12.jpg)
+
+告诉容器通过 UserController 类中的构造方法将 UserService 注入到 UserController 中，完成 UserController 和 UserService 依赖关系，这种方式也是基于构造器的自动装载。
+
+
+* byName
+
+通过指定特定的 bean 名称，容器根据名称自动选择 bean 属性，完成依赖注入
+
+
+例如：bean A 定义了一个名为 X 的属性，容器会在 XML 寻找一个名为 X 的 bean，将其注入到 bean A 中。
+
+如图所示，UserController 中定义了一个名为 myUserService 的成员属性，其类型是 UserService。
+
+![](./assets/spring_ioc_13.jpg)
+
+
+在 XML 的配置中 UserController 的 autowire 配置了“byName”。
+
+![](./assets/spring_ioc_14.jpg)
+
+此时容器会根据类中定义的 myUserService 成员属性(变量)自动关联到 UserService，在 UserController 中 setUserService 时自动装载 UserService 的实例。
 
 
 

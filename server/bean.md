@@ -1,98 +1,42 @@
+Java Bean 与Spring Bean的区别
+
+>**什么是JavaBean:**
 
 
-## Spring bean 介绍
+JavaBean是一种JAVA语言写的可重用组件。JavaBean符合一定规范写的Java类，是一种规范。它的方法命名，构造以及行为必须符合特定的要求：
 
-Spring有跟多概念，其中最基本的一个就是bean，那到底spring bean是什么?
+1. 所有属性为private
 
-Bean是Spring框架中最核心的两个概念之一（另一个是面向切面编程AOP）。 是否正确理解 Bean 对于掌握和高效使用 Spring 框架至关重要。 
+2. 这个类必须具有一个公共的（public）无参构造函数
 
+3. private属性必须提供public的getter和setter来给外部访问，并且方法的命名也必须遵循一定的命名规范
 
-### 一、控制反转（IoC）
+4. 这个类是可序列化的，要实现serializable接口
 
-控制反转英文全称：Inversion of Control，简称就是IoC。 控制反转通过依赖注入（DI）方式实现对象之间的松耦合关系。程序运行时，依赖对象由【辅助程序】动态生成并注入到被依赖对象中，动态绑定两者的使用关系。Spring IoC容器就是这样的辅助程序，它负责对象的生成和依赖的注入，让后在交由我们使用。 简而言之，就是：IoC就是一个对象定义其依赖关系而不创建它们的过程。 这里我们可以细分为两个点。 
-
-#### 2.1 私有属性保存依赖
-
-第1点：使用私有属性保存依赖对象，并且只能通过构造函数参数传入，构造函数的参数可以是工厂方法、保存类对象的属性、或者是工厂方法返回值。 假设我们有一个Computer类： 
-
-```
-public class Computer {
-    private String cpu;     // CPU型号
-    private int ram;        // RAM大小，单位GB
-
-    public Computer(String cpu, int ram) {
-        this.cpu = cpu;
-        this.ram = ram;
-    }
-}
-```
-
-我们有另一个Person类依赖于Computer类，符合IoC的做法是这样： 
-
-```
-public class Person {
-    private Computer computer;
-
-    public Person(Computer computer) {
-        this.computer = computer;
-    }
-}
-```
-
-不符合IoC的做法如下：
-
-```
-// 直接在Person里实例化Computer类
-public class Person {
-    private Computer computer = new Computer(AMD, 3);
-}
-
-// 通过【非构造函数】传入依赖
-public class Person {
-    private Computer computer;
-
-    public void init(Computer computer) {
-        this.computer = computer;
-    }
-}
-```
-
-#### 2.2 让Spring控制类构建过程
-
-第2点：不用new，让Spring控制new过程。在Spring中，我们基本不需要 new 一个类，这些都是让 Spring 去做的。 Spring 启动时会把所需的类实例化成对象，如果需要依赖，则先实例化依赖，然后实例化当前类。 因为依赖必须通过构建函数传入，所以实例化时，当前类就会接收并保存所有依赖的对象。 这一步也就是所谓的依赖注入。 
+JavaBean，类必须是具体的和公共的，并且具有无参数的构造器。JavaBean 通过提供符合一致性设计模式的公共方法将内部域暴露成员属性。众所周知，属性名称符合这种模式，其他Java 类可以通过自身机制发现和操作这些JavaBean 的属性。
 
 
-### 二、Bean实现依赖翻转的基础
-
-在 Spring 中，类的实例化、依赖的实例化、依赖的传入都交由 Spring Bean 容器控制， 而不是用new方式实例化对象、通过非构造函数方法传入依赖等常规方式。 实质的控制权已经交由程序管理，而不是程序员管理，所以叫做控制反转。
-
-#### 1 定义
-Spring 官方文档对 bean 的解释是： 
-
->In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container.
-
-翻译过来就是：
-
->在 Spring 中，构成应用程序主干并由Spring IoC容器管理的对象称为bean。bean是一个由Spring IoC容器实例化、组装和管理的对象。
+>**什么是SpringBean:**
 
 
-概念简单明了，我们提取处关键的信息： 
+SpringBean是受Spring管理的对象  所有能受Spring容器管理的对象都可以成为SpringBean。
 
-bean是对象，一个或者多个不限定
-bean由Spring中IoC管理
-我们的应用程序由一个个bean构成
+Spring中的bean，是通过配置文件、javaconfig等的设置，有Spring自动实例化，用完后自动销毁的对象。让我们只需要在用的时候使用对象就可以，不用考虑如果创建类对象（这就是spring的注入）。
 
- 
-> bean是一个java对象，根据bean规范编写出来的类。该类的对象由bean容器生成。Bean容器，或称spring ioc容器，主要用来管理对象和依赖，以及依赖的注入。
+>**二者之间的区别：**
 
-#### 2、bean规范 
 
-所有属性为private
+* 用处不同：
 
-提供默认构造方法
 
-提供getter和setter
+　　传统javabean更多地作为值传递参数，而spring中的bean用处几乎无处不在，任何组件都可以被称为bean。
 
-实现serializable接口
+* 写法不同：
 
+
+　　传统javabean作为值对象，要求每个属性都提供getter和setter方法；但spring中的bean只需为接受设值注入的属性提供setter方法。
+
+* 生命周期不同：
+
+　　传统javabean作为值对象传递，不接受任何容器管理其生命周期；spring中的bean有spring管理其生命周期行为。
 
