@@ -1,5 +1,5 @@
 * [一、本地仓库和本地分支操作](#一、本地仓库和本地分支操作)
-    * [获取 Git 仓库  git init](#获取 Git 仓库  git init)
+    * [获取 Git 仓库  git init](#获取-Git-仓库-git-init)
 
 
 
