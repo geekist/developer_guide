@@ -6,8 +6,6 @@ java web开发，一般分为View，Controller，Model三层架构。
 
 ![](./assets/mvc_1.png)
 
-![](https://github.com/geekist/developer_guide/blob/main/server/assets/mvc_1.png)
-
 对应于开发中的实际架构：
 
 ![](./assets/web_1.png)
