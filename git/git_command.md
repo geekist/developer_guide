@@ -43,6 +43,9 @@
 * [五、标签](#五标签)
   * [添加标签------***git tag -a xxx -m xxx***](#添加标签)
   * [查看标签------***git tag -l***](#查看标签)
+* [六、其他命令](#六其他命令)
+  * [重命名本地分支](#重命名本地分支)
+  * [重命名远程分支](#重命名远程分支)
 
 
 ## 一、Git基本操作
@@ -1019,5 +1022,29 @@ v2.0
 ```
 
 这个命令以字母顺序列出标签，但是它们显示的顺序并不重要。
+
+## 六、其他命令
+
+### 重命名本地分支
+
+>git branch -m oldXXX newXXX
+
+### 重命名远程分支
+
+* step1:删除远程分支
+
+>git push --delete origin test-branch
+
+* step2:修改本地分支名
+
+>git branch -m test-branch new-test-branch
+
+* step3:推送本地分支
+
+>git push origin new-test-branch
+
+
+
+
 
 
