@@ -146,9 +146,9 @@
 # 六、Spring Cloud Alibaba微服务项目搭建
 
 
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+* [1、Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
 
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+* [2、创建一个Spring Cloud Alibaba的父工程](./server/spring_cloud_alibaba_2.md)
 
 * [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
 
