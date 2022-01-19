@@ -1,21 +1,80 @@
 
-**Git的基本操作**
+**一、Git基本操作**
 
-* [获取Git仓库git init](#获取Git仓库git-init)
+* [获取Git仓库--git init](#获取Git仓库git-init)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [检查当前文件状态--git status](#检查当前文件状态)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [添加新文件--git add](#跟踪新文件)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [忽略文件--git ignore](#忽略文件)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [查看文件修改--git diff](#查看已暂存和未暂存的修改)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [暂存文件--git add](#暂存已修改的文件)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [提交更新--git commit](#提交更新)
 
-* [检查当前文件状态](#检查当前文件状态)
+* [暂存文件并且提交--git commit -a](#提交时跳过使用暂存区域)
+
+* [移除文件--git rm](#移除文件)
+
+* [重命名文件--git move](#移动文件)
+
+* [查看提交历史--git log](#查看提交历史)
+
+* [取消暂存的文件--git reset HEAD](#取消暂存的文件)
+
+* [撤消对文件的修改--git checkout](#撤消对文件的修改)
+
+**二、Git分支操作**
+
+* [创建分支--git branch](#创建分支)
+
+* [切换到某一个分支--git checkout](#分支切换)
+
+* [创建分支并切换到某一个分支--git checkout -b](#创建分支并切换到该分支)
+
+* [查看分支--git branch](#查看分支)
+
+* [删除分支--git branch -d](#删除分支)
+
+* [分支的合并--git merge](#分支的合并)
+
+* [遇到冲突时的分支合并--git merge](#遇到冲突时的分支合并)
+
+**三、远程代码仓库操作**
+
+* [克隆现有的仓库--git clone](#克隆现有的仓库)
+
+* [查看远程仓库--git remote](#查看远程仓库)
+
+* [查看某个远程仓库--git remote show origin](#查看某个远程仓库)
+
+* [添加远程仓库--git remote add](#添加远程仓库)
+
+* [重命名远程仓库--git remote rename](#远程仓库的重命名)
+
+* [删除远程仓库--git remote remove paul](#远程仓库删除)
+
+* [抓取远程仓库中数据--git fetch origin](#远程仓库中抓取与拉取)
+
+**四、远程分支操作**
+
+* [抓取远程仓库中某一分支的数据并合并到当前分支--git pull origin xxx](#远程仓库中抓取与拉取)
+
+* [推送到远程仓库的某个分支--git push origin xxx](#推送到远程仓库)
+
+* [删除远程分支--it push origin --delete xxx](#删除远程分支)
+
+**五、标签操作**
+
+* [添加标签--git tag -a tagname -m message](#添加标签)
+
+* [查看标签--git tag](#查看标签)
+
+
+
 
 
 
@@ -68,7 +127,7 @@ nothing to commit, working directory clean
 这说明你现在的工作目录相当干净。换句话说，所有已跟踪文件在上次提交后都未被更改过。 此外，上面的信息还表明，当前目录下没有出现任何处于未跟踪状态的新文件，否则 Git 会在这里列出来。 最后，该命令还显示了当前所在分支，并告诉你这个分支同远程服务器上对应的分支没有偏离。 现在，分支名是“master”,这是默认的分支名。 我们在 Git 分支 中会详细讨论分支和引用。
 
 现在，让我们在项目下创建一个新的 README 文件。 如果之前并不存在这个文件，使用 git status 命令，你将看到一个新的未跟踪文件：
-
+```
 $ echo 'My Project' > README
 $ git status
 On branch master
@@ -79,6 +138,7 @@ Untracked files:
     README
 
 nothing added to commit but untracked files present (use "git add" to track)
+```
 
 在状态报告中可以看到新建的 README 文件出现在 Untracked files 下面。 未跟踪的文件意味着 Git 在之前的快照（提交）中没有这些文件；Git 不会自动将之纳入跟踪范围，除非你明明白白地告诉它“我需要跟踪该文件”。 这样的处理让你不必担心将生成的二进制文件或其它不想被跟踪的文件包含进来。 不过现在的例子中，我们确实想要跟踪管理 README 这个文件。
 
@@ -517,193 +577,8 @@ Changes to be committed:
 ***请务必记得 git checkout -- <file> 是一个危险的命令。 你对那个文件在本地的任何修改都会消失——Git 会用最近提交的版本覆盖掉它。 除非你确实清楚不想要对那个文件的本地修改了，否则请不要使用这个命令。***
 
 
-### 远程仓库的概念
 
-为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。 远程仓库是指托管在因特网或其他网络中的你的项目的版本库。 你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。 与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。 管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。 在本节中，我们将介绍一部分远程管理的技能。
-
-
-### 查看远程仓库
-
-
-如果想查看你已经配置的远程仓库服务器，可以运行 git remote 命令。 它会列出你指定的每一个远程服务器的简写。 如果你已经克隆了自己的仓库，那么至少应该能看到 origin ——这是 Git 给你克隆的仓库服务器的默认名字：
-
->git remote
-
-```
-$ git clone https://github.com/schacon/ticgit
-Cloning into 'ticgit'...
-remote: Reusing existing pack: 1857, done.
-remote: Total 1857 (delta 0), reused 0 (delta 0)
-Receiving objects: 100% (1857/1857), 374.35 KiB | 268.00 KiB/s, done.
-Resolving deltas: 100% (772/772), done.
-Checking connectivity... done.
-$ cd ticgit
-
-$ git remote
-origin
-```
-
-你也可以指定选项 -v，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。
-
-```
-$ git remote -v
-origin	https://github.com/schacon/ticgit (fetch)
-origin	https://github.com/schacon/ticgit (push)
-```
-
-如果你的远程仓库不止一个，该命令会将它们全部列出。 例如，与几个协作者合作的，拥有多个远程仓库的仓库看起来像下面这样：
-
-```
-$ cd grit
-$ git remote -v
-bakkdoor  https://github.com/bakkdoor/grit (fetch)
-bakkdoor  https://github.com/bakkdoor/grit (push)
-cho45     https://github.com/cho45/grit (fetch)
-cho45     https://github.com/cho45/grit (push)
-defunkt   https://github.com/defunkt/grit (fetch)
-defunkt   https://github.com/defunkt/grit (push)
-koke      git://github.com/koke/grit.git (fetch)
-koke      git://github.com/koke/grit.git (push)
-origin    git@github.com:mojombo/grit.git (fetch)
-origin    git@github.com:mojombo/grit.git (push)
-```
-
-这表示我们能非常方便地拉取其它用户的贡献。我们还可以拥有向他们推送的权限，这里暂不详述。
-
-注意这些远程仓库使用了不同的协议。我们将会在 在服务器上搭建 Git 中了解关于它们的更多信息。
-
-### 添加远程仓库
-
-我们在之前的章节中已经提到并展示了 git clone 命令是如何自行添加远程仓库的， 不过这里将告诉你如何自己来添加它。
- 
->git remote add <shortname> <url> 
-
-添加一个新的远程 Git 仓库，同时指定一个方便使用的简写：
-
-$ git remote
-origin
-$ git remote add pb https://github.com/paulboone/ticgit
-$ git remote -v
-origin	https://github.com/schacon/ticgit (fetch)
-origin	https://github.com/schacon/ticgit (push)
-pb	https://github.com/paulboone/ticgit (fetch)
-pb	https://github.com/paulboone/ticgit (push)
-现在你可以在命令行中使用字符串 pb 来代替整个 URL。 例如，如果你想拉取 Paul 的仓库中有但你没有的信息，可以运行 git fetch pb：
-
-$ git fetch pb
-remote: Counting objects: 43, done.
-remote: Compressing objects: 100% (36/36), done.
-remote: Total 43 (delta 10), reused 31 (delta 5)
-Unpacking objects: 100% (43/43), done.
-From https://github.com/paulboone/ticgit
- * [new branch]      master     -> pb/master
- * [new branch]      ticgit     -> pb/ticgit
-现在 Paul 的 master 分支可以在本地通过 pb/master 访问到——你可以将它合并到自己的某个分支中， 或者如果你想要查看它的话，可以检出一个指向该点的本地分支。 （我们将会在 Git 分支 中详细介绍什么是分支以及如何使用分支。）
-
-
-### 从远程仓库中抓取与拉取
-
-从远程仓库中获得数据，可以执行：
-
->$ git fetch <remote>
-
-这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。
-
-如果你使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令只会将数据下载到你的本地仓库——它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
-
-如果你的当前分支设置了跟踪远程分支（阅读下一节和 Git 分支 了解更多信息）， 那么可以用 git pull 命令来自动抓取后合并该远程分支到当前分支。 这或许是个更加简单舒服的工作流程。默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或其它名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
-
-### 推送到远程仓库
-
-当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：git push <remote> <branch>。 当你想要将 master 分支推送到 origin 服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字）， 那么运行这个命令就可以将你所做的备份到服务器：
-
->$ git push origin master
-
-只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先抓取他们的工作并将其合并进你的工作后才能推送。 阅读 Git 分支 了解如何推送到远程仓库服务器的详细信息
-
-### 查看某个远程仓库
-
-如果想要查看某一个远程仓库的更多信息，可以使用 git remote show <remote> 命令。 如果想以一个特定的缩写名运行这个命令，例如 origin，会得到像下面类似的信息：
-
->$ git remote show origin
-
-```
-$ git remote show origin
-* remote origin
-  Fetch URL: https://github.com/schacon/ticgit
-  Push  URL: https://github.com/schacon/ticgit
-  HEAD branch: master
-  Remote branches:
-    master                               tracked
-    dev-branch                           tracked
-  Local branch configured for 'git pull':
-    master merges with remote master
-  Local ref configured for 'git push':
-    master pushes to master (up to date)
-```
-
-它同样会列出远程仓库的 URL 与跟踪分支的信息。 这些信息非常有用，它告诉你正处于 master 分支，并且如果运行 git pull， 就会抓取所有的远程引用，然后将远程 master 分支合并到本地 master 分支。 它也会列出拉取到的所有远程引用。
-
-### 远程仓库的重命名
-你可以运行 git remote rename 来修改一个远程仓库的简写名。 例如，想要将 pb 重命名为 paul，可以用 git remote rename 这样做：
-
->$ git remote rename pb paul
-
-```
-$ git remote rename pb paul
-$ git remote
-origin
-paul
-```
-
-值得注意的是这同样也会修改你所有远程跟踪的分支名字。 那些过去引用 pb/master 的现在会引用 paul/master。
-
-
-### 远程仓库删除
-
-如果因为一些原因想要移除一个远程仓库——你已经从服务器上搬走了或不再想使用某一个特定的镜像了， 又或者某一个贡献者不再贡献了——可以使用 git remote remove 或 git remote rm ：
-
->$ git remote remove paul
-
-```
-$ git remote remove paul
-$ git remote
-origin
-```
-
-一旦你使用这种方式删除了一个远程仓库，那么所有和这个远程仓库相关的远程跟踪分支以及配置信息也会一起被删除。
-
-### 添加标签
-
->$ git tag -a v1.4 -m "my version 1.4"
-
-```
-$ git tag -a v1.4 -m "my version 1.4"
-$ git tag
-v0.1
-v1.3
-v1.4
-```
-
--m 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，Git 会启动编辑器要求你输入信息。
-
->$ git tag -a v1.2 9fceb02 针对某一次提交打标签
-
-### 查看标签
-
-在 Git 中列出已有的标签非常简单，只需要输入 git tag （可带上可选的 -l 选项 --list）：
-
->git tag
-
-```
-$ git tag
-v1.0
-v2.0
-```
-
-这个命令以字母顺序列出标签，但是它们显示的顺序并不重要。
-
-## Git分支
+## 二、Git分支
 
 ### 创建分支
 
@@ -884,7 +759,188 @@ Conflicts:
 ```
 如果你觉得上述的信息不够充分，不能完全体现分支合并的过程，你可以修改上述信息， 添加一些细节给未来检视这个合并的读者一些帮助，告诉他们你是如何解决合并冲突的，以及理由是什么。
 
-### 远程分支
+## 三、远程仓库
+
+### 远程仓库的概念
+
+为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。 远程仓库是指托管在因特网或其他网络中的你的项目的版本库。 你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。 与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。 管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。 在本节中，我们将介绍一部分远程管理的技能。
+
+
+### 克隆现有的仓库
+
+如果你想获得一份已经存在了的 Git 仓库的拷贝，比如说，你想为某个开源项目贡献自己的一份力，这时就要用到 git clone 命令。 如果你对其它的 VCS 系统（比如说 Subversion）很熟悉，请留心一下你所使用的命令是"clone"而不是"checkout"。 这是 Git 区别于其它版本控制系统的一个重要特性，Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 当你执行 git clone 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。 事实上，如果你的服务器的磁盘坏掉了，你通常可以使用任何一个克隆下来的用户端来重建服务器上的仓库 （虽然可能会丢失某些服务器端的钩子（hook）设置，但是所有版本的数据仍在，详见 在服务器上搭建 Git ）。
+
+克隆仓库的命令是
+
+>**git clone <url>** 
+
+比如，要克隆 Git 的链接库 libgit2，可以用下面的命令：
+
+$ git clone https://github.com/libgit2/libgit2
+这会在当前目录下创建一个名为 “libgit2” 的目录，并在这个目录下初始化一个 .git 文件夹， 从远程仓库拉取下所有数据放入 .git 文件夹，然后从中读取最新版本的文件的拷贝。 如果你进入到这个新建的 libgit2 文件夹，你会发现所有的项目文件已经在里面了，准备就绪等待后续的开发和使用。
+
+如果你想在克隆远程仓库的时候，自定义本地仓库的名字，你可以通过额外的参数指定新的目录名：
+
+$ git clone https://github.com/libgit2/libgit2 mylibgit
+这会执行与上一条命令相同的操作，但目标目录名变为了 mylibgit。
+
+Git 支持多种数据传输协议。 上面的例子使用的是 https:// 协议，不过你也可以使用 git:// 协议或者使用 SSH 传输协议，比如 user@server:path/to/repo.git 。 在服务器上搭建 Git 将会介绍所有这些协议在服务器端如何配置使用，以及各种方式之间的利弊。
+
+
+### 查看远程仓库
+
+
+如果想查看你已经配置的远程仓库服务器，可以运行 git remote 命令。 它会列出你指定的每一个远程服务器的简写。 如果你已经克隆了自己的仓库，那么至少应该能看到 origin ——这是 Git 给你克隆的仓库服务器的默认名字：
+
+>git remote
+
+```
+$ git clone https://github.com/schacon/ticgit
+Cloning into 'ticgit'...
+remote: Reusing existing pack: 1857, done.
+remote: Total 1857 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (1857/1857), 374.35 KiB | 268.00 KiB/s, done.
+Resolving deltas: 100% (772/772), done.
+Checking connectivity... done.
+$ cd ticgit
+
+$ git remote
+origin
+```
+
+你也可以指定选项 -v，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。
+
+```
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+```
+
+如果你的远程仓库不止一个，该命令会将它们全部列出。 例如，与几个协作者合作的，拥有多个远程仓库的仓库看起来像下面这样：
+
+```
+$ cd grit
+$ git remote -v
+bakkdoor  https://github.com/bakkdoor/grit (fetch)
+bakkdoor  https://github.com/bakkdoor/grit (push)
+cho45     https://github.com/cho45/grit (fetch)
+cho45     https://github.com/cho45/grit (push)
+defunkt   https://github.com/defunkt/grit (fetch)
+defunkt   https://github.com/defunkt/grit (push)
+koke      git://github.com/koke/grit.git (fetch)
+koke      git://github.com/koke/grit.git (push)
+origin    git@github.com:mojombo/grit.git (fetch)
+origin    git@github.com:mojombo/grit.git (push)
+```
+
+这表示我们能非常方便地拉取其它用户的贡献。我们还可以拥有向他们推送的权限，这里暂不详述。
+
+注意这些远程仓库使用了不同的协议。我们将会在 在服务器上搭建 Git 中了解关于它们的更多信息。
+
+### 添加远程仓库
+
+我们在之前的章节中已经提到并展示了 git clone 命令是如何自行添加远程仓库的， 不过这里将告诉你如何自己来添加它。
+ 
+>git remote add <shortname> <url> 
+
+添加一个新的远程 Git 仓库，同时指定一个方便使用的简写：
+
+$ git remote
+origin
+$ git remote add pb https://github.com/paulboone/ticgit
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+pb	https://github.com/paulboone/ticgit (fetch)
+pb	https://github.com/paulboone/ticgit (push)
+现在你可以在命令行中使用字符串 pb 来代替整个 URL。 例如，如果你想拉取 Paul 的仓库中有但你没有的信息，可以运行 git fetch pb：
+
+$ git fetch pb
+remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (36/36), done.
+remote: Total 43 (delta 10), reused 31 (delta 5)
+Unpacking objects: 100% (43/43), done.
+From https://github.com/paulboone/ticgit
+ * [new branch]      master     -> pb/master
+ * [new branch]      ticgit     -> pb/ticgit
+现在 Paul 的 master 分支可以在本地通过 pb/master 访问到——你可以将它合并到自己的某个分支中， 或者如果你想要查看它的话，可以检出一个指向该点的本地分支。 （我们将会在 Git 分支 中详细介绍什么是分支以及如何使用分支。）
+
+
+### 从远程仓库中抓取与拉取
+
+从远程仓库中获得数据，可以执行：
+
+>$ git fetch <remote>
+
+这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。
+
+如果你使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令只会将数据下载到你的本地仓库——它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+
+如果你的当前分支设置了跟踪远程分支（阅读下一节和 Git 分支 了解更多信息）， 那么可以用 git pull 命令来自动抓取后合并该远程分支到当前分支。 这或许是个更加简单舒服的工作流程。默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或其它名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
+
+### 推送到远程仓库
+
+当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：git push <remote> <branch>。 当你想要将 master 分支推送到 origin 服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字）， 那么运行这个命令就可以将你所做的备份到服务器：
+
+>$ git push origin master
+
+只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先抓取他们的工作并将其合并进你的工作后才能推送。 阅读 Git 分支 了解如何推送到远程仓库服务器的详细信息
+
+### 查看某个远程仓库
+
+如果想要查看某一个远程仓库的更多信息，可以使用 git remote show <remote> 命令。 如果想以一个特定的缩写名运行这个命令，例如 origin，会得到像下面类似的信息：
+
+>$ git remote show origin
+
+```
+$ git remote show origin
+* remote origin
+  Fetch URL: https://github.com/schacon/ticgit
+  Push  URL: https://github.com/schacon/ticgit
+  HEAD branch: master
+  Remote branches:
+    master                               tracked
+    dev-branch                           tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+```
+
+它同样会列出远程仓库的 URL 与跟踪分支的信息。 这些信息非常有用，它告诉你正处于 master 分支，并且如果运行 git pull， 就会抓取所有的远程引用，然后将远程 master 分支合并到本地 master 分支。 它也会列出拉取到的所有远程引用。
+
+### 远程仓库的重命名
+你可以运行 git remote rename 来修改一个远程仓库的简写名。 例如，想要将 pb 重命名为 paul，可以用 git remote rename 这样做：
+
+>$ git remote rename pb paul
+
+```
+$ git remote rename pb paul
+$ git remote
+origin
+paul
+```
+
+值得注意的是这同样也会修改你所有远程跟踪的分支名字。 那些过去引用 pb/master 的现在会引用 paul/master。
+
+
+### 远程仓库删除
+
+如果因为一些原因想要移除一个远程仓库——你已经从服务器上搬走了或不再想使用某一个特定的镜像了， 又或者某一个贡献者不再贡献了——可以使用 git remote remove 或 git remote rm ：
+
+>$ git remote remove paul
+
+```
+$ git remote remove paul
+$ git remote
+origin
+```
+
+一旦你使用这种方式删除了一个远程仓库，那么所有和这个远程仓库相关的远程跟踪分支以及配置信息也会一起被删除。
+
+## 四、远程分支操作
+
+### 远程分支概念
 
 远程分支
 远程引用是对远程仓库的引用（指针），包括分支、标签等等。 你可以通过 git ls-remote <remote> 来显式地获得远程引用的完整列表， 或者通过 git remote show <remote> 获得远程分支的更多信息。 然而，一个更常见的做法是利用远程跟踪分支。
@@ -965,26 +1021,36 @@ To https://github.com/schacon/simplegit
  - 
 基本上这个命令做的只是从服务器上移除这个指针。 Git 服务器通常会保留数据一段时间直到垃圾回收运行，所以如果不小心删除掉了，通常是很容易恢复的。
 
-## 三、远程仓库和远程分支操作
+## 五、标签
 
+### 添加标签
 
-### **克隆现有的仓库**
+>$ git tag -a v1.4 -m "my version 1.4"
 
-如果你想获得一份已经存在了的 Git 仓库的拷贝，比如说，你想为某个开源项目贡献自己的一份力，这时就要用到 git clone 命令。 如果你对其它的 VCS 系统（比如说 Subversion）很熟悉，请留心一下你所使用的命令是"clone"而不是"checkout"。 这是 Git 区别于其它版本控制系统的一个重要特性，Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 当你执行 git clone 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。 事实上，如果你的服务器的磁盘坏掉了，你通常可以使用任何一个克隆下来的用户端来重建服务器上的仓库 （虽然可能会丢失某些服务器端的钩子（hook）设置，但是所有版本的数据仍在，详见 在服务器上搭建 Git ）。
+```
+$ git tag -a v1.4 -m "my version 1.4"
+$ git tag
+v0.1
+v1.3
+v1.4
+```
 
-克隆仓库的命令是
+-m 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，Git 会启动编辑器要求你输入信息。
 
->**git clone <url>** 
+>$ git tag -a v1.2 9fceb02 针对某一次提交打标签
 
-比如，要克隆 Git 的链接库 libgit2，可以用下面的命令：
+### 查看标签
 
-$ git clone https://github.com/libgit2/libgit2
-这会在当前目录下创建一个名为 “libgit2” 的目录，并在这个目录下初始化一个 .git 文件夹， 从远程仓库拉取下所有数据放入 .git 文件夹，然后从中读取最新版本的文件的拷贝。 如果你进入到这个新建的 libgit2 文件夹，你会发现所有的项目文件已经在里面了，准备就绪等待后续的开发和使用。
+在 Git 中列出已有的标签非常简单，只需要输入 git tag （可带上可选的 -l 选项 --list）：
 
-如果你想在克隆远程仓库的时候，自定义本地仓库的名字，你可以通过额外的参数指定新的目录名：
+>git tag
 
-$ git clone https://github.com/libgit2/libgit2 mylibgit
-这会执行与上一条命令相同的操作，但目标目录名变为了 mylibgit。
+```
+$ git tag
+v1.0
+v2.0
+```
 
-Git 支持多种数据传输协议。 上面的例子使用的是 https:// 协议，不过你也可以使用 git:// 协议或者使用 SSH 传输协议，比如 user@server:path/to/repo.git 。 在服务器上搭建 Git 将会介绍所有这些协议在服务器端如何配置使用，以及各种方式之间的利弊。
+这个命令以字母顺序列出标签，但是它们显示的顺序并不重要。
+
 
