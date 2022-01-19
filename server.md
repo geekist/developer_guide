@@ -150,11 +150,11 @@
 
 * [2、创建一个Spring Cloud Alibaba的父工程](./server/spring_cloud_alibaba_2.md)
 
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+* [3、创建一个通用模块common](./server/spring_cloud_alibaba_3.md)
 
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+* [4、安装和启动Nacos](./server/spring_cloud_alibaba_4.md)
 
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+* [5、创建一个业务模块](./server/spring_cloud_alibaba_5.md)
 
 * [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
 
