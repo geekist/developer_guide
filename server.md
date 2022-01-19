@@ -142,3 +142,26 @@
 
 * [用SpringBoot框架开发WebSocket](https://github.com/geekist/developer_guide/blob/main/server/spring_websocket.md)
 
+
+# 六、Spring Cloud Alibaba微服务项目搭建
+
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+
+* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
