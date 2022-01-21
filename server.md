@@ -147,22 +147,13 @@
 
 * [1、Spring Cloud 介绍](./server/spring_cloud_0.md)
 
-* [1、Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
+* [2、Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
 
-* [2、创建一个Spring Cloud Alibaba的父工程](./server/spring_cloud_alibaba_2.md)
+* [3、安装和启动Nacos](./server/spring_cloud_alibaba_4.md)
 
-* [3、创建一个通用模块common](./server/spring_cloud_alibaba_3.md)
+* [4、创建一个Spring Cloud Alibaba的父工程](./server/spring_cloud_alibaba_2.md)
 
-* [4、安装和启动Nacos](./server/spring_cloud_alibaba_4.md)
+* [5、创建一个通用模块common作为服务的Provider](./server/spring_cloud_alibaba_3.md)
 
-* [5、创建一个业务模块](./server/spring_cloud_alibaba_5.md)
+* [6、创建一个业务模块wolf_warrior作为服务的Consumer](./server/spring_cloud_alibaba_5.md)
 
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
-
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
-
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
-
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
-
-* [Spring Cloud Alibaba框架介绍](./server/spring_cloud_alibaba_1.md)
