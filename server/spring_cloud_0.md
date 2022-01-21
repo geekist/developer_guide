@@ -43,6 +43,10 @@ Service Consumer：调用远程服务的服务消费方。
 
 EureKa Server： 服务注册中心和服务发现中心。
 
+
+![](./assets/spring_cloud_arc.png)
+
+
 ### 五、Spring Cloud中的成员
 
 Spring Cloud并不是从零开始开发一整套微服务解决方案，而是集成各个开源软件，构成一整套的微服务解决方案，这其中有非常著名的Netflix公司的开源产品。
