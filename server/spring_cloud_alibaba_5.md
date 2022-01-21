@@ -191,8 +191,9 @@ public class UserController {
 ```
 
 * 在本地浏览器打开***http://localhost:18763/feign_user***
+* 
 
-![](./consumer_1.png)
+![](./assets/consumer_1.png)
 
 
 
