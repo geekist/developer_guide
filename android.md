@@ -416,13 +416,17 @@
 
 ## 3、同一套代码生成不同的应用
 
-* [debug和release的版本区别](./android/studio/debug_release.md)
-
 * [android开发build应用---官网介绍](https://developer.android.com/studio/build?hl=zh-cn)
 
-* [实战一：自动生成连接测试服务器和正式服务器的应用]()
+* [debug和release的版本区别](./android/studio/debug_release.md)
 
-* 同一套代码不同应用多渠道发布多渠道发布
+* [gradle build中变量设置和读取的几种方法](./android/studio/gradle_variant.md)
+
+* [实战一：自动生成连接测试服务器和正式服务器的应用](./android/studio/gradle_1.md)
+
+* [实战二：同一套代码生成不同的应用程序_UI](./android/studio/gradle_2.md)
+
+* [实战三：同一套代码生成不同的应用程序_分离第三方服务](./android/studio/gradle_3.md)
 
 # 七、Android应用SDK
 
