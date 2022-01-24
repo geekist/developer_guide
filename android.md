@@ -412,6 +412,14 @@
 
 * [如何生成签名文件---从jks转keystore文件](https://github.com/geekist/developer_guide/blob/main/android/studio/keystore.md)
 
+## 3、同一套代码生成不同的应用
+
+* [debug和release的版本区别](./android/studio/debug_release.md)
+
+* 自动生成连接不同服务器URL的应用
+
+* 同一套代码不同应用多渠道发布多渠道发布
+
 # 七、Android应用SDK
 
 
