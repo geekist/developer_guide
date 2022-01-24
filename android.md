@@ -352,6 +352,8 @@
 
 ### gradle
 
+* [gradle官网](https://docs.gradle.org/current/userguide/userguide.html)
+
 * [build.gradle文件介绍](https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md)
 
 * [深入理解gradle编译-Android基础篇](https://blog.csdn.net/chouhuan1877/article/details/100808667)
@@ -416,7 +418,9 @@
 
 * [debug和release的版本区别](./android/studio/debug_release.md)
 
-* 自动生成连接不同服务器URL的应用
+* [android开发build应用---官网介绍](https://developer.android.com/studio/build?hl=zh-cn)
+
+* [实战一：自动生成连接测试服务器和正式服务器的应用]()
 
 * 同一套代码不同应用多渠道发布多渠道发布
 
