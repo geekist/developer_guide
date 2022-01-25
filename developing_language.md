@@ -48,7 +48,7 @@
 
 * [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
 
-* [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/constant_static.md)
+* [Kotlin中常量和静态方法](https://github.com/geekist/developer_guide/blob/main/kotlin/constant_static.md)
 
 ## 3.Objective C 语言
 
