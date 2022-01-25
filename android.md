@@ -352,6 +352,8 @@
 
 ### gradle
 
+* [gradle官网](https://docs.gradle.org/current/userguide/userguide.html)
+
 * [build.gradle文件介绍](https://github.com/geekist/developer_guide/blob/main/android/studio/Gradle.md)
 
 * [深入理解gradle编译-Android基础篇](https://blog.csdn.net/chouhuan1877/article/details/100808667)
@@ -411,6 +413,20 @@
 * [切面编程](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649550494&idx=1&sn=6982c5aee321ed731970c763708ae7ec&chksm=f11805e3c66f8cf57a02bde8bea85adf41b3aed795aab4feb08e599e71c0ee991b73a557c52c&mpshare=1&scene=1&srcid=0820H3HbpXCZMCMcYnhhZ8pL&sharer_sharetime=1598321087796&sharer_shareid=11fdebba4d506eab0c1cc6d88064dd1e&exportkey=AYQW7eWxwPr2ZnJQntTlbQ4=&pass_ticket=Zm5QkYXc5qNbpMJX3wz0O3EsJVGcfP55Vvi%2bLlz58prd1vsPjYwJ4xSQUL5Uds46&wx_header=0#rd)
 
 * [如何生成签名文件---从jks转keystore文件](https://github.com/geekist/developer_guide/blob/main/android/studio/keystore.md)
+
+## 3、同一套代码生成不同的应用
+
+* [android开发build应用---官网介绍](https://developer.android.com/studio/build?hl=zh-cn)
+
+* [debug和release的版本区别](./android/studio/debug_release.md)
+
+* [gradle build中变量设置和读取的几种方法](./android/studio/gradle_variant.md)
+
+* [实战一：自动生成连接测试服务器和正式服务器的应用](./android/studio/gradle_1.md)
+
+* [实战二：同一套代码生成不同的应用程序_UI](./android/studio/gradle_2.md)
+
+* [实战三：同一套代码生成不同的应用程序_分离第三方服务](./android/studio/gradle_3.md)
 
 # 七、Android应用SDK
 
