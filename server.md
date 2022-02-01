@@ -46,8 +46,11 @@
 
 ## Spring Boot 开发基本知识
 
-
+- [yml文件介绍](https://github.com/geekist/developer_guide/blob/main/server/yml.md)
+ 
 - [application.properties和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/springboot_yml.md)
+
+- [bootstrap.yml和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/bootstrap_yml.md)
 
 - [使用dependencyManagement管理依赖版本](https://github.com/geekist/developer_guide/blob/main/server/dependencyManagement.md)
 
