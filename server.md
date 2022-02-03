@@ -160,3 +160,9 @@
 
 * [6、创建一个业务模块wolf_warrior作为服务的Consumer](./server/spring_cloud_alibaba_5.md)
 
+# 七、redis介绍
+
+* [redis官网](https://redis.io/)
+
+
+
