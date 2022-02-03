@@ -194,14 +194,13 @@ OK
 * mset Mset 命令用于同时设置一个或多个 key-value 对。
 
 
-# mget Mget 命令返回所有(一个或多个)给定 key 的值。
+* mget Mget 命令返回所有(一个或多个)给定 key 的值。
 
+如果给定的 key 里面，有某个 key 不存在，那么这个 key 返回特殊值 nil 。
 
-# 如果给定的 key 里面，有某个 key 不存在，那么这个 key 返回特殊值 nil 。
+* msetnx 当所有 key 都成功设置，返回 1 。
 
-# msetnx 当所有 key 都成功设置，返回 1 。
-# 如果所有给定 key 都设置失败(至少有一个 key 已经存在)，那么返回 0 。原子操
-作
+如果所有给定 key 都设置失败(至少有一个 key 已经存在)，那么返回 0 。原子操作
 
 ```
 127.0.0.1:6379> mset k10 v10 k11 v11 k12 v12
@@ -553,7 +552,216 @@ Redis的list是每个子元素都是String类型的双向链表，可以通过pu
 
 ### Zset 有序集合类型
 
+在set基础上，加一个score值。之前set是k1 v1 v2 v3，现在zset是 k1 score1 v1 score2 v2
+
+
+* zadd 将一个或多个成员元素及其分数值加入到有序集当中。
+
+* zrange 返回有序集中，指定区间内的成员
+
+```
+127.0.0.1:6379> zadd myset 1 "one"
+(integer) 1
+127.0.0.1:6379> zadd myset 2 "two" 3 "three"
+(integer) 2
+127.0.0.1:6379> ZRANGE myset 0 -1
+1) "one"
+2) "two"
+3) "three"
+```
+
+* zrangebyscore 返回有序集合中指定分数区间的成员列表。有序集成员按分数值递增(从小到大)
+次序排列。
+
+
+```
+127.0.0.1:6379> zadd salary 2500 xiaoming
+(integer) 1
+127.0.0.1:6379> zadd salary 5000 xiaohong
+(integer) 1
+127.0.0.1:6379> zadd salary 500 kuangshen
+(integer) 1
+# Inf无穷大量+∞,同样地,-∞可以表示为-Inf。
+127.0.0.1:6379> ZRANGEBYSCORE salary -inf +inf # 显示整个有序集
+1) "kuangshen"
+2) "xiaoming"
+3) "xiaohong"
+127.0.0.1:6379> ZRANGEBYSCORE salary -inf +inf withscores # 递增排列
+1) "kuangshen"
+2) "500"
+3) "xiaoming"
+4) "2500"
+5) "xiaohong"
+6) "5000"
+```
+
+
+* zrem 移除有序集中的一个或多个成员
+
+```
+127.0.0.1:6379> ZRANGE salary 0 -1
+1) "kuangshen"
+2) "xiaoming"
+3) "xiaohong"
+127.0.0.1:6379> zrem salary kuangshen
+(integer) 1
+127.0.0.1:6379> ZRANGE salary 0 -1
+1) "xiaoming"
+2) "xiaohong"
+```
+
+* zcard 命令用于计算集合中元素的数量。
+
+```
+127.0.0.1:6379> zcard salary
+(integer) 2
+OK
+```
+
+
+* zcount 计算有序集合中指定分数区间的成员数量。
+
+```
+127.0.0.1:6379> zadd myset 1 "hello"
+(integer) 1
+127.0.0.1:6379> zadd myset 2 "world" 3 "kuangshen"
+(integer) 2
+127.0.0.1:6379> ZCOUNT myset 1 3
+(integer) 3
+127.0.0.1:6379> ZCOUNT myset 1 2
+(integer) 2
+```
+
+* zrank 返回有序集中指定成员的排名。其中有序集成员按分数值递增(从小到大)顺序排列。
+
+```
+127.0.0.1:6379> zadd salary 2500 xiaoming
+(integer) 1
+127.0.0.1:6379> zadd salary 5000 xiaohong
+(integer) 1
+127.0.0.1:6379> zadd salary 500 kuangshen
+(integer) 1
+127.0.0.1:6379> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其 score 值
+1) "kuangshen"
+2) "500"
+3) "xiaoming"
+4) "2500"
+5) "xiaohong"
+6) "5000"
+127.0.0.1:6379> zrank salary kuangshen # 显示 kuangshen 的薪水排名，最少
+(integer) 0
+127.0.0.1:6379> zrank salary xiaohong # 显示 xiaohong 的薪水排名，第三
+(integer) 2
+```
+
+
+* zrevrank 返回有序集中成员的排名。其中有序集成员按分数值递减(从大到小)排序。
+
+```
+127.0.0.1:6379> ZREVRANK salary kuangshen # 狂神第三
+(integer) 2
+127.0.0.1:6379> ZREVRANK salary xiaohong # 小红第一
+(integer) 0
+```
+
+
+
+和set相比，sorted set增加了一个权重参数score，使得集合中的元素能够按score进行有序排列，比如一个存储全班同学成绩的sorted set，其集合value可以是同学的学号，而score就可以是其考试得分，这样在数据插入集合的时候，就已经进行了天然的排序。
+
+可以用sorted set来做带权重的队列，比如普通消息的score为1，重要消息的score为2，然后工作线程可以选择按score的倒序来获取工作任务。让重要的任务优先执行。
+
+排行榜应用，取TOP N操作 ！
+
 ### hash类型
 
+kv模式不变，但V是一个键值对
 
 
+* hset、hget 命令用于为哈希表中的字段赋值 。
+
+* hmset、hmget 同时将多个field-value对设置到哈希表中。会覆盖哈希表中已存在的字段。
+
+* hgetall 用于返回哈希表中，所有的字段和值。
+
+* hdel 用于删除哈希表 key 中的一个或多个指定字段
+
+```
+127.0.0.1:6379> hset myhash field1 "kuangshen"
+(integer) 1
+127.0.0.1:6379> hget myhash field1
+"kuangshen"
+127.0.0.1:6379> HMSET myhash field1 "Hello" field2 "World"
+OK
+127.0.0.1:6379> HGET myhash field1
+"Hello"
+127.0.0.1:6379> HGET myhash field2
+"World"
+127.0.0.1:6379> hgetall myhash
+1) "field1"
+2) "Hello"
+3) "field2"
+4) "World"
+127.0.0.1:6379> HDEL myhash field1
+(integer) 1
+127.0.0.1:6379> hgetall myhash
+1) "field2"
+2) "World"
+```
+
+
+* hlen 获取哈希表中字段的数量。
+
+```
+127.0.0.1:6379> hlen myhash
+(integer) 1
+127.0.0.1:6379> HMSET myhash field1 "Hello" field2 "World"
+OK
+127.0.0.1:6379> hlen myhash
+(integer) 2
+```
+
+* hexists 查看哈希表的指定字段是否存在。
+
+```
+127.0.0.1:6379> hexists myhash field1
+(integer) 1
+127.0.0.1:6379> hexists myhash field3
+(integer) 0
+```
+
+* hkeys 获取哈希表中的所有域（field）。
+
+* hvals 返回哈希表所有域(field)的值。
+
+```
+127.0.0.1:6379> HKEYS myhash
+1) "field2"
+2) "field1"
+127.0.0.1:6379> HVALS myhash
+1) "World"
+2) "Hello"
+```
+
+* hincrby 为哈希表中的字段值加上指定增量值。
+
+```
+127.0.0.1:6379> hset myhash field 5
+(integer) 1
+127.0.0.1:6379> HINCRBY myhash field 1
+(integer) 6
+127.0.0.1:6379> HINCRBY myhash field -1
+(integer) 5
+127.0.0.1:6379> HINCRBY myhash field -10
+(integer) -5
+```
+
+* hsetnx 为哈希表中不存在的的字段赋值 。
+
+```
+127.0.0.1:6379> HSETNX myhash field1 "hello"
+(integer) 1 # 设置成功，返回 1 。
+127.0.0.1:6379> HSETNX myhash field1 "world"
+(integer) 0 # 如果给定字段已经存在，返回 0 。
+127.0.0.1:6379> HGET myhash field1
+"hello"
+```
