@@ -9,7 +9,7 @@
 ## 2.1 预备知识
 
 - [Java SDK 介绍](https://github.com/geekist/developer_guide/blob/main/java/java简介.md)
- 
+
 - [Jar包介绍](https://github.com/geekist/developer_guide/blob/main/server/jar.md)
 
 - [Jar包介绍2](https://github.com/geekist/developer_guide/blob/main/server/jar2.md)
@@ -47,7 +47,7 @@
 ## Spring Boot 开发基本知识
 
 - [yml文件介绍](https://github.com/geekist/developer_guide/blob/main/server/yml.md)
- 
+
 - [application.properties和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/springboot_yml.md)
 
 - [bootstrap.yml和application.yml文件的区别](https://github.com/geekist/developer_guide/blob/main/server/bootstrap_yml.md)
@@ -58,13 +58,13 @@
 
 
 - [Java 注解回顾](./java/java_annotation.md)
- 
+
 - [Spring boot注解](./server/spring_boot_annotation.md)
 
 - [无效的源发行版本11](https://segmentfault.com/a/1190000023536478)
 
 - [Spirng boot项目常见的依赖安装](./server/springboot_dependency.md)
- 
+
 
 ## 3.3 Spring Boot 环境配置
 
@@ -163,6 +163,34 @@
 # 七、redis介绍
 
 * [redis官网](https://redis.io/)
+
+### [1、redis介绍](./server/redis_1.md)
+
+### [2、redis安装和使用](./server/redis_2.md)
+
+### [3、redis数据类型](./server/redis_3.md)
+
+### 4、事务
+
+### 5、jedis
+
+### 6、Springboot和redis的整合
+
+
+
+### 7、redis持久化
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
