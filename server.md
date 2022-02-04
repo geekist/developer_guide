@@ -170,11 +170,11 @@
 
 ### [3、redis数据类型](./server/redis_3.md)
 
-### 4、事务
+### [4、事务](./server/redis_4.md)
 
-### 5、jedis
+### [5、jedis](./server/redis_5_jedis.md)
 
-### 6、Springboot和redis的整合
+### [6、Springboot和redis的整合](./server/redis_6_spring.md)
 
 
 

@@ -765,3 +765,120 @@ OK
 127.0.0.1:6379> HGET myhash field1
 "hello"
 ```
+
+### 特殊数据类型
+
+#### GEO地理位置
+
+Redis 的 GEO 特性在 Redis 3.2 版本中推出， 这个功能可以将用户给定的地理位置信息储存起来， 并对这些信息进行操作。来实现诸如附近位置、摇一摇这类依赖于地理位置信息的功能。geo的数据类型为
+zset。
+
+GEO 的数据结构总共有六个常用命令：geoadd、geopos、geodist、georadius、
+georadiusbymember、gethash
+
+官方文档：https://www.redis.net.cn/order/3685.html
+
+
+
+#### HyperLogLog
+
+Redis 在 2.8.9 版本添加了 HyperLogLog 结构。
+
+Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积
+非常非常大时，计算基数所需的空间总是固定 的、并且是很小的。
+
+在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。
+
+HyperLogLog则是一种算法，它提供了不精确的去重计数方案。
+
+举个栗子：假如我要统计网页的UV（浏览用户数量，一天内同一个用户多次访问只能算一次），传统的
+解决方案是使用Set来保存用户id，然后统计Set中的元素数量来获取页面UV。但这种方案只能承载少量
+用户，一旦用户数量大起来就需要消耗大量的空间来存储用户id。我的目的是统计用户数量而不是保存
+用户，这简直是个吃力不讨好的方案！而使用Redis的HyperLogLog最多需要12k就可以统计大量的用户
+数，尽管它大概有0.81%的错误率，但对于统计UV这种不需要很精确的数据是可以忽略不计的。
+
+>什么是基数？
+>比如数据集 {1, 3, 5, 7, 5, 7, 8}， 那么这个数据集的基数集为 {1, 3, 5 ,7, 8}, 基数(不重复元素)为5。
+>
+>基数估计就是在误差可接受的范围内，快速计算基数。
+
+
+
+* [PFADD key element [element ...] 添加指定元素到 HyperLogLog 中。
+
+* [PFCOUNT key [key ...] 返回给定 HyperLogLog 的基数估算值。
+
+* [PFMERGE destkey sourcekey [sourcekey ...] 将多个 HyperLogLog 合并为一个HyperLogLog，并集计算
+
+```
+127.0.0.1:6379> PFADD mykey a b c d e f g h i j
+1
+127.0.0.1:6379> PFCOUNT mykey
+10
+127.0.0.1:6379> PFADD mykey2 i j z x c v b n m
+1
+127.0.0.1:6379> PFMERGE mykey3 mykey mykey2
+OK
+127.0.0.1:6379> PFCOUNT mykey3
+15
+
+```
+#### BitMap
+
+在开发中，可能会遇到这种情况：需要统计用户的某些信息，如活跃或不活跃，登录或者不登录；又如
+需要记录用户一年的打卡情况，打卡了是1， 没有打卡是0，如果使用普通的 key/value存储，则要记录
+365条记录，如果用户量很大，需要的空间也会很大，所以 Redis 提供了 Bitmap 位图这中数据结构，
+Bitmap 就是通过操作二进制位来进行记录，即为 0 和 1；如果要记录 365 天的打卡情况，使用 Bitmap表示的形式大概如下：0101000111000111...........................，这样有什么好处呢？当然就是节约内存了，365 天相当于 365 bit，又 1 字节 = 8 bit , 所以相当于使用 46 个字节即可。
+
+BitMap 就是通过一个 bit 位来表示某个元素对应的值或者状态, 其中的 key 就是对应元素本身，实际上底层也是通过对字符串的操作来实现。
+
+Redis 从 2.2 版本之后新增了setbit, getbit, bitcount 等几个bitmap 相关命令。
+
+* setbit 设置操作
+
+SETBIT key offset value : 设置 key 的第 offset 位为value (1或0)
+
+
+
+使用 bitmap 来记录上述事例中一周的打卡记录如下所示：
+周一：1，周二：0，周三：0，周四：1，周五：1，周六：0，周天：0 （1 为打卡，0 为不打卡）
+
+
+```
+127.0.0.1:6379> setbit sign 0 1
+0
+127.0.0.1:6379> setbit sign 1 0
+0
+127.0.0.1:6379> setbit sign 2 0
+0
+127.0.0.1:6379> setbit sign 3 1
+0
+127.0.0.1:6379> setbit sign 4 1
+0
+127.0.0.1:6379> setbit sign 5 0
+0
+127.0.0.1:6379> setbit sign 6 0
+0
+```
+
+* getbit 获取操作
+
+GETBIT key offset 获取offset设置的值，未设置过默认返回0
+
+```
+127.0.0.1:6379> getbit sign 3 # 查看周四是否打卡
+1
+127.0.0.1:6379> getbit sign 6 # 查看周七是否打卡
+0
+```
+
+* bitcount 统计操作
+
+bitcount key [start, end] 统计 key 上位为1的个数
+
+ 统计这周打卡的记录，可以看到只有3天是打卡的状态：
+
+```
+127.0.0.1:6379> bitcount sign
+3
+```

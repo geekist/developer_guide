@@ -11,7 +11,9 @@
 
 * [Linux操作系统简介](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
-* [Linux教程](https://www.runoob.com/linux/linux-tutorial.html)
+* [Linux基本操作和目录结构](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_base.md)
+
+* [Linux教程网站](https://www.runoob.com/linux/linux-tutorial.html)
 
 * [Linux常用命令](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_command.md)
 
