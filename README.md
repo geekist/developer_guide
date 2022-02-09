@@ -74,4 +74,6 @@ Git
 
 
 ## [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
+
+* [高德地图开发](https://github.com/geekist/developer_guide/blob/main/gaode_map/gaode_map.md) 
   
