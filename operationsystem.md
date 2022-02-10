@@ -11,9 +11,13 @@
 
 * [Linux操作系统简介](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
-* [Linux教程](https://www.runoob.com/linux/linux-tutorial.html)
+* [Linux基本操作和目录结构](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_base.md)
 
-* [Linux常用命令](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_command.md)
+* [Linux教程网站](https://www.runoob.com/linux/linux-tutorial.html)
+
+* [Linux常用命令之目录和文件操作](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_command.md)
+
+* [Linux常用命令之cat](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_cat.md)
 
 
 ## Mac操作系统
