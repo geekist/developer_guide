@@ -1,7 +1,7 @@
 
 # 一、Android系统原理
 
-## 1.1 Android系统框架和启动过程
+## 1 Android系统框架和启动过程
 
 * [Android系统框架](https://developer.android.com/guide/platform?hl=zh-cn)
  
@@ -11,7 +11,7 @@
 
 * 结合优化部分的[AndroidApp启动分析与优化](https://github.com/geekist/developer_guide/blob/main/android/system/Android_App启动分析与优化.md)来了解App启动流程
 
-## 1.2 Android 进程间通信机制
+## 2 Android 进程间通信机制
 
 * [Android系统进程间通讯机制---Binder](https://github.com/geekist/developer_guide/blob/main/android/system/binder.md)
 
@@ -23,19 +23,19 @@
 
 * [AIDL实现跨进程通信](https://www.jianshu.com/p/29999c1a93cd)
 
-## 1.3 JNI与NDK
+## 3 JNI与NDK
 
 * [JNI编程](https://github.com/geekist/developer_guide/blob/main/android/system/jni.md)
 
 * [JNI与NDK编程](https://blog.yorek.xyz/android/framework/JNI%E4%B8%8ENDK/)
 
-## 1.4 Android版本迭代
+## 4 Android版本迭代
 
 **Android版本兼容性**
 * [Android平台版本兼容性问题总结](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
 
-## 1.5 Android厂商兼容性问题
+## 5 Android厂商兼容性问题
 
 **Android不同厂商系统兼容性**
 
@@ -45,7 +45,7 @@
 
 ## 1、四大组件
 
-### 1.1 四大组件的简介和启动过程
+### 1 四大组件的简介和启动过程
 
 * [Activity][activity] （[Fragment][fragment]）---  [Activity启动过程--三个步骤，分两个层次描述](https://bbs.huaweicloud.com/blogs/168409)
 
@@ -69,12 +69,12 @@
 
 ## 2、View
 
-### 2.1 android UI 控件的介绍基本用法
+### 1 android UI 控件的介绍基本用法
 
 * [Android 控件介绍](https://github.com/geekist/developer_guide/blob/main/android/ui/ui控件介绍.md)
 
 
-### 2.2 window和view
+### 2 window和view
 
 * [window和window manager](https://blog.yorek.xyz/android/framework/Window%E4%B8%8EWindowManager/)
 
@@ -139,13 +139,13 @@
 
 ## 8、Android消息机制与Android线程和线程池
 
-### 8.1 线程和线程池
+### 1 线程和线程池
 
 * [Java线程][javathread]
 
 * [Android线程和线程池](https://blog.yorek.xyz/android/framework/Android%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0/)
 
-### 8.2消息机制--Handler、Looper，Message、MessageQueue
+### 2消息机制--Handler、Looper，Message、MessageQueue
 
 * [Android消息机制](https://blog.yorek.xyz/android/framework/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/) Activity.runOnUIThread(runable)以及View.post(runable)
 
@@ -153,14 +153,11 @@
 
 * [HandlerThread][handlerthread]
 
-### 8.3 Android的异步调用方法
+### 3 Android的异步调用方法
 
 * [AsyncTask][asynctask]
 
 * [IntentService][intentservice]
-
-
-
 
 [javathread]:https://github.com/geekist/developer_guide/blob/main/android/thread/JavaThread.md
 [handler]:https://github.com/geekist/developer_guide/blob/main/android/thread/Handler.md
@@ -169,8 +166,8 @@
 [intentservice]:https://github.com/geekist/developer_guide/blob/main/android/thread/IntentService.md
 
 ## 9、Jetpack
-* [Lifecycles][lifecycles]
 
+* [Lifecycles][lifecycles]
 
 * [ViewModel][viewmodel]
 
@@ -195,52 +192,7 @@
 
 [workmanager]:https://github.com/geekist/developer_guide/blob/main/android/jetpack/WorkManager.md
 
-# 三、Android主流第三方库源码解析
 
-## 1、OKHttp
-
-* [okhttp框架设计](https://juejin.cn/post/6844903743951994887)---[okhttp拦截器分析](https://juejin.cn/post/6844904008646295566)
-
-## 2、Retrofit
-
-* [retrofit使用方法](https://www.jianshu.com/p/a3e162261ab6)---[retrofit源码解析](https://www.jianshu.com/p/0c055ad46b6c)
-
-## 3、Glide
-* [glide源码解析](https://juejin.cn/post/6844903605728706573) ---[主流图片加载库的比较](https://blog.csdn.net/carson_ho/article/details/51939774)---[guolin-blog](https://guolin.blog.csdn.net/article/details/53759439)
-
-* [Glide常问的点](https://juejin.cn/post/6844903986412126216)
-## 4、Rxjava
-**Rxjava是一个薄弱环节，需要多加学习**
-
-* [Rxjava][rxjava]
-
-* [Rxjava使用方法](https://blog.csdn.net/carson_ho/article/details/78179340)---[Rxjava源码解析](https://blog.csdn.net/carson_ho/article/details/79168523)
-
-* [Rxjava2系列](https://blog.csdn.net/carson_ho/category_7227390.html)
-
-## 5、GReenDao and LitePal
-* [GreenDao源码分析](https://jsonchao.github.io/2018/12/22/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E5%9B%9B%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GreenDao%E6%BA%90%E7%A0%81%EF%BC%89/)
-
-* [Litepal][litepal]
-
-## 6、EventBus
-* [Eventbus](https://juejin.cn/post/6844904007199113229)
-
-
-## 7、ARouter
-* [ARouter使用介绍][arouter]--[ARouter源码分析](https://juejin.cn/post/6844903505937842183)
-
-* [ARouter官方文档](https://developer.aliyun.com/article/71687)
-
-[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
-[eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
-[autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
-[okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
-[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
-
-[glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
-
-[litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
 
 # 四、Android性能调优
 
@@ -401,18 +353,7 @@
 
 * [如何生成签名文件---从jks转keystore文件](https://github.com/geekist/developer_guide/blob/main/android/studio/keystore.md)
 
-# 七、Android应用SDK
 
-
-## 支付
-
-* [微信和支付宝android客户端接入流程](https://github.com/geekist/developer_guide/blob/main/pay/alipay.md)
-
-## 地图
-
-## 推送
-
-## 二维码
 
 
 # 八、Android新技术 
@@ -425,7 +366,70 @@
 
 * [ARCore总结整理](https://blog.csdn.net/yangwu007?t=1)
 
-# 九 Android项目
+# 三、Android第三方库SDK使用及源码解析
 
-* [MediaPicker](https://github.com/geekist/developer_guide/blob/main/android/project/mediapicker.md)
+## 1、OKHttp
+
+* [okhttp框架设计](https://juejin.cn/post/6844903743951994887)---[okhttp拦截器分析](https://juejin.cn/post/6844904008646295566)
+
+## 2、Retrofit
+
+* [retrofit使用方法](https://www.jianshu.com/p/a3e162261ab6)---[retrofit源码解析](https://www.jianshu.com/p/0c055ad46b6c)
+
+## 3、Glide
+* [glide源码解析](https://juejin.cn/post/6844903605728706573) ---[主流图片加载库的比较](https://blog.csdn.net/carson_ho/article/details/51939774)---[guolin-blog](https://guolin.blog.csdn.net/article/details/53759439)
+
+* [Glide常问的点](https://juejin.cn/post/6844903986412126216)
+
+
+## 4、Rxjava
+**Rxjava是一个薄弱环节，需要多加学习**
+
+* [Rxjava][rxjava]
+
+* [Rxjava使用方法](https://blog.csdn.net/carson_ho/article/details/78179340)---[Rxjava源码解析](https://blog.csdn.net/carson_ho/article/details/79168523)
+
+* [Rxjava2系列](https://blog.csdn.net/carson_ho/category_7227390.html)
+
+## 5、GReenDao and LitePal
+* [GreenDao源码分析](https://jsonchao.github.io/2018/12/22/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E5%9B%9B%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3GreenDao%E6%BA%90%E7%A0%81%EF%BC%89/)
+
+* [Litepal][litepal]
+
+## 6、EventBus
+* [Eventbus](https://juejin.cn/post/6844904007199113229)
+
+
+## 7、ARouter
+* [ARouter使用介绍][arouter]--[ARouter源码分析](https://juejin.cn/post/6844903505937842183)
+
+* [ARouter官方文档](https://developer.aliyun.com/article/71687)
+
+[arouter]:https://github.com/geekist/developer_guide/blob/main/android/libraries/ARouter.md
+[eventbus]:https://github.com/geekist/developer_guide/blob/main/android/libraries/EventBus.md
+[autosize]:https://github.com/geekist/developer_guide/blob/main/android/libraries/AndroidAutoSize.md
+[okgo]:https://github.com/geekist/developer_guide/blob/main/android/libraries/OkGo.md
+[rxjava]:https://github.com/geekist/developer_guide/blob/main/android/libraries/RxJava.md
+
+[glide]:https://github.com/geekist/developer_guide/blob/main/android/libraries/Glide.md
+
+[litepal]:https://github.com/geekist/developer_guide/blob/main/android/libraries/LitePal.md
+
+## 支付
+
+* [微信和支付宝android客户端接入流程](https://github.com/geekist/developer_guide/blob/main/pay/alipay.md)
+
+## 地图
+
+## 推送
+
+## 二维码
+
+## [MediaPicker](https://github.com/geekist/developer_guide/blob/main/android/project/mediapicker.md)
+
+
+# Android日积月累
+
+
+
 
