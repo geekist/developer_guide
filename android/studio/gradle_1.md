@@ -117,3 +117,20 @@ def getCurrentFlavor() {
 
 ```
 
+## 四、多个相互依赖的模块，如何设置flavor
+
+android {
+    flavorDimensions "server"
+    productFlavors {
+        dev {
+            dimension "server"  
+        }
+
+        prod {
+            dimension "server" 
+        }
+    }
+}
+
+
+
