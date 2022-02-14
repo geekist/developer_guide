@@ -519,6 +519,10 @@
 
 ## PermissionX
 
+* [郭霖permissionX专栏](https://blog.csdn.net/guolin_blog/category_10108528.html)
+
+* [使用方法](./android/3rd/permissionx.md)
+
 
 # 八、Android日积月累
 
