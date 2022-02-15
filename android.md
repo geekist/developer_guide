@@ -160,6 +160,15 @@
 
 [self]:https://github.com/geekist/developer_guide/blob/main/android/ui/自定义控件.md
 
+### 2.3 android对话框
+
+* [android原生对话框开发](https://developer.android.com/guide/topics/ui/dialogs#java)
+
+* [android原生8种对话框（Dialog）使用方法汇总](https://www.cnblogs.com/gzdaijie/p/5222191.html)
+
+* [android底部对话框](https://www.jianshu.com/p/e1d2cc82e756)
+
+
 
 ### 3、动画
 
@@ -523,8 +532,15 @@
 
 * [使用方法](./android/3rd/permissionx.md)
 
+# 八、开发中常用的库或其他快捷开发工具
 
-# 八、Android日积月累
+## xpopup
+
+* [第三方库xpopup](https://github.com/li-xiaojun/XPopup)
+
+* [使用第三方库xpopup自定义dialog](https://github.com/geekist/developer_guide/blob/main/android/ui/xpopup.md)
+
+# 九、Android日积月累
 
 * [Android开发过程中的疑难杂症](https://github.com/geekist/developer_guide/blob/main/android/others/question.md)
 
