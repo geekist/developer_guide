@@ -23,28 +23,28 @@ Swagger官方网站:[swagger官方](https://swagger.io/)
 
 - SwaggerHub（免费和商业）： API设计和文档，为使用OpenAPI的团队构建。
 
-## 三、SpringBoot中使用的Swagger工具：
+## 三、在项目中集成swagger
 
-SpringBoot已经集成了Swagger，使用简单注解即可生成swagger的API文档。
-
-- Springfox Swagger: Spring 基于swagger规范，可以将基于SpringMVC和Spring Boot项目的项目代码，自动生成JSON格式的描述文件。本身不是属于Swagger官网提供的。
-
-## 四、一个简单的SpringBoot + Swagger的项目
-
-### 4.1 创建一个SpringBoot的Web项目
-
-### 4.2 在项目的pom.xml中引入Springfox的依赖：
+### 3.1 添加swagger和swagger-ui的依赖
 
 ```xml
-  <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-```
 
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+-->
+<dependency>
+<groupId>io.springfox</groupId>
+<artifactId>springfox-swagger2</artifactId>
+<version>2.9.2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swaggerui
+-->
+
+<dependency>
+<groupId>io.springfox</groupId>
+<artifactId>springfox-swagger-ui</artifactId>
+<version>2.9.2</version>
+</dependency>
+
+
+```
