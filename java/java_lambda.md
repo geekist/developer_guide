@@ -127,12 +127,14 @@ new Thread(() -> Log.i("TAG", "测试无参数+语句/代码块")).start();
 
 * 常规写法：
 
+```
 findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Log.i("TAG", "测试有参数+语句");
     }
 });
+```
 　
 * Lambda写法：
 
