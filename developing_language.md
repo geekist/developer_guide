@@ -28,6 +28,9 @@
 
 * [java容器](https://github.com/geekist/developer_guide/blob/main/java/Java%20容器.md)
 
+
+* [java的lambda表达式](https://github.com/geekist/developer_guide/blob/main/java/java_lambda.md)
+* 
 ## 2、Kotlin语言
 
 * [kotlin语言教程-PDF版本](https://www.kotlincn.net/docs/kotlin-docs.pdf)[       网页版](https://www.kotlincn.net/docs/reference/basic-syntax.html)
