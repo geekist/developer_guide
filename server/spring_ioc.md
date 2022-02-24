@@ -1,22 +1,23 @@
 
-# 一、依赖和依赖注入
+# Spring IoC介绍
 
-## 1、依赖注入的定义
+
+## 一、依赖和依赖注入
+
+### 1、依赖注入的定义
 
 在我们的开发实践中，随处可见一个类的定义或者实现需要用到另外一个或多个类。例如：
 
 ```java
 public class Engine {
-
     public Engine() {
-
     }
 }
 
 public class Car{
 	private Engine engine;  //在Car类中包含了一个Engine类
 	
-	public Car() {
+    public Car() {
 	}
 }
 ```
@@ -45,7 +46,12 @@ public class Student{
 
 这种一个类对于另外一个或多个类的引用就是依赖。这样的依赖贯穿于我们每天的coding之中。上面的例子中，我们可以说Teacher类就是Student类的依赖项，Engine类就是Car类的依赖项。或者说，“学校”类依赖于“学生”类，“汽车”类依赖于“引擎”类。
 
-为目标类提供依赖的方式可以分为两种，一种是直接将依赖项的构造方式暴露出来，在目标类中直接调用依赖项的构造方法，比如：
+为目标类提供依赖的方式可以分为两种：
+
+* **一、直接将依赖项的构造方式暴露出来，在目标类中直接调用依赖项的构造方法。**
+
+比如：
+
 ```java
 public class Car{
 	private Engine engine;
@@ -55,7 +61,13 @@ public class Car{
 	}
 }
 ```
-另外一种方法是将依赖对象和其构造方式解耦，通过其他的方式传递依赖给目标调用者，即依赖是被“注入”进来的，如：
+这里，car对象需要了解Engine对象的构造方法，engine对象和car对象耦合在了一起。
+
+
+* **二、将依赖对象和其构造方式解耦，通过其他的方式传递依赖给目标调用者，即依赖是被“注入”进来的。**
+
+比如：
+
 ```java
 public class Car{
 	private Engine engine;
@@ -81,7 +93,7 @@ public class Car{
 -  便于独立/并行开发模块化的代码.
 依赖注入相当于给目标调用类提供了一个依赖项的接口，目标类和依赖类可以并行开发自己的模块，不会互相干扰。
 
-## 2、依赖注入的方式
+### 2、依赖注入的方式
 
 通常依赖注入有以下四种方式
 
@@ -128,7 +140,6 @@ public class Car implements EngineInterface {
 
 	public Car() {} {
 	}
-
 }
  ```
 

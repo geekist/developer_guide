@@ -1,12 +1,13 @@
 
+# Java Web开发
 
-# 一、Java Web 发展历史
+## 一、Java Web 发展历史
 
 - [Java web 发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
 
-# 二、Java Web 开发
+## 二、Java Web 开发
 
-## 2.1 预备知识
+### 2.1 预备知识
 
 - [Java SDK 介绍](https://github.com/geekist/developer_guide/blob/main/java/java简介.md)
 
@@ -24,7 +25,7 @@
 
 - [Java Web开发层级架构](./server/java_structure.md)
 
-## Spring
+## 三、Spring
 
 - [Spring介绍](https://github.com/geekist/developer_guide/blob/main/server/spring.md)
 
