@@ -14,7 +14,7 @@
 
 - [Jar包介绍2](https://github.com/geekist/developer_guide/blob/main/server/jar2.md)
 
-- [Spring IOC介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_ioc.md)
+
 
 - [Maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 
@@ -24,15 +24,25 @@
 
 - [Java Web开发层级架构](./server/java_structure.md)
 
-# 三、用SpringBoot开发JavaWeb应用
+## Spring
 
-## 3.1 Spring 介绍
+- [Spring介绍](https://github.com/geekist/developer_guide/blob/main/server/spring.md)
 
-- [Spring介绍](https://www.w3cschool.cn/wkspring/)
+- [Spring IOC介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_ioc.md)
+
+- [Spring AOP介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_ioc.md)
 
 - [Spring bean介绍](./server/bean.md)
 
 - [Spring注解介绍](./server/spring_annotation_2.md)
+
+
+
+# 三、用SpringBoot开发JavaWeb应用
+
+## 3.1 Spring 介绍
+
+
 
 ## 3.2 Spring Boot 介绍
 
