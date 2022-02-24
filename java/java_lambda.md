@@ -4,13 +4,11 @@
 
 ## Lambda简介
 
-Lambda表达式是Java8中提供的一种新的特性，它支持Java也能进行简单的“函数式编程”，即Lambda允许你通过表达式来代替功能接口，即可使用更少的代码来实现同样的功能。
-
-用官方的解释就是：
-
 A lambda expression is a block of code with parameters.
 
-(Lambda表达式是一个带有参数的表达式)
+lambda表达式是指一小段带有参数的代码。
+
+Lambda表达式是Java8中提供的一种新的特性，它支持Java，也能进行简单的“函数式编程”，即Lambda允许你通过表达式来代替功能接口，即可使用更少的代码来实现同样的功能。
 
 
 ## 添加支持
@@ -99,6 +97,41 @@ x -> {
 ```
 精简到最后只需要一行代码就可以搞定，是不是很方便。
 
+## 函数式接口与lambda表达式
+
+
+### 函数式接口：
+
+函数式接口(Functional Interface)就是一个有且仅有一个抽象方法，但是可以有多个非抽象方法的接口。
+
+例如：
+
+```
+interface GreetingService 
+{
+    void sayMessage(String message);
+}
+
+```
+
+在java中，单方法接口可以用函数式接口来注解。
+```
+@FunctionalInterface
+interface GreetingService 
+{
+    void sayMessage(String message);
+}
+```
+
+
+函数式接口可以被隐式转换为 lambda 表达式。
+
+上述接口，在作为匿名类对象使用时，可以直接转换为lambda表达式： 
+
+```
+GreetingService greetService1 = message -> System.out.println("Hello " + message);
+
+```
 ## 应用
 
 ### 无参数+语句/代码块
