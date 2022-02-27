@@ -56,6 +56,8 @@ Maven
 * [项目构建工具maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 
 
+* [maven配置文件pom.xml介绍](https://github.com/geekist/developer_guide/blob/main/server/pom.md)
+
 * [maven项目的父类模板](./server/maven_parent.md)
 
 Git
