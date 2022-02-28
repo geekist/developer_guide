@@ -59,8 +59,8 @@ NPM是基于node js环境的一个包管理器。试问 为什么单纯的 jsp/p
 下载后按照提示安装即可。
 
 >安装过程中，不要选择安装node工具，否则后续会比较混乱；
->
->使用下载的安装包安装后，不需要配置环境变量，因为已经配置好了；
+>因为此时没有管理员权限，等安装好后，用管理员权限执行buildtools 即可：
+>npm install --global --production windows-build-tools
 
 * Node.js配置环境变量
 
@@ -137,5 +137,60 @@ Vetur支持.vue文件的语法高亮显示，除了支持template模板以外，
 * ESLint 
 
 ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次eslint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。
+
+
+## 六、错误解决办法：
+
+安装好vscode环境后，在项目中执行：
+
+npm install
+
+有时候会出现错误：提示python找不到
+
+![](./assets/python_1.png)
+
+解决办法是：***安装python***
+
+下载python   https://www.python.org/download/releases/2.7/ 
+
+![](./assets/python_2.png)
+
+安装完成后在path中添加系统变量：
+
+![](./assets/python_3.png)
+
+
+如果依然有错误：
+
+```
+npm ERR! gyp ERR! stack Error: `C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe` failed with exit code: 1
+npm ERR! gyp ERR! stack     at ChildProcess.onExit (E:\work\gitee\yuya\frontend\yuya_admin_web\node_modules\node-gyp\lib\build.js:262:23)
+npm ERR! gyp ERR! stack     at ChildProcess.emit (node:events:520:28)
+npm ERR! gyp ERR! stack     at Process.ChildProcess._handle.onexit (node:internal/child_process:291:12)
+npm ERR! gyp ERR! System Windows_NT 10.0.19042
+npm ERR! gyp ERR! command "C:\\Program Files\\nodejs\\node.exe" "E:\\work\\gitee\\yuya\\frontend\\yuya_admin_web\\node_modules\\node-gyp\\bin\\node-gyp.js" "rebuild" "--verbose" "--libsass_ext=" "--libsass_cflags=" "--libsass_ldflags=" "--libsass_library="
+npm ERR! gyp ERR! cwd E:\work\gitee\yuya\frontend\yuya_admin_web\node_modules\node-sass
+```
+
+
+运行npm的build tool 依赖：
+
+***注意：需要在系统工具中找到cmd，右键->以管理员身份运行***
+
+npm install --global --production windows-build-tools --save
+
+如果依然有问题，提示saas错误，
+
+则需要安装node -saas，首先运行node -v，检查node的版本，然后，根据node版本选择：
+
+
+***npm install -g node-sass@6.0.1***
+
+
+
+
+
+
+
 
 
