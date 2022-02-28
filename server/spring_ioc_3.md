@@ -20,38 +20,39 @@
 ```java
 
 @Component
-
-public class MailService {
+public class UserService {
     ...
 }
 ```
 
-这个@Component注解就相当于定义了一个Bean，它有一个可选的名称，默认是mailService，即小写开头的类名。
+这个@Component注解就相当于定义了一个Bean，它有一个可选的名称，默认是userService，即小写开头的类名。
 
-然后，我们给UserService添加一个@Component注解和一个@Autowired注解：
+然后，我们给UserController添加一个@Component注解和一个@Autowired注解：
 
 ```java
 
 @Component
 
-public class UserService {
+public class UserController {
 
     @Autowired
-    MailService mailService;
+    USerService userService;
 
     ...
 }
 
 ```
-使用@Autowired就相当于把指定类型的Bean注入到指定的字段中。和XML配置相比，@Autowired大幅简化了注入，因为它不但可以写在set()方法上，还可以直接写在字段上，甚至可以写在构造方法中：
+使用@Autowired就相当于把指定类型的Bean注入到指定的字段中。
+
+和XML配置相比，@Autowired大幅简化了注入，因为它不但可以写在set()方法上，还可以直接写在字段上，甚至可以写在构造方法中：
 
 ```
 @Component
-public class UserService {
-    MailService mailService;
+public class UserController {
+    UserService userService;
 
-    public UserService(@Autowired MailService mailService) {
-        this.mailService = mailService;
+    public UserController(@Autowired UserService userService) {
+        this.userService = userService;
     }
     ...
 }
@@ -66,7 +67,7 @@ public class UserService {
 public class AppConfig {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        UserService userService = context.getBean(UserService.class);
+        UserController userController = context.getBean(UserController.class);
         User user = userService.login("bob@example.com", "password");
         System.out.println(user.getName());
     }
