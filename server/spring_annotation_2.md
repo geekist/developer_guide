@@ -2,65 +2,61 @@
 # Spring 注解
 
 
-从广义上Spring注解可以分为两类：
+## Spring注解历史
 
-* 一类注解是用于注册Bean
+* Spring1.x时代
 
-假如IOC容器就是一间空屋子，首先这间空屋子啥都没有，我们要吃大餐，我们就要从外部搬运食材和餐具进来。这里把某一样食材或者某一样餐具搬进空屋子的操作就相当于每个注册Bean的注解作用类似。注册Bean的注解作用就是往IOC容器中放（注册）东西！
-
-用于注册Bean的注解： 比如@Component , @Repository , @Controller , @Service , @Configration这些注解就是用于注册Bean，放进IOC容器中，一来交给spring管理方便解耦，二来还可以进行二次使用，啥是二次使用呢？这里的二次使用可以理解为：在你开始从外部搬运食材和餐具进空屋子的时候，一次性搬运了猪肉、羊肉、铁勺、筷子四样东西，这个时候你要开始吃大餐，首先你吃东西的时候肯定要用筷子或者铁勺，别说你手抓，只要你需要，你就会去找，这个时候发现你已经把筷子或者铁勺放进了屋子，你就不用再去外部拿筷子进屋子了，意思就是IOC容器中已经存在，就可以只要拿去用，而不必再去注册！而拿屋子里已有的东西的操作就是下面要讲的用于使用Bean的注解！
-
-1、@controller 控制器（注入服务）
-用于标注控制层，相当于struts中的action层
-
-2、@service 服务（注入dao）
-用于标注服务层，主要用来进行业务的逻辑处理
-
-3、@repository（实现dao访问）
-用于标注数据访问层，也可以说用于标注数据访问组件，即DAO组件.
-
-4、@component （把普通pojo实例化到spring容器中，相当于配置文件中的 
-<bean id="" class=""/>）
-泛指各种组件，就是说当我们的类不属于各种归类的时候（不属于@Controller、@Services等的时候），我们就可以使用@Component来标注这个类。
-
-说明： 
-<context:component-scan base-package=”com.*”> 
-上面的这个例子是引入Component组件的例子，其中base-package表示为需要扫描的所有子包。 
-共同点：被@controller 、@service、@repository 、@component 注解的类，都会把这些类纳入进spring容器中进行管理
-
-一* 类注解是用于使用Bean
-
-用于使用Bean的注解：比如@Autowired , @Resource注解，这些注解就是把屋子里的东西自己拿来用，如果你要拿，前提一定是屋子（IOC）里有的，不然就会报错，比如你要做一道牛肉拼盘需要五头牛做原材料才行，你现在锅里只有四头牛，这个时候你知道，自己往屋子里搬过五头牛，这个时候就直接把屋子里的那头牛直接放进锅里，完成牛肉拼盘的组装。是的这些注解就是需要啥想要啥，只要容器中有就往容器中拿！而这些注解又有各自的区别，比如@Autowired用在筷子上，这筷子你可能只想用木质的，或许只想用铁质的，@Autowired作用在什么属性的筷子就那什么筷子，而@Resource如果用在安格斯牛肉上面，就指定要名字就是安格斯牛肉的牛肉。
+在Spring1.x时代，还没出现注解，需要大量xml配置文件并在内部编写大量bean标签。
 
 
-## @Bean注解概述
+Java5推出新特性annotation，为spring的更新奠定了基础。
 
-本篇文章主要讲的是@Bean注解，这个注解属于用于注册Bean的注解。
+* Spring 2.X
 
-下面这段话部分摘自Spring中为什么要有@Bean注解？
+从Spring 2.X开始spring将xml配置中的对象ioc过程转化成了注解。2.x时代Spring的注解体系有了雏形，属于“过渡时代”，引入了 @Autowired 、 @Controller 这一系列骨架式的注解。不过尚未完全替换XML配置驱动。
 
-Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。 产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。@Bean明确地指示了一种方法，什么方法呢？产生一个bean的方法，并且交给Spring容器管理；从这我们就明白了为啥@Bean是放在方法的注释上了，因为它很明确地告诉被注释的方法，你给我产生一个Bean，然后交给Spring容器，剩下的你就别管了。记住，@Bean就放在方法上，就是让方法去产生一个Bean，然后交给Spring容器。
+* Spring 3.x
+
+Spring 3.x是里程碑式的时代，它引入了配置类@Configuration及@ComponentScan，使我们可以替换XML配置方式，全面拥抱Spring注解，在3.1抽象了一套全新的配置属性API，包括Environment和PropertySources这两个核心API。
+
+* Spring4.X
 
 
+Spring4.X是完善时代，趋于完善，引入了@Conditional（条件化注解），@Repeatable等。
 
-如下就能让accountDao方法产生一个AccountDao 对象，然后这个AccountDao 对象交给Spring管理
+* Spring5.x
+
+当下是5.X时代，是SpringBoot2.0的底层核心框架，变化不大，引入了一个@Indexed注解，以提升应用启动性能的。
+
+
+Spring Boot之所以能够轻松地实现应用的创建及与其他框架快速集成，最核心的原因就在于它极大地简化了项目的配置，最大化地实现了“约定大于配置”的原则。
+
+
+## 替代xml和beans的Spring注解@Configuration和@Bean
+
+### @Bean
+
+Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。 产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。
+
+@Bean注解作用于方法上，就是让方法去产生一个Bean，然后交给Spring容器。
+
+例如：下面的类A中，accountDao方法产生一个AccountDao 对象，然后这个AccountDao 对象交给Spring管理
 
 ```
  class A{
-        @Bean
-        public AccountDao accountDao(){
-            return new AccountDao();
-        }
-    }
+
+     @Bean
+      public AccountDao accountDao(){
+          return new AccountDao();
+      }
+  }
 ```
 
 实际上，@Bean注解和xml配置中的bean标签的作用是一样的。
 
-为什么要有@Bean注解？
+***Q:用于注册Bean的注解的有那么多个，为何还要出现@Bean注解？***
 
-不知道大家有没有想过，用于注册Bean的注解的有那么多个，为何还要出现@Bean注解？
-
-原因很简单：类似@Component , @Repository , @ Controller , @Service 这些注册Bean的注解存在局限性，只能局限作用于自己编写的类，如果是一个jar包第三方库要加入IOC容器的话，这些注解就手无缚鸡之力了，是的，@Bean注解就可以做到这一点！当然除了@Bean注解能做到还有@Import也能把第三方库中的类实例交给spring管理，而且@Import更加方便快捷，只是@Import注解并不在本篇范围内，这里就不再概述。
+@Component , @Repository , @ Controller , @Service 这些注册Bean的注解存在局限性，只能局限作用于自己编写的类，如果是一个jar包第三方库要加入IOC容器的话，这些注解就手无缚鸡之力了，是的，@Bean注解就可以做到这一点！当然除了@Bean注解能做到还有@Import也能把第三方库中的类实例交给spring管理，而且@Import更加方便快捷，只是@Import注解并不在本篇范围内，这里就不再概述。
 
 使用@Bean注解的另一个好处就是能够动态获取一个Bean对象，能够根据环境不同得到不同的Bean对象。
 
@@ -72,13 +68,12 @@ Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Be
 
 3、@Bean注解的另一个好处就是能够动态获取一个Bean对象，能够根据环境不同得到不同的Bean对象。
 
-4、、记住，@Bean就放在方法上，就是让方法去产生一个Bean，然后交给Spring容器，剩下的你就别管了。
+4、@Bean就放在方法上，就是让方法去产生一个Bean，然后交给Spring容器，剩下的你就别管了。
 
 
-## @Configuration
+### @Configuration
 
-
-从Spring3.0，@Configuration用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。
+从Spring3.0，@Configuration用于定义配置类，可替换xml配置文件，等价于在XML中配置beans.被注解的类内部包含有一个或多个被@Bean注解的方法，这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。
 
 注意：@Configuration注解的配置类有如下要求：
 
@@ -92,7 +87,7 @@ Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Be
  * 1、使配置类变成了full类型的配置类，spring在加载Appconfig的时候，Appconﬁg由普通类型转变为cglib代理类型 ，
  * 2、在 @Bean method中使用，是单例的，不会创建对个对象
  */
-@ComponentScan("com.jiagouedu")
+@ComponentScan("com.ytech")
 @Configuration
 public class AppConfig {
 
@@ -119,10 +114,129 @@ public class AppConfig {
 	}
 
 ````
-
 使用@Configuration注解后，在调用方法 fox()创建 fox实例的时候，需要参数 cat，调用方法cat()生成cat实例，此时会去spring的单例bean工厂获取cat的单例bean的实例；
 
- 不使用@Configuration注解，实例化fox的时候，每次都会创建一个新的 cat对象，供实例化fox使用；
+不使用@Configuration注解，实例化fox的时候，每次都会创建一个新的 cat对象，供实例化fox使用；
+
+## @Component和其衍生的SpringMVC注解：@Controller、@Repository、@Service
+
+### @Component注解：标准一个普通的spring Bean类。
+
+```
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Indexed
+public @interface Component {
+    String value() default "";
+}
+```
+
+- `@Component` ：通用的注解，可标注任意类为 `Spring` 组件。如果一个 Bean 不知道属于哪个层，可以使用`@Component` 注解标注。 后面三个注解都是被@Component标注的
+
+```
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface Controller {
+    String value() default "";
+}
+
+```
+
+- `@Repository` : 对应持久层即 Dao 层，主要用于数据库相关操作。
+
+- `@Service` : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao 层。
+
+- `@Controller` : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 Service 层返回数据给前端页面。
+
+### 用@ComponentScan扫描bean
+
+@ComponentScan主要就是定义扫描的路径从中找出标识了需要装配的类自动装配到spring的bean容器中
+
+使用exclude filter来排除某些bean
+
+```
+@ComponentScan(value = "io.mieux",
+        excludeFilters = {@Filter(type = FilterType.ANNOTATION,
+        value = {Controller.class})})
+public class BeanConfig {
+
+}
+```
+
+### Spring核心注解按场景分类
+
+1.模式注解
+
+| Spring注解 |	场景说明	|起始版本 |
+| ---- | ---- | ---- |
+| @Repository | 数据仓储模式注解| 2.0 |
+| @Component | 通用组件模式注解 | 2.5| 
+| @Service | 服务模式注解 | 2.5
+| @Controller | Web 控制器模式注解 | 2.5| 
+| @Configuration | 配置类模式注解	 | 3.0| 
+
+2.装配注解
+
+Spring注解	场景说明	起始版本
+@ImportResource	替代 XML 元素	2.5
+@Import	限定@Autowired 依赖注入范围	2.5
+@componentScan	扫描 指定 package 下标注spring 模式注解的类	3.1
+3.依赖注入注解
+
+Spring注解	场景说明	起始版本
+@Autowired	Bean 依赖注入，支持多种依赖查找方式	2.5
+@Qualifier	细粒度的@Autowired 依赖查找	2.5
+Java注解	场景说明	起始版本
+@Resouece	Bean 依赖注入，仅支持名称依赖查找方式	2.5
+4.Bean 自定义注解
+
+Spring注解	场景说明	起始版本
+@Bean	替代 XML 元素<bean>	3.0
+@DependsOn	替代 XML 属性<bean depends-on="..."/>	3.0
+@Lazy	替代 XML 属性<bean lazy0init="true|falses"/>	3.0
+@Primary	替代 XML 元素<bean primary="true|false"/>	3.0
+@Role	替代 SML 元素<bean role="..."/>	3.1
+@Lookup	替代 XML 属性<bean lookup-method="...">	4.1
+5.条件装配注解
+
+Spring注解	场景说明	起始版本
+@Profile	配置化条件装配	3.1
+@Conditional	编程条件装配	3.1
+配置属性注解
+Spring注解	场景说明	起始版本
+@PropertySource	配置属性抽象 PropertySource	3.1
+@PropertySources	@PropertySource集合注解	4.0
+生命周期回调注解
+Spring注解	场景说明	起始版本
+@PostConstruct	替换 XML 元素<bean init-method="..."/>或 InitializingBean	2.5
+@PreDestroy	替换 XML 元素<bean destroy-method="..." />或 DisposableBean	2.5
+注解属性注解
+Spring注解	场景说明	起始版本
+@AliasFor	别名注解属，实现复用的目的	4.2
+性能注解
+Spring注解	场景说明	起始版本
+@Indexed	提升 spring 模式注解的扫描效率	5.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## @EnableScheduling 开启对定时任务的支持
