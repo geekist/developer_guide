@@ -193,13 +193,13 @@ public class BeanConfig {
 | @Autowired | Bean 依赖注入，支持多种依赖查找方式 | 2.5 |
 | @Qualifier |细粒度的@Autowired 依赖查找 |	2.5 |
 
-| Java注解 | 场景说明	起始版本 |
+| Java注解 | 场景说明  | 起始版本 |
 | ---- | ---- | ---- |
 | @Resouece	| Bean 依赖注入，仅支持名称依赖查找方式 | 2.5 |
 
 4.Bean 自定义注解
 
-|Spring注解	场景说明	起始版本
+|Spring注解 | 场景说明 | 起始版本 | 
 | ---- | ---- | ---- |
 | @Bean | 替代 XML 元素<bean> | 3.0 |
 |@DependsOn | 替代 XML 属性<bean depends-on="..."/> | 3.0 | 
