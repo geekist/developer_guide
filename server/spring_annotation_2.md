@@ -172,53 +172,71 @@ public class BeanConfig {
 
 | Spring注解 |	场景说明	|起始版本 |
 | ---- | ---- | ---- |
-| @Repository | 数据仓储模式注解| 2.0 |
 | @Component | 通用组件模式注解 | 2.5| 
+| @Repository | 数据仓储模式注解| 2.0 |
 | @Service | 服务模式注解 | 2.5
 | @Controller | Web 控制器模式注解 | 2.5| 
 | @Configuration | 配置类模式注解	 | 3.0| 
 
 2.装配注解
 
-Spring注解	场景说明	起始版本
-@ImportResource	替代 XML 元素	2.5
-@Import	限定@Autowired 依赖注入范围	2.5
-@componentScan	扫描 指定 package 下标注spring 模式注解的类	3.1
+| Spring注解 | 场景说明 | 起始版本 |
+| ---- | ---- | ---- |
+| @ImportResource |	替代 XML 元素 | 2.5 |
+| @Import | 限定@Autowired 依赖注入范围 | 2.5 |
+| @componentScan |扫描 指定 package 下标注spring 模式注解的类 | 3.1 |
+
 3.依赖注入注解
 
-Spring注解	场景说明	起始版本
-@Autowired	Bean 依赖注入，支持多种依赖查找方式	2.5
-@Qualifier	细粒度的@Autowired 依赖查找	2.5
-Java注解	场景说明	起始版本
-@Resouece	Bean 依赖注入，仅支持名称依赖查找方式	2.5
+| Spring注解	 | 场景说明 | 起始版本 |
+| ---- | ---- | ---- |
+| @Autowired | Bean 依赖注入，支持多种依赖查找方式 | 2.5 |
+| @Qualifier |细粒度的@Autowired 依赖查找 |	2.5 |
+
+| Java注解 | 场景说明	起始版本 |
+| ---- | ---- | ---- |
+| @Resouece	| Bean 依赖注入，仅支持名称依赖查找方式 | 2.5 |
+
 4.Bean 自定义注解
 
-Spring注解	场景说明	起始版本
-@Bean	替代 XML 元素<bean>	3.0
-@DependsOn	替代 XML 属性<bean depends-on="..."/>	3.0
-@Lazy	替代 XML 属性<bean lazy0init="true|falses"/>	3.0
-@Primary	替代 XML 元素<bean primary="true|false"/>	3.0
-@Role	替代 SML 元素<bean role="..."/>	3.1
-@Lookup	替代 XML 属性<bean lookup-method="...">	4.1
+|Spring注解	场景说明	起始版本
+| ---- | ---- | ---- |
+| @Bean | 替代 XML 元素<bean> | 3.0 |
+|@DependsOn | 替代 XML 属性<bean depends-on="..."/> | 3.0 | 
+|@Lazy | 替代 XML 属性<bean lazy0init="true|falses"/> | 3.0 | 
+|@Primary | 替代 XML 元素<bean primary="true|false"/> | 3.0 | 
+|@Role | 替代 SML 元素<bean role="..."/>	 | 3.1 | 
+|@Lookup | 替代 XML 属性<bean lookup-method="..."> | 4.1 | 
+
 5.条件装配注解
 
-Spring注解	场景说明	起始版本
-@Profile	配置化条件装配	3.1
-@Conditional	编程条件装配	3.1
+|Spring注解	| 场景说明 | 起始版本 |
+| ---- | ---- | ---- |
+|@Profile | 配置化条件装配 | 3.1 | 
+|@Conditional | 编程条件装配 | 3.1 | 
+
 配置属性注解
-Spring注解	场景说明	起始版本
-@PropertySource	配置属性抽象 PropertySource	3.1
-@PropertySources	@PropertySource集合注解	4.0
+| Spring注解 | 场景说明 | 起始版本
+| ---- | ---- | ---- |
+|@PropertySource | 配置属性抽象 PropertySource | 3.1 | 
+|@PropertySources | @PropertySource集合注解 | 4.0 | 
+
 生命周期回调注解
-Spring注解	场景说明	起始版本
-@PostConstruct	替换 XML 元素<bean init-method="..."/>或 InitializingBean	2.5
-@PreDestroy	替换 XML 元素<bean destroy-method="..." />或 DisposableBean	2.5
+
+Spring注解 | 场景说明	起始版本 | 
+| ---- | ---- | ---- |
+|@PostConstruct | 替换 XML 元素<bean init-method="..."/>或 InitializingBean | 2.5 | 
+|@PreDestroy | 替换 XML 元素<bean destroy-method="..." />或 DisposableBean | 2.5 | 
+
 注解属性注解
-Spring注解	场景说明	起始版本
-@AliasFor	别名注解属，实现复用的目的	4.2
+|Spring注解 | 场景说明 | 起始版本 | 
+| ---- | ---- | ---- |
+|@AliasFor | 别名注解属，实现复用的目的 | 4.2 | 
+
 性能注解
-Spring注解	场景说明	起始版本
-@Indexed	提升 spring 模式注解的扫描效率	5.0
+|Spring注解 | 场景说明 | 起始版本 | 
+| ---- | ---- | ---- |
+|@Indexed | 提升 spring 模式注解的扫描效率 | 5.0 | 
 
 
 
