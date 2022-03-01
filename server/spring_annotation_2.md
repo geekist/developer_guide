@@ -223,7 +223,7 @@ public class BeanConfig {
 
 生命周期回调注解
 
-Spring注解 | 场景说明	起始版本 | 
+Spring注解 | 场景说明 | 	起始版本 | 
 | ---- | ---- | ---- |
 |@PostConstruct | 替换 XML 元素<bean init-method="..."/>或 InitializingBean | 2.5 | 
 |@PreDestroy | 替换 XML 元素<bean destroy-method="..." />或 DisposableBean | 2.5 | 
