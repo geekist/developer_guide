@@ -39,6 +39,16 @@
 
 - [Spring boot注解之二：Spring boot](./server/spring_boot_annotation.md)
 
+- [Spring boot注解之三：restful注解和Web注解](./server/annotation_web.md)
+
+- [Spring boot注解之四：读取配置信息的注解](./server/annotation_configuration.md)
+
+- [Spring boot注解之五：参数校验](./server/annotation_validation.md)
+
+- [Spring boot注解之六：异常处理和测试](./server/annotation_exception.md)
+
+- [Spring boot注解之七：数据相关](./server/annotation_database.md)
+
 # 三、用SpringBoot开发JavaWeb应用
 
 ## 3.1 Spring 介绍
