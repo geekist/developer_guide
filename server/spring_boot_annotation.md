@@ -1,10 +1,7 @@
 
-# Spring/Spring Boot 常用注解总结！安排！
+# Spring/Spring Boot 常用注解总结
 
 ### 0.前言
-
-
-
 
 ### 1. `@SpringBootApplication`
 

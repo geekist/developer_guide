@@ -166,6 +166,42 @@ public class BeanConfig {
 }
 ```
 
+### 注入依赖@Autowired和@qualifer
+
+@Autowired
+
+此注解用于bean的field、setter方法以及构造方法上，显式地声明依赖。根据type来autowiring。当在field上使用此注解，并且使用属性来传递值时，Spring会自动把值赋给此field。也可以将此注解用于私有属性(不推荐)，如下。
+
+```
+@Component
+public class User {
+
+@Autowired
+private Address address;
+}
+```
+
+@Qualifier
+
+此注解是和@Autowired一起使用的。使用此注解可以让你对注入的过程有更多的控制。
+
+@Qualifier可以被用在单个构造器或者方法的参数上。当上下文有几个相同类型的bean, 使用@Autowired则无法区分要绑定的bean，此时可以使用@Qualifier来指定名称。
+
+```
+@Component
+public class User {
+
+@Autowired
+@Qualifier("address1")
+private Address address;
+...
+}
+```
+
+@Required
+
+此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入，否则会抛出BeanInitializationExcepion。
+
 ### Spring核心注解按场景分类
 
 1.模式注解
