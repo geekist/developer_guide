@@ -181,6 +181,17 @@
 
 * [6、创建一个业务模块wolf_warrior作为服务的Consumer](./server/spring_cloud_alibaba_5.md)
 
+# 七、Spring Cloud Gateway
+
+* [Gateway：Spring Cloud API网关组件（非常详细）](http://c.biancheng.net/springcloud/gateway.html)
+
+* [SpringCloud gateway （史上最全）](https://www.cnblogs.com/crazymakercircle/p/11704077.html)
+
+* [服务网关 Spring Cloud GateWay 入门](http://www.ityouknow.com/springcloud/2018/12/12/spring-cloud-gateway-start.html)
+
+* [Spring cloud gateway 详解和配置使用（文章较长）](https://blog.csdn.net/qq_38380025/article/details/102968559)
+
+
 # 七、redis介绍
 
 * [redis官网](https://redis.io/)
