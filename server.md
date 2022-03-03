@@ -216,6 +216,8 @@
 
 * [swagger介绍](./server/swagger.md)
 
+* [Spring Cloud Gateway 整合swagger](https://juejin.cn/post/6854573219916201997)
+
 
 
 
