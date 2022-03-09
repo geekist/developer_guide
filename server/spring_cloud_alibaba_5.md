@@ -1,68 +1,5 @@
 
-## 一、创建一个Spring Initializer 的子模块，命名为wolf_warrior；
-
-
-![](./assets/spring_cloud_alibaba_3_1.png)
-
-
-* 修改common的pom.xm文件。
-
-```xml
-
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <artifactId>warrior</artifactId>
-        <groupId>com.ytech</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <groupId>com.ytech</groupId>
-    <artifactId>wolf_warrior</artifactId>
-    <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>wolf_warrior</name>
-    <description>wolf_warrior</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency> <!--添加Web依赖 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-
-```
-
-* 在Spring boot的基础上添加Spring Feign的依赖
+## Feign介绍
 
 
 Feign是Netflix开发的声明式、模板化的HTTP客户端， Feign可以帮助我们更快捷、优雅地调用HTTP API。
@@ -77,6 +14,13 @@ Spring Cloud Feign帮助我们定义和实现依赖服务接口的定义。在Sp
 
 Spring Cloud Feign具备可插拔的注解支持，支持Feign注解、JAX-RS注解和Spring MVC的注解。
 
+## 首先同上一步，创建一个服务，注册到Nacos中
+
+## 添加Feign的依赖
+
+
+
+* 在Spring boot的基础上添加Spring Feign的依赖
 
 ```xml
         <dependency>
@@ -88,7 +32,6 @@ Spring Cloud Feign具备可插拔的注解支持，支持Feign注解、JAX-RS注
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>

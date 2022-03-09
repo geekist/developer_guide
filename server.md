@@ -175,9 +175,9 @@
 
 * [3、安装和启动Nacos](./server/spring_cloud_alibaba_4.md)
 
-* [4、Nacos注册中心](./server/spring_cloud_alibaba_2.md)
+* [4、在Nacos注册中心注册一个服务](./server/spring_cloud_alibaba_2.md)
 
-* [5、创建一个通用模块common作为服务的Provider](./server/spring_cloud_alibaba_3.md)
+* [5、使用Feign来调用已注册的服务](./server/spring_cloud_alibaba_5.md)
 
 * [6、创建一个业务模块wolf_warrior作为服务的Consumer](./server/spring_cloud_alibaba_5.md)
 
