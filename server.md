@@ -175,7 +175,7 @@
 
 * [3、安装和启动Nacos](./server/spring_cloud_alibaba_4.md)
 
-* [4、创建一个Spring Cloud Alibaba的父工程](./server/spring_cloud_alibaba_2.md)
+* [4、Nacos注册中心](./server/spring_cloud_alibaba_2.md)
 
 * [5、创建一个通用模块common作为服务的Provider](./server/spring_cloud_alibaba_3.md)
 
