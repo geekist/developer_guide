@@ -1,292 +1,153 @@
 
-## 一、创建一个Spring Initializer 的子模块，命名为common，对外实现一个restful的接口；
+## SpringCloud Gateway 简介
 
+SpringCloud Gateway 是 Spring Cloud 的一个全新项目，该项目是基于 Spring 5.0，Spring Boot 2.0 和 Project Reactor 等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的 API 路由管理方式。
 
-![](./assets/spring_cloud_alibaba_3_1.png)
+SpringCloud Gateway 作为 Spring Cloud 生态系统中的网关，目标是替代 Zuul，在Spring Cloud 2.0以上版本中，没有对新版本的Zuul 2.0以上最新高性能版本进行集成，仍然还是使用的Zuul 2.0之前的非Reactor模式的老版本。而为了提升网关的性能，SpringCloud Gateway是基于WebFlux框架实现的，而WebFlux框架底层则使用了高性能的Reactor模式通信框架Netty。
 
+Spring Cloud Gateway 的目标，不仅提供统一的路由方式，并且基于 Filter 链的方式提供了网关基本的功能，例如：安全，监控/指标，和限流。
 
-* 修改common的pom.xm文件。
+提前声明：Spring Cloud Gateway 底层使用了高性能的通信框架Netty。
 
-```xml
+## SpringCloud Gateway 特征
 
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+SpringCloud官方，对SpringCloud Gateway 特征介绍如下：
 
-    <parent>
-        <artifactId>warrior</artifactId>
-        <groupId>com.ytech</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+（1）基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0
 
-    <groupId>com.ytech</groupId>
-    <artifactId>common</artifactId>
-    <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>common</name>
-    <description>common</description>
+（2）集成 Hystrix 断路器
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+（3）集成 Spring Cloud DiscoveryClient
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+（4）Predicates 和 Filters 作用于特定路由，易于编写的 Predicates 和 Filters
 
-        <dependency> <!--添加Web依赖 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+（5）具备一些网关的高级功能：动态路由、限流、路径重写
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+从以上的特征来说，和Zuul的特征差别不大。SpringCloud Gateway和Zuul主要的区别，还是在底层的通信框架上。
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+简单说明一下上文中的三个术语：
 
-</project>
+（1）Filter（过滤器）：
+
+和Zuul的过滤器在概念上类似，可以使用它拦截和修改请求，并且对上游的响应，进行二次处理。过滤器为org.springframework.cloud.gateway.filter.GatewayFilter类的实例。
+
+（2）Route（路由）：
+
+网关配置的基本组成模块，和Zuul的路由配置模块类似。一个Route模块由一个 ID，一个目标 URI，一组断言和一组过滤器定义。如果断言为真，则路由匹配，目标URI会被访问。
+
+（3）Predicate（断言）：
+
+这是一个 Java 8 的 Predicate，可以使用它来匹配来自 HTTP 请求的任何内容，例如 headers 或参数。断言的输入类型是一个 ServerWebExchange。
+
+## 在项目中引入Sprint Cloud Gateway
+
+### 新建一个工程，并引入Gateway的依赖
+
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
 
 ```
 
-* 实现一个User类
-
-```java
-
-package com.ytech.common.model;
-
-public class User {
-    private String id;
-    private String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
+### 将自己注册为一个spring coloud的服务
 
 ```
-
-* 实现一个Service
-
-```java
-
-package com.ytech.common.service;
-
-import com.ytech.common.model.User;
-
-public interface UserService {
-    public User getUser();
-}
-
-```
-
-```java
-
-package com.ytech.common.service.impl;
-
-import com.ytech.common.model.User;
-import com.ytech.common.service.UserService;
-import org.springframework.stereotype.Service;
-
-@Service
-public class UserServiceImpl implements UserService {
-    public User getUser() {
-        User user = new User();
-        user.setId("1234");
-        user.setName("Hello,I am Jonbates");
-        return user;
-    }
-}
-
-```
-
-* 实现一个Controller
-
-```java
-
-package com.ytech.common.controller;
-
-import com.ytech.common.model.User;
-import com.ytech.common.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping("/api/v1")
-public class UserController {
-    @Autowired
-    private UserService userService;
-
-    @GetMapping(value = "/user")
-    public ResponseEntity<Object> getProduct() {
-        User user = userService.getUser();
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-}
-
-```
-
-* 编译后运行，在浏览器输入：***http://localhost:8080/api/v1/user***
-
-![](./assets/common_1.png)
-
-## 二、将common模块注册为Nacos的一个服务
-
-* 为common模块添加nacos依赖
-
-```xml
-
- <dependency>
-     <groupId>com.alibaba.cloud</groupId>
-     <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
- </dependency>
-
-```
-
-完整的pom.xml文件如下所示：
-
-```xml
-
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <artifactId>warrior</artifactId>
-        <groupId>com.ytech</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <groupId>com.ytech</groupId>
-    <artifactId>common</artifactId>
-    <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>common</name>
-    <description>common</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency> <!--添加Web依赖 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-
-
-```
-
-
-* 配置文件application.yml：
-
-```yml
-
-server:
-  port: 18762
-
-spring:
-  application:
-    name: common
-
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-```
-
-在上述的配置的中，程序的启动端口为18762，应用名为common，向nacos server注册的地址为127.0.0.1:8848。
-
-* 配置application文件，添加@EnableDiscoveryClient的注解
-
-然后在Spring Boot的启动文件Application加上@EnableDiscoveryClient注解，代码如下：
-
-```java
-
-package com.ytech.common;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-
-@SpringBootApplication
 @EnableDiscoveryClient
-public class CommonApplication {
+@SpringBootApplication
+public class YychildrenGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CommonApplication.class, args);
+        SpringApplication.run(YychildrenGatewayApplication.class, args);
     }
 
 }
 
+```
+
+### 在配置文件中进行配置
 
 ```
 
-* 在本地浏览器输入：***http://localhost:8848/nacos***
+server:
+  port: 10061
 
-![](./assets/common_2.png)
+spring:
 
-说明common已经成功添加成为nacos的一个服务。
+ application:
+    name: yychildren-gateway
 
+  cloud:
+
+    nacos:
+      discovery:
+        server-addr: @nacos-addr@
+        service:  ${spring.application.name} 
+
+    gateway:
+      - id: yychildren-console
+          uri: lb://yychildren-console  #
+          predicates:
+            - Path=/api/console/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+            
+        - id: yychildren-teacher
+          uri: lb://yychildren-teacher
+          predicates:
+            - Path=/api/teacher/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+
+
+        - id: yychildren-parent
+          uri: lb://yychildren-parent
+          predicates:
+            - Path=/api/parent/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+
+
+        - id: yychildren-core
+          uri: lb://yychildren-core
+          predicates:
+            - Path=/api/core/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+```
+
+下面对一个路由规则做简单的说明：
+
+```
+ - id: yychildren-teacher
+          uri: lb://yychildren-teacher
+          predicates:
+            - Path=/api/teacher/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+
+```
+
+* id
+
+路由 id,没有固定规则，但唯一，建议与服务名对应
+
+* uri: lb://yychildren-teacher
+
+lb：uri 的协议，表示开启 Spring Cloud Gateway 的负载均衡功能。
+
+service-name：服务名，Spring Cloud Gateway 会根据它获取到具体的微服务地址。
+
+predicates:
+     - Path=/api/teacher/**
+
+条件断言，满足网关网址,例如：http://192.168.3.16：10061/api/teacher/**的所有请求，跳转到服务yychild-teacher下。
 
 
 

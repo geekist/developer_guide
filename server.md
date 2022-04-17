@@ -179,7 +179,7 @@
 
 * [5、使用Feign来调用已注册的服务](./server/spring_cloud_alibaba_5.md)
 
-* [6、创建一个业务模块wolf_warrior作为服务的Consumer](./server/spring_cloud_alibaba_5.md)
+* [6、创建一个业务模块wolf_warrior作为服务的Consumer](./server/spring_cloud_alibaba_3.md)
 
 # 七、Spring Cloud Gateway
 
