@@ -1,45 +1,6 @@
 
 ## Linux系统
 
->linux系统中，一切皆文件。所有的操作都是文件操作。
-
->开机会启动许多程序。它们在Windows叫做"服务"（service），在Linux就叫做"守护进
-程"（daemon）。
-
-
-### 开机和关机
-
-在linux领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非
-特殊情况下，不得已才会关机。
-
-* sync 将内存中的数据同步到硬盘中。
-
-关机命令：
-
-* shutdown
-
-hutdown # 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：
-
-shutdown –h 10 # 这个命令告诉大家，计算机将在10分钟后关机
-
-shutdown –h now # 立马关机
-
-hutdown –h 20:25 # 系统会在今天20:25关机
-
-shutdown –h +10 # 十分钟后关机
-
-* poweroff
-
-* halt
-
-重启：
-
-* shutdown –r now # 系统立马重启
-
-* shutdown –r +10 # 系统十分钟后重启
-
-* reboot # 就是重启，等同于 shutdown –r now
-
 ### linux目录结构
 
 ![](./assets/linux_4.png)
