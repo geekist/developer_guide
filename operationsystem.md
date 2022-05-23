@@ -23,7 +23,7 @@ linux 常用命令：
 
 进程命令：
 
-[ps](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/ps.md)
+* [ps](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/ps.md)
 
 * watch
 
@@ -37,7 +37,7 @@ linux 常用命令：
 
 * ls
 
-* [cd](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_cd.md)
+* [cd](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/cd.md)
 
 * pwd
 
