@@ -253,4 +253,21 @@ D:\Java\jdk1.8.0_291\bin>keytool -v -list -keystore D:\work\code\playground\andr
 
 ![](./assets/7.png)
 
+# 六、关于高版本JDK无法显示android应用的MD5值的问题：
+
+高版本java 移除了 这些 Disable MD5 or MD2 signed jars
+
+参见： https://www.java.com/en/jre-jdk-cryptoroadmap.html
+
+解决办法：可以采用其他工具来查看android应用的MD5值
+
+
+`
+https://github.com/skylot/jadx  
+`
+
+//---jadx - Dex to Java decompiler
+
+在github下载该程序后，可以查看apk的签名信息。
+
 
