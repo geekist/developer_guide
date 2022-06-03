@@ -344,9 +344,109 @@ command -options arguments
 
 ## 3、Linux命令相关的shell命令
 
+### type  --显示命令的类别
+
+type 命令是 shell 内部命令，它会显示命令的类别，给出一个特定的命令名（做为参数）。 它像这样工作：
+```
+type command
+```
+"command"是你要检测的命令名
+
+用法：
+```
+[me@linuxbox ~]$ type type
+type is a shell builtins
+
+[me@linuxbox ~]$ type ls
+ls is aliased to `ls --color=tty`
+
+[me@linuxbox ~]$ type cp
+cp is /bin/cp
+```
+
+我们看到这三个不同命令的检测结果。注意，ls 命令（在 Fedora 系统中）的检查结果，ls 命令实际上 是 ls 命令加上选项"--color=tty"的别名。现在我们知道为什么 ls 的输出结果是有颜色的！
+
+### which－ 显示一个可执行程序的位置(只能找到bin目录下的命令）
+
+```
+[me@linuxbox ~]$ which cd
+/usr/bin/which: no cd in
+(/opt/jre1.6.0_03/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/bin:/opt/jre1
+.6.0_03/bin:/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/home/me/bin)
+
+```
 
 
-# 四、文件和目录及操作
+### help－ 得到 shell 内部命令的帮助文档
+
+```
+[me@linuxbox ~]$ help cd
+cd: cd [-L|-P] [dir]
+Change ...
+
+```
+
+### command --help
+
+```
+[me@linuxbox ~]$ mkdir --help
+Usage: mkdir [OPTION] DIRECTORY...
+Create ...
+```
+
+### man－ 显示程序手册页
+
+```
+[me@linuxbox ~]$ man ls
+
+```
+
+## apropos－ 显示适当的命
+
+基于某个关键字的匹配项。虽然很粗糙但有时很有用。 下面是一个以"floppy"为关键词来搜索参考手册的例子：
+
+```
+[me@linuxbox ~]$ apropos floppy
+create_floppy_devices (8) - udev callout to create all possible
+...
+
+```
+### whatis－ 显示非常简洁的命令说明
+
+### info－ 显示程序 Info 条目
+
+## 4、用别名创建自己的命令以及如何删除别名
+
+```
+alias name='string'
+```
+
+在命令"alias"之后，输入“name”，紧接着（没有空格）是一个等号，等号之后是 一串用引号引起的字符串，字符串的内容要赋值给 name。我们定义了别名之后， 这个命令别名可以使用在任何地方。
+
+```
+[me@linuxbox ~]$ alias foo='cd /usr; ls; cd -'
+
+```
+
+```
+[me@linuxbox ~]$ alias 3ks='echo hello world'
+
+```
+
+删除别名：
+
+```
+[me@linuxbox ~]$ unalias foo
+[me@linuxbox ~]$ type foo
+bash: type: foo: not found
+
+```
+
+
+
+
+
+# 五、文件和目录及操作
 
 ## 1、Linux目录结构
 
