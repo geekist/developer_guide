@@ -1,4 +1,4 @@
-　* [一、Linux操作系统介绍](#一linux操作系统介绍)
+* [一、Linux操作系统介绍](#一linux操作系统介绍)
   * [1、Linux简介](#1linux简介)
   * [2\.主要的Linux版本](#2主要的linux版本)
     * [Debian](#debian)
@@ -113,9 +113,6 @@ Linux以它的高效性和灵活性著称。它能够在PC计算机上实现全�
 
 ## 2.主要的Linux版本
 
-
-
-
 由于众多发行版百花齐放，Linux的阵营日益壮大，每一款发行版都拥有一大批用户，开发者自愿为相关项目投入精力。Linux发行版可谓是形形色色，它们旨在满足每一种能想得到的需求。
 ![](./assets/linux_2.png)
 
@@ -229,7 +226,7 @@ SUSE在管理员当中的名气更大，因为它有Yast以及让系统管理员
 
 我们可以使用以下三种命令来关机 Linux ：
 
-* shutdown
+### shutdown
 
 Linux shutdown 命令可以用来进行关机程序，并且在关机以前传送讯息给所有使用者正在执行的程序，shutdown 也可以用来重开机。
 
@@ -279,7 +276,7 @@ e.g:
 
 ```
 
-* halt
+### halt
 
 语法
 
@@ -312,7 +309,7 @@ halt [-n] [-w] [-d] [-f] [-i] [-p]
 ```
 
 
-* poweroff
+### poweroff
 
 poweroff 命令命令用于关闭计算器并切断电源。
 
@@ -344,6 +341,7 @@ poweroff [-n] [-w] [-d] [-f] [-i] [-h]
 Linux reboot命令用于用来重新启动计算机。
 
 
+### reboot 重启系统
 
 语法
 
@@ -403,12 +401,12 @@ Linux系统启动后，会启动终端仿真器，仿真器启动成功后，屏
 如果提示符的最后一个字符是“#”, 而不是“$”, 那么这个终端会话就有超级用户权限。 这意味着，我们或者是
 以 root 用户的身份登录，或者是我们选择的终端仿真器提供超级用户（管理员）权限。
 
-* clear － 清空屏幕
+### clear － 清空屏幕
 
 
-* history － 显示历史列表内容
+### history － 显示历史列表内容
 
-## 5、如何结束当前会话终端：
+## 5、结束当前会话终端 --exit：
 
 我们可以通过关闭终端仿真器窗口，或者是在 shell 提示符下输入 exit 命令来终止一个终端会话：
 
@@ -417,7 +415,7 @@ Linux系统启动后，会启动终端仿真器，仿真器启动成功后，屏
 
 ```
 
-# 四、命令介绍
+# 四、Linux命令介绍
 
 
 ## 1、Linux命令
@@ -548,13 +546,9 @@ bash: type: foo: not found
 
 ```
 
-
-
-
-
 # 五、文件和目录及操作
 
-## 1、Linux目录结构
+## Linux目录结构
 
 类似于 Windows，一个“类 Unix” 的操作系统，比如说 Linux，以分层目录结构来组织所有文件。 这就意味着
 所有文件组成了一棵树型目录（有时候在其它系统中叫做文件夹）， 这个目录树可能包含文件和其它的目录。文
@@ -1465,8 +1459,6 @@ kill信号：
 程，因此它不能被忽略。
 ```
 
-
-
 ### killall – 给匹配特定程序或用户名的多个进程发送终止信号
 
 ```
@@ -1476,9 +1468,299 @@ killall [-u user] [-signal] name...
 
 # 八、网络及操作
 
-# 七、编写shell程序
+## 网络操作常用命令
+
+### ping - 发送 ICMP ECHO_REQUEST 软件包到网络主机
+
+ping 命令发送一个特殊的网络数据包，叫做 IMCP ECHO_REQUEST，到一台指定的主机。大多数接收这个包的网络设备将会回复它，来允许网络连接验证。
+
+```
+[me@linuxbox ~]$ ping linuxcommand.org
+PING linuxcommand.org (66.35.250.210) 56(84) bytes of data.
+64 bytes from vhost.sourceforge.net (66.35.250.210): icmp\_seq=1
+ttl=43 time=107 ms
+64 bytes from vhost.sourceforge.net (66.35.250.210): icmp\_seq=2
+ttl=43 time=108 ms
+64 bytes from vhost.sourceforge.net (66.35.250.210): icmp\_seq=3
+ttl=43 time=106 ms
+64 bytes from vhost.sourceforge.net (66.35.250.210): icmp\_seq=4
+ttl=43 time=106 ms
+64 bytes from vhost.sourceforge.net (66.35.250.210): icmp\_seq=5
+ttl=43 time=105 ms
+```
+
+按下 ctrl c 终止ping命令
 
 
+### traceroute - 打印到一台网络主机的路由数据包
+
+如果没有traceroute命令，可以先安装该命令：
+
+
+```
+yum install traceroute
+```
+语法：
+
+```
+[me@linuxbox ~]$ traceroute slashdot.org
+```
+输出结果：
+
+```
+traceroute to slashdot.org (216.34.181.45), 30 hops max, 40 bytepackets
+1 ipcop.localdomain (192.168.1.1) 1.066 ms 1.366 ms 1.720 ms
+2 * * *
+3 ge-4-13-ur01.rockville.md.bad.comcast.net (68.87.130.9) 14.622ms 14.885 ms 15.169 ms
+4 po-30-ur02.rockville.md.bad.comcast.net (68.87.129.154) 17.634ms 17.626 ms 17.899 ms
+5 po-60-ur03.rockville.md.bad.comcast.net (68.87.129.158) 15.992ms 15.983 ms 16.256 ms
+6 po-30-ar01.howardcounty.md.bad.comcast.net (68.87.136.5) 22.835
+
+```
+
+### netstat - 打印网络连接，路由表，接口统计数据，伪装连接，和多路广播成员
+
+### ftp - 因特网文件传输程序
+
+### wget - 非交互式网络下载器
+
+### ssh - OpenSSH SSH 客户端（远程登录程序）
+
+
+# 九、shell环境及配置
+
+## 如何建立 shell 环境？
+当我们登录系统后，启动 bash 程序，并且会读取一系列称为启动文件的配置脚本， 这些文件定义了默认的可供所有用户共享的 shell 环境。然后是读取更多位于我们自己家目录中 的启动文件，这些启动文件定义了用户个人的 shell 环境。精确的启动顺序依赖于要运行的 shell 会话 类型。有两种 shell 会话类型：一个是登录 shell 会话，另一个是非登录 shell 会话。
+
+登录 shell 会话会提示用户输入用户名和密码；例如，我们启动一个虚拟控制台会话。
+
+
+当我们在 GUI 模式下 运行终端会话时，非登录 shell 会话会出现。
+
+## 启动文件实例：
+
+```
+# .bash_profile
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin
+export PATH
+```
+## 查看shell环境变量--printenv
+
+
+# 十、常用工具
+
+## 1、软件包管理
+
+软件包管理是指系统中一种安装和维护软件的方法。我们将查看一些用于包管理的命令行工具。，大多数发行版分别属于两大包管理技术阵营： Debian的".deb"，和红帽的".rpm"。也有一些重要的例外，比方说 Gentoo， Slackware，和 Foresight，但大多数会使用这两个基本系统中的一个。
+
+
+Linux 系统中几乎所有的软件都可以在互联网上找到。其中大多数软件由发行商以 包文件的形式提供，剩下的则以源码形式存在，可以手动安装。
+
+
+在包管理系统中软件的基本单元是包文件。包文件是一个构成软件包的文件压缩集合。一个软件包 可能由大量程序以及支持这些程序的数据文件组成。除了安装文件之外，软件包文件也包括 关于这个包的元数据，如软件包及其内容的文本说明。另外，许多软件包还包括预安装和安装后脚本， 这些脚本用来在软件安装之前和之后执行配置任务。
+
+软件包文件是由软件包维护者创建的，他通常是（但不总是）一名软件发行商的雇员。软件维护者 从上游提供商（程序作者）那里得到软件源码，然后编辑源码，创建软件包元数据以及所需要的 安装脚本。通常，软件包维护者要把所做的修改应用到最初的源码当中，来提高此软件与 Linux 发行版其它部分的融合性。
+
+大多数软件包是由发行商和感兴趣 的第三方创建的。系统发行版的用户可以在一个中心资源库中得到这些软件包，这个资源库可能 包含了成千上万个软件包，每一个软件包都是专门为这个系统发行版建立和维护的。
+
+## 2、上层和底层软件包工具
+
+
+软件包管理系统通常由两种工具类型组成：
+
+底层工具用来处理这些任务，比方说安装和删除软件包文件。 
+
+上层工具，完成元数据搜索和依赖解析。
+
+在这一章中，我们将看一下由 Debian 风格的系统 （比如说 Ubuntu，还有许多其它系统）提供的工具，还有那些由 Red Hat 产品使用的工具。虽然所有基于 Red Hat 风格的发行版都依赖于相同的底层程序（rpm）, 但是它们却使用不同的上层工具。我们将研究上层程序 yum 供我们讨论，Fedora, Red Hat 企业版，和 CentOs 都是使用 yum。
+
+## 3、常用的软件包命令
+
+### yum search  查找资源库中的软件包
+
+```
+yum search emacs
+
+```
+### yum install 从资源库中下载并安装程序
+
+```
+yum install package_name
+
+```
+
+### yum update 通过资源库来更新软件包
+
+```
+yum update
+
+```
+
+
+### yum erase package_name 卸载软件
+
+```
+yum erase package_name
+
+```
+
+
+### rpm -i package_file 通过软件包文件来安装软件
+
+```
+rpm -i package_file
+
+```
+
+### rpm -qa 显示安装到系统中的所有软件包列表：
+
+```
+rpm -qa
+
+```
+
+### rpm -q packagename 是否安装了制定的软件包
+
+```
+rpm -q nginx
+
+```
+
+## 2、归档和备份
+
+
+### tar命令介绍
+
+tar 本质上只是一个打包命令，可以将多个文件或者文件夹打包到一个 tar 文件中，结合其他的压缩程序再将打包后的档案文件压缩。所以看到 .tar.gz, .tar.bz2, .tar.xz 等等文件其实是 tar 文件之后进行 Gzip, Bzip2, XZ 压缩之后的文件。
+
+命令格式：
+
+```
+tar [-] A --catenate --concatenate | c --create | d --diff --compare |
+     --delete | r --append | t --list | --test-label | u --update | x
+     --extract --get [options] [pathname ...]
+```
+
+tar 命令常用参数
+
+```
+-c      创建 archive
+-x      解压文件
+-f ARCHIVE      使用该 ARCHIVE
+-v      输出 verbose 日志
+-t      测试压缩文件内容
+-z, --gzip, --gunzip,  gzip 格式
+-j  支持 bzip2 格式
+
+```
+
+
+常见的压缩和解压用法
+
+* 打包
+
+将/folder目录下所有文件打包成为filenaem.tar文件。
+
+```
+tar -cvf filename.tar /folder    
+```
+
+* 反打包
+
+解压filename.tar文件到当前目录下。
+
+```
+tar -xvf filename.tar            # 解压包
+```
+
+* 压缩
+
+将/folder目录下所有文件打包并压缩
+
+```
+tar -zcvf filename.tar.gz /folder # gzip 压缩
+```
+
+* 解压缩
+
+在当前目录下解压缩包
+
+```
+tar -zxvf filename.tar.gz         # 当前目录下解压文件
+```
+
+其他的压缩方式
+
+```
+压缩解压 bzip2 / bz2
+
+tar -jcvf filename.tar.bz2 /folder # bzip2 压缩
+
+tar -jxvf filename.tar.bz2 -C /path # 解压
+
+压缩解压 tar.xz
+
+tar -Jcvf filename.tar.xz /folder  # xz 压缩
+
+tar -Jxvf filename.tar.xz          # 解压
+
+```
+
+
+解释
+
+```
+-c 表示创建
+-x 表示解压
+-t 表示查看压缩包内容
+
+  注意 c/x/t 三个参数不能同时使用
+
+-v 表示打印出日志
+-j 表示 bzip2 压缩方法
+-J 表示 xz 压缩方法
+-z 表示 gzip 压缩方法
+-f ARCHIVE 后面接文件，-f 后面需要直接接压缩包名
+
+经过上面的解释，可以习惯上可以记忆成 压缩格式 (z/j/J) + 压缩 / 解压 / 查看 (c/x/t) + v + f 文件名
+```
+## 3、编译程序
+
+## 编译和链接
+
+编译就是把源码（一个由程序员编写的人类可读的程序描述）翻译成计算机处理器的母语的过程。用高级语言编写的程序，经过另一个称为编译器的程序的处理，会转换成机器语言。一些编译器把 高级指令翻译
+成汇编语言，然后使用一个汇编器完成翻译成机器语言的最后阶段。
+
+一个称为链接的过程经常与编译结合在一起。有许多程序执行的常见任务。以打开文件为例。许多程序执行这个任务， 但是让每个程序实现它自己的打开文件功能，是很浪费资源的。更有意义的是，拥有单独的一段知道如何打开文件的程序， 并允许所有需要它的程序共享它。对常见任务提供支持由所谓的库完成。这些库包含多个程序，每个程序执行 一些可以由多个程序共享的常见任务。如果我们看一下 /lib 和 /usr/lib 目录，我们可以看到许多库定居在那里。 一个叫做链接器的程序用来在编译器的输出结果和要编译的程序所需的库之间建立连接。这个过程的最终结果是 一个可执行程序文件，准备使用。
+
+## 解释
+
+有些程序比如 shell 脚本就不需要编译。它们直接执行。 这些程序是用所谓的脚本或解释型语言编写的。近年来，这些语言变得越来越流行，包括 Perl， Python，PHP，Ruby，和许多其它语言。
+
+脚本语言由一个叫做解释器的特殊程序执行。一个解释器输入程序文件，读取并执行程序中包含的每一条指令。
+
+通常来说，解释型程序执行起来要比编译程序慢很多。这是因为每次解释型程序执行时，程序中每一条源码指令都需要翻译， 而一个编译程序，一条源码指令只翻译一次，翻译后的指令会永久地记录到最终的执行文件中。
+
+那么为什么解释型程序这样流行呢？对于许多编程任务来说，原因是“足够快”，但是真正的优势是一般来说开发解释型程序 要比编译程序快速且容易。通常程序开发需要经历一个不断重复的写码，编译，测试周期。随着程序变得越来越大， 编译阶段会变得相当耗时。解释型语言删除了编译步骤，这样就加快了程序开发。
+
+
+## 编译一个 C 语言
+
+让我们编译一些东西。在我们行动之前，然而我们需要一些工具，像编译器，链接器，还有 make。 在 Linux 环境中，普遍使用的 C 编译器叫做 gcc（GNU C 编译器），最初由 Richard Stallman 写出来的。 大多数 Linux系统发行版默认不安装 gcc。我们可以这样查看该编译器是否存在：
+
+```
+[me@linuxbox ~]$ which gcc
+/usr/bin/gcc
+```
+
+源代码中包含makefile文件，我们通常在该目录下执行make既可以将程序编译成二进制文件使用。
+
+# 十一、编写shell程序
 
 
 
