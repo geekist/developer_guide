@@ -77,7 +77,7 @@ Nginx是一个跨平台服务器，可以运行在Linux，Windows，FreeBSD，So
 
 正向代理对我们是透明的，对服务端是非透明的，即服务端并不知道自己收到的是来自代理的访问还是来自真实客户端的访问。
 
-![正向代理](https://github.com/geekist/developer_guide/blob/main/nginx/assets/delegate.png)
+
 
 **反向代理**
 
@@ -86,6 +86,8 @@ Nginx是一个跨平台服务器，可以运行在Linux，Windows，FreeBSD，So
 反向代理是为服务端服务的，反向代理可以帮助服务器接收来自客户端的请求，帮助服务器做请求转发，负载均衡等。
 
 反向代理对服务端是透明的，对我们是非透明的，即我们并不知道自己访问的是代理服务器，而服务器知道反向代理在为他服务。
+
+![正向代理](https://github.com/geekist/developer_guide/blob/main/nginx/assets/delegate.png)
 
 ## Nginx负载均衡
 
@@ -162,11 +164,84 @@ nginx -s reload
 
 ## window环境下Nginx的安装和卸载
 
-
-
 nginx在windows下免安装，直接运行即可
 
 ## linux环境下Nginx的安装和卸载
+
+### 彻底卸载nginx
+
+* step1：查看是否有正在运行的nginx进程,如果有，则停滞nginx
+
+```
+ps -ef|grep nginx
+
+```
+停止nginx 服务,在nginx的目录下执行
+
+```
+./nginx -s stop
+```
+
+* step2:查找nginx的所有相关目录
+
+```
+which nginx
+```
+
+```
+[root@localhost ~]# whereis nginx
+nginx: /usr/local/nginx
+```
+
+```
+[root@localhost ~]# find / -name nginx
+/var/spool/mail/nginx
+/usr/local/nginx
+/usr/local/nginx/sbin/nginx
+
+```
+
+* step3:对找到的目录删除相关文件
+
+```
+[root@localhost ~]# rm -rf /usr/local/nginx
+[root@localhost ~]# rm -rf /usr/local/nginx/sbin/nginx
+[root@localhost ~]# rm -rf /var/spool/mail/nginx
+
+```
+
+* step4:使用yum清理
+
+```
+[root@localhost ~]# yum remove nginx
+Loaded plugins: fastestmirror
+No Match for argument: nginx
+No Packages marked for removal
+```
+
+### 使用yum命令从云应用仓库下载并安装nginx
+
+```
+$ sudo yum -y install nginx   # 安装 nginx
+```
+
+如果没有配置EPEL仓库，可以先运行下面的命令来完成安装：
+```
+sudo yum install epel-release
+
+```
+
+安装成功后，默认的网站目录为： /usr/share/nginx/html
+
+默认的配置文件为：/etc/nginx/nginx.conf
+
+自定义配置文件目录为: /etc/nginx/conf.d/
+
+此时，nginx已经被添加到了环境变量中，可以直接在任意路径下使用。
+
+### 从
+
+
 
 # 三、启动和停止nginx
 
