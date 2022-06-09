@@ -400,6 +400,36 @@ reboot [-n] [-w] [-d] [-f] [-i]
 # reboot
 ```
 
+### 查看系统版本号：
+
+```
+[root@geekist local]# lsb_release -a
+LSB Version:    :core-4.1-amd64:core-4.1-noarch
+Distributor ID: AlibabaCloud
+Description:    Alibaba Cloud Linux release 3 (Soaring Falcon)
+Release:        3
+Codename:       SoaringFalcon
+[root@geekist local]#
+```
+
+### 查看Linux内核版本
+
+uname -a
+
+```
+[root@geekist local]# uname -r
+5.10.23-5.al8.x86_64
+
+```
+
+### 查看CPU内核数：
+
+```
+grep ^processor /proc/cpuinfo | wc -l
+```
+
+
+
 # 三、shell介绍
 
 ## 1、shell
@@ -503,6 +533,184 @@ cp is /bin/cp
 ```
 
 我们看到这三个不同命令的检测结果。注意，ls 命令（在 Fedora 系统中）的检查结果，ls 命令实际上 是 ls 命令加上选项"--color=tty"的别名。现在我们知道为什么 ls 的输出结果是有颜色的！
+
+### find 在指定目录中搜索文件
+
+ind 是 Linux 中强大的搜索命令，不仅可以按照文件名搜索文件，还可以按照权限、大小、时间、inode 号等来搜索文件。但是 find 命令是直接在硬盘中进行搜索的，如果指定的搜索范围过大，find命令就会消耗较大的系统资源，导致服务器压力过大。所以，在使用 find 命令搜索时，不要指定过大的搜索范围。
+
+格式：
+
+```
+[root@localhost ~]#find 搜索路径 [选项] 搜索内容
+
+```
+
+常用的选项：
+
+```
+-mount, -xdev : 只检查和指定目录在同一个文件系统下的文件，避免列出其它文件系统中的文件
+
+-amin n : 在过去 n 分钟内被读取过
+
+-anewer file : 比文件 file 更晚被读取过的文件
+
+-atime n : 在过去 n 天内被读取过的文件
+
+-cmin n : 在过去 n 分钟内被修改过
+
+-cnewer file :比文件 file 更新的文件
+
+-ctime n : 在过去 n 天内创建的文件
+
+-mtime n : 在过去 n 天内修改过的文件
+
+-empty : 空的文件-gid n or -group name : gid 是 n 或是 group 名称是 name
+
+-ipath p, -path p : 路径名称符合 p 的文件，ipath 会忽略大小写
+
+-name name, -iname name : 文件名称符合 name 的文件。iname 会忽略大小写
+
+-size n : 文件大小 是 n 单位，b 代表 512 位元组的区块，c 表示字元数，k 表示 kilo bytes，w 是二个位元组。
+
+-type c : 文件类型是 c 的文件。
+
+d: 目录
+
+c: 字型装置文件
+
+b: 区块装置文件
+
+p: 具名贮列
+
+f: 一般文件
+
+l: 符号连结
+
+s: socket
+
+-pid n : process id 是 n 的文件
+
+```
+
+例子：
+
+```
+在当前目录中查找文件：
+
+find test.c
+
+在主目录下查找文件：
+
+find /home -name test
+
+使用名称和忽略案例查找文件：
+
+find /home -iname test
+
+使用名称查找目录：
+find -type f -name "*.php"
+
+查找权限为777的文件
+
+find -type f -perm 0777 -print
+
+查找没有777权限的文件
+
+find / -type f ! -perm 777
+
+查找具有644权限的SGID文件
+
+find / perm 2644
+
+查找具有551权限的文件
+
+find / -perm 2664
+
+查找SUID文件
+ find / -perm /u=s
+
+查找SGID文件
+
+find / -perm /u=s
+
+查找只读文件
+
+find / -perm /u=r
+
+查找可执行文件
+
+find / -perm /a=x
+
+查找所有777权限的和用户，并用chmod命令将权限设置为644
+find / -type -perm 777 -print -exec chmod 755 {} \;
+
+查找并删除单个文件
+
+find -type f -name "test.c" -exec rm -f {} \;
+
+查找并删除多个文件：
+
+find -type f -name "*.txt" -exec rm -f {} \;
+
+查找所有空文件：
+
+find / tmp -type f -empty
+
+查找所有空目录：
+
+find / tmp -type d -empty
+
+查找所有隐藏文件
+
+find /tmp -type f -name ".*"
+
+查找root/目录下名为test.c的所有单个文件：
+
+find / -user root -name test.c
+
+查找~目录下属于用户neil的所有文件：
+
+find ~ -user neil
+
+查找/home目录下属于Group Developer的所有文件
+
+find /home -group developer
+
+查找~目录下的用户neil的所有txt文件
+
+find ~ -user neil -iname "*.c"
+
+查找50天后台修改的所有文件
+
+find /-user root -name test.c
+
+查找最近50天访问的文件
+
+find / -atime 50
+
+查找40-100天修改的文件件
+
+find / -mtime +50 -mtime -100
+
+在过去1小时内更新的所有文件
+
+find / -cmin -60
+
+查找所有50MB的文件
+
+find / -size 50M
+
+查找大小在50MB到100MB之间的文件
+find / -size +50M -size -100M
+
+查找并删除100M的文件
+find / -size + 100M -exec rm -rf {} \;
+
+查找大小超过10M的所有MP3文件，并删除
+
+find / -type f -name *.mpe -size + 10M -exec rm {} \;
+
+```
 
 ### which 显示一个可执行程序的位置(只能找到bin目录下的命令）
 

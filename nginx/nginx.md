@@ -239,15 +239,424 @@ sudo yum install epel-release
 
 此时，nginx已经被添加到了环境变量中，可以直接在任意路径下使用。
 
-### 从
+### 从源代码编译安装nginx
 
+* step1：首先从nginx官网下载压缩包，nginx-1.22.0.tar.gz，然后使用ftp工具等，将nginx上传到linux。
 
+```
+cd /usr/local
+
+mkdir nginx
+
+cd nginx
+```
+
+* step2：安装GCC与dev库
+
+```
+GCC编译器:yum install gcc gcc-c++
+
+正则表达式PCRE库:yum install -y pcre pcre-devel
+
+zlib压缩库:yum install -y zlib zlib-devel
+
+OpenSSL开发库:yum install -y openssl openssl-devel
+```
+
+可以一键安装：
+```
+yum -y install gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
+
+```
+
+* step3:编译Nginx
+
+```
+//进入nginx目录
+cd /usr/local/nginx
+//进入目录
+cd nginx-1.13.7
+//执行命令
+./configure
+//执行make命令
+make
+//执行make install命令
+make install
+```
+至此，nginx安装成功
 
 # 三、启动和停止nginx
 
+## 启动nginx
+
+```
+执行启动命令：
+./nginx                       //启动
+
+```
+
+## 带配置文件的启动
+
+
+```
+./nginx -c conf/nginx.conf
+
+```
+
+## 停止nginx
+
+
+```
+./nginx -s stop
+
+```
+
+## 安全停止nginx
+
+
+```
+./nginx -s quit                
+
+```
+
+## 热启动（修改配置文件后重新启动）
+
+```
+./nginx -s reload 
+
+```
+完整的过程如下：
+
+```
+cd /usr/local/nginx/sbin/     //进入目录
+
+执行启动命令：
+./nginx                       //启动
+
+带参数的启动命令：
+
+./nginx -c conf/nginx.conf
+
+停止nginx
+./nginx -s stop               //停止
+
+安全退出nginx
+./nginx -s quit               //安全退出
+
+nginx热启动，修改了配置文件后，可以使用此方法不停止nginx
+./nginx -s reload            //重载配置文件（修改了配置文件需要执行此命令 比较常用）
+```
+
 # 四、Nginx配置文件介绍
 
-# 无、websocket ssl、gzip等
+## nginx配置文件语法：
+
+* 组成：
+
+
+配置文件由注释行，指令块配置项和一系列指令配置项组成。
+```
+# user nobody;
+worker_processes 4;
+events {
+    worker_connections 1024;
+}
+```
+
+注释行：
+
+字符"#"表示该行是注释行，nginx在读取配置文件时将忽略的文本。
+
+块配置项：
+
+块配置项由一个块配置项名和一对大括号组成。
+
+块配置后面是否带有参数，如location /webstatic {}，取决于解析该配置块的模块。
+
+指令配置项：
+
+每一条指令由配置项名称和值参数组成，值参数可以时一个或多个附加参数，取决于解析该条指令的模块。
+
+指令配置项总是以分号结尾(;)。
+
+* 指令特点
+
+指令都有作用域，如上面例子，worker_connections 只能放在events区块才有意义。
+
+配置块能相互嵌套。在某些情况下不同配置块能够相互嵌套。如在http区段，可以声明一个或多个server区段，server区段又可以插入一个或多个location区段。
+
+最后同样重要的是配置的继承。在一个区段中嵌套其他区段，那么被嵌套的区段会继承其父区段的配置。在嵌套模块中重新声明指令会覆盖该继承。
+
+## nginx 基本模块分类
+
+1、全局块：配置影响nginx全局的指令。一般有运行nginx服务器的用户组，nginx进程pid存放路径，日志存放路径，配置文件引入，允许生成worker process数等。
+
+2、events块：配置影响nginx服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网路连接，开启多个网络连接序列化等。
+
+3、http块：可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type定义，日志自定义，是否使用sendfile传输文件，连接超时时间，单连接请求数等。
+
+4、server块：配置虚拟主机的相关参数，一个http中可以有多个server。
+
+5、location块：配置请求的路由，以及各种页面的处理情况。
+
+## 全局块配置
+
+全局配置主要配置nginx在运行时与具体业务功能（比如http服务或者email服务代理）无关的一些参数，比如工作进程数，运行的身份等。
+
+```
+
+#指定nginx进程使用什么用户启动
+user  www ;
+
+#指定启动多少进程来处理请求，一般情况下设置成CPU的核数，如果开启了ssl和gzip更应该设置成与逻辑CPU数量一样甚至为2倍，可以减少I/O操作。使用grep ^processor /proc/cpuinfo | wc -l查看CPU核数。
+
+worker_processes 4;
+
+
+#worker_cpu_affinity 0001 0010 0100 1000;: 在高并发情况下，通过设置将CPU和具体的进程绑定来降低由于多核CPU切换造成的寄存器等现场重建带来的性能损耗。如
+
+worker_cpu_affinity 0001 0010 0100 1000; 。
+
+#error_log /data/logs/nginx_error.log crit;: error_log是个主模块指令，用来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
+
+error_log  /data/logs/nginx_error.log  crit;
+
+pid指定进程pid文件的位置。
+
+pid /usr/local/webserver/nginx/nginx.pid;:
+
+worker_rlimit_nofile 65535;: 用于指定一个nginx进程可以打开的最多文件描述符数目，这里是65535，需要使用命令“ulimit -n 65535”来设置。
+worker_rlimit_nofile 65535;
+```
+
+**其中比较重要的是工作进程数：如果是4核CPU的话，要换成4**
+
+
+### event模块
+
+events模块主要配置影响nginx服务器或与用户的网络连接
+
+```
+ events{
+  use epoll;
+  worker_connections      65536;
+}
+```
+
+use epoll;
+
+use是个事件模块指令，用来指定Nginx的工作模式。Nginx支持的工作模式有select、poll、kqueue、epoll、rtsig和/dev/poll。其中select和poll都是标准的工作模式，kqueue和epoll是高效的工作模式，不同的是epoll用在Linux平台上，而kqueue用在BSD系统中。
+对于Linux系统，epoll工作模式是首选。在操作系统不支持这些高效模型时才使用select。
+
+worker_connections 65536;
+
+每一个worker进程能并发处理（发起）的最大连接数（包含与客户端或后端被代理服务器间等所有连接数）。
+
+nginx作为反向代理服务器，计算公式 最大连接数 = worker_processes * worker_connections/4，所以这里客户端最大连接数是65536，这个可以增到到8192都没关系，看情况而定，但不能超过后面的worker_rlimit_nofile。
+
+当nginx作为http服务器时，计算公式里面是除以2。进程的最大连接数受Linux系统进程的最大打开文件数限制，在执行操作系统命令ulimit -n 65536后worker_connections的设置才能生效。
+
+
+### http模块
+
+可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。
+
+```
+http{
+  include       mime.types;
+  default_type  application/octet-stream;
+  #charset  gb2312;
+ }
+```
+
+主要配置参数：
+
+```
+include mime.types;
+
+include 是个主模块指令，实现对配置文件所包含的文件的设定，可以减少主配置文件的复杂度。类似于Apache中的include方法。
+
+default_type  application/octet-stream;
+
+default_type属于HTTP核心模块指令，这里设定默认类型为二进制流，也就是当文件类型未定义时使用这种方式，例如在没有配置PHP环境时，Nginx是不予解析的，此时，用浏览器访问PHP文件就会出现下载窗口。
+
+charset gb2312; 
+
+指定客户端编码格式。
+
+server_names_hash_bucket_size 128;
+
+服务器名字的hash表大小。
+
+client_header_buffer_size 32k;
+
+用来指定来自客户端请求头的header buffer 大小。对于大多数请求，1K的缓存已经足够了，如果自定义了消息头或有更大的cookie，可以增大缓存区大小。
+
+large_client_header_buffers 4 128k;
+
+用来指定客户端请求中较大的消息头的缓存最大数量和大小，4为个数，128k为大小，最大缓存为4个128KB。
+
+client_max_body_size 8m;
+
+客户端请求的最大的单个文件字节数。
+
+client_max_body_size 10m;
+
+允许客户端请求的最大单文件字节数。如果有上传较大文件，请设置它的限制值。
+
+client_body_buffer_size 128k;
+
+缓冲区代理缓冲用户端请求的最大字节数。
+
+sendfile on ;
+
+开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，减少用户空间到内核空间的上下文切换。对于普通应用设为 on，如果用来进行下载等应用磁盘IO重负载应用，可设置为off，以平衡磁盘与网络I/O处理速度，降低系统的负载。开启 tcp_nopush on; 和tcp_nodelay on; 防止网络阻塞。
+
+keepalive_timeout 65 :
+
+长连接超时时间，单位是秒，这个参数很敏感，涉及浏览器的种类、后端服务器的超时设置、操作系统的设置，可以另外起一片文章了。长连接请求大量小文件的时候，可以减少重建连接的开销，但假如有大文件上传，65s内没上传完成会导致失败。如果设置时间过长，用户又多，长时间保持连接会占用大量资源。
+
+client_body_timeout 60s;
+
+用于设置客户端请求主体读取超时时间，默认是60s。如果超过这个时间，客户端还没有发送任何数据，nginx将返回Request time out(408)错误。
+
+send_timeout :
+
+用于指定响应客户端的超时时间。这个超时仅限于两个连接活动之间的时间，如果超过这个时间，客户端没有任何活动，Nginx将会关闭连接。
+
+gzip on;
+
+开启gzip压缩输出
+
+gzip_min_length 1k; 
+
+最小压缩文件大小，页面字节数从header头的Content-Length中获取。默认值为0，不管多大页面都压缩，建议设置成大于1K的字节数，小于1K可能会越压越大。
+
+gzip_buffers 4 16k; 
+
+压缩缓冲区，表示申请四个16K的内存作为压缩结果流缓存，默认是申请与原始数据大小相同的内存空间来存储gzip压缩结果。
+
+gzip_http_version 1.1;
+
+ 用于设置识别HTTP协议版本，默认是1.1，目前主流浏览器都已成指出。（默认1.1，前端如果是squid2.5请使用1.0）
+
+gzip_comp_level 6; 压缩等级，1压缩比最小，处理速度最快，9压缩比最大，传输速度快，但是消耗CPU资源。
+
+```
+
+### server模块
+
+http服务上支持若干虚拟主机。每个虚拟主机一个对应的server配置项，配置项里面包含该虚拟主机相关的配置。每个server通过监听地址或端口来区分。
+
+在提供mail服务的代理时，也可以建立若干server。
+
+通常server指令中会包含一条listen指令，用于指定该虚拟服务器将要监听的IP地址和端口。示例如下：
+
+```
+server {
+    listen 127.0.0.1:8080;
+    # 其他配置
+}
+```
+
+如果不填写端口，则采用标准端口。
+
+如果不填写ip地址，则监听所有地址。
+
+如果缺少整条listen指令，则标准端口是80/tcp，默认端口是8000/tcp，由超级用户的权限决定。
+
+如果有多个server配置了相同的ip地址和端口，Nginx会匹配server_name指令与请求头部的host字段。
+
+server_name指令的参数可以是精确的文本、通配符或正则表达式。通配符可以在字符串的头部、尾部或两端包含*，*可以匹配任意字符。Nginx采用Perl格式的正则表达式，以~开头。以下是一个精确匹配的例子：
+
+```
+server {
+    listen      80;
+    server_name example.org www.example.org;
+    ...
+}
+```
+
+如果有多个server_name匹配host字段，Nginx根据以下规则选择第一个相匹配的server处理请求：
+
+精确匹配
+以 * 开始的最长通配符，如 *.example.org
+以 * 结尾的最长通配符，如 mail. *
+第一个匹配的正则表达式（根据在配置文件中出现的先后顺序）
+
+如果找不到任何与host字段相匹配的server_name，Nginx会根据请求端口将其发送给默认的server。默认server就是
+
+配置文件中第一个出现的server，也可以通过default_server指定某个server为默认server
+
+nginx支持三种类型的 虚拟主机配置
+
+* 1、基于ip的虚拟主机, (一个主机绑定多个ip地址)
+
+```
+server{
+  listen       192.168.1.1:80;
+  server_name  localhost;
+}
+
+server{
+  listen       192.168.1.2:80;
+  server_name  localhost;
+}
+
+```
+
+* 2、基于域名的虚拟主机(servername)
+
+```
+#域名可以有多个，用空格隔开
+server{
+  listen       80;
+  server_name  www.nginx1.com www.nginx2.com;
+}
+
+server{
+  listen       80;
+  server_name  www.nginx3.com;
+}
+
+``` 
+
+* 3、基于端口的虚拟主机(listen不写ip的端口模式)
+
+```
+server{
+  listen       80;
+  server_name  localhost;
+}
+
+server{
+  listen       81;
+  server_name  localhost;
+}
+
+```
+
+### Location 模块
+
+```
+http { 
+  server {
+      listen 80;
+    	server_name www.yayujs.com;
+    	location / {
+      	root /home/www/ts/;
+	      index index.html;
+    	}
+  }
+}
+```
+大致的意思是，当你访问 www.yayujs.com 的 80 端口的时候，返回 /home/www/ts/index.html 文件。
+
+
+
+
+
+# 五、其他配置、websocket ssl、gzip等
 
 ## [Linux环境下Nginx安装和配置](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_install_linux.md)
 
