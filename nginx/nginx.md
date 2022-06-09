@@ -292,7 +292,6 @@ make install
 ```
 执行启动命令：
 ./nginx                       //启动
-
 ```
 
 ## 带配置文件的启动
@@ -300,7 +299,6 @@ make install
 
 ```
 ./nginx -c conf/nginx.conf
-
 ```
 
 ## 停止nginx
@@ -308,7 +306,6 @@ make install
 
 ```
 ./nginx -s stop
-
 ```
 
 ## 安全停止nginx
@@ -316,14 +313,12 @@ make install
 
 ```
 ./nginx -s quit                
-
 ```
 
 ## 热启动（修改配置文件后重新启动）
 
 ```
 ./nginx -s reload 
-
 ```
 完整的过程如下：
 
@@ -404,29 +399,36 @@ events {
 全局配置主要配置nginx在运行时与具体业务功能（比如http服务或者email服务代理）无关的一些参数，比如工作进程数，运行的身份等。
 
 ```
-
-#指定nginx进程使用什么用户启动
 user  www ;
 
-#指定启动多少进程来处理请求，一般情况下设置成CPU的核数，如果开启了ssl和gzip更应该设置成与逻辑CPU数量一样甚至为2倍，可以减少I/O操作。使用grep ^processor /proc/cpuinfo | wc -l查看CPU核数。
+#指定nginx进程使用什么用户启动
 
 worker_processes 4;
 
+#指定启动多少进程来处理请求，一般情况下设置成CPU的核数，如果开启了ssl和gzip更应该设置成与逻辑CPU数量一样甚至为2倍，可以减少I/O操作。使用grep ^processor /proc/cpuinfo | wc -l查看CPU核数。
+
+
+
+worker_cpu_affinity 0001 0010 0100 1000; 
 
 #worker_cpu_affinity 0001 0010 0100 1000;: 在高并发情况下，通过设置将CPU和具体的进程绑定来降低由于多核CPU切换造成的寄存器等现场重建带来的性能损耗。如
 
-worker_cpu_affinity 0001 0010 0100 1000; 。
 
-#error_log /data/logs/nginx_error.log crit;: error_log是个主模块指令，用来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
 
 error_log  /data/logs/nginx_error.log  crit;
 
+#error_log /data/logs/nginx_error.log crit;: error_log是个主模块指令，用来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
+
+
+
+
+pid /usr/local/webserver/nginx/nginx.pid;
+
 pid指定进程pid文件的位置。
 
-pid /usr/local/webserver/nginx/nginx.pid;:
-
-worker_rlimit_nofile 65535;: 用于指定一个nginx进程可以打开的最多文件描述符数目，这里是65535，需要使用命令“ulimit -n 65535”来设置。
 worker_rlimit_nofile 65535;
+
+worker_rlimit_nofile 65535;用于指定一个nginx进程可以打开的最多文件描述符数目，这里是65535，需要使用命令“ulimit -n 65535”来设置。
 ```
 
 **其中比较重要的是工作进程数：如果是4核CPU的话，要换成4**
@@ -567,6 +569,7 @@ server {
 
 如果有多个server配置了相同的ip地址和端口，Nginx会匹配server_name指令与请求头部的host字段。
 
+server_name:
 server_name指令的参数可以是精确的文本、通配符或正则表达式。通配符可以在字符串的头部、尾部或两端包含*，*可以匹配任意字符。Nginx采用Perl格式的正则表达式，以~开头。以下是一个精确匹配的例子：
 
 ```
