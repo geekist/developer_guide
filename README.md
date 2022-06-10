@@ -35,6 +35,8 @@
 
 * [如何生成GitHubMarkdown文件的目录](./tools/tools.md)
 
+* [正则表达式](./regex.md)
+
 正则表达式（regular expression）
 
 * [正则表达式-维基百科](https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)
