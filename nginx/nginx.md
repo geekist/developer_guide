@@ -641,6 +641,12 @@ server{
 
 ### Location 模块
 
+#### location功能
+
+location是Nginx中的块级指令(block directive),location指令的功能是用来匹配不同的url请求，进而对请求做不同的处理和响应。nginx用请求URI与location中配置的URI做匹配。
+
+例如：
+
 ```
 http { 
   server {
@@ -653,9 +659,312 @@ http {
   }
 }
 ```
+
 大致的意思是，当你访问 www.yayujs.com 的 80 端口的时候，返回 /home/www/ts/index.html 文件。
 
+#### localtion 语法
 
+location有两种匹配规则：
+
+匹配URL类型，有四种参数可选，当然也可以不带参数。
+```
+location [ = | ~ | ~* | ^~ ] uri { … }
+```
+
+命名location，用@标识，类似于定于goto语句块。
+
+```
+location @name { … }
+```
+
+location匹配参数解释：
+
+（1） “=” ，精确匹配
+
+```
+内容要同表达式完全一致才匹配成功
+location = /abc/ {
+  .....
+ }
+        
+# 只匹配http://abc.com/abc
+#http://abc.com/abc [匹配成功]
+#http://abc.com/abc/index [匹配失败]
+```
+
+（2） “~”，执行正则匹配，区分大小写。
+
+```
+location ~ /Abc/ {
+  .....
+}
+
+#http://abc.com/Abc/ [匹配成功]
+#http://abc.com/abc/ [匹配失败]
+```
+
+（3）“~*”，执行正则匹配，忽略大小写
+
+```
+location ~* /Abc/ {
+  .....
+}
+
+# 则会忽略 uri 部分的大小写
+#http://abc.com/Abc/ [匹配成功]
+#http://abc.com/abc/ [匹配成功]
+```
+
+（4）“^~”，表示普通字符串匹配上以后不再进行正则匹配。
+
+```
+location ^~ /index/ {
+  .....
+}
+#以 /index/ 开头的请求，都会匹配上
+#http://abc.com/index/index.page  [匹配成功]
+#http://abc.com/error/error.page [匹配失败]
+```
+
+（5）不加任何规则时，默认是大小写敏感，前缀匹配，相当于加了“~”与“^~”
+
+```
+location /index/ {
+  ......
+}
+#http://abc.com/index  [匹配成功]
+#http://abc.com/index/index.page  [匹配成功]
+#http://abc.com/test/index  [匹配失败]
+#http://abc.com/Index  [匹配失败]
+```
+
+（6）“@”，nginx内部跳转
+
+```
+location /index/ {
+  error_page 404 @index_error;
+}
+
+location @index_error {
+  .....
+}
+#以 /index/ 开头的请求，如果链接的状态为 404。则会匹配到 @index_error 这条规则上。
+```
+
+
+#### location匹配顺序
+
+```
+= > ^~ > ~ | ~* > 最长前缀匹配 > /
+```解释：
+
+* 序号越小优先级越高
+ 
+* 最高优先级 location =    # 精准匹配
+
+
+* 第二优先级 location ^~   # 带参前缀匹配
+
+
+* 第三优先级 location ~    # 正则匹配（区分大小写）
+
+
+* 第四优先级 location ~*   # 正则匹配（不区分大小写）
+
+
+* 第五优先级 location /a   # 普通前缀匹配，优先级低于带参数前缀匹配。
+
+* 第六优先级 location /    # 任何没有匹配成功的，都会匹配这里处理
+
+例子：
+
+```
+location = /  {
+#规则A
+}
+
+location = /login {
+#规则B
+}
+
+location ^~ /static/ {
+#规则C
+}
+
+location ~ \.(gif|jpg|png|js|css)$ {
+#规则D
+}
+
+location ~* \.png$ {
+#规则E
+}
+
+location !~ \.xhtml$ {
+#规则F
+}
+
+location !~* \.xhtml$ {
+#规则G
+}
+
+location / {
+#规则H
+}
+
+```
+
+```
+访问根目录/， 比如http://localhost/ 将匹配规则A
+
+访问 http://localhost/login 将匹配规则B，http://localhost/register 则匹配规则H
+
+访问 http://localhost/static/a.html 将匹配规则C
+
+访问 http://localhost/b.jpg 将匹配规则D和规则E，但是规则D顺序优先，规则E不起作用， 而 http://localhost/static/c.png 则优先匹配到 规则C
+
+访问 http://localhost/a.PNG 则匹配规则E， 而不会匹配规则D，因为规则E不区分大小写。
+
+访问 http://localhost/a.xhtml 不会匹配规则F和规则G，http://localhost/a.XHTML不会匹配规则G，因为不区分大小写。规则F，规则G属于排除法，符合匹配规则但是不会匹配到。
+
+访问 http://localhost/qll/id/1111 则最终匹配到规则H，因为以上规则都不匹配。
+```
+
+
+#### root index 、alias和return
+
+* root
+
+root指令用于指定网站的根目录。
+
+* index
+
+index 指令用于设置网站的默认首页。
+
+除了用在location，index还可以使用在http、server块中。
+
+* alias
+
+root和alias都可以用来定义网站的根目录，但alias不会追加location匹配到的部分，
+
+例如：
+
+```
+ location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+ }
+
+当nginx接收到：nginx主机IP/helloworld/hello.html时，
+
+首先根据location的匹配规则，大小写敏感的前缀匹配方式，"/" 匹配上后，匹配剩余的部分"helloworld/hello.html"会追加到root的后面，通过root + location 的方式来返回：
+
+nginx主机IP/usr/share/nginx/html/helloworld/hello.html
+
+当nginx收到nginx主机IP/时，
+
+采用root + index 的方式，nginx主机IP/usr/share/nginx/html/index.html
+```
+
+使用root和alias的区别：
+
+```
+#不基于正则
+location / {
+    #root /usr/share/nginx/html;
+    alias /usr/share/nginx/html;
+    index index.html index.htm;
+}
+
+#基于正则
+location ~ /helloworld/.*\.png$
+    #root /usr/share/nginx/html/helloworld;
+    alias /usr/share/nginx/html/helloworld;
+    index index.html;
+}
+
+不基于正则的时候，使用http://192.168.48.131/test/a.png来测试：
+
+使用root时，访问的资源路径是/usr/share/nginx/html/test/a.png，会把匹配到的/和test/a.png追加到root指定的路径之后。
+使用alias时，访问的资源路径是/usr/share/nginx/htmltest/a.png，你会看到它并没有携带上匹配的/，而是把test/a.png追加到了alias路径之后。
+
+
+在location是正则表达式的时候，使用http://192.168.48.131/helloworld/helloworld/a.png来测试：
+
+使用root时，访问的资源路径是/usr/share/nginx/html/helloworld/helloworld/a.png，会把pattern部分直接追加到root指定的路径之后。
+使用alias时，访问的资源路径是/usr/share/nginx/html/helloworld，没错，就是alias的绝对路径，它不会把正则表达式部分追加到alias指定的路径之后。
+```
+
+#### return
+
+使用return可以返回数据或资源文件的路径
+
+语法格式如下：
+
+```
+return 响应码 [响应的数据]
+
+return 资源文件路径
+
+当return只有响应码的时候，如果抛出的响应码在error_page中有，那么会返回error_page的响应，比如return 500;
+
+```
+
+#### proxy_pass
+
+proxy_pass用于设置被代理服务器的地址，可以是主机名称（https://www.baidu.com这样的）、IP地址(域名加端口号)的形式。
+
+
+
+假设请求：http://localhost/online/wxapi/test/loginSwitch
+
+* 第一种情况：proxy_pass结尾有IP+port+/
+
+```
+location /online/wxapi/ {
+        proxy_pass http://localhost:8080/;
+        proxy_set_header X-Real-IP $remote_addr;
+}
+```
+proxy_pass后面有斜杠，则拼接不包含前缀：
+
+代理后的实际地址：http://localhost:8080/test/loginSwitch
+
+* 第二种情况: proxy_pass最后没有/
+```
+location /online/wxapi/ {
+        proxy_pass http://localhost:8080;
+        proxy_set_header X-Real-IP $remote_addr;
+}
+```
+IP+Port：拼接包含前缀
+
+代理后的实际地址：http://localhost:8080/online/wxapi/test/loginSwitch
+
+* 第三种情况:proxy_pass最后有/web
+
+```
+location /online/wxapi/ {
+        proxy_pass http://localhost:8080/web;
+        proxy_set_header X-Real-IP $remote_addr;
+}
+```
+
+IP+Port+/+web，最后没有斜杠，拼接不包含前缀，剩余部分，可能会单词拼接；
+
+代理后的实际地址：http://localhost:8080/webtest/loginSwitch
+
+注意：因为是拼接剩余部分，所以路径中可能有单个词的拼接，比如webtest
+
+* 第四种情况 proxy_pass最后有/web/
+
+location /online/wxapi/ {
+        proxy_pass http://localhost:8080/web/;
+        proxy_set_header X-Real-IP $remote_addr;
+}
+
+IP+Port+/+web + /，最后有斜杠，拼接不包含前缀
+
+代理后的实际地址：http://localhost:8080/web/test/loginSwitch
 
 
 
