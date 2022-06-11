@@ -1,3 +1,49 @@
+* [一、Nginx介绍](#一nginx介绍)
+  * [Nginx是什么](#nginx是什么)
+  * [Nginx的架构](#nginx的架构)
+  * [Nginx的特性](#nginx的特性)
+    * [Nginx的基本特性](#nginx的基本特性)
+    * [Nginx Web的服务特性](#nginx-web的服务特性)
+  * [Nginx反向代理](#nginx反向代理)
+  * [Nginx负载均衡](#nginx负载均衡)
+  * [Nginx的工作模式](#nginx的工作模式)
+  * [Nginx热部署](#nginx热部署)
+  * [Nginx学习资源](#nginx学习资源)
+* [二、Nginx的安装和卸载](#二nginx的安装和卸载)
+  * [window环境下Nginx的安装和卸载](#window环境下nginx的安装和卸载)
+  * [linux环境下Nginx的安装和卸载](#linux环境下nginx的安装和卸载)
+    * [彻底卸载nginx](#彻底卸载nginx)
+    * [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
+    * [从源代码编译安装nginx](#从源代码编译安装nginx)
+* [三、启动和停止nginx](#三启动和停止nginx)
+  * [启动nginx](#启动nginx)
+  * [带配置文件的启动](#带配置文件的启动)
+  * [停止nginx](#停止nginx)
+  * [安全停止nginx](#安全停止nginx)
+  * [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
+* [四、Nginx配置文件介绍](#四nginx配置文件介绍)
+  * [nginx配置文件语法：](#nginx配置文件语法)
+  * [nginx 基本模块分类](#nginx-基本模块分类)
+  * [全局块配置](#全局块配置)
+    * [event模块](#event模块)
+    * [http模块](#http模块)
+    * [server模块](#server模块)
+      * [listen指令](#listen指令)
+      * [server\_name:](#server_name)
+    * [Location 模块](#location-模块)
+      * [location功能](#location功能)
+      * [localtion语法](#localtion语法)
+      * [location匹配顺序](#location匹配顺序)
+      * [root命令index命令alias和return命令](#root命令index命令alias和return命令)
+      * [return指令](#return指令)
+      * [proxy\_pass](#proxy_pass)
+* [五、Nginx日志配置](#五nginx日志配置)
+  * [Nginx的访问日志](#nginx的访问日志)
+  * [Nginx的错误日志](#nginx的错误日志)
+* [六、其他配置、websocket ssl、gzip等](#六其他配置websocket-sslgzip等)
+
+
+
 
 # 一、Nginx介绍
 
@@ -758,7 +804,9 @@ location @index_error {
 
 ```
 = > ^~ > ~ | ~* > 最长前缀匹配 > /
-```解释：
+```
+
+解释：
 
 * 序号越小优先级越高
  
@@ -815,6 +863,8 @@ location / {
 
 ```
 
+假设：
+
 ```
 访问根目录/， 比如http://localhost/ 将匹配规则A
 
@@ -831,8 +881,7 @@ location / {
 访问 http://localhost/qll/id/1111 则最终匹配到规则H，因为以上规则都不匹配。
 ```
 
-
-#### root index 、alias和return
+#### root命令index命令alias和return命令
 
 * root
 
@@ -896,7 +945,7 @@ location ~ /helloworld/.*\.png$
 使用alias时，访问的资源路径是/usr/share/nginx/html/helloworld，没错，就是alias的绝对路径，它不会把正则表达式部分追加到alias指定的路径之后。
 ```
 
-#### return
+#### return指令
 
 使用return可以返回数据或资源文件的路径
 
@@ -970,7 +1019,7 @@ IP+Port+/+web + /，最后有斜杠，拼接不包含前缀
 
 但是，如果location是正则表达式，则上述不正确，参见yuya的config
 
-# Nginx日志配置
+# 五、Nginx日志配置
 
 
 可以应用access_log指令的作用域分别有http，server，location
@@ -978,7 +1027,7 @@ IP+Port+/+web + /，最后有斜杠，拼接不包含前缀
 ## Nginx的访问日志
 
 ```
-# 设置访问日志
+设置访问日志
 access_log on
 access_log path 样式;  
 ```
@@ -1020,27 +1069,4 @@ error_log logs/error.log error;
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-# 五、其他配置、websocket ssl、gzip等
-
-## [Linux环境下Nginx安装和配置](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_install_linux.md)
-
-## [Windows环境下Nginx安装和配置](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_install.md)
-
-## [nginx配置文件详解](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_config.md)
-
-## [nginx使用gzip压缩](./nginx_gzip.md)
-
-## [YuYa_Nginx配置](https://github.com/geekist/developer_guide/blob/main/nginx/yuya_nginx_conf.md)
-
-## [nginx常用命令和疑难问题解决](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_command.md)
-
+# 六、其他配置、websocket ssl、gzip等
