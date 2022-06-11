@@ -1,63 +1,12 @@
 
-## yuya_nginx_conf
+#yuya_nginx.conf_20220611
 
-```java
-
-#----------------------------------------------------------------------------
-#配置服务器用户（组）的指令是user
-#user user [group]
-#第一个user是指令
-#第二个user是指定可以运行Nginx服务器的用户
-#group是可选项，指定可以运行服务器的用户组
-#只有设置的用户或用户组才有权限启动Nginx服务进程。
-
-#如果未配置或配置设置为
-#user nobody nobody;
-#表示所有用户都可以启动Nginx进程
-#---------------------------------end of explaination -----------------------
 #user  nobody;
-
-
-
-#------------------------------------------------------------------------------------
-#worker process 是Nginx服务器实现并发处理服务的关键所在。
-#从理论上讲值越大，可以支持的并发处理也越多。但实际还要受软件本身、操作系统本身的资源和能力、硬件设备等限制。
-
-#配置方式如下：
-
-#worker_process number | auto
-#number表示指定nginx进程最多可以产生的worker process 数量
-#auto表示nginx进程自动检测
-
-#在默认配置中woker_process 配置为1
-#---------------------------------end of explaination -----------------------
-
 worker_processes  1;
-
-#----------------------------------------------------------------------------------------
-#错误日志配置
-在全局块，http块和server块都可以对nginx服务器的日志进行相关的配置。此处只介绍全局块下的日志存放配置。
-从默认配置中可以看到，使用指令error_log即可以配置日志的输出 并且可以指定日志级别
-
-error_log file | stderr [debug | info | notice | warn | error | crit | alert | emerg]
-#--------------------------------end of explaination ---------------------------------
 
 #error_log  logs/error.log;
 #error_log  logs/error.log  notice;
 #error_log  logs/error.log  info;
-
-#--------------------------------------------------------------------------------------
-#进程PID设置
-#nginx进程作为系统的守护进程运行，我们需要在某个文件中板寸当前运行程序的主进程号。
-#默认启动nginx服务器，进程pid默认放在nginx安装目录下的logs目录下的，名字为nginx.pid。
-
-
-#nginx.pid文件可以通过在主配置文件中通过pid指令配置到其他位置并修改名字
-#如以下配置：
-
-#该配置还是指向默认的位置，但是可以自定义修改。
-#并且该指令只能在全局块中配置。
-#--------------------------------end of explaination ---------------------------------
 
 #pid        logs/nginx.pid;
 
@@ -83,9 +32,26 @@ http {
     #keepalive_timeout  0;
     keepalive_timeout  65;
 
-    client_max_body_size 10m;
+    client_max_body_size 50m;
     #gzip  on;
-     
+     proxy_intercept_errors on;
+     fastcgi_intercept_errors on;
+
+    
+# 开启gzip
+gzip  on;
+# 启用gzip压缩的最小文件，小于设置值的文件将不会压缩
+gzip_min_length 1k;
+# gzip 压缩级别，1-10，数字越大压缩的越好，也越占用CPU时间。一般设置1和2
+gzip_comp_level 2;
+# 进行压缩的文件类型。javascript有多种形式。其中的值可以在 mime.types 文件中找到。
+gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+# 是否在http header中添加Vary: Accept-Encoding，建议开启
+gzip_vary on;
+# 禁用IE 6 gzip
+gzip_disable "MSIE [1-6]\.";
+# 设置缓存路径并且使用一块最大100M的共享内存，用于硬盘上的文件索引，包括文件名和请求次数，每个文件在1天内若不活跃（无请求）则从硬盘上淘汰，硬盘缓存最大10G，满了则根据LRU算法自动清除缓存。
+proxy_cache_path /var/cache/nginx/cache levels=1:2 keys_zone=imgcache:100m inactive=1d max_size=10g;
 
   server {
     listen 443 ssl;
@@ -103,13 +69,29 @@ http {
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #表示使用的TLS协议的类型。
     ssl_prefer_server_ciphers on;
       location ~ .* {
-            root /data/website/yuya_web/src;
+	    if ( $host = 'html5.iyuya.com' ) {
+                root /data/html5;
+
+            } 
+	    
+            if ( $host != 'html5.iyuya.com' ) {
+                root /data/website/yuya_web/src;
+
+            }
+            #root /data/website/yuya_web/src;
             index  index.html index.htm;
             if (!-e $request_filename) {
                 rewrite ^/(.*) /index.html last;
                 break;
                 }
         }
+       location ^~ /api/ {
+                rewrite  ^/api/(.*)$ /$1 break;
+                #proxy_pass   http://127.0.0.1:50011;
+                proxy_pass http://teacher.iyuya.com;
+        }
+
+
 
     }
 
@@ -126,9 +108,10 @@ http {
         gzip_types application/javascript text/css text/xml;
         gzip_disable "MSIE [1-6]\."; #配置禁用gzip条件，支持正则。此处表示ie6及以下不启用gzip（因为ie低版本不支持）
         gzip_vary on;
-	
+		
 	rewrite ^(.*)$ https://$host$1; #将所有HTTP请求通过rewrite指令重定向到HTTPS。
         location ~ .* {
+
             root /data/website/yuya_web/src;
             index  index.html index.htm;
             if (!-e $request_filename) {
@@ -136,6 +119,13 @@ http {
                 break;
                 }
         }
+
+	location /api {
+            rewrite ^/api/(.*)$ /$1 break;
+            proxy_pass http://8.136.150.121:50011;
+
+          }
+
 
     location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
       expires 30d;
@@ -159,33 +149,64 @@ http {
    	 listen 80;
          server_name biz.iyuya.com;
     	 access_log /data/wwwlogs/access_nginx.log combined;
-    	 root /var/yuya/yuya_admin/yuya-admin/src/main/resources/static;
-	 #root /var/oldyuya/yuya-biz/yuya-admin/src/main/resources/static;    	 
-#error_page 404 /404.html;
-    	 #error_page 502 /502.html;
-    	 location /nginx_status {
-      	 stub_status on;
-      	 access_log off;
-      	 allow 127.0.0.1;
-      	 deny all;
-    }
-    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
-      expires 30d;
-      access_log off;
-    }
-    location ~ .*\.(js|css)?$ {
-      expires 7d;
-      access_log off;
+         root   /home/web;
+
+    	 error_page 404 500 502 503 504  /502.html;
+    	 
+         location = /502.html {
+            root   /data/maintain; # 页面所在的文件夹位置，注意是文件夹位置，而不是页面路径
+         } 
+
+	location /api {
+            rewrite ^/api/(.*)$ /$1 break;
+            proxy_pass http://8.136.150.121:60011;
+
+          }
+        
+         location / {
+            try_files $uri $uri/ /index.html;
+          }
+
+
     }
 
-    location ~ {
-      proxy_pass http://127.0.0.1:8077;
-      include proxy.conf;
+
+server {
+    listen 60011;
+    server_name teacher.qilaimi.com;
+    access_log /data/wwwlogs/access_nginx.log combined;
+    root /var/yuya/teachers/target/yuya-release/yuya/webapp;
+    #error_page 404 /404.html;
+    #error_page 502 /502.html;
+
+                location ~* ^(/v2|/webjars|/swagger-resources|/swagger-ui.html|/doc.html)   {
+         proxy_pass http://127.0.0.1:60012;
+       #index index.html index.htm;
+       client_max_body_size 300m;
     }
-    	location ~ ^/(\.user.ini|\.ht|\.git|\.svn|\.project|LICENSE|README.md) {
-      		deny all;
-  	  }
-    }
+
+
+       location /websocket {
+     proxy_pass http://127.0.0.1:60012;
+     #注意：使用代理地址时末尾记得加上斜杠"/"。
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_read_timeout 600s;
+
+   }
+
+
+
+    location /  {
+                proxy_pass http://127.0.0.1:60012;
+      #index index.html index.htm;
+      client_max_body_size 300m;
+         }
+  }
+
+
+
     #===============老师模块 =========================== 
     server {
     	listen 80;
@@ -211,7 +232,7 @@ http {
       		access_log off;
     	}
     	location ~ {
-      		proxy_pass http://127.0.0.1:8088;
+      		proxy_pass http://127.0.0.1:50011;
       		include proxy.conf;
     	}
     		location ~ ^/(\.user.ini|\.ht|\.git|\.svn|\.project|LICENSE|README.md) {
@@ -243,7 +264,7 @@ http {
       		access_log off;
        }
        location ~ {
-      		proxy_pass http://127.0.0.1:8089;
+      		proxy_pass http://127.0.0.1:50011;
       		include proxy.conf;
        }
        location ~ ^/(\.user.ini|\.ht|\.git|\.svn|\.project|LICENSE|README.md) {
@@ -276,11 +297,12 @@ http {
       		access_log off;
        }
        location ~ {
-      		proxy_pass http://127.0.0.1:8099;
+      		proxy_pass http://127.0.0.1:50011;
       		include proxy.conf;
        }
        location ~ ^/(\.user.ini|\.ht|\.git|\.svn|\.project|LICENSE|README.md) {
       		deny all;
+
        }
    }
 
@@ -288,27 +310,24 @@ http {
     #===============教案中心/家长课堂H5 =========================== 
     server {
         listen       80;
-        server_name  html5.qilaimi.com;
+        server_name  html5.iyuya.com;
+	
+	 location  ^~ /api/ {
+                   proxy_pass   http://8.136.150.121:50011/;
+     }
 
-
+	
       	location ~ .* {
             root /data/html5;
             index  index.html index.htm;
             if (!-e $request_filename) {
                 rewrite ^/(.*) /index.html last;
                 break;
-                }
+             }
+	    
+           # return 702;
         }
 
-        location ^~ /api/parent/ {
-                rewrite  ^/api/(.*)$ /$1 break;
-                proxy_pass   http://127.0.0.1:8089;
-        }
-
-        location ^~ /api/teacher/ {
-               rewrite  ^/api/(.*)$ /$1 break;
-               proxy_pass   http://127.0.0.1:8088;
-        }
 
         location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
                 expires 30d;
@@ -360,6 +379,3 @@ http {
     #}
 
 }
-
-
-```

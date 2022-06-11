@@ -90,6 +90,9 @@ Git
 
 * 阿里云报告ddos病毒的处理
 
+* [Nginx配置讲解](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
+
+* [YuYaEnginx配置](https://github.com/geekist/developer_guide/blob/main/nginx/yuya_nginx_conf.md)
 
 
 ## [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
