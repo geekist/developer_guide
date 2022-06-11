@@ -1,6 +1,7 @@
 
-#yuya_nginx.conf_20220611
+# yuya_nginx_conf_20220611
 
+```
 #user  nobody;
 worker_processes  1;
 
@@ -379,3 +380,5 @@ server {
     #}
 
 }
+
+```
