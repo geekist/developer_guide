@@ -675,31 +675,38 @@ location @name { … }
 
 location匹配参数解释：
 
-（1） “=” ，精确匹配
+（1） “=” ，匹配后面的字符串，要求路径完全匹配
 
 ```
-内容要同表达式完全一致才匹配成功
-location = /abc/ {
-  .....
- }
-        
-# 只匹配http://abc.com/abc
-#http://abc.com/abc [匹配成功]
-#http://abc.com/abc/index [匹配失败]
+server {
+    listen  8099;
+
+    location = /123/ {
+          [......]
+          }
+}
+
+要求：匹配"/123/",要求在路径字段完全匹配；
+
+输入：http://website.com/123匹配，大部分浏览器会默认加斜杠；
+输入：http://website.com/123/?param1&param2匹配，忽略 querystring
+输入：http://website.com/1234/不匹配
 ```
 
-（2） “~”，执行正则匹配，区分大小写。
+（2） “~”，匹配后面的正则匹配表达式，区分大小写。
 
 ```
 location ~ /Abc/ {
   .....
 }
 
+要求： 在路径字典完全匹配“/Abc”
+
 #http://abc.com/Abc/ [匹配成功]
 #http://abc.com/abc/ [匹配失败]
 ```
 
-（3）“~*”，执行正则匹配，忽略大小写
+（3）“~*”，匹配后面的正则表达式，并忽略大小写
 
 ```
 location ~* /Abc/ {
@@ -711,7 +718,7 @@ location ~* /Abc/ {
 #http://abc.com/abc/ [匹配成功]
 ```
 
-（4）“^~”，表示普通字符串匹配上以后不再进行正则匹配。
+（4）“^~”，前缀匹配，匹配之后的正则表达式开头的字符串，如果命中，则其他的location都不执行匹配。
 
 ```
 location ^~ /index/ {
@@ -746,7 +753,6 @@ location @index_error {
 }
 #以 /index/ 开头的请求，如果链接的状态为 404。则会匹配到 @index_error 这条规则上。
 ```
-
 
 #### location匹配顺序
 
@@ -913,7 +919,7 @@ proxy_pass用于设置被代理服务器的地址，可以是主机名称（http
 
 假设请求：http://localhost/online/wxapi/test/loginSwitch
 
-* 第一种情况：proxy_pass结尾有IP+port+/
+* 第一种情况：proxy_pass结尾有`IP+port+/`  ---有杠去除location
 
 ```
 location /online/wxapi/ {
@@ -925,7 +931,7 @@ proxy_pass后面有斜杠，则拼接不包含前缀：
 
 代理后的实际地址：http://localhost:8080/test/loginSwitch
 
-* 第二种情况: proxy_pass最后没有/
+* 第二种情况: proxy_pass最后有：`IP_port`（不带杠)---保留location
 ```
 location /online/wxapi/ {
         proxy_pass http://localhost:8080;
@@ -936,7 +942,7 @@ IP+Port：拼接包含前缀
 
 代理后的实际地址：http://localhost:8080/online/wxapi/test/loginSwitch
 
-* 第三种情况:proxy_pass最后有/web
+* 第三种情况:proxy_pass最后有/web ---去除location，剩余部分拼接
 
 ```
 location /online/wxapi/ {
@@ -961,6 +967,66 @@ location /online/wxapi/ {
 IP+Port+/+web + /，最后有斜杠，拼接不包含前缀
 
 代理后的实际地址：http://localhost:8080/web/test/loginSwitch
+
+但是，如果location是正则表达式，则上述不正确，参见yuya的config
+
+# Nginx日志配置
+
+
+可以应用access_log指令的作用域分别有http，server，location
+
+## Nginx的访问日志
+
+```
+# 设置访问日志
+access_log on
+access_log path 样式;  
+```
+自定义日志格式
+
+```
+log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                  '$status $body_bytes_sent "$http_referer" '
+                  '"$http_user_agent" "$http_x_forwarded_for"';
+                  
+access_log /var/logs/nginx-access.log main;
+server {
+    
+}
+```
+
+按天设置log日志
+
+if ($time_iso8601 ~ "^(\d{4})-(\d{2})-(\d{2})") {
+        set $year $1;
+        set $month $2;
+        set $day $3;
+}
+
+
+ access_log  /var/logs/xxxx/access/xxxxx_xx_access_$year-$month-$day.log  main;
+
+
+
+
+## Nginx的错误日志
+
+日志格式：
+
+```
+error_log file [level];
+Default:
+error_log logs/error.log error;
+
+```
+
+
+
+
+
+
+
+
 
 
 
