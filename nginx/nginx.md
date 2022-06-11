@@ -554,23 +554,6 @@ http服务上支持若干虚拟主机。每个虚拟主机一个对应的server�
 
 通常server指令中会包含一条listen指令，用于指定该虚拟服务器将要监听的IP地址和端口。示例如下：
 
-```
-server {
-    listen 127.0.0.1:8080;
-    # 其他配置
-}
-```
-
-如果不填写端口，则采用标准端口。
-
-如果不填写ip地址，则监听所有地址。
-
-如果缺少整条listen指令，则标准端口是80/tcp，默认端口是8000/tcp，由超级用户的权限决定。
-
-如果有多个server配置了相同的ip地址和端口，Nginx会匹配server_name指令与请求头部的host字段。
-
-server_name:
-server_name指令的参数可以是精确的文本、通配符或正则表达式。通配符可以在字符串的头部、尾部或两端包含*，*可以匹配任意字符。Nginx采用Perl格式的正则表达式，以~开头。以下是一个精确匹配的例子：
 
 ```
 server {
@@ -580,16 +563,28 @@ server {
 }
 ```
 
-如果有多个server_name匹配host字段，Nginx根据以下规则选择第一个相匹配的server处理请求：
+#### listen指令
 
+* 如果不填写端口，则采用标准端口。
+
+* 如果不填写ip地址，则监听所有地址。
+
+* 如果缺少整条listen指令，则标准端口是80/tcp，默认端口是8000/tcp，由超级用户的权限决定。
+
+* 如果有多个server配置了相同的ip地址和端口，Nginx会匹配server_name指令与请求头部的host字段。
+
+#### server_name:
+
+* server_name指令的参数可以是精确的文本、通配符或正则表达式。通配符可以在字符串的头部、尾部或两端包含*，*可以匹配任意字符。Nginx采用Perl格式的正则表达式，以~开头。以下是一个精确匹配的例子：
+
+* 如果有多个server_name匹配host字段，Nginx根据以下规则选择第一个相匹配的server处理请求：
+```
 精确匹配
 以 * 开始的最长通配符，如 *.example.org
 以 * 结尾的最长通配符，如 mail. *
 第一个匹配的正则表达式（根据在配置文件中出现的先后顺序）
-
-如果找不到任何与host字段相匹配的server_name，Nginx会根据请求端口将其发送给默认的server。默认server就是
-
-配置文件中第一个出现的server，也可以通过default_server指定某个server为默认server
+```
+如果找不到任何与host字段相匹配的server_name，Nginx会根据请求端口将其发送给默认的server。默认server就是配置文件中第一个出现的server，也可以通过default_server指定某个server为默认server
 
 nginx支持三种类型的 虚拟主机配置
 
@@ -660,13 +655,14 @@ http {
 }
 ```
 
-大致的意思是，当你访问 www.yayujs.com 的 80 端口的时候，返回 /home/www/ts/index.html 文件。
+大致的意思是，当你访问 www.yayujs.com 的 80 端口的时候，返回/home/www/ts/index.html 文件。
 
-#### localtion 语法
+#### localtion语法
 
 location有两种匹配规则：
 
 匹配URL类型，有四种参数可选，当然也可以不带参数。
+
 ```
 location [ = | ~ | ~* | ^~ ] uri { … }
 ```
