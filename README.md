@@ -69,6 +69,10 @@ Maven
 
  * [Git](https://github.com/geekist/developer_guide/blob/main/git/git.md)
 
+Linux脚本
+
+* [Shell](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
+
 杂项
 
  * [杂项](https://github.com/geekist/developer_guide/blob/main/杂项.md)
