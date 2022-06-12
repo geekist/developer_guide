@@ -64,7 +64,11 @@ Maven
 
 * [maven项目的父类模板](./server/maven_parent.md)
 
-Git
+源代码管理---Git
+
+
+ * [源代码管理工具](https://github.com/geekist/developer_guide/blob/main/git/git.md)
+
 
  * [Git官方文档](https://git-scm.com/book/zh/v2)
 
@@ -77,8 +81,6 @@ Git
  * [Git合并一个分支上的提交到另外一个分支cherry-pick](https://github.com/geekist/developer_guide/blob/main/git/git_cherrypick.md)
 
  * [杂项](https://github.com/geekist/developer_guide/blob/main/杂项.md)
-
- * [源代码管理工具](https://github.com/geekist/developer_guide/blob/main/git/git.md)
 
  * [数据库](https://github.com/geekist/developer_guide/blob/main/database/aliyun_rds.md)
 
