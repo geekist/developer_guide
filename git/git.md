@@ -12,61 +12,66 @@
   * [修改git配置信息](#修改git配置信息)
   * [查看git配置信息](#查看git配置信息)
 * [三、开始使用Git](#三开始使用git)
-  * [将本地目录转换为 Git 仓库；](#将本地目录转换为-git-仓库)
+  * [将本地目录转换为 Git 仓库](#将本地目录转换为-git-仓库)
+    * [1、初始化git仓库（git init）](#1初始化git仓库git-init)
+    * [2、添加文件到git中进行跟踪(git add files)](#2添加文件到git中进行跟踪git-add-files)
+    * [3、将修改好的问题件提交到git中进行管理（git commit）](#3将修改好的问题件提交到git中进行管理git-commit)
   * [克隆现有的仓库](#克隆现有的仓库)
+    * [git clone](#git-clone)
   * [Git本地仓库的目录结构：工作区、暂存区以及 Git数据仓库。](#git本地仓库的目录结构工作区暂存区以及-git数据仓库)
   * [git中文件的三种状态：](#git中文件的三种状态)
   * [Git的工作流程：](#git的工作流程)
   * [Git的远程代码仓库](#git的远程代码仓库)
 * [四、Git常用命令](#四git常用命令)
   * [1、Git基本操作](#1git基本操作)
-    * [<strong>获取Git仓库git init</strong>](#获取git仓库git-init)
-    * [检查当前文件状态](#检查当前文件状态)
-    * [跟踪新文件](#跟踪新文件)
-    * [暂存已修改的文件](#暂存已修改的文件)
-    * [忽略文件](#忽略文件)
-    * [查看已暂存和未暂存的修改](#查看已暂存和未暂存的修改)
-    * [提交更新](#提交更新)
-    * [提交时跳过使用暂存区域](#提交时跳过使用暂存区域)
-    * [移除文件](#移除文件)
-    * [移动文件](#移动文件)
-    * [查看提交历史](#查看提交历史)
-    * [撤销操作\-\-忘提交了文件](#撤销操作--忘提交了文件)
-    * [取消暂存的文件](#取消暂存的文件)
-    * [撤消对文件的修改](#撤消对文件的修改)
+    * [获取Git仓库(git init)](#获取git仓库git-init)
+    * [检查当前文件状态(git status)](#检查当前文件状态git-status)
+    * [跟踪新文件(git add file/files)](#跟踪新文件git-add-filefiles)
+    * [暂存已修改的文件(git add file/files)](#暂存已修改的文件git-add-filefiles)
+    * [忽略文件(\.gitingore)](#忽略文件gitingore)
+    * [查看已暂存和未暂存的修改(git diff)](#查看已暂存和未暂存的修改git-diff)
+    * [提交更新(git commit)](#提交更新git-commit)
+    * [暂存（add）并提交(git commit \-a)](#暂存add并提交git-commit--a)
+    * [移除文件(git rm file)](#移除文件git-rm-file)
+    * [移动文件(git mv file\_from file\_to)](#移动文件git-mv-file_from-file_to)
+    * [查看提交历史(git log)](#查看提交历史git-log)
+    * [重新提交(git commit \-\-amend)](#重新提交git-commit---amend)
+    * [取消暂存的文件(git reset HEAD file)](#取消暂存的文件git-reset-head-file)
+    * [撤消对文件的修改(git checkout \-\-file)](#撤消对文件的修改git-checkout---file)
   * [2、Git分支](#2git分支)
-    * [创建分支](#创建分支)
-    * [分支切换](#分支切换)
-    * [创建分支并切换到该分支](#创建分支并切换到该分支)
-    * [查看分支](#查看分支)
-    * [删除分支](#删除分支)
-    * [分支的合并](#分支的合并)
+    * [创建分支(git branch newbranch)](#创建分支git-branch-newbranch)
+    * [分支切换(git checkout branch)](#分支切换git-checkout-branch)
+    * [创建分支并切换到该分支(git checkout \-b newbranch)](#创建分支并切换到该分支git-checkout--b-newbranch)
+    * [查看分支(git branch)](#查看分支git-branch)
+    * [删除分支(git branch \-d branch)](#删除分支git-branch--d-branch)
+    * [分支的合并(git merge otherbranch)](#分支的合并git-merge-otherbranch)
     * [遇到冲突时的分支合并](#遇到冲突时的分支合并)
   * [3、远程仓库](#3远程仓库)
     * [远程仓库的概念](#远程仓库的概念)
-    * [克隆现有的仓库](#克隆现有的仓库-1)
-    * [查看远程仓库](#查看远程仓库)
-    * [添加远程仓库](#添加远程仓库)
-    * [从远程仓库中抓取与拉取](#从远程仓库中抓取与拉取)
-    * [推送到远程仓库](#推送到远程仓库)
-    * [查看某个远程仓库](#查看某个远程仓库)
-    * [远程仓库的重命名](#远程仓库的重命名)
-    * [远程仓库删除](#远程仓库删除)
+    * [克隆现有的仓库(git clone)](#克隆现有的仓库git-clone)
+    * [查看远程仓库(git remote)](#查看远程仓库git-remote)
+    * [添加远程仓库(git remote add)](#添加远程仓库git-remote-add)
+    * [从远程仓库中抓取与拉取(git fetch)](#从远程仓库中抓取与拉取git-fetch)
+    * [从远程仓库抓取并合并到当前分支(git pull origin)](#从远程仓库抓取并合并到当前分支git-pull-origin)
+    * [推送到远程仓库(git push origin)](#推送到远程仓库git-push-origin)
+    * [查看某个远程仓库(git remote show)](#查看某个远程仓库git-remote-show)
+    * [远程仓库的重命名(git remote rename)](#远程仓库的重命名git-remote-rename)
+    * [远程仓库删除(git remote remove)](#远程仓库删除git-remote-remove)
   * [4、远程分支操作](#4远程分支操作)
     * [远程分支概念](#远程分支概念)
-    * [查看远程分支](#查看远程分支)
-    * [推送远程分支](#推送远程分支)
-    * [拉取远程分支](#拉取远程分支)
-    * [删除远程分支](#删除远程分支)
+    * [查看远程分支(git remote show)](#查看远程分支git-remote-show)
+    * [推送远程分支(git push origin)](#推送远程分支git-push-origin)
+    * [拉取远程分支(git fetch origin)](#拉取远程分支git-fetch-origin)
+    * [拉取远程分支并合并(git pull origin)](#拉取远程分支并合并git-pull-origin)
+    * [删除远程分支(git push origin \-\-delete)](#删除远程分支git-push-origin---delete)
   * [5、标签](#5标签)
-    * [添加标签](#添加标签)
-    * [查看标签](#查看标签)
+    * [添加标签(git tag \-a)](#添加标签git-tag--a)
+    * [查看标签(git tag)](#查看标签git-tag)
   * [6、其他命令](#6其他命令)
-    * [重命名本地分支](#重命名本地分支)
-    * [重命名远程分支](#重命名远程分支)
-    * [清除本地存在但是远程服务器已经删除的分支](#清除本地存在但是远程服务器已经删除的分支)
-
-
+    * [重命名本地分支(git branch \-m)](#重命名本地分支git-branch--m)
+    * [重命名远程分支(删除远程分支、修改本地分支名、推送到远程）](#重命名远程分支删除远程分支修改本地分支名推送到远程)
+    * [清除本地存在但是远程服务器已经删除的分支(git remote purne origin)](#清除本地存在但是远程服务器已经删除的分支git-remote-purne-origin)
+    * [将另外分支上的提交合并到本分支(git cherry\-pick)](#将另外分支上的提交合并到本分支git-cherry-pick)
 
 
 # 一、Git介绍
@@ -259,7 +264,7 @@ John Doe
 # 三、开始使用Git
 
 
-## 将本地目录转换为 Git 仓库；
+## 将本地目录转换为 Git 仓库
 
 进入该项目目录中
 
@@ -267,6 +272,7 @@ John Doe
 $ cd /c/user/my_project
 ```
 
+### 1、初始化git仓库（git init）
 之后执行：
 
 ```
@@ -275,7 +281,12 @@ $ git init
 
 该命令将创建一个名为 .git 的子目录，这个子目录含有你初始化的 Git 仓库中所有的必须文件，这些文件是 Git 仓库的骨干。 但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。 (参见 Git 内部原理 来了解更多关于到底 .git 文件夹中包含了哪些文件的信息。)
 
+
+### 2、添加文件到git中进行跟踪(git add files)
+
 如果在一个已存在文件的文件夹（而非空文件夹）中进行版本控制，你应该开始追踪这些文件并进行初始提交。 可以通过 git add 命令来指定所需的文件来进行追踪，然后执行 git commit ：
+
+### 3、将修改好的问题件提交到git中进行管理（git commit）
 
 ```
 $ git add *.c
@@ -286,6 +297,8 @@ $ git commit -m 'initial project version'
 ## 克隆现有的仓库
 
 如果你想获得一份已经存在了的 Git 仓库的拷贝，比如说，你想为某个开源项目贡献自己的一份力，这时就要用到 git clone 命令。 
+
+### git clone
 
 如果你对其它的 VCS 系统（比如说 Subversion）很熟悉，请留心一下你所使用的命令是"clone"而不是"checkout"。 这是 Git 区别于其它版本控制系统的一个重要特性，Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 
 
@@ -359,7 +372,7 @@ Git 有三种状态，我们的文件可能处于其中之一：
 
 ## 1、Git基本操作
 
-### **获取Git仓库git init**
+### 获取Git仓库(git init)
  
 通常有两种获取 Git 项目仓库的方式：
 
@@ -390,7 +403,7 @@ $ git commit -m 'initial project version'
 
 稍后我们再逐一解释这些指令的行为。 现在，你已经得到了一个存在被追踪文件与初始提交的 Git 仓库。
 
-### 检查当前文件状态
+### 检查当前文件状态(git status)
 
 可以用 git status 命令查看哪些文件处于什么状态。 如果在克隆仓库后立即使用此命令，会看到类似这样的输出：
 
@@ -441,7 +454,7 @@ M  lib/simplegit.rb
 新添加的未跟踪文件前面有 ?? 标记，新添加到暂存区中的文件前面有 A 标记，修改过的文件前面有 M 标记。 输出中有两栏，左栏指明了暂存区的状态，右栏指明了工作区的状态。例如，上面的状态报告显示： README 文件在工作区已修改但尚未暂存，而 lib/simplegit.rb 文件已修改且已暂存。 Rakefile 文件已修，暂存后又作了修改，因此该文件的修改中既有已暂存的部分，又有未暂存的部分。
 
 
-### 跟踪新文件
+### 跟踪新文件(git add file/files)
 
 使用命令 git add 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：
 
@@ -461,7 +474,7 @@ Changes to be committed:
 
 只要在 Changes to be committed 这行下面的，就说明是已暂存状态。 如果此时提交，那么该文件在你运行 git add 时的版本将被留存在后续的历史记录中。 你可能会想起之前我们使用 git init 后就运行了 git add <files> 命令，开始跟踪当前目录下的文件。 git add 命令使用文件或目录的路径作为参数；如果参数是目录的路径，该命令将递归地跟踪该目录下的所有文件。
 
-### 暂存已修改的文件
+### 暂存已修改的文件(git add file/files)
 
 要暂存这次更新，需要运行 git add 命令。 
 
@@ -484,7 +497,7 @@ Changes to be committed:
     modified:   CONTRIBUTING.md
 ```
 
-### 忽略文件
+### 忽略文件(.gitingore)
 
 一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件的模式。 来看一个实际的 .gitignore 例子：
 ```
@@ -540,7 +553,7 @@ doc/**/*.pdf
 
 GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文件列表， 你可以在 https://github.com/github/gitignore 找到它。
 
-### 查看已暂存和未暂存的修改
+### 查看已暂存和未暂存的修改(git diff)
 
 想知道具体修改了什么地方，可以用 git diff 命令。
 >**git diff**
@@ -584,7 +597,7 @@ index 0000000..03902a1
 ```
 
 
-### 提交更新
+### 提交更新(git commit)
 
 现在的暂存区已经准备就绪，可以提交了。 在此之前，请务必确认还有什么已修改或新建的文件还没有 git add 过， 否则提交的时候不会记录这些尚未暂存的变化。 这些已修改但未暂存的文件只会保留在本地磁盘。 所以，每次准备提交前，先用 git status 看下，你所需要的文件是不是都已暂存起来了， 然后再运行提交命令 git commit：
 
@@ -630,7 +643,7 @@ $ git commit -m "Story 182: Fix benchmarks for speed"
 
 请记住，提交时记录的是放在暂存区域的快照。 任何还未暂存文件的仍然保持已修改状态，可以在下次提交时纳入版本管理。 每一次运行提交操作，都是对你项目作一次快照，以后可以回到这个状态，或者进行比较.
 
-### 提交时跳过使用暂存区域
+### 暂存（add）并提交(git commit -a)
 尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤：
 
 ```
@@ -651,7 +664,7 @@ $ git commit -a -m 'added new benchmarks'
 
 看到了吗？提交之前不再需要 git add 文件“CONTRIBUTING.md”了。 这是因为 -a 选项使本次提交包含了所有修改过的文件。 这很方便，但是要小心，有时这个选项会将不需要的文件添加到提交中。
 
-### 移除文件
+### 移除文件(git rm file)
 
 要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 git rm 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。
 
@@ -703,7 +716,7 @@ $ git rm \*~
 
 该命令会删除所有名字以 ~ 结尾的文件。
 
-### 移动文件
+### 移动文件(git mv file_from file_to)
 
 不像其它的 VCS 系统，Git 并不显式跟踪文件移动操作。 如果在 Git 中重命名了某个文件，仓库中存储的元数据并不会体现出这是一次改名操作。 不过 Git 非常聪明，它会推断出究竟发生了什么，至于具体是如何做到的，我们稍后再谈。
 
@@ -734,7 +747,7 @@ $ git add README
 如此分开操作，Git 也会意识到这是一次重命名，所以不管何种方式结果都一样。 两者唯一的区别在于，git mv 是一条命令而非三条命令，直接使用 git mv 方便得多。 不过在使用其他工具重命名文件时，记得在提交前 git rm 删除旧文件名，再 git add 添加新文件名。
 
 
-### 查看提交历史
+### 查看提交历史(git log)
 
 在提交了若干更新，又或者克隆了某个项目之后，你也许想回顾下提交历史。 完成这个任务最简单而又有效的工具是 git log 命令。
 
@@ -761,7 +774,7 @@ Date:   Sat Mar 15 10:31:28 2008 -0700
     first commit
 ```
 
-### 撤销操作--忘提交了文件
+### 重新提交(git commit --amend)
 
 有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选项的提交命令来重新提交：
 
@@ -784,7 +797,7 @@ Note
 当你在修补最后的提交时，与其说是修复旧提交，倒不如说是完全用一个 新的提交 替换旧的提交， 理解这一点非常重要。从效果上来说，就像是旧有的提交从未存在过一样，它并不会出现在仓库的历史中。
 
 
-### 取消暂存的文件
+### 取消暂存的文件(git reset HEAD file)
 
 接下来的两个小节演示如何操作暂存区和工作目录中已修改的文件。 这些命令在修改文件状态的同时，也会提示如何撤消操作。 例如，你已经修改了两个文件并且想要将它们作为两次独立的修改提交， 但是却意外地输入 git add * 暂存了它们两个。如何只取消暂存两个中的一个呢？ git status 命令提示了你：
 
@@ -827,7 +840,7 @@ git reset 确实是个危险的命令，如果加上了 --hard 选项则更是�
 
 到目前为止这个神奇的调用就是你需要对 git reset 命令了解的全部。 我们将会在 重置揭密 中了解 reset 的更多细节以及如何掌握它做一些真正有趣的事。
 
-### 撤消对文件的修改
+### 撤消对文件的修改(git checkout --file)
 
 如果你并不想保留对 CONTRIBUTING.md 文件的修改怎么办？ 你该如何方便地撤消修改——将它还原成上次提交时的样子（或者刚克隆完的样子，或者刚把它放入工作目录时的样子）？ 幸运的是，git status 也告诉了你应该如何做。 在最后一个例子中，未暂存区域是这样：
 
@@ -859,7 +872,7 @@ Changes to be committed:
 
 ## 2、Git分支
 
-### 创建分支
+### 创建分支(git branch `newbranch`)
 
 >$ git branch testing
 
@@ -870,7 +883,7 @@ $ git branch testing
 
 那么，Git 又是怎么知道当前在哪一个分支上呢？ 也很简单，它有一个名为 HEAD 的特殊指针。 请注意它和许多其它版本控制系统（如 Subversion 或 CVS）里的 HEAD 概念完全不同。 在 Git 中，它是一个指针，指向当前所在的本地分支（译注：将 HEAD 想象为当前分支的别名）。 在本例中，你仍然在 master 分支上。 因为 git branch 命令仅仅 创建 一个新分支，并不会自动切换到新分支中去。
 
-### 分支切换
+### 分支切换(git checkout `branch`)
 
 要切换到一个已存在的分支，你需要使用 git checkout 命令。 我们现在切换到新创建的 testing 分支去：
 
@@ -879,7 +892,7 @@ $ git branch testing
 
 这样 HEAD 就指向 testing 分支了。
 
-### 创建分支并切换到该分支
+### 创建分支并切换到该分支(git checkout -b `newbranch`)
 
 想要新建一个分支并同时切换到那个分支上，你可以运行一个带有 -b 参数的 git checkout 命令：
 
@@ -893,7 +906,7 @@ $ git branch iss53
 $ git checkout iss53
 ```
 
-### 查看分支
+### 查看分支(git branch)
 
 git branch 命令不只是可以创建与删除分支。 如果不加任何参数运行它，会得到当前所有分支的一个列表：
 
@@ -912,7 +925,7 @@ $ git branch -v
   testing 782fd34 add scott to the author list in the readmes
 ```
 
-### 删除分支
+### 删除分支(git branch -d `branch`)
 
 >$ git branch -d testing
 
@@ -922,7 +935,7 @@ error: The branch 'testing' is not fully merged.
 If you are sure you want to delete it, run 'git branch -D testing'.
 ```
 
-### 分支的合并
+### 分支的合并(git merge `otherbranch`)
 
 如果需要合并 iss53 分支到 master 分支，这和之前你合并 hotfix 分支所做的工作差不多。 你只需要检出到你想合并入的分支，然后运行 git merge 命令：
 ```
@@ -1045,7 +1058,7 @@ Conflicts:
 为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。 远程仓库是指托管在因特网或其他网络中的你的项目的版本库。 你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。 与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。 管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。 在本节中，我们将介绍一部分远程管理的技能。
 
 
-### 克隆现有的仓库
+### 克隆现有的仓库(git clone)
 
 如果你想获得一份已经存在了的 Git 仓库的拷贝，比如说，你想为某个开源项目贡献自己的一份力，这时就要用到 git clone 命令。 如果你对其它的 VCS 系统（比如说 Subversion）很熟悉，请留心一下你所使用的命令是"clone"而不是"checkout"。 这是 Git 区别于其它版本控制系统的一个重要特性，Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 当你执行 git clone 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。 事实上，如果你的服务器的磁盘坏掉了，你通常可以使用任何一个克隆下来的用户端来重建服务器上的仓库 （虽然可能会丢失某些服务器端的钩子（hook）设置，但是所有版本的数据仍在，详见 在服务器上搭建 Git ）。
 
@@ -1066,7 +1079,7 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 Git 支持多种数据传输协议。 上面的例子使用的是 https:// 协议，不过你也可以使用 git:// 协议或者使用 SSH 传输协议，比如 user@server:path/to/repo.git 。 在服务器上搭建 Git 将会介绍所有这些协议在服务器端如何配置使用，以及各种方式之间的利弊。
 
 
-### 查看远程仓库
+### 查看远程仓库(git remote)
 
 
 如果想查看你已经配置的远程仓库服务器，可以运行 git remote 命令。 它会列出你指定的每一个远程服务器的简写。 如果你已经克隆了自己的仓库，那么至少应该能看到 origin ——这是 Git 给你克隆的仓库服务器的默认名字：
@@ -1116,7 +1129,7 @@ origin    git@github.com:mojombo/grit.git (push)
 
 注意这些远程仓库使用了不同的协议。我们将会在 在服务器上搭建 Git 中了解关于它们的更多信息。
 
-### 添加远程仓库
+### 添加远程仓库(git remote add)
 
 我们在之前的章节中已经提到并展示了 git clone 命令是如何自行添加远程仓库的， 不过这里将告诉你如何自己来添加它。
  
@@ -1145,7 +1158,7 @@ From https://github.com/paulboone/ticgit
 现在 Paul 的 master 分支可以在本地通过 pb/master 访问到——你可以将它合并到自己的某个分支中， 或者如果你想要查看它的话，可以检出一个指向该点的本地分支。 （我们将会在 Git 分支 中详细介绍什么是分支以及如何使用分支。）
 
 
-### 从远程仓库中抓取与拉取
+### 从远程仓库中抓取与拉取(git fetch)
 
 从远程仓库中获得数据，可以执行：
 
@@ -1155,9 +1168,11 @@ From https://github.com/paulboone/ticgit
 
 如果你使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令只会将数据下载到你的本地仓库——它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
 
+
+### 从远程仓库抓取并合并到当前分支(git pull origin)
 如果你的当前分支设置了跟踪远程分支（阅读下一节和 Git 分支 了解更多信息）， 那么可以用 git pull 命令来自动抓取后合并该远程分支到当前分支。 这或许是个更加简单舒服的工作流程。默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或其它名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
 
-### 推送到远程仓库
+### 推送到远程仓库(git push origin)
 
 当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：git push <remote> <branch>。 当你想要将 master 分支推送到 origin 服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字）， 那么运行这个命令就可以将你所做的备份到服务器：
 
@@ -1165,7 +1180,7 @@ From https://github.com/paulboone/ticgit
 
 只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先抓取他们的工作并将其合并进你的工作后才能推送。 阅读 Git 分支 了解如何推送到远程仓库服务器的详细信息
 
-### 查看某个远程仓库
+### 查看某个远程仓库(git remote show)
 
 如果想要查看某一个远程仓库的更多信息，可以使用 git remote show <remote> 命令。 如果想以一个特定的缩写名运行这个命令，例如 origin，会得到像下面类似的信息：
 
@@ -1188,7 +1203,8 @@ $ git remote show origin
 
 它同样会列出远程仓库的 URL 与跟踪分支的信息。 这些信息非常有用，它告诉你正处于 master 分支，并且如果运行 git pull， 就会抓取所有的远程引用，然后将远程 master 分支合并到本地 master 分支。 它也会列出拉取到的所有远程引用。
 
-### 远程仓库的重命名
+### 远程仓库的重命名(git remote rename)
+
 你可以运行 git remote rename 来修改一个远程仓库的简写名。 例如，想要将 pb 重命名为 paul，可以用 git remote rename 这样做：
 
 >$ git remote rename pb paul
@@ -1203,7 +1219,7 @@ paul
 值得注意的是这同样也会修改你所有远程跟踪的分支名字。 那些过去引用 pb/master 的现在会引用 paul/master。
 
 
-### 远程仓库删除
+### 远程仓库删除(git remote remove)
 
 如果因为一些原因想要移除一个远程仓库——你已经从服务器上搬走了或不再想使用某一个特定的镜像了， 又或者某一个贡献者不再贡献了——可以使用 git remote remove 或 git remote rm ：
 
@@ -1224,7 +1240,7 @@ origin
 远程分支
 远程引用是对远程仓库的引用（指针），包括分支、标签等等。 你可以通过 git ls-remote <remote> 来显式地获得远程引用的完整列表， 或者通过 git remote show <remote> 获得远程分支的更多信息。 然而，一个更常见的做法是利用远程跟踪分支。
 
-### 查看远程分支
+### 查看远程分支(git remote show)
 
 >git remote show <remote>
 
@@ -1238,7 +1254,7 @@ Note:
 “origin” 并无特殊含义
 远程仓库名字 “origin” 与分支名字 “master” 一样，在 Git 中并没有任何特别的含义一样。 同时 “master” 是当你运行 git init 时默认的起始分支名字，原因仅仅是它的广泛使用， “origin” 是当你运行 git clone 时默认的远程仓库名字。 如果你运行 git clone -o booyah，那么你默认的远程分支名字将会是 booyah/master。
 
-### 推送远程分支
+### 推送远程分支(git push origin)
 
 当你想要公开分享一个分支时，需要将其推送到有写入权限的远程仓库上。 本地的分支并不会自动与远程仓库同步——你必须显式地推送想要分享的分支。 这样，你就可以把不愿意分享的内容放到私人分支上，而将需要和别人协作的内容推送到公开分支。
 
@@ -1259,7 +1275,7 @@ To https://github.com/schacon/simplegit
 
 这里有些工作被简化了。 Git 自动将 serverfix 分支名字展开为 refs/heads/serverfix:refs/heads/serverfix， 那意味着，“推送本地的 serverfix 分支来更新远程仓库上的 serverfix 分支。” 我们将会详细学习 Git 内部原理 的 refs/heads/ 部分， 但是现在可以先把它放在儿。你也可以运行 git push origin serverfix:serverfix， 它会做同样的事——也就是说“推送本地的 serverfix 分支，将其作为远程仓库的 serverfix 分支” 可以通过这种格式来推送本地分支到一个命名不相同的远程分支。 如果并不想让远程仓库上的分支叫做 serverfix，可以运行 git push origin serverfix:awesomebranch 来将本地的 serverfix 分支推送到远程仓库上的 awesomebranch 分支。
 
-### 拉取远程分支
+### 拉取远程分支(git fetch origin)
 
 >$ git fetch origin
 
@@ -1283,12 +1299,13 @@ Switched to a new branch 'serverfix'
 ```
 这会给你一个用于工作的本地分支，并且起点位于 origin/serverfix。
 
-拉取
+### 拉取远程分支并合并(git pull origin)
+
 当 git fetch 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并。 然而，有一个命令叫作 git pull 在大多数情况下它的含义是一个 git fetch 紧接着一个 git merge 命令。 如果有一个像之前章节中演示的设置好的跟踪分支，不管它是显式地设置还是通过 clone 或 checkout 命令为你创建的，git pull 都会查找当前分支所跟踪的服务器与分支， 从服务器上抓取数据然后尝试合并入那个远程分支。
 
 由于 git pull 的魔法经常令人困惑所以通常单独显式地使用 fetch 与 merge 命令会更好一些。
 
-### 删除远程分支
+### 删除远程分支(git push origin --delete)
 
 >$ git push origin --delete serverfix
 
@@ -1302,7 +1319,7 @@ To https://github.com/schacon/simplegit
 
 ## 5、标签
 
-### 添加标签
+### 添加标签(git tag -a)
 
 >$ git tag -a v1.4 -m "my version 1.4"
 
@@ -1318,7 +1335,7 @@ v1.4
 
 >$ git tag -a v1.2 9fceb02 针对某一次提交打标签
 
-### 查看标签
+### 查看标签(git tag)
 
 在 Git 中列出已有的标签非常简单，只需要输入 git tag （可带上可选的 -l 选项 --list）：
 
@@ -1334,11 +1351,11 @@ v2.0
 
 ## 6、其他命令
 
-### 重命名本地分支
+### 重命名本地分支(git branch -m)
 
 >git branch -m oldXXX newXXX
 
-### 重命名远程分支
+### 重命名远程分支(删除远程分支、修改本地分支名、推送到远程）
 
 * step1:删除远程分支
 
@@ -1353,7 +1370,7 @@ v2.0
 >git push origin new-test-branch
 
 
-### 清除本地存在但是远程服务器已经删除的分支
+### 清除本地存在但是远程服务器已经删除的分支(git remote purne origin)
 
  * 1、进入代码仓库的目录中，输入
 git remote show origin   //显示本地仓库追踪的远程仓库状态
@@ -1361,3 +1378,27 @@ git remote show origin   //显示本地仓库追踪的远程仓库状态
 * 2、输入：
 git rimote prune origin   //清除所有失效的远程分支或根据提示杀手拿出特定失效的分支。
 
+### 将另外分支上的提交合并到本分支(git cherry-pick)
+
+场景： 将develop分支上的commitID为7fcbede的提交合并到master分支
+
+* step1： 切换到develop分支，找到该commitId；
+git checkout develop
+
+git log
+
+* step2：切换到master分支，执行cherry-pick，将该提交在本地合并到master分支；
+git checkout master
+
+git cherry-pick 7fcbede
+
+* step3：在master分支上执行git push，将master分支上的更新提交到远程。
+git push
+
+代码开发的时候，有时需要把某分支（比如develop分支）的某一次提交合并到另一分支（比如master分支），这就需要用到git cherry-pick命令。
+
+首先，切换到develop分支，敲 git log 命令，查找需要合并的commit记录，比如commitID：7fcb3defff；
+
+然后，切换到master分支，使用 git cherry-pick 7fcb3defff 命令，就把该条commit记录合并到了master分支，这只是在本地合并到了master分支；
+
+最后，git push 提交到master远程，至此，就把develop分支的这条commit所涉及的更改合并到了master分支。

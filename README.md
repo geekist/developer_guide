@@ -64,21 +64,12 @@ Maven
 
 * [maven项目的父类模板](./server/maven_parent.md)
 
-源代码管理---Git
+源代码管理
 
 
- * [源代码管理工具](https://github.com/geekist/developer_guide/blob/main/git/git.md)
+ * [Git](https://github.com/geekist/developer_guide/blob/main/git/git.md)
 
-
- * [Git官方文档](https://git-scm.com/book/zh/v2)
-
- * [Git介绍及安装](./git/git_intro.md)
-
- * [Git常用命令](https://github.com/geekist/developer_guide/blob/main/git/git_command.md)
-
- * [Github如何生成markdown文件的目录？](https://zhuanlan.zhihu.com/p/144210718)
-
- * [Git合并一个分支上的提交到另外一个分支cherry-pick](https://github.com/geekist/developer_guide/blob/main/git/git_cherrypick.md)
+杂项
 
  * [杂项](https://github.com/geekist/developer_guide/blob/main/杂项.md)
 
