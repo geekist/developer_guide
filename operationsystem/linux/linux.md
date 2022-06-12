@@ -1538,6 +1538,12 @@ passwd [user]
 
 ### chmod -更改文件模式
 
+语法：
+
+```
+chmod permission fileName
+```
+
 更改文件或目录的模式（权限），可以利用 chmod 命令。注意只有文件的所有者或者超级用户才能更改文件或目录的模式。chmod 命令支持两种不同的方法来改变文件模式：八进制数字表示法，或符号表示法。
 
 通过使用3个八进制数字，我们能够设置文件所有者，用户组，和其他人的权限：
@@ -2268,7 +2274,218 @@ tar -Jxvf filename.tar.xz          # 解压
 
 # 十一、编写shell程序
 
+## 开始shell程序
 
+### 1、什么是shell脚本？
+
+一个 shell 脚本就是一个包含一系列命令的文件。shell读取这个文件，然后执行文件中的所有命
+令，就好像这些命令已经直接被输入到了命令行中一样。
+
+### 2、shell脚本格式
+
+* 文件头
+
+```
+#!/bin/bash
+```
+以`#！`为开头的字符序列是一种特殊的结构“shebang”，用来告诉操作系统将执行此脚本所用的解释器的名字。每个shell脚本都应该把这一行作为他的第一行。
+
+
+* shell语句
+
+即shell命令
+
+* 注释
+
+以#开头的语句称为注释，注释也可以出现在命令行的末尾。
+
+### 3、使shell脚本可执行
+
+要使shell脚本可以执行，需要给shell脚本文件增加可执行的权限。
+
+```
+chmod 755 hello_world.sh
+# 755代表文件可执行的最小权限：4+2+1  4+0+1  4+0+1
+```
+
+### 4、shell脚本的存放位置
+
+在当前目录下可以执行脚本
+```
+[me@linuxbox ~]$ ./hello_world
+Hello World!
+
+[me@linuxbox ~]$ hello_world
+bash: hello_world: command not found
+```
+如果想让脚本在任意位置都可以执行，需要将脚本放到系统的目录之下
+
+系统目录如下：
+```
+[me@linuxbox ~]$ echo $PATH
+/home/me/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
+/bin:/usr/games
+```
+```
+[me@linuxbox ~]$ mkdir bin
+[me@linuxbox ~]$ mv hello_world bin
+[me@linuxbox ~]$ hello_world
+Hello World!
+```
+
+如果这个 PATH 变量不包含这个目录，我们能够轻松地添加它，通过在我们的.bashrc 文件中包含下面 这一行文本：
+```
+export PATH=~/bin:"$PATH"
+```
+## 常量、变量、函数、全局变量与局部变量
+
+### 变量定义：
+
+shell支持以下三种定义变量的方式：
+
+```
+variable=value
+variable='value'
+variable="value"
+```
+其中：
+
+* variable 是变量名，value 是赋给变量的值。
+
+***赋值号的前后不能有空格！！！***
+
+* 如果 value 不包含任何空白符（例如空格、Tab缩进等），那么可以不使用引号；
+
+*如果 value 包含了空白符，那么就必须使用引号包围起来。使用单引号和使用双引号也是有区别的，单引号不解析变量和转义等符号，原样赋值，双引号会解析变量和转义符号。
+
+### 变量命名规范：
+Shell 变量的命名规范和大部分编程语言都一样：
+
+* 变量名由数字、字母、下划线组成；
+
+* 必须以字母或者下划线开头；
+
+* 不能使用 Shell 里的关键字（通过 help 命令可以查看保留关键字）。
+
+例如：
+```
+url=http://c.biancheng.net
+echo $url
+name='C语言中文网'
+echo $name
+author="严长生"
+echo $author
+```
+
+### 使用变量
+
+使用一个定义过的变量，只要在变量名前面加美元符号$即可，如：
+
+```
+author="严长生"
+echo $author
+echo ${author}
+```
+### 花括号{}用来识别变量的边界
+
+变量名外面的花括号{ }是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
+
+```
+skill="Java"
+echo "I am good at ${skill}Script"
+```
+如果不给 skill 变量加花括号，写成echo "I am good at $skillScript"，解释器就会把 $skillScript 当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
+
+推荐给所有变量加上花括号{ }，这是个良好的编程习惯。
+
+### 将命令的结果赋值给变量$()
+
+Shell 也支持将命令的执行结果赋值给变量，常见的有以下两种方式：
+
+```
+variable=`command`
+variable=$(command)
+```
+第一种方式把命令用反引号包围起来，反引号和单引号非常相似，容易产生混淆，所以不推荐使用这种方式；第二种方式把命令用$()包围起来，区分更加明显，所以推荐使用这种方式。
+
+### 删除变量unset
+语法：
+```
+unset variable_name
+```
+变量被删除后不能再次使用；unset 命令不能删除只读变量。
+```
+#!/bin/sh
+myUrl="http://see.xidian.edu.cn/cpp/u/xitong/"
+unset myUrl
+echo $myUrl
+```
+上面的脚本没有任何输出。
+
+### 常量
+
+shell 不能辨别变量和常量；它们大多数情况下 是为了方便程序员。一个常用惯例是指定
+大写字母来表示常量，小写字母表示真正的变量。
+
+另外，定义变量时用 readonly前缀可以将变量设置为只读。
+
+### shell函数
+
+在Shell中可以通过下面的两种语法来定义函数，分别如下：
+
+```
+function_name ()
+{
+    statement1
+    statement2
+    ....
+    statementn
+}
+```
+
+```
+function function_name()
+{
+   statement1
+   statement2
+   ....
+   statementn
+}
+```
+
+### shell函数传参方法： function_name parm1 parm21
+
+```
+#!/usr/bin/env bash
+# encoding: utf-8.0
+
+function test_func()
+{
+    echo "output from inside-function:test_func"
+    echo 'input parameter1: '$1
+    echo 'input parameter2: '$2
+}
+echo "here is main function"
+echo "now inside function: test_func"
+test_func hello world 
+```
+执行结果：
+
+```
+here is main function
+now inside function: test_func
+input parameter1: hello
+ input parameter2:  world
+
+```
+
+
+
+## 数据结构与运算符
+
+## 选择与循环结构
+
+## 键盘输入、菜单、参数位置
 
 
 
