@@ -85,6 +85,8 @@ Linux脚本
 
 服务器维护与安全
 
+* [Linux服务器初始化](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux_server_init.md)
+
 * 阿里云报告ddos病毒的处理
 
 * [Nginx配置讲解](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
