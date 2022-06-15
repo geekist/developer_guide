@@ -6,12 +6,10 @@
 ### 1、检查JDK是否安装
 
 检查生产环境是否安装了Java
-
 ```
 java -version
 ```
 如果安装了java，可以看到java的sdk版本和JRE的版本信息
-
 ```
 [root@geekist ~]# java -version
 openjdk version "1.8.0_292"
@@ -54,45 +52,34 @@ java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
 #rpm -e --nodeps javapackages-filesystem-5.3.1-7.3.al8.noarch
 ```
-
 删除后用rpm -qa|grep java查看，发现剩下3个，然后依次删除。
-
 ```
 #rpm -e --nodeps tzdata-java-2021a-1.1.al8.noarch
 #rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 #rpm -e --nodeps java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
-
+或者可以用yum命令：
+```
+yum remove maven
+```
 全部删除完成后用java -version检查，发现已经无法运行
 ```
 [root@geekist ~]# java -version
 -bash: /usr/bin/java: No such file or directory
 ```
-
 ### 2、用JDK压缩包解压安装的卸载：
-
 用whereis命令查找安装目录：
-
 ```
 where is java
-
-
-
 ```
 
 然后删除上述目录
-
 ```
 rm -rf /usr/local/java
-
 ```
 
-
 ## 三、安装JDK
-
-
 ### 1、使用yum安装openjdk
-
 查看yum上的java版本
 
 ```
@@ -287,7 +274,117 @@ helper = store
 设置credential后，下次运行，只需要输入一遍，就可以再也不用输入用户名和密码了。
 
 
-# 三、Maven安装和环境配置
+# Maven安装和环境配置
 
+## 一、检查Maven
+### 1、检查Maven是否安装
 
-# 四、Nginx安装和环境配置
+用mvn -v命令可以查看maven是否安装
+```
+[root@geekist yychildren]# mvn -v
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /usr/local/apache-maven-3.8.6
+Java version: 1.8.0_332, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
+```
+
+### 2、查看Maven安装目录
+用whereis、which、find等shell工具查找java目录
+```
+[root@geekist yychildren]# whereis mvn
+mvn: /usr/local/apache-maven-3.8.6/bin/mvn /usr/local/apache-maven-3.8.6/bin/mvn.cmd
+[root@geekist yychildren]# which mvn
+/usr/local/apache-maven-3.8.6/bin/mvn
+[root@geekist yychildren]# find / -name mvn
+/usr/local/apache-maven-3.8.6/bin/mvn
+[root@geekist yychildren]# find / -name maven
+/root/.m2/repository/org/apache/maven
+/root/.m2/repository/org/apache/maven/maven
+```
+### 3、检查Maven是否由rpm下载安装或者由压缩包解压安装
+通过rpm命令查看是否该安装是由rpm下载安装
+```
+rpm -qa |grep maven
+```
+如果是由rpm下载安装，则显示如下
+```
+[root@geekist yychildren]# rpm -qa|grep maven
+maven-resolver-1.4.1-3.1.al8.noarch
+maven-shared-utils-3.2.1-0.1.1.al8.noarch
+maven-wagon-3.3.4-2.1.al8.noarch
+maven-lib-3.6.2-6.1.al8.noarch
+maven-3.6.2-6.1.al8.noarch
+maven-openjdk11-3.6.2-6.1.al8.noarch
+```
+## 二、卸载Maven
+
+### 1、删除通过yum方式安装的maven
+```
+yum remove maven 
+```
+
+### 2、删除通过压缩包方式安装的maven
+
+首先查找maven的安装路径，可以通过mvn -v或其他命令
+```
+[root@geekist yychildren]# mvn -v
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /usr/local/apache-maven-3.8.6
+Java version: 1.8.0_332, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
+```
+
+然后删除maven所在目录
+```
+rm -rf /usr/local/apach-maven-3.8.6
+```
+最后可以删除/etc/profile配置文件
+
+## 三、安装Maven
+
+### 1、用yum方式安装Maven
+```
+yum -y install maven 
+```
+安装成功后，查看安装路径：
+
+```
+[root@geekist /]# rpm -qa |grep maven
+maven-lib-3.6.2-6.1.al8.noarch
+maven-3.6.2-6.1.al8.noarch
+maven-resolver-1.4.1-3.1.al8.noarch
+maven-openjdk11-3.6.2-6.1.al8.noarch
+maven-shared-utils-3.2.1-0.1.1.al8.noarch
+maven-wagon-3.3.4-2.1.al8.noarch
+```
+***安装Maven  --尽量不要用yum的方式安装maven，因为这样会重新安装JDK***
+
+### 2、用压缩包的方式安装maven
+
+前往https://maven.apache.org/download.cgi下载最新版的Maven程序
+
+将下载的压缩包上传到服务器的/usr/local目录下
+
+解压maven到当前目录或指定目录
+```
+tar zxvf apache-maven-3.8.6-bin.tar.gz
+```
+
+### 3、配置环境变量
+```
+vi /etc/profile
+```
+在打开的文件中追加配置
+```
+export MAVEN_HOME=/usr/local/apache-maven-3.8.3
+export PATH=$PATH:$MAVEN_HOME/bin
+```
+重新加载配置文件
+```
+source /etc/profile
+```
+
+# 、Nginx安装和环境配置
+
