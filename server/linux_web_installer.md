@@ -1,8 +1,9 @@
 
+# 一、JDK安装和环境配置
 
-# 一、检查JDK
+## 检查JDK
 
-## 检查JDK是否安装
+### 1、检查JDK是否安装
 
 检查生产环境是否安装了Java
 
@@ -19,7 +20,7 @@ OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 [root@geekist ~]#
 ```
 
-## 查看JDK安装目录
+### 2、查看JDK安装目录
 
 用whereis、which、find等shell工具查找java目录
 
@@ -35,7 +36,7 @@ java: /etc/java
 /etc/pki/ca-trust/extracted/java
 ```
 
-## 检查JDK是否由rpm下载安装或者由压缩包解压安装
+### 3、检查JDK是否由rpm下载安装或者由压缩包解压安装
 
 通过rpm命令查看是否该安装是由rpm下载安装
 
@@ -52,10 +53,10 @@ java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
 
-# 二、删除JDK
+## 二、删除JDK
 
 
-## rpm下载安装的JDK的删除
+### 1、rpm下载安装的JDK的删除
 
 将用 rpm -qa|grep java列出的文件用rpm -e --nodeps 命令逐个删除
 
@@ -77,7 +78,7 @@ java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 -bash: /usr/bin/java: No such file or directory
 ```
 
-## 用JDK压缩包解压安装的卸载：
+### 2、用JDK压缩包解压安装的卸载：
 
 用whereis命令查找安装目录：
 
@@ -96,10 +97,10 @@ rm -rf /usr/local/java
 ```
 
 
-# 三、安装JDK
+## 三、安装JDK
 
 
-## 使用yum安装openjdk
+### 1、使用yum安装openjdk
 
 查看yum上的java版本
 
@@ -115,7 +116,7 @@ yum install -y java-1.8.0-openjdk.x86_64
 
 安装成功后用上述查找方法，可以确认java安装成功。
 
-## 使用压缩包安装JDK
+### 2、使用压缩包安装JDK
 
 到oracle官网：http://www.oracle.com/---资源--下载--archive，找到8u-202版本，最后的免费版本
 
@@ -131,16 +132,16 @@ $ cp /root/jdk-8u271-linux-x64.tar.gz /usr/java/
 $ tar xzf jdk-8u271-linux-x64.tar.gz -C /usr/java
 ```
 
-# 四、 配置java环境
+## 四、 配置java环境
 
-## 配置文件
+### 1、配置文件
 打开linux配置文件，如果有以前的
 
 ```
 vi /etc/profile
 ```
 
-## 添加java环境变量
+### 2、添加java环境变量
 
 如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
 
@@ -158,7 +159,7 @@ export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
 
-## 执行profile文件，使配置生效
+### 3、执行profile文件，使配置生效
 
 ```
  source  /etc/profile
@@ -167,8 +168,11 @@ export PATH=$JAVA_HOME/bin:$PATH
 >配置环境变量，是为了有些程序编译时，需要寻找到lib目录和jre目录。
 
 
-# Git环境配置
+# 二、Git安装和环境配置
 
-# Maven环境配置
 
-# Nginx环境配置
+
+# 三、Maven安装和环境配置
+
+
+# 四、Nginx安装和环境配置
