@@ -1836,7 +1836,34 @@ kill信号：
 
 系统会发送SIGKILL信号，该信号不能被捕获也不能被忽略，表示强制杀死该进程，进程被终止，需要立即退出
 
+生产中彻底杀死一个进程的例子：
 
+```
+#到程序所在的目录下
+cd /var/yuya/yychildren/yychildren-console/target/
+
+#查找给程序的pid，如果找到，先用kill -15 pid命令关闭进程
+RESOURCE_NAME=yychildren-console.jar
+tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
+if [ ${tpid} ]; then
+kill -15 $tpid
+fi
+
+#5秒钟后再次检查，如果该进程id依然存在，用kill -9 pid命令再次杀掉进程
+sleep 5
+tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
+if [ ${tpid} ]; then
+kill -9 $tpid
+else
+fi
+
+#再次检查，如果进程id依然存在，强制杀掉该进程文件
+tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
+if [ ${tpid} ]; then
+else
+fi
+rm -f tpid
+```
 
 ### killall – 给匹配特定程序或用户名的多个进程发送终止信号
 
