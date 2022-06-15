@@ -2,18 +2,18 @@
 在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
 其中：
 
-JDK是编译和运行Java服务器程序的依赖项，maven的运行也依赖于JDK。
+* JDK是编译和运行Java服务器程序的依赖项，maven的运行也依赖于JDK。`JDK需要从oracle官网下载1.8.202版本，解压安装，不要安装openSDK版本`
 
-Git用来从代码服务器获取代码。
+* Git用来从代码服务器获取代码。`Git工具可以通过yum下载`
 
-Maven用来编译Java Web服务器程序。
+* Maven用来编译Java Web服务器程序。`Maven需要从官网下载，解压安装，不能通过yum安装，因为会默认安装opensdk`
 
-Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。
+* Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。
 
 # 一、JDK安装和环境配置
 
 ## ***安装JDK前的检查***
-安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java，如果已经预装了OpenSDK，需要先删除掉。JDK的最后一个免费版本是1.8.202版本。
+安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java，`如果已经预装了OpenSDK，需要先删除掉`。JDK的最后一个免费版本是1.8.202版本。
 
 ### 1、检查JDK是否安装
 
@@ -111,15 +111,13 @@ yum install -y java-1.8.0-openjdk.x86_64
 到oracle官网：http://www.oracle.com/---资源--下载--archive，找到8u-202版本，最后的免费版本
 
 新建一个 JDK 安装目录
-$ mkdir /usr/java
-创建一个 /usr/java 目录
-$ cp /root/jdk-8u271-linux-x64.tar.gz /usr/java/
-将之前下载的 tar 包拷贝到新建的目录下
-将 JDK 源码包解压
-上一步已经新建了安装目录并且将源码包拷贝到了新目录下，因为是压缩包，因此首先需要对其进行解压操作。
+cd /usr/local
 
+将之前下载的 tar 包拷贝到新建的目录下
+
+将 JDK 源码包解压
 ```
-$ tar xzf jdk-8u271-linux-x64.tar.gz -C /usr/java
+$ tar zxvf jdk-8u202-linux-x64.tar.gz 
 ```
 
 ## ***配置java环境***
@@ -146,7 +144,7 @@ export JAVA_HOME CLASSPATH PATH
 
 JDK的配置
 ```
-export JAVA_HOME=/usr/java/jdk1.8.0_271
+export JAVA_HOME=/usr/local/jdk1.8.0_202
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
