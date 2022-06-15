@@ -1,3 +1,49 @@
+* [一、JDK安装和环境配置](#一jdk安装和环境配置)
+  * [<em><strong>安装JDK前的检查</strong></em>](#安装jdk前的检查)
+    * [1、检查JDK是否安装](#1检查jdk是否安装)
+    * [2、查看JDK安装目录](#2查看jdk安装目录)
+    * [3、检查JDK是否由rpm下载安装或者由压缩包解压安装](#3检查jdk是否由rpm下载安装或者由压缩包解压安装)
+  * [<em><strong>删除已经安装的JDK</strong></em>](#删除已经安装的jdk)
+    * [\* 通过rpm下载安装的JDK的删除](#-通过rpm下载安装的jdk的删除)
+    * [\*通过JDK压缩包解压安装的删除](#通过jdk压缩包解压安装的删除)
+  * [<em><strong>安装JDK</strong></em>](#安装jdk)
+    * [\* 使用yum安装openjdk](#-使用yum安装openjdk)
+    * [\* 使用压缩包安装JDK](#-使用压缩包安装jdk)
+  * [<em><strong>配置java环境</strong></em>](#配置java环境)
+    * [1、配置文件](#1配置文件)
+    * [2、添加java环境变量](#2添加java环境变量)
+    * [3、执行profile文件，使配置生效](#3执行profile文件使配置生效)
+* [二、Git安装和环境配置](#二git安装和环境配置)
+  * [<em><strong>安装和卸载Git</strong></em>](#安装和卸载git)
+  * [<em><strong>配置git</strong></em>](#配置git)
+    * [git配置](#git配置)
+    * [修改git配置信息](#修改git配置信息)
+    * [查看git配置信息](#查看git配置信息)
+    * [配置保存用户名和密码，不用每次都输入](#配置保存用户名和密码不用每次都输入)
+* [三、Maven安装和环境配置](#三maven安装和环境配置)
+  * [<em><strong>检查Maven</strong></em>](#检查maven)
+    * [1、检查Maven是否安装](#1检查maven是否安装)
+    * [2、查看Maven安装目录](#2查看maven安装目录)
+    * [3、检查Maven是否由rpm下载安装或者由压缩包解压安装](#3检查maven是否由rpm下载安装或者由压缩包解压安装)
+  * [<em><strong>卸载Maven</strong></em>](#卸载maven)
+    * [1、删除通过yum方式安装的maven](#1删除通过yum方式安装的maven)
+    * [2、删除通过压缩包方式安装的maven](#2删除通过压缩包方式安装的maven)
+  * [<em><strong>安装Maven</strong></em>](#安装maven)
+    * [1、用yum方式安装Maven](#1用yum方式安装maven)
+    * [2、用压缩包的方式安装maven](#2用压缩包的方式安装maven)
+    * [3、配置环境变量](#3配置环境变量)
+* [四、Nginx的安装和卸载](#四nginx的安装和卸载)
+  * [<em><strong>查看Nginx</strong></em>](#查看nginx)
+    * [查看活动进程中有没有nginx](#查看活动进程中有没有nginx)
+    * [通过whereis等方法查看nginx的安装目录](#通过whereis等方法查看nginx的安装目录)
+    * [检查是否yum安装](#检查是否yum安装)
+  * [<em><strong>彻底卸载nginx</strong></em>](#彻底卸载nginx)
+    * [通过压缩包编译的nginx的卸载](#通过压缩包编译的nginx的卸载)
+    * [通过yum安装的nginx的删除](#通过yum安装的nginx的删除)
+  * [<em><strong>安装nginx</strong></em>](#安装nginx)
+    * [通过下载源码编译的方式安装nginx](#通过下载源码编译的方式安装nginx)
+    * [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
+
 
 在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
 其中：
@@ -171,16 +217,16 @@ export PATH=$JAVA_HOME/bin:$PATH
 # 二、Git安装和环境配置
 
 
-## 一、安装和卸载Git
+## ***安装和卸载Git***
 
 
-### windows下如何安装和卸载git
+* windows下如何安装和卸载git
 
 如果安装了github，sourcetree等代码管理工具，则可以在响应的工具目录下找到git的可执行命令，使用即可；卸载则同样可以卸载相应的源代码管理工具即可；
 
 可以直接从git的官方网站下载：https://git-scm.com/downloads，然后安装即可，卸载时也直接卸载安装包即可。
 
-### linux下如何安装和卸载git
+* linux下如何安装和卸载git
 以centOS系列的git安装为例：
 首先，查看系统中是否安装了git
 ```
@@ -207,7 +253,7 @@ root     2390148 2387451  0 11:02 pts/1    00:00:00 grep --color=auto git
 yum remove git
 ```
 
-## 二、配置git
+## ***配置git***
 
 ### git配置
 既然已经在系统上安装了 Git，你会想要做几件事来定制你的 Git 环境。 每台计算机上只需要配置一次，程序升级时会保留配置信息。 你可以在任何时候再次通过运行命令来修改它们。
@@ -295,9 +341,9 @@ helper = store
 设置credential后，下次运行，只需要输入一遍，就可以再也不用输入用户名和密码了。
 
 
-# Maven安装和环境配置
+# 三、Maven安装和环境配置
 
-## 一、检查Maven
+## ***检查Maven***
 ### 1、检查Maven是否安装
 
 用mvn -v命令可以查看maven是否安装
@@ -338,7 +384,7 @@ maven-lib-3.6.2-6.1.al8.noarch
 maven-3.6.2-6.1.al8.noarch
 maven-openjdk11-3.6.2-6.1.al8.noarch
 ```
-## 二、卸载Maven
+##  ***卸载Maven***
 
 ### 1、删除通过yum方式安装的maven
 ```
@@ -364,7 +410,7 @@ rm -rf /usr/local/apach-maven-3.8.6
 ```
 最后可以删除/etc/profile配置文件
 
-## 三、安装Maven
+## ***安装Maven***
 
 ### 1、用yum方式安装Maven
 ```
@@ -470,7 +516,6 @@ nginx: /usr/local/nginx
 [root@localhost ~]# rm -rf /usr/local/nginx
 [root@localhost ~]# rm -rf /usr/local/nginx/sbin/nginx
 [root@localhost ~]# rm -rf /var/spool/mail/nginx
-
 ```
 ### 通过yum安装的nginx的删除
 ```
@@ -513,6 +558,7 @@ cd /usr/local
 mkdir nginx
 
 cd nginx
+# 上传nginx到该目录下
 ```
 
 * 2、安装GCC与dev库
