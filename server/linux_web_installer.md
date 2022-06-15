@@ -29,7 +29,6 @@ OpenJDK Runtime Environment (build 1.8.0_292-b10)
 OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 [root@geekist ~]#
 ```
-
 ### 2、查看JDK安装目录
 用whereis、which、find等shell工具查找java目录
 ```
