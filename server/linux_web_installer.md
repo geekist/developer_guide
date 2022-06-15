@@ -1,7 +1,15 @@
 
-# JDK安装和环境配置
+在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
+其中：
+JDK是编译和运行Java服务器程序的依赖项，maven的运行也依赖于JDK。
+Git用来从代码服务器获取代码。
+Maven用来编译Java Web服务器程序。
+Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。
 
-## 一、检查JDK
+# 一、JDK安装和环境配置
+
+## ***安装JDK前的检查***
+安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java，如果已经预装了OpenSDK，需要先删除掉。JDK的最后一个免费版本是1.8.202版本。
 
 ### 1、检查JDK是否安装
 
@@ -44,9 +52,9 @@ tzdata-java-2021a-1.1.al8.noarch
 java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
-## 二、删除JDK
+## ***删除已经安装的JDK***
 
-### 1、rpm下载安装的JDK的删除
+### * 通过rpm下载安装的JDK的删除
 将用 rpm -qa|grep java列出的文件用rpm -e --nodeps 命令逐个删除
 
 ```
@@ -67,7 +75,7 @@ yum remove maven
 [root@geekist ~]# java -version
 -bash: /usr/bin/java: No such file or directory
 ```
-### 2、用JDK压缩包解压安装的卸载：
+### *通过JDK压缩包解压安装的卸载：
 用whereis命令查找安装目录：
 ```
 where is java
@@ -78,8 +86,8 @@ where is java
 rm -rf /usr/local/java
 ```
 
-## 三、安装JDK
-### 1、使用yum安装openjdk
+## ***安装JDK***
+### * 使用yum安装openjdk
 查看yum上的java版本
 
 ```
@@ -94,7 +102,7 @@ yum install -y java-1.8.0-openjdk.x86_64
 
 安装成功后用上述查找方法，可以确认java安装成功。
 
-### 2、使用压缩包安装JDK
+### * 使用压缩包安装JDK
 
 到oracle官网：http://www.oracle.com/---资源--下载--archive，找到8u-202版本，最后的免费版本
 
@@ -110,7 +118,7 @@ $ cp /root/jdk-8u271-linux-x64.tar.gz /usr/java/
 $ tar xzf jdk-8u271-linux-x64.tar.gz -C /usr/java
 ```
 
-## 四、 配置java环境
+## ***配置java环境***
 
 ### 1、配置文件
 打开linux配置文件，如果有以前的
@@ -123,6 +131,7 @@ vi /etc/profile
 
 如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
 
+openJDK的配置
 ```
 #set java environment
 JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
@@ -131,6 +140,7 @@ CLASSPATH=.:$JAVA_HOME/lib
 export JAVA_HOME CLASSPATH PATH
 ```
 
+JDK的配置
 ```
 export JAVA_HOME=/usr/java/jdk1.8.0_271
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
@@ -142,11 +152,10 @@ export PATH=$JAVA_HOME/bin:$PATH
 ```
  source  /etc/profile
 ```
-
 >配置环境变量，是为了有些程序编译时，需要寻找到lib目录和jre目录。
 
 
-# Git安装和环境配置
+# 二、Git安装和环境配置
 
 
 ## 一、安装和卸载Git
@@ -386,5 +395,150 @@ export PATH=$PATH:$MAVEN_HOME/bin
 source /etc/profile
 ```
 
-# 、Nginx安装和环境配置
+# 二、Nginx的安装和卸载
 
+
+可以在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2
+
+网页上提供了Nginx 服务器三种版本的下载，分别是：
+
+* 开发版（Mainline version）
+
+* 稳定版本（Stable version
+
+* 过期版本（Legacy versions）
+
+页面上下载部分各链接的具体含义：
+
+“CHANGES-x.xx”链接，记录的是对应版本的功能变更日志。包括新增功能、功能的优化和功能缺陷的修复等。
+
+“nginx-x.x.x”链接，是 Nginx服务器的 Linux版本下载地址。
+
+
+“pgp”链接，记录的是提供下载的版本使用PGP加密自由软件GnuPG计算后的签名。PGP可以理解为Pretty Good Privacy。这些数据可以用于下载文件的验证。
+
+“nginx/Windows-x.x.x”链接，是 Nginx 服务器的Windows版本下载地址。
+
+
+## window环境下Nginx的安装和卸载
+
+nginx在windows下免安装，直接运行即可
+
+## linux环境下Nginx的安装和卸载
+
+### 彻底卸载nginx
+
+* step1：查看是否有正在运行的nginx进程,如果有，则停滞nginx
+
+```
+ps -ef|grep nginx
+
+```
+停止nginx 服务,在nginx的目录下执行
+
+```
+./nginx -s stop
+```
+
+* step2:查找nginx的所有相关目录
+
+```
+which nginx
+```
+
+```
+[root@localhost ~]# whereis nginx
+nginx: /usr/local/nginx
+```
+
+```
+[root@localhost ~]# find / -name nginx
+/var/spool/mail/nginx
+/usr/local/nginx
+/usr/local/nginx/sbin/nginx
+
+```
+
+* step3:对找到的目录删除相关文件
+
+```
+[root@localhost ~]# rm -rf /usr/local/nginx
+[root@localhost ~]# rm -rf /usr/local/nginx/sbin/nginx
+[root@localhost ~]# rm -rf /var/spool/mail/nginx
+
+```
+
+* step4:使用yum清理
+
+```
+[root@localhost ~]# yum remove nginx
+Loaded plugins: fastestmirror
+No Match for argument: nginx
+No Packages marked for removal
+```
+
+### 使用yum命令从云应用仓库下载并安装nginx
+
+```
+$ sudo yum -y install nginx   # 安装 nginx
+```
+
+如果没有配置EPEL仓库，可以先运行下面的命令来完成安装：
+```
+sudo yum install epel-release
+
+```
+
+安装成功后，默认的网站目录为： /usr/share/nginx/html
+
+默认的配置文件为：/etc/nginx/nginx.conf
+
+自定义配置文件目录为: /etc/nginx/conf.d/
+
+此时，nginx已经被添加到了环境变量中，可以直接在任意路径下使用。
+
+### 从源代码编译安装nginx
+
+* step1：首先从nginx官网下载压缩包，nginx-1.22.0.tar.gz，然后使用ftp工具等，将nginx上传到linux。
+
+```
+cd /usr/local
+
+mkdir nginx
+
+cd nginx
+```
+
+* step2：安装GCC与dev库
+
+```
+GCC编译器:yum install gcc gcc-c++
+
+正则表达式PCRE库:yum install -y pcre pcre-devel
+
+zlib压缩库:yum install -y zlib zlib-devel
+
+OpenSSL开发库:yum install -y openssl openssl-devel
+```
+
+可以一键安装：
+```
+yum -y install gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
+
+```
+
+* step3:编译Nginx
+
+```
+//进入nginx目录
+cd /usr/local/nginx
+//进入目录
+cd nginx-1.13.7
+//执行命令
+./configure
+//执行make命令
+make
+//执行make install命令
+make install
+```
+至此，nginx安装成功
