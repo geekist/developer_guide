@@ -1,9 +1,13 @@
 
 在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
 其中：
+
 JDK是编译和运行Java服务器程序的依赖项，maven的运行也依赖于JDK。
+
 Git用来从代码服务器获取代码。
+
 Maven用来编译Java Web服务器程序。
+
 Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。
 
 # 一、JDK安装和环境配置
