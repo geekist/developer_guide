@@ -78,10 +78,18 @@ yum remove maven
 [root@geekist ~]# java -version
 -bash: /usr/bin/java: No such file or directory
 ```
-### *通过JDK压缩包解压安装的卸载：
-用whereis命令查找安装目录：
+### *通过JDK压缩包解压安装的删除
+
+用whereis命令等查找安装目录：
 ```
-where is java
+[root@geekist local]# whereis java
+java: /usr/local/jdk1.8.0_202/bin/java
+[root@geekist local]# which java
+/usr/local/jdk1.8.0_202/bin/java
+[root@geekist local]# find / -name java
+/usr/share/bash-completion/completions/java
+/usr/local/jdk1.8.0_202/bin/java
+/usr/local/jdk1.8.0_202/jre/bin/java
 ```
 
 然后删除上述目录
@@ -89,8 +97,12 @@ where is java
 rm -rf /usr/local/java
 ```
 
+如果配置文件/etc/profile中配置了环境变量，也需要删除。
+
 ## ***安装JDK***
+
 ### * 使用yum安装openjdk
+
 查看yum上的java版本
 
 ```
@@ -122,7 +134,7 @@ $ tar zxvf jdk-8u202-linux-x64.tar.gz
 ## ***配置java环境***
 
 ### 1、配置文件
-打开linux配置文件，如果有以前的
+打开linux配置文件，如果有以前的配置，可以先删除。
 
 ```
 vi /etc/profile
@@ -248,7 +260,6 @@ color.branch=auto
 color.interactive=auto
 color.diff=auto
 ...
-
 ```
 
 你可能会看到重复的变量名，因为 Git 会从不同的文件中读取同一个配置（例如：/etc/gitconfig 与 ~/.gitconfig）。 这种情况下，Git 会使用它找到的每一个变量的最后一个配置。
@@ -333,6 +344,7 @@ maven-openjdk11-3.6.2-6.1.al8.noarch
 ```
 yum remove maven 
 ```
+或者通过rpm -e nodeps方式卸载。
 
 ### 2、删除通过压缩包方式安装的maven
 
@@ -369,7 +381,7 @@ maven-openjdk11-3.6.2-6.1.al8.noarch
 maven-shared-utils-3.2.1-0.1.1.al8.noarch
 maven-wagon-3.3.4-2.1.al8.noarch
 ```
-***安装Maven  --尽量不要用yum的方式安装maven，因为这样会重新安装JDK***
+***安装Maven  --尽量不要用yum的方式安装maven，因为这样会重新安装openJDK，导致已经安装的Java环境被破坏***
 
 ### 2、用压缩包的方式安装maven
 
@@ -396,71 +408,63 @@ export PATH=$PATH:$MAVEN_HOME/bin
 source /etc/profile
 ```
 
-# 二、Nginx的安装和卸载
+# 四、Nginx的安装和卸载
 
+## ***查看Nginx***
 
-可以在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2
-
-网页上提供了Nginx 服务器三种版本的下载，分别是：
-
-* 开发版（Mainline version）
-
-* 稳定版本（Stable version
-
-* 过期版本（Legacy versions）
-
-页面上下载部分各链接的具体含义：
-
-“CHANGES-x.xx”链接，记录的是对应版本的功能变更日志。包括新增功能、功能的优化和功能缺陷的修复等。
-
-“nginx-x.x.x”链接，是 Nginx服务器的 Linux版本下载地址。
-
-
-“pgp”链接，记录的是提供下载的版本使用PGP加密自由软件GnuPG计算后的签名。PGP可以理解为Pretty Good Privacy。这些数据可以用于下载文件的验证。
-
-“nginx/Windows-x.x.x”链接，是 Nginx 服务器的Windows版本下载地址。
-
-
-## window环境下Nginx的安装和卸载
-
-nginx在windows下免安装，直接运行即可
-
-## linux环境下Nginx的安装和卸载
-
-### 彻底卸载nginx
-
-* step1：查看是否有正在运行的nginx进程,如果有，则停滞nginx
+### 查看活动进程中有没有nginx
 
 ```
 ps -ef|grep nginx
+```
+
+### 通过whereis等方法查看nginx的安装目录
+```
+[root@geekist local]# whereis nginx
+nginx: /usr/local/nginx
+[root@geekist local]# which nginx
+/usr/bin/which: no nginx in (/usr/local/jdk1.8.0_202/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre/bin:/usr/local/apache-maven-3.8.6/bin:/root/bin:/usr/local/apache-maven-3.8.6/bin)
+[root@geekist local]# find / -name nginx
+/usr/local/nginx
+/usr/local/nginx/sbin/nginx
+/usr/nginx_installer/nginx-1.22.0/objs/nginx
+[root@geekist local]#
+```
+
+### 检查是否yum安装
 
 ```
-停止nginx 服务,在nginx的目录下执行
+rpm -qa|grep nginx
+```
+
+## ***彻底卸载nginx***
+
+### 通过压缩包编译的nginx的卸载
+
+* 1、查看nginx是否活动
+```
+ps -ef|grep nginx
+```
+* 2、如果活动进程，先停止nginx
 
 ```
 ./nginx -s stop
 ```
 
-* step2:查找nginx的所有相关目录
-
+* 3、查找nginx的所有相关目录
 ```
-which nginx
-```
-
-```
-[root@localhost ~]# whereis nginx
+[root@geekist local]# whereis nginx
 nginx: /usr/local/nginx
-```
-
-```
-[root@localhost ~]# find / -name nginx
-/var/spool/mail/nginx
+[root@geekist local]# which nginx
+/usr/bin/which: no nginx in (/usr/local/jdk1.8.0_202/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre/bin:/usr/local/apache-maven-3.8.6/bin:/root/bin:/usr/local/apache-maven-3.8.6/bin)
+[root@geekist local]# find / -name nginx
 /usr/local/nginx
 /usr/local/nginx/sbin/nginx
-
+/usr/nginx_installer/nginx-1.22.0/objs/nginx
+[root@geekist local]#
 ```
 
-* step3:对找到的目录删除相关文件
+* 4、对找到的目录删除相关文件
 
 ```
 [root@localhost ~]# rm -rf /usr/local/nginx
@@ -468,15 +472,84 @@ nginx: /usr/local/nginx
 [root@localhost ~]# rm -rf /var/spool/mail/nginx
 
 ```
-
-* step4:使用yum清理
-
+### 通过yum安装的nginx的删除
 ```
 [root@localhost ~]# yum remove nginx
 Loaded plugins: fastestmirror
 No Match for argument: nginx
 No Packages marked for removal
 ```
+或者使用rpm -e nodeps 卸载；
+
+## ***安装nginx***
+
+### 通过下载源码编译的方式安装nginx
+
+* 1、在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2
+
+网页上提供了Nginx 服务器三种版本的下载，分别是：
+
+>开发版（Mainline version）
+>
+>稳定版本（Stable version
+>
+>过期版本（Legacy versions）
+
+>页面上下载部分各链接的具体含义：
+
+>“CHANGES-x.xx”链接，记录的是对应版本的功能变更日志。包括新增功能、功能的优化和功能缺陷的修复等。
+
+>“nginx-x.x.x”链接，是 Nginx服务器的 Linux版本下载地址。
+
+>“nginx/Windows-x.x.x”链接，是 Nginx 服务器的Windows版本下载地址。
+
+>“pgp”链接，记录的是提供下载的版本使用PGP加密自由软件GnuPG计算后的签名。PGP可以理解为Pretty Good Privacy。这些数据可以用于下载文件的验证。
+
+* 1.1：使用ftp工具等，将nginx上传到linux。
+
+```
+cd /usr/local
+
+mkdir nginx
+
+cd nginx
+```
+
+* 2、安装GCC与dev库
+
+```
+GCC编译器:yum install gcc gcc-c++
+
+正则表达式PCRE库:yum install -y pcre pcre-devel
+
+zlib压缩库:yum install -y zlib zlib-devel
+
+OpenSSL开发库:yum install -y openssl openssl-devel
+```
+
+可以一键安装：
+```
+yum -y install gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
+
+```
+
+* 3、编译Nginx
+
+```
+//进入nginx目录
+cd /usr/local/nginx
+//进入目录
+cd nginx-1.13.7
+//执行命令
+./configure
+//执行make命令
+make
+//执行make install命令
+make install
+```
+至此，nginx安装成功
+
+* 4、可以配置nginx的环境变量，也可以不配置
 
 ### 使用yum命令从云应用仓库下载并安装nginx
 
@@ -498,48 +571,3 @@ sudo yum install epel-release
 
 此时，nginx已经被添加到了环境变量中，可以直接在任意路径下使用。
 
-### 从源代码编译安装nginx
-
-* step1：首先从nginx官网下载压缩包，nginx-1.22.0.tar.gz，然后使用ftp工具等，将nginx上传到linux。
-
-```
-cd /usr/local
-
-mkdir nginx
-
-cd nginx
-```
-
-* step2：安装GCC与dev库
-
-```
-GCC编译器:yum install gcc gcc-c++
-
-正则表达式PCRE库:yum install -y pcre pcre-devel
-
-zlib压缩库:yum install -y zlib zlib-devel
-
-OpenSSL开发库:yum install -y openssl openssl-devel
-```
-
-可以一键安装：
-```
-yum -y install gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
-
-```
-
-* step3:编译Nginx
-
-```
-//进入nginx目录
-cd /usr/local/nginx
-//进入目录
-cd nginx-1.13.7
-//执行命令
-./configure
-//执行make命令
-make
-//执行make install命令
-make install
-```
-至此，nginx安装成功
