@@ -236,7 +236,6 @@ Git 自带一个 git config 的工具来帮助设置控制 Git 外观和行为�
 每一个级别会覆盖上一级别的配置，所以 .git/config 的配置变量会覆盖 /etc/gitconfig 中的配置变量。
 
 
-
 ## 修改git配置信息
 
 例子：
@@ -272,8 +271,30 @@ color.diff=auto
 ```
 $ git config user.name
 John Doe
-
 ```
+## 配置保存用户名和密码，不用每次都输入
+
+在C盘用户当前用户的目录下找到.gitconfig文件，用记事本打开，或者借助其他工具打开进行编辑。
+在文件中可以看到：
+```
+[user]
+name = user
+email = 123456789@163.com
+```
+在这个文件内容后面添加：
+```
+[credential]
+helper = store
+```
+保存如下：
+```
+[credential]
+        helper = store
+[user]
+        email = you@example.com
+        name = 13681986288
+```
+设置credential后，下次运行，只需要输入一遍，就可以再也不用输入用户名和密码了。
 
 # 三、开始使用Git
 

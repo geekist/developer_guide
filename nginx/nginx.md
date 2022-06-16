@@ -1,46 +1,48 @@
-* [一、Nginx介绍](#一nginx介绍)
-  * [Nginx是什么](#nginx是什么)
-  * [Nginx的架构](#nginx的架构)
-  * [Nginx的特性](#nginx的特性)
-    * [Nginx的基本特性](#nginx的基本特性)
-    * [Nginx Web的服务特性](#nginx-web的服务特性)
-  * [Nginx反向代理](#nginx反向代理)
-  * [Nginx负载均衡](#nginx负载均衡)
-  * [Nginx的工作模式](#nginx的工作模式)
-  * [Nginx热部署](#nginx热部署)
-  * [Nginx学习资源](#nginx学习资源)
-* [二、Nginx的安装和卸载](#二nginx的安装和卸载)
-  * [window环境下Nginx的安装和卸载](#window环境下nginx的安装和卸载)
-  * [linux环境下Nginx的安装和卸载](#linux环境下nginx的安装和卸载)
-    * [彻底卸载nginx](#彻底卸载nginx)
-    * [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
-    * [从源代码编译安装nginx](#从源代码编译安装nginx)
-* [三、启动和停止nginx](#三启动和停止nginx)
-  * [启动nginx](#启动nginx)
-  * [带配置文件的启动](#带配置文件的启动)
-  * [停止nginx](#停止nginx)
-  * [安全停止nginx](#安全停止nginx)
-  * [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
-* [四、Nginx配置文件介绍](#四nginx配置文件介绍)
-  * [nginx配置文件语法：](#nginx配置文件语法)
-  * [nginx 基本模块分类](#nginx-基本模块分类)
-  * [全局块配置](#全局块配置)
-    * [event模块](#event模块)
-    * [http模块](#http模块)
-    * [server模块](#server模块)
-      * [listen指令](#listen指令)
-      * [server\_name:](#server_name)
-    * [Location 模块](#location-模块)
-      * [location功能](#location功能)
-      * [localtion语法](#localtion语法)
-      * [location匹配顺序](#location匹配顺序)
-      * [root命令index命令alias和return命令](#root命令index命令alias和return命令)
-      * [return指令](#return指令)
-      * [proxy\_pass](#proxy_pass)
-* [五、Nginx日志配置](#五nginx日志配置)
-  * [Nginx的访问日志](#nginx的访问日志)
-  * [Nginx的错误日志](#nginx的错误日志)
-* [六、其他配置、websocket ssl、gzip等](#六其他配置websocket-sslgzip等)
+- [一、Nginx介绍](#一nginx介绍)
+  - [Nginx是什么](#nginx是什么)
+  - [Nginx的架构](#nginx的架构)
+  - [Nginx的特性](#nginx的特性)
+    - [Nginx的基本特性](#nginx的基本特性)
+    - [Nginx Web的服务特性](#nginx-web的服务特性)
+  - [Nginx反向代理](#nginx反向代理)
+  - [Nginx负载均衡](#nginx负载均衡)
+  - [Nginx的工作模式](#nginx的工作模式)
+  - [Nginx热部署](#nginx热部署)
+  - [Nginx学习资源](#nginx学习资源)
+- [二、Nginx的安装和卸载](#二nginx的安装和卸载)
+  - [window环境下Nginx的安装和卸载](#window环境下nginx的安装和卸载)
+  - [linux环境下Nginx的安装和卸载](#linux环境下nginx的安装和卸载)
+    - [彻底卸载nginx](#彻底卸载nginx)
+    - [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
+    - [从源代码编译安装nginx](#从源代码编译安装nginx)
+- [三、启动和停止nginx](#三启动和停止nginx)
+  - [启动nginx](#启动nginx)
+  - [带配置文件的启动](#带配置文件的启动)
+  - [停止nginx](#停止nginx)
+  - [安全停止nginx](#安全停止nginx)
+  - [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
+- [四、Nginx配置文件介绍](#四nginx配置文件介绍)
+  - [nginx配置文件语法：](#nginx配置文件语法)
+  - [nginx 基本模块分类](#nginx-基本模块分类)
+  - [全局块配置](#全局块配置)
+    - [event模块](#event模块)
+    - [http模块](#http模块)
+    - [server模块](#server模块)
+      - [listen指令](#listen指令)
+      - [server_name:](#server_name)
+    - [Location 模块](#location-模块)
+      - [location功能](#location功能)
+      - [localtion语法](#localtion语法)
+      - [location匹配顺序](#location匹配顺序)
+      - [root命令index命令alias和return命令](#root命令index命令alias和return命令)
+      - [return指令](#return指令)
+      - [proxy_pass](#proxy_pass)
+  - [error_page配置命令](#error_page配置命令)
+  - [try_files指令](#try_files指令)
+- [五、Nginx日志配置](#五nginx日志配置)
+  - [Nginx的访问日志](#nginx的访问日志)
+  - [Nginx的错误日志](#nginx的错误日志)
+- [六、其他配置、websocket ssl、gzip等](#六其他配置websocket-sslgzip等)
 
 
 
@@ -1018,6 +1020,129 @@ IP+Port+/+web + /，最后有斜杠，拼接不包含前缀
 代理后的实际地址：http://localhost:8080/web/test/loginSwitch
 
 但是，如果location是正则表达式，则上述不正确，参见yuya的config
+
+## error_page配置命令
+
+语法：
+
+```
+error_page code [ code... ] [ = | =answer-code ] uri | @named_location 
+```
+
+默认值：
+
+no 
+
+使用字段：
+
+```
+http, server, location, location 中的if字段 
+```
+
+实例:
+
+* nginx指令error_page的作用是当发生错误的时候能够显示一个预定义的uri
+
+```
+error_page 502 503 /50x.html;
+location = /50x.html {
+    root /usr/share/nginx/html;
+}  
+``` 
+
+当访问出现502、503的时候就能返回50x.html中的内容，这样实际上产生了一个内部跳转(internal redirect)，这里需要注意是否可以找到50x.html页面，所以加了个location保证找到你自定义的50x页面。
+
+* 自己定义这种情况下的返回状态吗
+```
+error_page 502 503 =200 /50x.html;
+location = /50x.html {
+    root /usr/share/nginx/html;
+}  
+``` 
+这样用户访问产生502 、503的时候给用户的返回状态是200，内容是50x.html。
+
+*动态返回内容
+
+当error_page后面跟的不是一个静态的内容的话，比如是由proxyed server或者FastCGI/uwsgi/SCGI server处理的话，server返回的状态(200, 302, 401 或者 404）也能返回给用户。
+```
+error_page 404 = /404.php;
+location ~ \.php$ {
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+} 
+```
+
+* 别名
+
+设置一个named location，然后在里边做对应的处理。
+```
+error_page 500 502 503 504 @jump_to_error;
+location @jump_to_error {    
+    proxy_pass http://backend;
+}
+```
+
+同时也能够通过使客户端进行302、301等重定向的方式处理错误页面，默认状态码为302。
+
+error_page 403      http://example.com/forbidden.html;
+error_page 404 =301 http://example.com/notfound.html;
+
+
+* Nginx 自定义404错误页面配置中有无等号的区别
+
+```
+error_page 404 /404.html 可显示自定义404页面内容，正常返回404状态码。
+error_page 404 =200 /404.html 可显示自定义404页面内容，但返回200状态码。
+error_page 404 /404.php 如果是动态404错误页面，包含 header 代码（例如301跳转），将无法正常执行。正常返回404代码。
+error_page 404 = /404.php 如果是动态404错误页面，包含 header 代码（例如301跳转），加等号配置可以正常执行，返回php中定义的状态码。但如果php中定义返回404状态码，404状态码可以正常返回，但无法显示自定义页面内容（出现系统默认404页面），这种情况可以考虑用410代码替代（ header("HTTP/1.1 410 Gone"); 正常返回410状态码，且可正常显示自定义内容）。
+```
+
+## try_files指令
+
+try_files是nginx中http_core核心模块所带的指令，主要是能替代一些rewrite的指令，提高解析效率。
+
+官网的文档为http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files
+
+语法：
+```
+语法：try_files file ... uri；
+try_files file ... = code；
+
+```
+范围：
+server，location
+
+try_files的语法解释：
+
+Checks the existence of files in the specified order and uses the first found file for request processing; the processing is performed in the current context. The path to a file is constructed from the *file*parameter according to the root and alias directives. It is possible to check directory’s existence by specifying a slash at the end of a name, e.g. “$uri/”. If none of the files were found, an internal redirect to the *uri* specified in the last parameter is made.
+
+关键点1：按指定的file顺序查找存在的文件，并使用第一个找到的文件进行请求处理
+
+关键点2：查找路径是按照给定的root或alias为根路径来查找的
+
+关键点3：如果给出的file都没有匹配到，则重新请求最后一个参数给定的uri，就是新的location匹配
+
+关键点4：如果是格式2，如果最后一个参数是 = 404 ，若给出的file都没有匹配到，则最后返回404的响应码
+
+示例：
+```
+location / {
+	root /opt/nginx/html/;
+	try_files $uri $uri/ /index.html;
+}
+```
+
+请求:http://yhz.test.com/home.html，
+
+$uri为home.html。
+
+会依次查找“/opt/nginx/html/home.html” ， “/opt/nginx/html/home.html/” ；如若都没有查找到，则请求http://yhz.test.com/index.html
+
+.其他注意事项
+1.try-files 如果不写上 $uri/，当直接访问一个目录路径时，并不会去匹配目录下的索引页 。
+即访问127.0.0.1/images/ 不会去访问 127.0.0.1/images/index.html
+
 
 # 五、Nginx日志配置
 
