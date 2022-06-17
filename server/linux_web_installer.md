@@ -154,7 +154,7 @@ yum remove maven
 [root@geekist ~]# java -version
 -bash: /usr/bin/java: No such file or directory
 ```
-### *通过JDK压缩包解压安装的删除
+### * 通过JDK压缩包解压安装的删除
 
 用whereis命令等查找安装目录：
 ```
@@ -197,10 +197,10 @@ yum install -y java-1.8.0-openjdk.x86_64
 
 ### * 使用压缩包安装JDK
 
-到oracle官网：http://www.oracle.com/---资源--下载--archive，找到8u-202版本，最后的免费版本
+到oracle官网：http://www.oracle.com/ ---资源--下载--JDK--archive，找到8u-202版本，最后的免费版本
 
 新建一个 JDK 安装目录
-cd /usr/local
+cd /usr/local/java
 
 将之前下载的 tar 包拷贝到新建的目录下
 
@@ -233,7 +233,7 @@ export JAVA_HOME CLASSPATH PATH
 
 JDK的配置
 ```
-export JAVA_HOME=/usr/local/jdk1.8.0_202
+export JAVA_HOME=/usr/local/java/jdk1.8.0_202
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
