@@ -49,6 +49,17 @@
     - [停止nginx](#停止nginx)
     - [安全停止nginx](#安全停止nginx)
     - [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
+- [五、Nacos安装和卸载](#五nacos安装和卸载)
+  - [***检查***](#检查)
+    - [通过进程查看命令查看nacos是否正在运行](#通过进程查看命令查看nacos是否正在运行)
+    - [通过whereis等命令查看nacos是否安装在本地](#通过whereis等命令查看nacos是否安装在本地)
+  - [***卸载***](#卸载)
+  - [***安装***](#安装)
+    - [从 Github 上下载源码方式](#从-github-上下载源码方式)
+    - [下载编译后压缩包方式](#下载编译后压缩包方式)
+  - [***nacos常用命令***](#nacos常用命令)
+    - [启动命令(standalone代表着单机模式运行，非集群模式):](#启动命令standalone代表着单机模式运行非集群模式)
+    - [关闭服务器](#关闭服务器)
 
 
 在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
@@ -474,8 +485,10 @@ ps -ef|grep nginx
 ```
 [root@geekist local]# whereis nginx
 nginx: /usr/local/nginx
+
 [root@geekist local]# which nginx
 /usr/bin/which: no nginx in (/usr/local/jdk1.8.0_202/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre/bin:/usr/local/apache-maven-3.8.6/bin:/root/bin:/usr/local/apache-maven-3.8.6/bin)
+
 [root@geekist local]# find / -name nginx
 /usr/local/nginx
 /usr/local/nginx/sbin/nginx
@@ -599,9 +612,11 @@ make
 //执行make install命令
 make install
 ```
-至此，nginx安装成功
+至此，nginx安装成功。
 
-* 4、可以配置nginx的环境变量，也可以不配置
+>nignx的安装命令，会将nginx编译后的lib和bin都放置在/usr/local/nginx目录下。所以，安装和编辑的目录不限。
+>
+>可以配置nginx的环境变量，将nginx的路径加入到/etc/profile文件中，师nginx可以在任意地方启动，也可以不配置，运行时加上完整的目录。
 
 ### 使用yum命令从云应用仓库下载并安装nginx
 
@@ -659,4 +674,89 @@ sudo yum install epel-release
 
 ```
 ./nginx -s reload 
+```
+
+# 五、Nacos安装和卸载
+
+系统采用spring-cloud-alibaba实现微服务管理。
+
+nacos快速安装文档：https://nacos.io/zh-cn/docs/quick-start.html
+
+## ***检查***
+
+### 通过进程查看命令查看nacos是否正在运行
+
+```
+[root@iZbp19n36uysranoj3k2x5Z ~]# ps -ef|grep nacos
+root      765081       1  0 May07 ?        02:42:17 /usr/java/jdk1.8/bin/java -Xms512m -Xmx512m -Xmn256m -Dnacos.standalone=true -Dnacos.member.list= -Djava.ext.dirs=/usr/java/jdk1.8/jre/lib/ext:/usr/java/jdk1.8/lib/ext -Xloggc:/usr/local/nacos/logs/nacos_gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M -Dloader.path=/usr/local/nacos/plugins/health,/usr/local/nacos/plugins/cmdb -Dnacos.home=/usr/local/nacos -jar /usr/local/nacos/target/nacos-server.jar --spring.config.additional-location=file:/usr/local/nacos/conf/ --logging.config=/usr/local/nacos/conf/nacos-logback.xml --server.max-http-header-size=524288 nacos.nacos
+root     3681989 3681899  0 10:29 pts/0    00:00:00 grep --color=auto nacos
+```
+### 通过whereis等命令查看nacos是否安装在本地
+
+```
+[root@iZbp19n36uysranoj3k2x5Z ~]# whereis nacos
+nacos: /usr/local/nacos
+
+[root@iZbp19n36uysranoj3k2x5Z ~]# which nacos
+/usr/bin/which: no nacos in (/usr/local/mysql/mysql-5.6/bin:/usr/java/jdk1.8/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/apache-maven-3.6.3/bin:/root/bin)
+
+[root@iZbp19n36uysranoj3k2x5Z ~]# find / -name nacos
+/root/.m2/repository/com/alibaba/nacos
+/root/logs/nacos
+/root/nacos
+/usr/local/nacos
+/usr/local/nacos/bin/work/Tomcat/localhost/nacos
+/usr/local/nacos/work/Tomcat/localhost/nacos
+```
+## ***卸载***
+
+关闭nacos服务
+
+```
+shutdown.sh
+```
+
+删除nacos所在的目录
+
+```
+rm -rf /usr/local/nacos
+```
+
+## ***安装***
+
+### 从 Github 上下载源码方式
+```
+git clone https://github.com/alibaba/nacos.git
+cd nacos/
+mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  
+ls -al distribution/target/
+
+// change the $version to your actual path
+cd distribution/target/nacos-server-$version/nacos/bin
+```
+
+### 下载编译后压缩包方式
+
+nacos 下载地址：https://github.com/alibaba/nacos/releases
+
+从最新稳定版本下载nacos-server-$version.zip 包。(当前官方最新文档为2.0.3)
+
+```
+unzip nacos-server-$version.zip 或者 tar -xvf nacos-server-$version.tar.gz
+cd nacos/bin
+```
+
+## ***nacos常用命令***
+
+### 启动命令(standalone代表着单机模式运行，非集群模式):
+```
+startup.sh -m standalone
+
+如果您使用的是ubuntu系统，或者运行脚本报错提示[[符号找不到，可尝试如下运行：
+bash startup.sh -m standalone
+```
+
+### 关闭服务器
+```
+shutdown.sh
 ```
