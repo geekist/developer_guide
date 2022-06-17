@@ -1,48 +1,54 @@
-* [一、JDK安装和环境配置](#一jdk安装和环境配置)
-  * [<em><strong>安装JDK前的检查</strong></em>](#安装jdk前的检查)
-    * [1、检查JDK是否安装](#1检查jdk是否安装)
-    * [2、查看JDK安装目录](#2查看jdk安装目录)
-    * [3、检查JDK是否由rpm下载安装或者由压缩包解压安装](#3检查jdk是否由rpm下载安装或者由压缩包解压安装)
-  * [<em><strong>删除已经安装的JDK</strong></em>](#删除已经安装的jdk)
-    * [\* 通过rpm下载安装的JDK的删除](#-通过rpm下载安装的jdk的删除)
-    * [\*通过JDK压缩包解压安装的删除](#通过jdk压缩包解压安装的删除)
-  * [<em><strong>安装JDK</strong></em>](#安装jdk)
-    * [\* 使用yum安装openjdk](#-使用yum安装openjdk)
-    * [\* 使用压缩包安装JDK](#-使用压缩包安装jdk)
-  * [<em><strong>配置java环境</strong></em>](#配置java环境)
-    * [1、配置文件](#1配置文件)
-    * [2、添加java环境变量](#2添加java环境变量)
-    * [3、执行profile文件，使配置生效](#3执行profile文件使配置生效)
-* [二、Git安装和环境配置](#二git安装和环境配置)
-  * [<em><strong>安装和卸载Git</strong></em>](#安装和卸载git)
-  * [<em><strong>配置git</strong></em>](#配置git)
-    * [git配置](#git配置)
-    * [修改git配置信息](#修改git配置信息)
-    * [查看git配置信息](#查看git配置信息)
-    * [配置保存用户名和密码，不用每次都输入](#配置保存用户名和密码不用每次都输入)
-* [三、Maven安装和环境配置](#三maven安装和环境配置)
-  * [<em><strong>检查Maven</strong></em>](#检查maven)
-    * [1、检查Maven是否安装](#1检查maven是否安装)
-    * [2、查看Maven安装目录](#2查看maven安装目录)
-    * [3、检查Maven是否由rpm下载安装或者由压缩包解压安装](#3检查maven是否由rpm下载安装或者由压缩包解压安装)
-  * [<em><strong>卸载Maven</strong></em>](#卸载maven)
-    * [1、删除通过yum方式安装的maven](#1删除通过yum方式安装的maven)
-    * [2、删除通过压缩包方式安装的maven](#2删除通过压缩包方式安装的maven)
-  * [<em><strong>安装Maven</strong></em>](#安装maven)
-    * [1、用yum方式安装Maven](#1用yum方式安装maven)
-    * [2、用压缩包的方式安装maven](#2用压缩包的方式安装maven)
-    * [3、配置环境变量](#3配置环境变量)
-* [四、Nginx的安装和卸载](#四nginx的安装和卸载)
-  * [<em><strong>查看Nginx</strong></em>](#查看nginx)
-    * [查看活动进程中有没有nginx](#查看活动进程中有没有nginx)
-    * [通过whereis等方法查看nginx的安装目录](#通过whereis等方法查看nginx的安装目录)
-    * [检查是否yum安装](#检查是否yum安装)
-  * [<em><strong>彻底卸载nginx</strong></em>](#彻底卸载nginx)
-    * [通过压缩包编译的nginx的卸载](#通过压缩包编译的nginx的卸载)
-    * [通过yum安装的nginx的删除](#通过yum安装的nginx的删除)
-  * [<em><strong>安装nginx</strong></em>](#安装nginx)
-    * [通过下载源码编译的方式安装nginx](#通过下载源码编译的方式安装nginx)
-    * [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
+- [一、JDK安装和环境配置](#一jdk安装和环境配置)
+  - [***安装JDK前的检查***](#安装jdk前的检查)
+    - [1、检查JDK是否安装](#1检查jdk是否安装)
+    - [2、查看JDK安装目录](#2查看jdk安装目录)
+    - [3、检查JDK是否由rpm下载安装或者由压缩包解压安装](#3检查jdk是否由rpm下载安装或者由压缩包解压安装)
+  - [***删除已经安装的JDK***](#删除已经安装的jdk)
+    - [* 通过rpm下载安装的JDK的删除](#-通过rpm下载安装的jdk的删除)
+    - [*通过JDK压缩包解压安装的删除](#通过jdk压缩包解压安装的删除)
+  - [***安装JDK***](#安装jdk)
+    - [* 使用yum安装openjdk](#-使用yum安装openjdk)
+    - [* 使用压缩包安装JDK](#-使用压缩包安装jdk)
+  - [***配置java环境***](#配置java环境)
+    - [1、配置文件](#1配置文件)
+    - [2、添加java环境变量](#2添加java环境变量)
+    - [3、执行profile文件，使配置生效](#3执行profile文件使配置生效)
+- [二、Git安装和环境配置](#二git安装和环境配置)
+  - [***安装和卸载Git***](#安装和卸载git)
+  - [***配置git***](#配置git)
+    - [git配置](#git配置)
+    - [修改git配置信息](#修改git配置信息)
+    - [查看git配置信息](#查看git配置信息)
+    - [配置保存用户名和密码，不用每次都输入](#配置保存用户名和密码不用每次都输入)
+- [三、Maven安装和环境配置](#三maven安装和环境配置)
+  - [***检查Maven***](#检查maven)
+    - [1、检查Maven是否安装](#1检查maven是否安装)
+    - [2、查看Maven安装目录](#2查看maven安装目录)
+    - [3、检查Maven是否由rpm下载安装或者由压缩包解压安装](#3检查maven是否由rpm下载安装或者由压缩包解压安装)
+  - [***卸载Maven***](#卸载maven)
+    - [1、删除通过yum方式安装的maven](#1删除通过yum方式安装的maven)
+    - [2、删除通过压缩包方式安装的maven](#2删除通过压缩包方式安装的maven)
+  - [***安装Maven***](#安装maven)
+    - [1、用yum方式安装Maven](#1用yum方式安装maven)
+    - [2、用压缩包的方式安装maven](#2用压缩包的方式安装maven)
+    - [3、配置环境变量](#3配置环境变量)
+- [四、Nginx的安装和卸载](#四nginx的安装和卸载)
+  - [***查看Nginx***](#查看nginx)
+    - [查看活动进程中有没有nginx](#查看活动进程中有没有nginx)
+    - [通过whereis等方法查看nginx的安装目录](#通过whereis等方法查看nginx的安装目录)
+    - [检查是否yum安装](#检查是否yum安装)
+  - [***彻底卸载nginx***](#彻底卸载nginx)
+    - [通过压缩包编译的nginx的卸载](#通过压缩包编译的nginx的卸载)
+    - [通过yum安装的nginx的删除](#通过yum安装的nginx的删除)
+  - [***安装nginx***](#安装nginx)
+    - [通过下载源码编译的方式安装nginx](#通过下载源码编译的方式安装nginx)
+    - [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
+  - [***nignx常用命令***](#nignx常用命令)
+    - [启动nginx](#启动nginx)
+    - [带配置文件的启动](#带配置文件的启动)
+    - [停止nginx](#停止nginx)
+    - [安全停止nginx](#安全停止nginx)
+    - [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
 
 
 在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
@@ -617,3 +623,40 @@ sudo yum install epel-release
 
 此时，nginx已经被添加到了环境变量中，可以直接在任意路径下使用。
 
+
+## ***nignx常用命令***
+
+### 启动nginx
+
+```
+执行启动命令：
+./nginx                       //启动
+```
+
+### 带配置文件的启动
+
+```
+./nginx -c conf/nginx.conf
+```
+
+### 停止nginx
+
+
+```
+./nginx -s stop
+```
+
+### 安全停止nginx
+
+```
+./nginx -s quit                
+```
+
+### 热启动（修改配置文件后重新启动）
+```
+./nginx -t
+```
+
+```
+./nginx -s reload 
+```
