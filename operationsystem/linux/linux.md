@@ -22,6 +22,8 @@
     - [查看系统版本号：](#查看系统版本号)
     - [查看Linux内核版本](#查看linux内核版本)
     - [查看CPU内核数：](#查看cpu内核数)
+    - [查看内存情况：](#查看内存情况)
+    - [查看cpu使用率](#查看cpu使用率)
 - [三、shell介绍](#三shell介绍)
   - [1、shell](#1shell)
   - [2、shell命令](#2shell命令)
@@ -461,6 +463,59 @@ linux x86、x86_64、AMD64的区别：
 也就是说实际上，x86_64,x64,AMD64基本上是同一个东西，我们现在用的intel/amd的桌面级CPU基本上都是x86_64，与之相对的arm,ppc等都不是x86_64。
 
 x86、x86_64主要的区别就是32位和64位的问题，x86中只有8个32位通用寄存器，eax,ebx,ecx，edx, ebp, esp, esi, edi。x86_64把这8个通用寄存器扩展成了64位的，并且比x86增加了若干个寄存器（好像增加了8个，变成了总共16个通用寄存器）。同样的MMX的寄存器的位数和数量也进行了扩展。此外cpu扩展到64位后也能支持更多的内存了，等等许多好处。
+
+### 查看内存情况：
+
+```
+[root@iZbp19n36uysranoj3k2x5Z etc]# free
+              total        used        free      shared  buff/cache   available
+Mem:       15979532     8899636     2514460        2656     4565436     6740624
+Swap:             0           0           0
+```
+
+Mem：
+系统内存主要分为四部分：used(程序已使用内存)，free(空闲内存)，buffers(buffer cache)，cached(Page cache)。
+
+即系统可用内存，之前说过由于buffer和cache可以在需要时被释放回收，系统可用内存即 free + buffer + cache，在CentOS7之后这种说法并不准确，因为并不是所有的buffer/cache空间都可以被回收。
+
+即available = free + buffer/cache - 不可被回收内存(共享内存段、tmpfs、ramfs等)。
+
+Swap：虚拟内存
+
+为了提高磁盘存取效率, Linux做了一些精心的设计, 除了对dentry进行缓存(用于VFS,加速文件路径名到inode的转换), 还采取了两种主要Cache方式：Buffer Cache和Page Cache。前者针对磁盘块的读写，后者针对文件inode的读写。这些Cache有效缩短了 I/O系统调用(比如read,write,getdents)的时间。
+
+### 查看cpu使用率
+
+```
+[root@iZbp1hvca0d8vk8fgxk0b5Z ~]# top -bn 1 -i -c
+top - 13:42:09 up 55 days, 15:37,  2 users,  load average: 2.27, 1.69, 1.37
+Tasks: 137 total,   1 running, 136 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  1.5 us,  1.5 sy,  0.0 ni, 97.1 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :  15607.3 total,    152.1 free,   7314.1 used,   8141.2 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.   7962.8 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+16235 root      20   0 4153452 724132   9764 S   6.2   4.5 276:48.51 /usr/local/java/jdk1.8.0_144/bin/java -Xms512m -Xmx512m -Xmn256m -Dnacos.standalone=true -Dnacos.+
+28456 root      20   0   64720   4304   3740 R   6.2   0.0   0:00.01 top -bn 1 -i -c
+```
+
+top命令可以看到总体的系统运行状态和cpu使用效率
+
+%us: 表示用户空间程序的cpu使用效率
+
+%sy:表示系统空间程序的cpu使用效率
+
+%ni: 表示用户空间通过nice调度过的程序的cpu使用效率
+
+%id: 空闲cpu
+
+%wa:cpu运行时等待io的时间
+
+%hi: cpu运行过程中硬中断的数量
+
+%si: cpu处理软中断的数量
+
+%st: 被虚拟机偷走的cpu
 
 
 # 三、shell介绍
