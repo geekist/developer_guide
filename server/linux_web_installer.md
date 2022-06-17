@@ -1,18 +1,18 @@
 - [一、JDK安装和环境配置](#一jdk安装和环境配置)
-  - [***安装JDK前的检查***](#安装jdk前的检查)
-    - [1、检查JDK是否安装](#1检查jdk是否安装)
-    - [2、查看JDK安装目录](#2查看jdk安装目录)
-    - [3、检查JDK是否由rpm下载安装或者由压缩包解压安装](#3检查jdk是否由rpm下载安装或者由压缩包解压安装)
-  - [***删除已经安装的JDK***](#删除已经安装的jdk)
+  - [1、检查](#1检查)
+    - [1.1、检查JDK是否安装](#11检查jdk是否安装)
+    - [1.2、查看JDK安装目录](#12查看jdk安装目录)
+    - [1.3、检查JDK是否由rpm下载安装或者由压缩包解压安装](#13检查jdk是否由rpm下载安装或者由压缩包解压安装)
+  - [2、删除已经安装的JDK](#2删除已经安装的jdk)
     - [* 通过rpm下载安装的JDK的删除](#-通过rpm下载安装的jdk的删除)
     - [*通过JDK压缩包解压安装的删除](#通过jdk压缩包解压安装的删除)
-  - [***安装JDK***](#安装jdk)
+  - [3、安装JDK](#3安装jdk)
     - [* 使用yum安装openjdk](#-使用yum安装openjdk)
     - [* 使用压缩包安装JDK](#-使用压缩包安装jdk)
-  - [***配置java环境***](#配置java环境)
-    - [1、配置文件](#1配置文件)
-    - [2、添加java环境变量](#2添加java环境变量)
-    - [3、执行profile文件，使配置生效](#3执行profile文件使配置生效)
+  - [4、配置java环境](#4配置java环境)
+    - [4.1、配置文件](#41配置文件)
+    - [4.2、添加java环境变量](#42添加java环境变量)
+    - [4.3、执行profile文件，使配置生效](#43执行profile文件使配置生效)
 - [二、Git安装和环境配置](#二git安装和环境配置)
   - [***安装和卸载Git***](#安装和卸载git)
   - [***配置git***](#配置git)
@@ -73,12 +73,14 @@
 
 * Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。
 
+总结，全新的服务器安装，除了git可以不考虑版本，直接通过yum从服务器下载之外，其他的JDK、Maven、Nginx和Nacos都需要下载压缩包安装或编译安装。（Nginx需要编译安装）
+
 # 一、JDK安装和环境配置
 
-## ***安装JDK前的检查***
+## 1、检查
 安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java，`如果已经预装了OpenSDK，需要先删除掉`。JDK的最后一个免费版本是1.8.202版本。
 
-### 1、检查JDK是否安装
+### 1.1、检查JDK是否安装
 
 检查生产环境是否安装了Java
 ```
@@ -92,7 +94,7 @@ OpenJDK Runtime Environment (build 1.8.0_292-b10)
 OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 [root@geekist ~]#
 ```
-### 2、查看JDK安装目录
+### 1.2、查看JDK安装目录
 用whereis、which、find等shell工具查找java目录
 ```
 [root@geekist etc]# whereis java
@@ -105,7 +107,7 @@ java: /etc/java
 /etc/pki/java
 /etc/pki/ca-trust/extracted/java
 ```
-### 3、检查JDK是否由rpm下载安装或者由压缩包解压安装
+### 1.3、检查JDK是否由rpm下载安装或者由压缩包解压安装
 通过rpm命令查看是否该安装是由rpm下载安装
 ```
 rpm -qa |grep java
@@ -118,7 +120,7 @@ tzdata-java-2021a-1.1.al8.noarch
 java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
-## ***删除已经安装的JDK***
+## 2、删除已经安装的JDK
 
 ### * 通过rpm下载安装的JDK的删除
 将用 rpm -qa|grep java列出的文件用rpm -e --nodeps 命令逐个删除
@@ -162,7 +164,7 @@ rm -rf /usr/local/java
 
 如果配置文件/etc/profile中配置了环境变量，也需要删除。
 
-## ***安装JDK***
+## 3、安装JDK
 
 ### * 使用yum安装openjdk
 
@@ -194,16 +196,16 @@ cd /usr/local
 $ tar zxvf jdk-8u202-linux-x64.tar.gz 
 ```
 
-## ***配置java环境***
+## 4、配置java环境
 
-### 1、配置文件
+### 4.1、配置文件
 打开linux配置文件，如果有以前的配置，可以先删除。
 
 ```
 vi /etc/profile
 ```
 
-### 2、添加java环境变量
+### 4.2、添加java环境变量
 
 如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
 
@@ -223,7 +225,7 @@ export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
 
-### 3、执行profile文件，使配置生效
+### 4.3、执行profile文件，使配置生效
 
 ```
  source  /etc/profile
