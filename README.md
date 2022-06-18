@@ -108,4 +108,8 @@ Linux脚本
 ## [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
 
 * [高德地图开发](https://github.com/geekist/developer_guide/blob/main/gaode_map/gaode_map.md) 
+
+个推消息推送服务
+
+* [Android端个推开发指南](https://github.com/geekist/developer_guide/blob/main/android/3rd/getui.md)
   
