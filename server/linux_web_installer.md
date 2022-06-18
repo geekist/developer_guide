@@ -179,35 +179,41 @@ rm -rf /usr/local/java
 
 ## 3、安装JDK
 
-### * 使用yum安装openjdk
-
-查看yum上的java版本
-
-```
-yum search  java
-yum list java*
-```
->上述两种方法查找出来的java版本太多，无法直观选择,直接采用java-1.8.0-openjdk.x86_64 版本。
-
-```
-yum install -y java-1.8.0-openjdk.x86_64
-```
-
-安装成功后用上述查找方法，可以确认java安装成功。
-
 ### * 使用压缩包安装JDK
 
 到oracle官网：http://www.oracle.com/ ---资源--下载--JDK--archive，找到8u-202版本，最后的免费版本
 
-新建一个 JDK 安装目录
+新建一个 JDK 安装目录java
+```
+mkdir /usr/local/java
 cd /usr/local/java
+```
 
 将之前下载的 tar 包拷贝到新建的目录下
+>拷贝可以用各自的linux桌面工具。
 
 将 JDK 源码包解压
 ```
 $ tar zxvf jdk-8u202-linux-x64.tar.gz 
 ```
+至此，JDK安装完成。
+
+
+>使用yum安装openjdk
+>
+>查看yum上的java版本
+>
+>```
+>yum search  java
+>yum list java*
+>```
+>上述两种方法查找出来的java版本太多，无法直观选择,直接采用java-1.8.0-openjdk.x86_64 版本。
+>
+>```
+>yum install -y java-1.8.0-openjdk.x86_64
+>```
+
+安装成功后用上述查找方法，可以确认java安装成功。
 
 ## 4、配置java环境
 
@@ -222,21 +228,21 @@ vi /etc/profile
 
 如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
 
-openJDK的配置
-```
-#set java environment
-JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
-PATH=$PATH:$JAVA_HOME/bin
-CLASSPATH=.:$JAVA_HOME/lib
-export JAVA_HOME CLASSPATH PATH
-```
-
 JDK的配置
 ```
 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
+
+>openJDK的配置
+>```
+>#set java environment
+>JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
+>PATH=$PATH:$JAVA_HOME/bin
+>CLASSPATH=.:$JAVA_HOME/lib
+>export JAVA_HOME CLASSPATH PATH
+>```
 
 ### 4.3、执行profile文件，使配置生效
 
@@ -308,6 +314,26 @@ git: /usr/bin/git /usr/share/man/man1/git.1.gz
 yum remove git
 ```
 
+如果有配置保存在系统的配置文件里，同时需要删除。
+
+* /etc/gitconfig 文件（全局配置）
+
+* ~/.gitconfig 或 ~/.config/git/config 文件：（当前用户）
+
+* 当前使用仓库的 Git 目录中的 config 文件（即 .git/config）：
+
+一般在~/.gitconfig文件中可以看到：
+
+```
+[user]
+    email = yuyaapp@163.com
+    name = 13681986288
+
+[credential]
+    helper = store
+```
+删除原来的配置即可。
+
 ## 3、安装Git
 
 用yum 安装git
@@ -315,94 +341,66 @@ yum remove git
 yum install -y git
 ```
 
-## 4、配置
+## 4、下载源代码
 
-### 4.1配置文件位置和优先级
-
-既然已经在系统上安装了 Git，你会想要做几件事来定制你的 Git 环境。 每台计算机上只需要配置一次，程序升级时会保留配置信息。 你可以在任何时候再次通过运行命令来修改它们。
-
-Git 自带一个 git config 的工具来帮助设置控制 Git 外观和行为的配置变量。 这些变量存储在三个不同的位置：
-
-* /etc/gitconfig 文件: （实践中centos环境下没有该配置文件）
-
-包含系统上每一个用户及他们仓库的通用配置。 如果在执行 git config 时带上 --system 选项，那么它就会读写该文件中的配置变量。 （由于它是系统配置文件，因此你需要管理员或超级用户权限来修改它。）
-
-* ~/.gitconfig 或 ~/.config/git/config 文件：
-
-实践中没有.config/git/config文件。
-
-发现~/.gitconfig文件
-
-只针对当前用户。 你可以传递 --global 选项让 Git 读写此文件，这会对你系统上 所有 的仓库生效。
-
-* 当前使用仓库的 Git 目录中的 config 文件（即 .git/config）：
-
-针对该仓库。 你可以传递 --local 选项让 Git 强制读写此文件，虽然默认情况下用的就是它。。 （当然，你需要进入某个 Git 仓库中才能让该选项生效。）
-
-优先级：
-
-每一个级别会覆盖上一级别的配置，所以 .git/config 的配置变量会覆盖 /etc/gitconfig 中的配置变量。
-
-
-### 4.2修改git配置信息
-
-例子：
-
-安装完 Git 之后，要做的第一件事就是设置你的用户名和邮件地址。 这一点很重要，因为每一个 Git 提交都会使用这些信息，它们会写入到你的每一次提交中，不可更改：
+首先创建源代码目录
+```
+mkdir /var/yuya
+```
+* 从源代码服务器克隆后台管理服务代码到本地
 
 ```
-$ git config --global user.name "Daniel Yang"
-$ git config --global user.email johndoe@example.com
+git clone "https://gitee.com/iyuya/yychildren.git"
 ```
-
-### 4.3查看git配置信息
-
-如果想要检查你的配置，可以使用 git config --list 命令来列出所有 Git 当时能找到的配置。
-
+例如：
 ```
-$ git config --list
-
-user.name=John Doe
-user.email=johndoe@example.com
-color.status=auto
-color.branch=auto
-color.interactive=auto
-color.diff=auto
-...
+[root@geekist yuya]# git clone "https://gitee.com/iyuya/yychildren.git"
+Cloning into 'yychildren'...
+Username for 'https://gitee.com': 13681986288
+Password for 'https://13681986288@gitee.com':
+remote: Enumerating objects: 8558, done.
+remote: Counting objects: 100% (3121/3121), done.
+remote: Compressing objects: 100% (2308/2308), done.
+remote: Total 8558 (delta 1555), reused 3 (delta 3), pack-reused 5437
+Receiving objects: 100% (8558/8558), 20.87 MiB | 3.17 MiB/s, done.
+Resolving deltas: 100% (4719/4719), done.
 ```
-
-你可能会看到重复的变量名，因为 Git 会从不同的文件中读取同一个配置（例如：/etc/gitconfig 与 ~/.gitconfig）。 这种情况下，Git 会使用它找到的每一个变量的最后一个配置。
-
-你可以通过输入 git config <key>： 来检查 Git 的某一项配置
+切换到正确的分支
 
 ```
-$ git config user.name
-John Doe
-```
-### 4.4配置保存用户名和密码，不用每次都输入
+git checkout dev
 
-在C盘用户当前用户的目录下找到.gitconfig文件，用记事本打开，或者借助其他工具打开进行编辑。
-在文件中可以看到：
+git pull orign dev
+```
+
+* 从源代码服务器克隆客户端API代码到本地
+
+```
+git clone "https://gitee.com/iyuya/yychildren_server_springcloud.git"
+```
+同理可以下载正确的分支代码到本地。
+
+* 配置保存用户名和密码，不用每次都输入
+
+查找git的配置文件：
+
+>/etc/gitconfig 文件（全局配置）
+>
+> ~/.gitconfig 或 ~/.config/git/config 文件：（当前用户）
+>
+> 当前使用仓库的 Git 目录中的 config 文件（即 .git/config）：
+>
+>一般在~/.gitconfig文件中可以看到该配置文件：
+
+添加如下配置即可
+
 ```
 [user]
-name = user
-email = 123456789@163.com
-```
-在这个文件内容后面添加：
-```
+    email = yuyaapp@163.com
+    name = 13681986288
 [credential]
-helper = store
+    helper = store
 ```
-保存如下：
-```
-[credential]
-        helper = store
-[user]
-        email = you@example.com
-        name = 13681986288
-```
-设置credential后，下次运行，只需要输入一遍，就可以再也不用输入用户名和密码了。
-
 
 # 三、Maven安装和环境配置
 
@@ -450,12 +448,6 @@ maven-openjdk11-3.6.2-6.1.al8.noarch
 ```
 ##  2、卸载
 
-### 删除通过yum方式安装的maven
-```
-yum remove maven 
-```
-或者通过rpm -e nodeps方式卸载。
-
 ### 删除通过压缩包方式安装的maven
 
 首先查找maven的安装路径，可以通过mvn -v或其他命令
@@ -472,37 +464,53 @@ OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
 ```
 rm -rf /usr/local/apach-maven-3.8.6
 ```
+
 最后可以删除/etc/profile配置文件
 
+
+>## 删除通过yum方式安装的maven
+>```
+>yum remove maven 
+>```
+>或者通过rpm -e nodeps方式卸载。
+
 ## 3、安装
-
-### 用yum方式安装Maven
-```
-yum -y install maven 
-```
-安装成功后，查看安装路径：
-
-```
-[root@geekist /]# rpm -qa |grep maven
-maven-lib-3.6.2-6.1.al8.noarch
-maven-3.6.2-6.1.al8.noarch
-maven-resolver-1.4.1-3.1.al8.noarch
-maven-openjdk11-3.6.2-6.1.al8.noarch
-maven-shared-utils-3.2.1-0.1.1.al8.noarch
-maven-wagon-3.3.4-2.1.al8.noarch
-```
-***安装Maven  --尽量不要用yum的方式安装maven，因为这样会重新安装openJDK，导致已经安装的Java环境被破坏***
 
 ### 用压缩包的方式安装maven
 
 前往https://maven.apache.org/download.cgi下载最新版的Maven程序
 
-将下载的压缩包上传到服务器的/usr/local目录下
+
+新建一个 JDK 安装目录java
+```
+mkdir /usr/local/maven
+cd /usr/local/maven
+```
+
+将之前下载的 tar 包拷贝到新建的目录下
+>拷贝可以用各自的linux桌面工具。
 
 解压maven到当前目录或指定目录
 ```
 tar zxvf apache-maven-3.8.6-bin.tar.gz
 ```
+
+>## 用yum方式安装Maven
+>```
+>yum -y install maven 
+>```
+>安装成功后，查看安装路径：
+>
+>```
+>[root@geekist /]# rpm -qa |grep maven
+>maven-lib-3.6.2-6.1.al8.noarch
+>maven-3.6.2-6.1.al8.noarch
+>maven-resolver-1.4.1-3.1.al8.noarch
+>maven-openjdk11-3.6.2-6.1.al8.noarch
+>maven-shared-utils-3.2.1-0.1.1.al8.noarch
+>maven-wagon-3.3.4-2.1.al8.noarch
+>```
+***安装Maven  --尽量不要用yum的方式安装maven，因为这样会重新安装openJDK，导致已经安装的Java环境被破坏***
 
 ### 4、配置
 ```
@@ -510,7 +518,7 @@ vi /etc/profile
 ```
 在打开的文件中追加配置
 ```
-export MAVEN_HOME=/usr/local/apache-maven-3.8.3
+export MAVEN_HOME=/usr/local/maven/apache-maven-3.8.3
 export PATH=$PATH:$MAVEN_HOME/bin
 ```
 重新加载配置文件
