@@ -1,3 +1,24 @@
+* [一、个推相关概念：](#一个推相关概念)
+* [二、个推推送流程](#二个推推送流程)
+* [三、Android开发接入过程：](#三android开发接入过程)
+  * [1、权限控制：](#1权限控制)
+  * [2、个推SDK下载路径配置](#2个推sdk下载路径配置)
+  * [3、依赖项配置](#3依赖项配置)
+  * [4、设置通知图标](#4设置通知图标)
+  * [5、配置推送服务Service](#5配置推送服务service)
+  * [6\.实现推送](#6实现推送)
+* [四、厂商SDK集成](#四厂商sdk集成)
+  * [1、通用配置](#1通用配置)
+  * [2、华为配置(集成华为通道还需要额外的步骤)](#2华为配置集成华为通道还需要额外的步骤)
+    * [\* 添加应用的 AppGallery Connect 配置文件](#-添加应用的-appgallery-connect-配置文件)
+    * [\* 配置相应依赖](#-配置相应依赖)
+  * [3、OPPO配置](#3oppo配置)
+    * [\* 项目需要支持AndroidX](#-项目需要支持androidx)
+    * [\* maven集成](#-maven集成)
+* [五、配置后遇到的问题：](#五配置后遇到的问题)
+  * [项目的manifest合并出错，提示重复](#项目的manifest合并出错提示重复)
+  * [华为APP\_ID缺失](#华为app_id缺失)
+
 
 
 个推是商用级的移动应用消息推送云服务供应商，客户端SDK支持Android和iOS两大平台，开发者集成SDK后，可以通过个推强大的web端及丰富的API开放接口，发送推送消息、统计分析推送效果。
@@ -21,6 +42,10 @@
 * 透传消息
 
 即自定义消息，消息体格式客户可以自己定义，如纯文本、json串等。透传消息个推只传递数据，不做任何处理，客户端接收到透传消息后需要自己去做后续动作处理，如通知栏展示、弹框等。
+
+* 离线消息
+
+应用运行在后台、锁屏、应用被杀死时，通过厂商通道下发消息，提升消息送达率。
 
 推送目标：
 
@@ -475,10 +500,10 @@ tools:replace="android:protectionLevel"
 ```
     <uses-permission android:name="getui.permission.GetuiService.${applicationId}" />
 
-    <permission
+   <permission
         tools:replace="android:protectionLevel"
         android:name="getui.permission.GetuiService.${applicationId}"
-        android:protectionLevel="normal"/>
+        android:protectionLevel="signature"/>
 ```
 
 ## 华为APP_ID缺失
