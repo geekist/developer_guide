@@ -7,7 +7,7 @@
 文档： https://docs.getui.com/getui/start/product/
 
 
-## 个推相关概念：
+# 一、个推相关概念：
 
 
 消息形式：
@@ -42,7 +42,7 @@
 
 第三方客户端个推集成鉴权码，用于验证第三方合法性。在客户端集成SDK时需要提供。
 
-## 个推推送流程
+# 二、个推推送流程
 
 ![](./assets/getui_1.png)
 
@@ -52,11 +52,10 @@ APP将CID上传到服务端进行保存。通常需要将该CID与相应的用�
 
 业务方服务端需要给指定CID的设备发送消息时，调用个推服务端消息推送接口，个推服务端寻找目标设备，将消息下发给相应的个推SDK，进而将消息进行展示或由APP自行处理。
 
-## 开发接入过程：
+# 三、Android开发接入过程：
 
 
-
-* 1、权限控制：
+## 1、权限控制：
 在app模块的manifest文件中添加如下内容：
 
 必选权限
@@ -89,7 +88,7 @@ APP将CID上传到服务端进行保存。通常需要将该CID与相应的用�
     <!-- 个推 SDK 权限配置结束 -->
 ```
 
-* 2、个推SDK下载路径配置
+## 2、个推SDK下载路径配置
 
 在项目根目录 build.gradle 文件的 allprojects.repositories 块中，添加个推 maven 库地址 maven { url "https://mvn.getui.com/nexus/content/repositories/releases/"}，如下所示：
 ```gralle
@@ -119,7 +118,7 @@ allprojects {
 }
 ```
 
-* 3、依赖项配置
+## 3、依赖项配置
 
 配置 SDK 依赖及应用参数：
 
@@ -165,7 +164,7 @@ queries标签对gradle版本有要求，建议升级到4.0.1及以上。或使�
 </manifest>
 ```
 
-* 4、设置通知图标
+## 4、设置通知图标
 
 客户端必须配置 push_small.png 资源文件，若客户端无该文件，会导致通知栏消息无法展示。
 
@@ -180,7 +179,7 @@ push:  192*192
 pushi_small:  72*72
 ```
 
-* 5、配置推送服务Service
+## 5、配置推送服务Service
 
 >为了让推送服务在部分主流机型上更稳定运行，从 2.9.5.0 版本开始，个推支持第三方应用配置使用自定义 Service 来作为推送服务运行的载体。
 
@@ -202,7 +201,7 @@ public class DemoPushService extends com.igexin.sdk.PushService {
             android:process=":pushservice"/>
 ```
 
-* 6.实现推送
+## 6.实现推送
 
 ***初始化 SDK***
 
@@ -271,3 +270,210 @@ public class DemoIntentService extends GTIntentService {
     }
 }
 ```
+
+# 四、厂商SDK集成
+
+## 1、通用配置
+
+*  添加 Maven 库地址
+
+在以项目名为命名的顶层 build.gradle 文件的 allprojects.repositories 中，添加个推 maven 库地址 https://mvn.getui.com/nexus/content/repositories/releases/ 如下所示：
+
+```
+allprojects {
+    repositories {
+        mavenCentral()
+        //添加 Maven URL 地址
+        maven {
+            url "https://mvn.getui.com/nexus/content/repositories/releases/"
+        }
+    }
+}
+```
+
+* 配置相关依赖
+
+在 app/build.gradle 文件中的 dependencies 块中引用厂商 SDK 依赖库 ，此处的{version}为对应的版本号，详见厂商更新日志。ups为个推与手机厂商合作通道，目前支持坚果，索尼，海信手机。如下所示：
+
+```
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // 根据所需厂商选择集成
+    implementation 'com.getui.opt:hwp:{version}'   // 华为
+    implementation 'com.getui.opt:xmp:{version}'   // 小米
+    implementation 'com.assist-v3:oppo:{version}'  // oppo
+    implementation 'com.assist-v3:vivo:{version}'  // vivo
+    implementation 'com.getui.opt:mzp:{version}'   // 魅族
+    implementation 'com.getui.opt:ups:{version}'   // ups，ups目前支持坚果，索尼，海信手机
+}
+```
+
+* 配置应用参数
+
+请先确保已 创建厂商应用 ，并获取厂商应用参数信息
+在 app/build.gradle 文件中的 android.defaultConfig 下添加 manifestPlaceholders，配置厂商相关的应用参数，如下 manifestPlaceholders 中的内容所示，ups无需配置对应的厂商ID，个推已经默认作出处理：
+```
+android {
+    defaultConfig {
+        manifestPlaceholders = [
+                // 华为 相关应用参数
+                HUAWEI_APP_ID  : "",
+
+                // 小米相关应用参数
+                XIAOMI_APP_ID  : "",
+                XIAOMI_APP_KEY : "",
+
+                // OPPO 相关应用参数   
+                OPPO_APP_KEY   : "",
+                OPPO_APP_SECRET: "",
+
+                // VIVO 相关应用参数   
+                VIVO_APP_ID    : "",
+                VIVO_APP_KEY   : "",
+
+                // 魅族相关应用参数  
+                MEIZU_APP_ID   : "",
+                MEIZU_APP_KEY  : ""
+        ]
+    }
+}
+```
+
+
+
+## 2、华为配置(集成华为通道还需要额外的步骤)
+
+### * 添加应用的 AppGallery Connect 配置文件
+
+登录 AppGallery Connect，选择“我的项目”，找到应用所在的产品，点击应用名称。
+
+选择“项目设置 > 常规”，在“应用”栏下的“agconnect-services.json”下载配置文件。
+
+将 agconnect-services.json 文件拷贝到应用级根目录下。如下：
+
+```
+Getui_SDK_Demo_AS_manufacture/
+  |- app/ （项目主模块）
+  |  ......
+  |    |- agconnect-services.json 
+  |- gradle/
+  |- build.gradle （顶层 gradle 文件）
+  |- settings.gradle
+  | ......
+```
+
+华为离线推送验证需要客户端使用签名包，否则会校验失败.
+
+### * 配置相应依赖
+
+在以项目名为命名的顶层 build.gradle 文件的 buildscript.repositories 和 allprojects.repositories 中，添加 HMS SDK 的 maven 地址。在 buildscript.dependencies 添加 classpath 'com.huawei.agconnect:agcp:${version}' 如下所示：
+```
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        maven {url 'https://developer.huawei.com/repo/'}
+    }
+    dependencies {
+        ......
+        classpath 'com.huawei.agconnect:agcp:1.6.0.300'
+    }
+}
+
+allprojects {
+    repositories {
+        ......
+        maven {url 'https://developer.huawei.com/repo/'}
+    }
+}
+```
+
+在模块级别 app/build.gradle 中文件头配置 apply plugin: 'com.huawei.agconnect' 以及在 dependencies 块配置 HMS Push 依赖 implementation 'com.huawei.hms:push:${version}'，如下：
+```
+apply plugin: 'com.android.application'
+apply plugin: 'com.huawei.agconnect'
+android { 
+    ......
+}
+dependencies { 
+    ......
+    implementation 'com.huawei.hms:push:6.5.0.300'
+}
+```
+
+配置签名信息：将应用签名文件拷贝到工程 app 目录下，在 app/build.gradle 文件中配置签名。如下（具体请根据您当前项目的配置修改）：
+
+```
+signingConfigs {
+     config {
+         keyAlias 'pushdemo'
+         keyPassword '123456789'
+         storeFile file('pushdemo.jks')
+         storePassword '123456789'
+     }
+ }
+ ```
+ ```
+ buildTypes {
+     debug {
+         signingConfig signingConfigs.config
+     }
+     release {
+         signingConfig signingConfigs.config
+         minifyEnabled false
+         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+     }
+ }
+```
+
+## 3、OPPO配置
+
+### * 项目需要支持AndroidX
+
+在以项目名为命名的顶层 gradle.properties 文件中添加以下配置：
+```
+android.useAndroidX=true
+android.enableJetifier=true
+```
+### * maven集成
+
+配置相应依赖：在以项目名为命名的顶层 build.gradle 文件的 allprojects.repositories 中，添加 OPPO SDK 的 maven 地址。 如下所示：
+
+```
+allprojects {
+    repositories {
+        ......
+        maven {
+                url 'https://maven.columbus.heytapmobi.com/repository/releases/'
+                credentials {
+                   username 'nexus'
+                   password 'c0b08da17e3ec36c3870fed674a0bcb36abc2e23'
+               }
+        }
+    }
+}
+```
+# 五、配置后遇到的问题：
+
+## 项目的manifest合并出错，提示重复
+
+在permission的元素中添加：
+
+```
+tools:replace="android:protectionLevel"
+```
+如下所示：
+
+```
+    <uses-permission android:name="getui.permission.GetuiService.${applicationId}" />
+
+    <permission
+        tools:replace="android:protectionLevel"
+        android:name="getui.permission.GetuiService.${applicationId}"
+        android:protectionLevel="normal"/>
+```
+
+## 华为APP_ID缺失
+
+新增加了华为appid，需要补全。
