@@ -90,7 +90,13 @@ APP将CID上传到服务端进行保存。通常需要将该CID与相应的用�
 
 ## 2、个推SDK下载路径配置
 
-在项目根目录 build.gradle 文件的 allprojects.repositories 块中，添加个推 maven 库地址 maven { url "https://mvn.getui.com/nexus/content/repositories/releases/"}，如下所示：
+在项目根目录 build.gradle 文件的 allprojects.repositories 块中，添加个推 maven 库地址 
+
+```
+maven { url "https://mvn.getui.com/nexus/content/repositories/releases/"}
+```
+
+如下所示：
 ```gralle
 buildscript {
     ......
@@ -135,7 +141,7 @@ allprojects {
             manifestPlaceholders = [
                   //从 3.1.2.0 版本开始，APPID 占位符从 GETUI_APP_ID 切换为 GETUI_APPID 
                   //后续所有产品的 APPID 均统一配置为 GETUI_APPID 占位符
-                GETUI_APPID       : "your appid",
+                GETUI_APPID    : "gQuaOcwMky87nFCGhaCnu2",
             ]        
         }
       ......
@@ -299,13 +305,11 @@ allprojects {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // 根据所需厂商选择集成
-    implementation 'com.getui.opt:hwp:{version}'   // 华为
-    implementation 'com.getui.opt:xmp:{version}'   // 小米
-    implementation 'com.assist-v3:oppo:{version}'  // oppo
-    implementation 'com.assist-v3:vivo:{version}'  // vivo
-    implementation 'com.getui.opt:mzp:{version}'   // 魅族
-    implementation 'com.getui.opt:ups:{version}'   // ups，ups目前支持坚果，索尼，海信手机
+     // 个推厂商SDK，根据所需厂商选择集成
+    implementation 'com.getui.opt:hwp:3.1.0'   // 华为
+    implementation 'com.getui.opt:xmp:3.2.0'   // 小米
+    implementation 'com.assist-v3:oppo:3.1.0'  // oppo
+    implementation 'com.assist-v3:vivo:3.1.0'  // vivo
 }
 ```
 
