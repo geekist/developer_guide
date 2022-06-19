@@ -146,10 +146,13 @@ allprojects {
         }
       ......
     }
+```
 
+根据yuya项目的情况，将个推SDK依赖甚至在common_lib模块的build.gradle中
+```
     dependencies {
-        implementation 'com.getui:gtsdk:3.2.10.0'  //个推SDK
-        implementation 'com.getui:gtc:3.1.9.0'  //个推核心组件
+        api 'com.getui:gtsdk:3.2.10.0'  //个推SDK
+        api 'com.getui:gtc:3.1.8.0'  //个推核心组件
     }  
 ```
 
