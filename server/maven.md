@@ -190,7 +190,7 @@ spring-boot-starter-web
 
 Maven定义了几种依赖关系，分别是compile、test、runtime和provided：
 
-|scope|说明|示例|
+| scope | 说明 | 示例 |
 
 | --- | --- | --- |
 
