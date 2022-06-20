@@ -120,7 +120,7 @@ idea 删除生成的.iml文件后 项目目录不显示 或者报错
 iml是 intellij idea的工程配置文件，里面是当前projec的一些配置信息
 web.xml 是当前这个project是一个web project，里面是web 工程的具体配置信息 初始参数，servlet filter 等等
 
-# 三、Maven依赖管理
+# 三、Maven管理依赖
 
 ## 1、通过配置文件管理依赖
 
@@ -186,17 +186,9 @@ spring-boot-starter-web
 
 如果我们自己去手动管理这些依赖是非常费时费力的，而且出错的概率很大。
 
-## 依赖关系分类
+## 2、依赖关系分类
 
 Maven定义了几种依赖关系，分别是compile、test、runtime和provided：
-
-
-| 左对齐 | 右对齐 | 居中对齐 |
-| :-----| ----: | :----: |
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
-
-
 
 | scope | 说明  | 示例 |
 | ----  | ----  | ---- |
@@ -241,22 +233,25 @@ provided依赖表示编译时需要，但运行时不需要。最典型的provid
 </dependency>
 ```
 
-## Maven仓库
+## 3、Maven仓库
 
-最后一个问题是，Maven如何知道从何处下载所需的依赖？也就是相关的jar包？答案是Maven维护了一个中央仓库（repo1.maven.org），所有第三方库将自身的jar以及相关信息上传至中央仓库，Maven就可以从中央仓库把所需依赖下载到本地。
+Maven如何知道从何处下载所需的依赖？也就是相关的jar包？
+
+答案是Maven维护了一个中央仓库（repo1.maven.org），所有第三方库将自身的jar以及相关信息上传至中央仓库，Maven就可以从中央仓库把所需依赖下载到本地。
 
 
 Maven并不会每次都从中央仓库下载jar包。一个jar包一旦被下载过，就会被Maven自动缓存在本地目录（用户主目录的.m2目录），所以，除了第一次编译时因为下载需要时间会比较慢，后续过程因为有本地缓存，并不会重复下载相同的jar包。
 
-唯一ID
 
 对于某个依赖，Maven只需要3个变量即可唯一确定某个jar包：
 
+```
 groupId：属于组织的名称，类似Java的包名；
 
 artifactId：该jar包自身的名称，类似Java的类名；
 
 version：该jar包的版本。
+```
 
 通过上述3个变量，即可唯一确定某个jar包。Maven通过对jar包进行PGP签名确保任何一个jar包一经发布就无法修改。修改已发布jar包的唯一方法是发布一个新版本。
 
@@ -264,7 +259,8 @@ version：该jar包的版本。
 
 注：只有以-SNAPSHOT结尾的版本号会被Maven视为开发版本，开发版本每次都会重复下载，这种SNAPSHOT版本只能用于内部私有的Maven repo，公开发布的版本不允许出现SNAPSHOT。
 
-Maven镜像
+## 4、Maven镜像及搜索依赖的方法
+
 除了可以从Maven的中央仓库下载外，还可以从Maven的镜像仓库下载。如果访问Maven的中央仓库非常慢，我们可以选择一个速度较快的Maven的镜像仓库。Maven镜像仓库定期从中央仓库同步：
 ```xml
            slow    ┌───────────────────┐
@@ -297,12 +293,370 @@ Maven镜像
 配置镜像仓库后，Maven的下载速度就会非常快。
 
 搜索第三方组件
+
 最后一个问题：如果我们要引用一个第三方组件，比如okhttp，如何确切地获得它的groupId、artifactId和version？方法是通过search.maven.org搜索关键字，找到对应的组件后，直接复制：
 
 copy-maven
 
 
-## Maven插件
+# 四、Maven构建项目
+
+Maven有一套标准化的构建流程，可以自动化实现编译，打包，发布，等等。
+
+## 1、Maven生命周期
+
+Maven 生命周期定义了各个构建环节的执行顺序，有了这个清单，Maven 就可以自动化的执行构建命令了。
+
+Maven 有三套相互独立的生命周期，分别是：
+
+* Clean Lifecycle 
+
+在进行真正的构建之前进行一些清理工作
+
+* Default Lifecycle 
+
+构建的核心部分，编译，测试，打包，安装，部署等等
+
+Default 生命周期是 Maven 生命周期中最重要的一个，绝大部分工作都发生在这个生命周期中（列出一些重要阶段）
+
+* Site Lifecycle 
+
+生成项目报告，站点，发布站点
+
+它们是相互独立的，你可以仅仅调用 clean 来清理工作目录，仅仅调用 site 来生成站点。当然你也可以直接运行 mvn clean install site 运行所有这三套生命周期。 
+
+## 2、Maven声明周期的阶段
+
+Maven的生命周期由一系列阶段（phase）构成，我们平时在命令行输入的命令总会对应于一个特定的阶段。
+
+例如：
+
+```
+mvn clean 的clean是一个phase，是Clean声明周期的一个阶段。
+```
+
+* Clean 生命周期一共包含了三个阶段：
+
+pre-clean 执行一些需要在 clean 之前完成的工作
+
+clean 移除所有上一次构建生成的文件
+
+post-clean 执行一些需要在 clean 之后立刻完成的工作
+
+* default 生命周期包含了下面的阶段：
+
+validate：验证工程是否正确，所有需要的资源是否可用。
+
+compile：编译项目的源代码。
+
+test：使用合适的单元测试框架来测试已编译的源代码。这些测试不需要已打包和布署。
+
+package：把已编译的代码打包成可发布的格式，比如 jar、war 等。
+
+integration-test：如有需要，将包处理和发布到一个能够进行集成测试的环境。
+
+verify：运行所有检查，验证包是否有效且达到质量标准。
+
+install：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。
+
+deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享
+
+* Site 生命周期包含4个阶段：
+
+pre-site 执行一些需要在生成站点文档之前完成的工作
+
+site 生成项目的站点文档
+
+post-site 执行一些需要在生成站点文档之后完成的工作，并且为部署做准备
+
+site-deploy 将生成的站点文档部署到特定的服务器上 这里经常用到的是 site 阶段和 site-deploy 阶段，用以生成和发布 Maven 站点，这可是 Maven 相当强大 的功能，Manager 比较喜欢，文档及统计数据自动生成，很好看。
+
+## 3、Maven阶段的执行：Goal
+
+执行一个phase又会触发一个或多个goal：
+
+例如：我们执行mvn compile，实际上是执行了下面的goal：
+compile	compiler:compile
+
+我们执行mvn test，实际上是执行了下面的goal：
+
+test	compiler:testCompile
+
+大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，
+
+例如，启动Tomcat服务器：
+mvn tomcat:run
+
+
+## 4、maven命令的执行过程：
+
+maven 命令的常用格式是：  mvn phase名
+
+其执行过程是：
+
+使用mvn这个命令时，Maven自动根据生命周期，从某一个生命周期的第一个阶段开始，运行到指定的阶段为止。
+
+例如：
+
+我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
+
+```xml
+validate
+...
+
+package
+```
+
+如果我们运行mvn compile，Maven也会执行default生命周期，但这次它只会运行到compile，即以下几个phase：
+
+```xml
+validate
+...
+compile
+```
+
+更复杂的例子是指定多个phase，例如，运行mvn clean package，Maven先执行clean生命周期并运行到clean这个phase，然后执行default生命周期并运行到package这个phase，实际执行的phase如下：
+
+```
+pre-clean
+clean （注意这个clean是phase）
+validate
+...
+
+package
+```
+
+## 5、maven 常用命令：
+
+在实际开发过程中，经常使用的命令有：
+
+### 版本信息
+
+* mvn -version/-v 显示版本信息
+
+### 清理
+
+* mvn clean 清空生成的文件
+
+### 编译
+
+* mvn compile 编译
+
+* mvn clean compile 表示先运行清理之后运行编译，会将代码编译到target文件夹中
+
+### 打包
+
+* mvn package 生成target目录，编译、测试代码，生成测试报告，生成jar/war文件
+
+* mvn clean package 运行清理和打包
+
+
+### 安装
+* mvn clean install 运行清理和安装，会将打好的包安装到本地仓库中，以便其他的项目可以调用
+
+
+### 发布
+* mvn clean deploy 运行清理和发布
+
+### 测试
+
+* mvn test 编译并测试
+
+### 生成站点信息
+
+* mvn site 生成项目相关信息的网站
+
+
+## 6、通过profiles构建不同的应用
+
+在开发过程中，我们的软件会面对不同的运行环境，比如开发环境、测试环境、生产环境，而我们的软件在不同的环境中，有的配置可能会不一样，比如数据源配置、日志文件配置、以及一些软件运行过程中的基本配置，那每次我们将软件部署到不同的环境时，都需要修改相应的配置文件，这样来回修改，很容易出错，而且浪费劳动力。
+
+maven提供了一种方便的解决这种问题的方案，就是profile功能。profile可以让我们定义一系列的配置信息，然后指定其激活条件。这样我们就可以定义多个profile，然后每个profile对应不同的激活条件和配置信息，从而达到不同环境使用不同配置信息的效果。
+
+profile定义的位置
+
+（1）    针对于特定项目的profile配置我们可以定义在该项目的pom.xml中。（下面举例是这种方式）
+
+（2）    针对于特定用户的profile配置，我们可以在用户的settings.xml文件中定义profile。该文件在用户家目录下的“.m2”目录下。
+
+（3）    全局的profile配置。全局的profile是定义在Maven安装目录下的“conf/settings.xml”文件中的。
+
+
+5.1 Profile的激活方式
+1. 使用 activeByDefault 设置激活
+
+在以上的实例中，我们使用了以下方式设置了默认激活：
+
+<activation> 
+    <activeByDefault>true</activeByDefault> 
+</activation>
+1
+2
+3
+2. 在 settings.xml 中使用 activeProfiles 指定激活
+
+profile配置如下：
+
+<profiles> 
+    <profile> 
+        <id>profile1</id> 
+        <properties> 
+            <hello>lilei</hello> 
+        </properties> 
+    </profile> 
+
+    <profile> 
+        <id>profile2</id> 
+        <properties> 
+            <hello>hanmeimei</hello> 
+        </properties> 
+    </profile> 
+</profiles>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+激活如下（支持多个）：
+
+<activeProfiles> 
+    <activeProfile>profile1</activeProfile> 
+</activeProfiles> 
+1
+2
+3
+3. 在maven命令中使用参数显示激活
+
+Eclipse窗口式运行帮我们隐藏了很多东西，其实原始的 maven 命令应该是这样写的：
+
+mvn clean package –Pprofile1 
+1
+当然，也可以取消激活：
+
+mvn clean package –P!profile1 
+1
+还有激活多个：
+
+mvn clean package -Pprofile1,profile2,!profile3
+1
+4. 根据环境来激活
+
+profile一个非常重要的特性就是它可以根据不同的环境来激活，比如根据jdk的版本：
+
+<!-- 如果jdk的版本为1.8则激活该profile -->
+<profiles>
+    <profile>
+        <id>profile1</id>
+        <activation>
+            <jdk>1.8</jdk>
+        </activation>
+    </profile>
+</profiles>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+根据操作系统：
+
+<profiles>
+    <profile>
+        <id>profile1</id>
+        <activation>
+            <os>
+                <!-- 不必指定所有信息 -->
+                <name>linux</name>
+                <family>unix</family>
+                <arch>amd64</arch>
+                <version>3.19.0-30-generic</version>
+            </os>
+        </activation>
+    </profile>
+</profiles>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+根据环境变量：
+
+<profiles>
+    <profile>
+        <id>profile1</id>
+        <activation>
+            <property>
+                <name>debug</name>
+                <value>true</value>
+            </property>
+        </activation>
+    </profile>
+</profiles>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+根据文件是否存在来激活：
+
+<profiles>
+    <profile>
+        <id>profile1</id>
+        <activation>
+            <file>
+                <missing>/path/to/missing/file</missing>
+                <exists>/path/to/exists/file</exists>
+            </file>
+        </activation>
+    </profile>
+</profiles>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+不同类型的激活方式可以组合使用，但是只有但两个条件都匹配时才能激活。
+————————————————
+版权声明：本文为CSDN博主「代码与酒」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_16313365/article/details/79387561
+
+
+
+## 7、Maven插件
 
 我们在前面介绍了Maven的lifecycle，phase和goal：使用Maven构建项目就是执行lifecycle，执行到指定的phase为止。每个phase会执行自己默认的一个或多个goal。goal是最小任务单元。
 
@@ -376,172 +730,6 @@ maven-shade-plugin：打包所有依赖包并生成可执行jar；
 cobertura-maven-plugin：生成单元测试覆盖率报告；
 
 findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
-
-# 四、Maven构建流程
-
-Maven不但有标准化的项目结构，而且还有一套标准化的构建流程，可以自动化实现编译，打包，发布，等等。
-
-## maven 生命周期
-
-Maven 生命周期定义了各个构建环节的执行顺序，有了这个清单，Maven 就可以自动化的执行构建命令了。
-
-Maven 有三套相互独立的生命周期，分别是：
-
-* Clean Lifecycle 在进行真正的构建之前进行一些清理工作
-
-
-* Default Lifecycle 构建的核心部分，编译，测试，打包，安装，部署等等
-
-Default 生命周期是 Maven 生命周期中最重要的一个，绝大部分工作都发生在这个生命周期中（列出一些重要阶段）
-
-* Site Lifecycle 生成项目报告，站点，发布站点
-
-
-它们是相互独立的，你可以仅仅调用 clean 来清理工作目录，仅仅调用 site 来生成站点。当然你也可以直接运行 mvn clean install site 运行所有这三套生命周期。 
-
-每套生命周期都由一组阶段(Phase)组成，我们平时在命令行输入的命令总会对应于一个特定的阶段。
-
-比如，运行 mvn clean，这个 clean 是 Clean 生命周期的一个阶段。有 Clean 生命周期，也有 clean 阶段。
-
-
-## 阶段
-
-Maven的生命周期由一系列阶段（phase）构成。
-
-* Clean 生命周期一共包含了三个阶段：
-
-pre-clean 执行一些需要在 clean 之前完成的工作
-
-clean 移除所有上一次构建生成的文件
-
-post-clean 执行一些需要在 clean 之后立刻完成的工作
-
-* default 生命周期包含了下面的阶段：
-
-validate：验证工程是否正确，所有需要的资源是否可用。
-
-compile：编译项目的源代码。
-
-test：使用合适的单元测试框架来测试已编译的源代码。这些测试不需要已打包和布署。
-
-package：把已编译的代码打包成可发布的格式，比如 jar、war 等。
-
-integration-test：如有需要，将包处理和发布到一个能够进行集成测试的环境。
-
-verify：运行所有检查，验证包是否有效且达到质量标准。
-
-install：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。
-
-deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享
-
-* Site 生命周期包含4个阶段：
-
-pre-site 执行一些需要在生成站点文档之前完成的工作
-
-site 生成项目的站点文档
-
-post-site 执行一些需要在生成站点文档之后完成的工作，并且为部署做准备
-
-site-deploy 将生成的站点文档部署到特定的服务器上 这里经常用到的是 site 阶段和 site-deploy 阶段，用以生成和发布 Maven 站点，这可是 Maven 相当强大 的功能，Manager 比较喜欢，文档及统计数据自动生成，很好看。
-
-## Goal
-
-执行一个phase又会触发一个或多个goal：
-
-例如：我们执行mvn compile，实际上是执行了下面的goal：
-compile	compiler:compile
-
-我们执行mvn test，实际上是执行了下面的goal：
-
-test	compiler:testCompile
-
-大多数情况，我们只要指定phase，就默认执行这些phase默认绑定的goal，只有少数情况，我们可以直接指定运行一个goal，
-
-例如，启动Tomcat服务器：
-mvn tomcat:run
-
-
-## maven命令的执行过程：
-
-maven 命令的常用格式是：  mvn phase名
-
-其执行过程是：
-
-使用mvn这个命令时，Maven自动根据生命周期，从某一个生命周期的第一个阶段开始，运行到指定的阶段为止。
-
-例如：
-
-我们运行mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止：
-
-```xml
-validate
-...
-
-package
-```
-
-如果我们运行mvn compile，Maven也会执行default生命周期，但这次它只会运行到compile，即以下几个phase：
-
-```xml
-
-validate
-...
-compile
-
-```
-
-更复杂的例子是指定多个phase，例如，运行mvn clean package，Maven先执行clean生命周期并运行到clean这个phase，然后执行default生命周期并运行到package这个phase，实际执行的phase如下：
-
-```java
-pre-clean
-clean （注意这个clean是phase）
-validate
-...
-package
-```
-
-## maven 常用命令：
-
-在实际开发过程中，经常使用的命令有：
-
-### 版本信息
-
-* mvn -version/-v 显示版本信息
-
-### 清理
-
-* mvn clean 清空生成的文件
-
-### 编译
-
-* mvn compile 编译
-
-* mvn clean compile 表示先运行清理之后运行编译，会将代码编译到target文件夹中
-
-### 打包
-
-* mvn package 生成target目录，编译、测试代码，生成测试报告，生成jar/war文件
-
-* mvn clean package 运行清理和打包
-
-
-### 安装
-* mvn clean install 运行清理和安装，会将打好的包安装到本地仓库中，以便其他的项目可以调用
-
-
-### 发布
-* mvn clean deploy 运行清理和发布
-
-### 测试
-
-* mvn test 编译并测试
-
-### 生成站点信息
-
-* mvn site 生成项目相关信息的网站
-
-
-
 
 
 ## 使用Maven进行模块化管理
