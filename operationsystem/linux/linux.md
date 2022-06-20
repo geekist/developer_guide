@@ -159,6 +159,8 @@
     - [shell函数传参方法： function_name parm1 parm21](#shell函数传参方法-function_name-parm1-parm21)
   - [数据结构与运算符](#数据结构与运算符)
   - [选择与循环结构](#选择与循环结构)
+    - [流程控制语句if](#流程控制语句if)
+    - [test命令和[]](#test命令和)
   - [键盘输入、菜单、参数位置](#键盘输入菜单参数位置)
 
 # 一、Linux操作系统介绍
@@ -2480,7 +2482,7 @@ variable="value"
 
 * 如果 value 不包含任何空白符（例如空格、Tab缩进等），那么可以不使用引号；
 
-*如果 value 包含了空白符，那么就必须使用引号包围起来。使用单引号和使用双引号也是有区别的，单引号不解析变量和转义等符号，原样赋值，双引号会解析变量和转义符号。
+* 如果 value 包含了空白符，那么就必须使用引号包围起来。使用单引号和使用双引号也是有区别的，单引号不解析变量和转义等符号，原样赋值，双引号会解析变量和转义符号。
 
 ### 变量命名规范：
 Shell 变量的命名规范和大部分编程语言都一样：
@@ -2537,7 +2539,7 @@ variable=$(command)
 ```
 unset variable_name
 ```
-变量被删除后不能再次使用；unset 命令不能删除只读变量。
+变量被删除后不能再次使用；
 ```
 #!/bin/sh
 myUrl="http://see.xidian.edu.cn/cpp/u/xitong/"
@@ -2599,8 +2601,7 @@ test_func hello world
 here is main function
 now inside function: test_func
 input parameter1: hello
- input parameter2:  world
-
+input parameter2:  world
 ```
 
 
@@ -2608,6 +2609,68 @@ input parameter1: hello
 ## 数据结构与运算符
 
 ## 选择与循环结构
+
+### 流程控制语句if
+
+```
+if commands; then
+commands
+[elif commands; then
+commands...]
+[else
+commands]
+fi
+```
+
+if命令的本质：
+当命令执行完毕后，命令（包括我们编写的脚本和 shell 函数）会给系统发送一个值，叫做退出状态。 这个值是一个 0 到 255 之间的整数，说明命令执行成功或是失败。按照惯例，一个零值说明成功，其它所有值说明失败。Shell 提供了一个参数$?，我们可以用它检查退出状态。
+
+```
+ls -l
+echo $?
+```
+如果命令执行成功，返回值为0，如果命令执行失败，返回值为一个非0值；特殊地，shell框架内的true和false关键字也分别代表0和1
+```
+[root@geekist daniel_yang]# true
+[root@geekist daniel_yang]# echo $?
+0
+[root@geekist daniel_yang]# false
+[root@geekist daniel_yang]# echo $?
+1
+```
+if命令实质上是判断一个shell命令的返回值，根据command的返回值进行后续的工作。当 if 之后的命令执行成功的时候，命令 将会执行，否则此命令不执行。 如果 if 之后跟随一系列命令，则将计算列表中的最后一个命令。
+
+一个使用if命令的例子
+```
+FILE=~/.bashrc
+if [ -e "$FILE" ]; then
+if [ -f "$FILE" ]; then
+echo "$FILE is a regular file."
+fi
+if [ -d "$FILE" ]; then
+echo "$FILE is a directory."
+fi
+if [ -r "$FILE" ]; then
+echo "$FILE is readable."
+fi
+if [ -w "$FILE" ]; then
+echo "$FILE is writable."
+fi
+if [ -x "$FILE" ]; then
+echo "$FILE is executable/searchable."
+fi
+else
+echo "$FILE does not exist"
+return 1
+fi
+```
+
+### test命令和[]
+
+
+
+
+
 
 ## 键盘输入、菜单、参数位置
 
