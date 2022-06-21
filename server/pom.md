@@ -1,17 +1,60 @@
 
+# 一、POM的定义
 
 ## pom定义
 
-POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项目描述文件，它类似与antx的project.xml文件。pom.xml文件以xml的 形式描述项目的信息，包括项目名称、版本、项目id、项目的依赖关系、编译环境、持续集成、项目团队、贡献管理、生成报表等等。总之，它包含了所有的项目信息。
+POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项目描述文件，包含了工程信息和工程的配置细节，Maven使用POM文件来构建工程。
+
+在pom.xml中可以声明的配置包括工程依赖(project dependencies)，插件(plugins)，可执行的目标(goals)，构建配置(build profiles)等等。其他信息，比如工程版本，描述，开发者，邮件列表等等也可以在pom.xml中声明。
+
+pom文件配置的官方地址：https://maven.apache.org/pom.html
 
 
-***一个最简单的pom.xml文件***
+## 创建最小化的pom.xml文件
+
+在项目根目录下创建pom.xml文件。
 
 ```xml
+<project xmlns = "http://maven.apache.org/POM/4.0.0" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
+    <!-- 模型版本 --> 
+    <modelVersion>4.0.0</modelVersion> 
+    <!-- 公司或者组织的唯一标志，并且配置时生成的路径也是由此生成， 如com.companyname.project-group，maven会将该项目打成的jar包放本地路径：/com/companyname/project-group --> 
+    <groupId>com.companyname.project-group</groupId> 
+    <!-- 项目的唯一ID，一个groupId下面可能多个项目，就是靠artifactId来区分的 -->
+    <artifactId>project-name</artifactId> 
+    <!-- 版本号 --> <version>1.0</version>
+</project>
+``` 
+ 
+所有 POM 文件都需要 project 元素和三个必需字段：groupId，artifactId，version。
 
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+project 是工程的根标签
+
+modelVersion要设置为4.0.0
+
+groupId是工程组的标识
+
+artifactId是工程的标识，通常是工程的名称。groupId和artifactId一起定义了artifact在仓库中的位置
+
+version是工程的版本号,在 artifact 的仓库中，它用来区分不同的版本，如：com.companyname.project-group:project-name:1.0
+
+# 二、POM文件结构
+
+Maven项目根目录下的pom.xml文件是Maven项目中非常重要的配置文件。主要描述项目包的依赖和项目构建时的配置。pom.xml配置文件主要分4部分，分别是：
+
+• 项目的描述信息
+
+• 构建时需要的公共变量
+
+• 项目的依赖配置信息
+
+• 构建配置
+
+## 项目描述信息
+
+项目描述信息包括下面的部分：
+
+```xml
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,56 +67,14 @@ POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项
 	<version>0.0.1-SNAPSHOT</version>
 	<name>yuya</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
-</project>
-
 ```
 
-## 1、版本模型
-
-描述这个POM文件是遵从哪个版本的项目描述符。
+* modelVersion模型版本
 
 ```xml
-
 <modelVersion>4.0.0</modelVersion>
-
 ```
-## 2、项目信息
-
-```xml
-<!-- 项目信息 -->
-    <groupId>demo</groupId><!-- 项目唯一标识 -->
-    <artifactId>springboot</artifactId><!-- 项目名 -->
-    <version>0.0.1-SNAPSHOT</version><!-- 版本 -->
-    <packaging>jar</packaging><!-- 打包方式 （pom,war,jar） -->
- 
-    <name>springboot</name><!-- 项目的名称， Maven 产生的文档用 -->
-    <description>Demo project for Spring Boot</description><!-- 项目的描述, Maven 产生的文档用 -->
-```
+描述这个POM文件是遵从哪个版本的项目描述符,一般设为：4.0.0
 
 * groupId
 
@@ -90,7 +91,7 @@ POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项
 以上4个元素缺一不可，其中groupId, artifactId, version描述依赖的项目唯一标志。
 
 
-## 3、Parent节点
+* Parent节点
 
 要成为一个spring boot项目，首先就必须在pom.xml中继承spring-boot-starter-parent，同时指定其版本。
 
@@ -102,20 +103,11 @@ POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项
 	</parent>
 ```
 
-## 打包方式
+* packaging标签
 
-* packaging 标签
+指定项目的打包方式
 
-
-maven作为一种XML标记语言，标签通常成对存在，目前packaging标签有3种配置：
-
-```xml
-<packaging>pom</packaging>
-<packaging>jar</packaging>
-<packaging>war</packaging>
-```
-
-* <packaging>jar</packaging>
+**<packaging>jar</packaging>**
 
 Jar包是最为常见的打包方式，当pom文件中没有设置packaging参数时，默认使用jar方式打包。
 
@@ -123,7 +115,7 @@ Jar包是最为常见的打包方式，当pom文件中没有设置packaging参�
 
 当我们使用mvn install命令的时候，能够发现在项目中与src文件夹同级新生成了一个target文件夹，这个文件夹内的classes文件夹即为刚才提到的编译后形成的文件夹。
 
-* <packaging>war</packaging>
+  **<packaging>war</packaging>**
 
 war包与jar包非常相似，同样是编译后的.class文件按层级结构形成文件树后打包形成的压缩包。不同的是，它会将项目中依赖的所有jar包都放在WEB-INF/lib这个文件夹下，
 
@@ -131,34 +123,47 @@ WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内�
 
 可想而知，war包非常适合部署时使用，不再需要下载其他的依赖包，能够使用户拿到war包直接使用，因此它经常使用于微服务项目群中的入口项目的pom配置中。
 
-* <packaging>pom</packaging> 
+  **<packaging>pom</packaging>**
 
 在父级项目中的pom.xml文件使用的packaging配置一定为pom。父级的pom文件只作项目的子模块的整合，在maven install时不会生成jar/war压缩包。
 
-## 4、属性设置（环境参数）
+## 公共变量
 
-在普通maven项目中，需要在pom.xml中配置插件来修改jdk版本，utf-8编码等环境参数，在spring boot中则更加简单。
-
-```
-	<properties>
-		<java.version>1.6</java.version>
-		<resource.delimiter>@</resource.delimiter> <!-- delimiter that doesn't clash with Spring ${} placeholders -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-	</properties>
-```
-
-从上面可以看出，spring boot项目默认的jdk版本是1.6，默认的编码是utf-8。如果我们要修改这些环境参数，比如将jdk版本改成1.8，只需要在我们项目的pom.xml文件中覆盖要修改的参数，如下
+在POM.xml中科院定义类似变量，放在properties标签中：
 
 ```xml
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+</properties>
+```
+当需要使用该标签的时候，可以采用：
+
+```
+${变量名}
+```
+例如：下面的标签定义了版本号相关的变量，并应用在依赖标签中。
+
+```xml
+<properties>
+        <java.version>13</java.version>
+        <lombok.version>1.18.10</lombok.version>
+    </properties>
+      则在Maven的pom.xml中导入lombok依赖的时候，使用如下格式即可定义依赖的版本号：
+
+       <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+            <version>${lombok.version}</version>
+        </dependency>
 ```
 
-## 5、依赖
+## 依赖配置信息
+
+dependencies：配置项目所需要的依赖包，Spring Boot体系内的依赖组件不需要填写具体版本号，spring-boot-starter-parent维护了体系内所有依赖包的版本信息。
+dependency：Maven项目定义依赖库的重要标签，通过groupId、artifactId等“坐标”信息定义依赖库的路径信息
 
 ```xml
 <dependencies>
@@ -173,13 +178,68 @@ WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内�
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 ```
 
-## 6、编译
+Maven的一个哲学是惯例优于配置(Convention Over Configuration), Maven默认的依赖配置项中，scope的默认值是compile
+
+* compile
+默认就是compile，什么都不配置也就是意味着compile。compile表示被依赖项目需要参与当前项目的编译，当然后续的测试，运行周期也参与其中，是一个比较强的依赖。打包的时候通常需要包含进去。
+
+* test
+scope为test表示依赖项目仅仅参与测试相关的工作，包括测试代码的编译，执行。比较典型的如junit。
+
+* runntime
+runntime表示被依赖项目无需参与项目的编译，不过后期的测试和运行周期需要其参与。与compile相比，跳过编译而已，说实话在终端的项目（非开源，企业内部系统）中，和compile区别不是很大。比较常见的如JSR×××的实现，对应的API jar是compile的，具体实现是runtime的，compile只需要知道接口就足够了。oracle jdbc驱动架包就是一个很好的例子，一般scope为runntime。另外runntime的依赖通常和optional搭配使用，optional为true。我可以用A实现，也可以用B实现。
+
+* provided 
+provided意味着打包的时候可以不用包进去，别的设施(Web Container)会提供。事实上该依赖理论上可以参与编译，测试，运行等周期。相当于compile，但是在打包阶段做了exclude的动作。
+
+* system
+从参与度来说，也provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用。
+
+
+## 构建配置
+
+
+Maven是通过pom.xml来执行任务的，其中的build标签描述了如何来编译及打包项目，而具体的编译和打包工作是通过build中配置的 plugin 来完成。当然plugin配置不是必须的，默认情况下，Maven 会绑定以下几个插件来完成基本操作。
+
+| plugin | function | life cycle phase |
+| ---- | ---- | ---- |
+| maven-clean_plugin|清理上一次执行创建的目标文件|clean|\
+| maven-resouces-plugin|处理资源文件和测试文件| resources,testResources|
+| maven-compiler-plugin|编译源文件和测试源文件| compile,testCompile|
+| maven-surefire-plugin|执行测试文件|test|
+| maven-jar-plugin| 创建jar|jar|
+| maven-install-plugin| 安装jar，并将创建生成的jar拷贝到.m2/repository下面|install|
+| maven-deploy-plugin| 发布jar|deploy|
+
+
+使用maven构建的项目均可以直接使用maven build完成项目的编译测试打包，无需额外配置。
+
+例如：在没有配置的情况下，执行mvn clean install时，maven会调用默认的plugin来完成编译打包操作，具体来讲，执行mvn clean install时会执行
+
+ maven-clean-plugin:2.5:clean (default-clean)
+
+ maven-resources-plugin:2.6:resources (default-resources)
+
+ maven-compiler-plugin:3.1:compile (default-compile)
+
+ maven-resources-plugin:2.6:testResources (default-testResources)
+
+ maven-compiler-plugin:3.1:testCompile (default-testCompile)
+
+ maven-surefire-plugin:2.12.4:test (default-test)
+
+ maven-jar-plugin:2.4:jar (default-jar)
+
+ maven-install-plugin:2.4:install (default-install)
+
+ 等plugin
+
+ 
+
 
 ```xml
-
 <build>
 		<plugins>
 			<plugin>
@@ -190,3 +250,7 @@ WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内�
 	</build>
 
 ```
+
+## 继承与聚合
+
+

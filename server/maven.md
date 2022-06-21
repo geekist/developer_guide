@@ -332,7 +332,7 @@ Maven的生命周期由一系列阶段（phase）构成，我们平时在命令�
 例如：
 
 ```
-mvn clean 的clean是一个phase，是Clean声明周期的一个阶段。
+mvn clean 的clean是一个phase，是Clean生命周期的一个阶段。
 ```
 
 * Clean 生命周期一共包含了三个阶段：
@@ -475,11 +475,11 @@ maven提供了一种方便的解决这种问题的方案，就是profile功能�
 
 profile定义的位置
 
-（1）    针对于特定项目的profile配置我们可以定义在该项目的pom.xml中。（下面举例是这种方式）
+（1）    全局的profile配置。全局的profile是定义在Maven安装目录下的“conf/settings.xml”文件中的。
 
 （2）    针对于特定用户的profile配置，我们可以在用户的settings.xml文件中定义profile。该文件在用户家目录下的“.m2”目录下。
 
-（3）    全局的profile配置。全局的profile是定义在Maven安装目录下的“conf/settings.xml”文件中的。
+（3）    针对于特定项目的profile配置我们可以定义在该项目的pom.xml中。（下面举例是这种方式）
 
 ### 6.1 profile的配置写法
 
@@ -541,22 +541,29 @@ pom中的下列元素中的配置均可通过profiles定义:
 
 在前面的例子中，我们可以看到定义了多个profile，每个profile都有唯一的id，也包含properties属性。
 
-这里为每个profile都定义一个名为profiles.active的properties，每个环境的值不同。当我们打包项目时，激活不同的环境，profiles.active字段就会被赋予不同的值。profiles.active字段可以应用到许多地方，及其灵活。可以在配置文件里被引用；也可以结合pom文件里的resource和filter属性，作为文件名的一部分或者文件夹名的一部分。
+这里为每个profile都定义一个名为profiles.active的properties，每个环境的值不同。当我们打包项目时，激活不同的环境，profileActive字段就会被赋予不同的值。profileActive字段可以应用到许多地方，及其灵活。可以在配置文件里被引用；也可以结合pom文件里的resource和filter属性，作为文件名的一部分或者文件夹名的一部分。
 
 例如，我们在pom.xml的resouece标签中使用了该定义：
 
 ```xml
 <resource>
     <!--这里是关键！ 根据不同的环境，把对应文件夹里的配置文件打包-->
-    <directory>src/main/resources/${profiles.active}</directory>
+    <directory>src/main/resources/${profileActive}</directory>
+
+    <includes>
+        <!--读取打包命令中指定的环境-->
+        <include>application-${profileActive}.yml</include>
+    </includes>
+
 </resource>
 ```
-当我们在执行maven命令的时候，指定某一个profile被激活，如：
+如果我们在执行maven命令的时候，指定某一个profile被激活，如：
 
 ```
 mvn clean package -Plocal
 ```
 则resouce中的directory为： src/resources/local目录。
+application-local.yml文件被使用。
 
 
 ### 6.3 Profile的激活方式
@@ -753,80 +760,161 @@ jdbc.username=root
 jdbc.passworkd=123456
 ```
 
-## 8、Maven插件
+## 8、Maven命令和Maven插件
 
-我们在前面介绍了Maven的lifecycle，phase和goal：使用Maven构建项目就是执行lifecycle，执行到指定的phase为止。每个phase会执行自己默认的一个或多个goal。goal是最小任务单元。
+### 1.Maven插件定义
 
-我们以compile这个phase为例，如果执行：
+Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，像编译是通过maven-compile-plugin实现的、测试是通过maven-surefire-plugin实现的，maven也内置了很多插件，所以我们在项目进行编译、测试、打包的过程是没有感觉到。
 
-mvn compile
-Maven将执行compile这个phase，这个phase会调用compiler插件执行关联的compiler:compile这个goal。
+进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。
 
-实际上，执行每个phase，都是通过某个插件（plugin）来执行的，Maven本身其实并不知道如何执行compile，它只是负责找到对应的compiler插件，然后执行默认的compiler:compile这个goal来完成编译。
+### 2. Maven插件执行语法
 
-所以，使用Maven，实际上就是配置好需要使用的插件，然后通过phase调用它们。
+```
+mvn [plugin-name]:[goal-name]
+```
 
-Maven已经内置了一些常用的标准插件：
+例如，一个Java项目使用了编译器插件，通过运行以下命令编译
 
-插件名称	对应执行的phase
+```
+mvn compiler:compile
+```
 
-clean	clean
+### 3.Maven插件类型
 
-compiler	compile
+Maven提供以下两种类型的插件：
 
-surefire	test
+构建插件：在生成过程中执行，并应在pom.xml中的<build/>元素进行配置
 
-jar	package
+报告插件：在网站生成期间执行的，应该在pom.xml中的<reporting/>元素进行配置
 
-如果标准插件无法满足需求，我们还可以使用自定义插件。使用自定义插件的时候，需要声明。例如，使用maven-shade-plugin可以创建一个可执行的jar，要使用这个插件，需要在pom.xml中声明它：
+>maven官方的插件：
+>
+>Maven官方有两个插件列表：
+>
+>第一个列表的GroupId为org.apache.maven.plugins，这里的插件最为成熟，具体地址为：http://maven.apache.org/plugins/index.html
+>
+>第二个列表的GroupId为org.codehaus.mojo，这里的插件没有那么核心，但也有不少十分有用，其地址为：http://mojo.codehaus.org/plugins.html。
+
+### 4.第三方插件使用举例
+
+除了这些核心插件之外，还有很多优秀的第三方插件，可以帮助我们快捷、方便的构架项目。当使用到某些功能或者特性的时候多加搜索，往往得到让你惊喜的效果。
+
+例如，项目中使用了Mybatis，就有一款神奇的maven插件，运行一个命令，就可以根据数据库的表，自动生成Mybatis的mapper配置文件以及DAO层接口模板。
+
+在pom.xml中添加plugin：
 
 ```xml
-<project>
-    ...
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-                            ...
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-</project>
+<plugin> 
+  <groupId>org.mybatis.generator</groupId>  
+  <artifactId>mybatis-generator-maven-plugin</artifactId>  
+  <version>1.3.2</version>  
+  <configuration> 
+    <configurationFile>src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>  
+    <verbose>true</verbose>  
+    <overwrite>true</overwrite> 
+  </configuration>  
+  <executions> 
+    <execution> 
+      <id>Generate MyBatis Artifacts</id>  
+      <goals> 
+        <goal>generate</goal> 
+      </goals> 
+    </execution> 
+  </executions>  
+  <dependencies> 
+    <dependency> 
+      <groupId>org.mybatis.generator</groupId>  
+      <artifactId>mybatis-generator-core</artifactId>  
+      <version>1.3.2</version> 
+    </dependency> 
+  </dependencies> 
+</plugin>
 ```
 
-自定义插件往往需要一些配置，例如，maven-shade-plugin需要指定Java程序的入口，它的配置是：
+配置文件generatorConfig.xml：
 
-```java
-<configuration>
-    <transformers>
-        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-            <mainClass>com.itranswarp.learnjava.Main</mainClass>
-        </transformer>
-    </transformers>
-</configuration>
+```xml
+<generatorConfiguration> 
+  <classPathEntry location="/Users/winner/mysql/mysql-connector-java-5.1.36.jar"/>  
+  <context id="DB2Tables" targetRuntime="MyBatis3"> 
+    <!-- 去掉自动生成的注解 -->  
+    <commentGenerator> 
+      <property name="suppressAllComments" value="true"/> 
+    </commentGenerator>  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3344/db?characterEncoding=utf8" userId="id" password="password"></jdbcConnection>  
+    <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->  
+    <javaTypeResolver> 
+      <property name="forceBigDecimals" value="false"/> 
+    </javaTypeResolver>  
+    <!-- 生成映射类-->  
+    <javaModelGenerator targetPackage="com.clf.model" targetProject="/Users/winner/Documents/workspace/project/src/main/java/"> 
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->  
+      <property name="enableSubPackages" value="true"/>  
+      <property name="trimStrings" value="true"/> 
+    </javaModelGenerator>  
+    <!-- 生成xml文件-->  
+    <sqlMapGenerator targetPackage="com.clf.mapper" targetProject="/Users/winner/Documents/workspace/project/src/main/resources/"> 
+      <property name="enableSubPackages" value="true"/>  
+      <property name="trimStrings" value="true"/> 
+    </sqlMapGenerator>  
+    <!-- 生成mapper interface-->  
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.clf.mapper" targetProject="/Users/winner/Documents/workspace/project/src/main/java/"> 
+      <property name="enableSubPackages" value="true"/>  
+      <property name="trimStrings" value="true"/> 
+    </javaClientGenerator>  
+    <table tableName="table_name" domainObjectName="object_name" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/> 
+  </context> 
+</generatorConfiguration>
 ```
 
-注意，Maven自带的标准插件例如compiler是无需声明的，只有引入其它的插件才需要声明。
+定位到pom.xml所在的路径下面，运行：
+```
+mvn mybatis-generator:generate
+```
+所有的文件就会自动生成。
 
-下面列举了一些常用的插件：
+### 5. Maven命令
 
-maven-shade-plugin：打包所有依赖包并生成可执行jar；
+maven的命令格式如下：
 
-cobertura-maven-plugin：生成单元测试覆盖率报告；
+```
+mvn [plugin-name]:[goal-name]
+```
 
-findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
+该命令的意思是：执行“plugin-name”插件的“goal-name”目标（或者称为动作）。
+
+用户可以通过两种方式调用Maven插件目标。第一种方式是只输入生命周期：
+```
+mvn lifeCycle
+```
+将插件目标与生命周期阶段（lifecycle phase）绑定，这样用户在命令行只是输入生命周期阶段。
+
+```
+mvn compile
+```
+Maven默认将maven-compiler-plugin的compile目标与compile生命周期阶段绑定，因此命令mvn compile实际上是先定位到compile这一生命周期阶段，然后再根据绑定关系调用maven-compiler-plugin的compile目标。
+
+
+第二种方式是直接在命令行指定要执行的插件目标，
+
+例如mvn archetype:generate 就表示调用maven-archetype-plugin的generate目标，这种带冒号的调用方式与生命周期无关。
+
+
+Maven命令可携带的参数类型如下：
+
+```
+-D：传入属性参数
+
+mvn package -Dmaven.test.skip=true
+```
+以-D开头，将maven.test.skip的值设为true，就是告诉maven打包的时候跳过单元测试。同理，mvn deploy-Dmaven.test.skip=true代表部署项目并跳过单元测试。
+
+```
+-P： 使用指定的Profile配置
+```
+比如项目开发需要有多个环境，一般为开发，测试，预发，正式4个环境，可以通过-P参数配置运行环境。
 
 
 # 五、使用Maven进行模块化管理
