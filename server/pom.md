@@ -1,7 +1,7 @@
 
 # 一、POM的定义
 
-## pom定义
+## 1.pom定义
 
 POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项目描述文件，包含了工程信息和工程的配置细节，Maven使用POM文件来构建工程。
 
@@ -10,7 +10,7 @@ POM全称是Project Object Model，即项目对象模型。pom.xml是maven的项
 pom文件配置的官方地址：https://maven.apache.org/pom.html
 
 
-## 创建最小化的pom.xml文件
+## 2.创建最小化的pom.xml文件
 
 在项目根目录下创建pom.xml文件。
 
@@ -50,7 +50,7 @@ Maven项目根目录下的pom.xml文件是Maven项目中非常重要的配置文
 
 • 构建配置
 
-## 项目描述信息
+## 1.项目描述信息
 
 项目描述信息包括下面的部分：
 
@@ -127,7 +127,7 @@ WEB-INF/classes文件夹仍然放置我们自己代码的编译后形成的内�
 
 在父级项目中的pom.xml文件使用的packaging配置一定为pom。父级的pom文件只作项目的子模块的整合，在maven install时不会生成jar/war压缩包。
 
-## 公共变量
+## 2.公共变量
 
 在POM.xml中科院定义类似变量，放在properties标签中：
 
@@ -160,7 +160,7 @@ ${变量名}
         </dependency>
 ```
 
-## 依赖配置信息
+## 3.依赖配置信息
 
 dependencies：配置项目所需要的依赖包，Spring Boot体系内的依赖组件不需要填写具体版本号，spring-boot-starter-parent维护了体系内所有依赖包的版本信息。
 dependency：Maven项目定义依赖库的重要标签，通过groupId、artifactId等“坐标”信息定义依赖库的路径信息
@@ -197,8 +197,17 @@ provided意味着打包的时候可以不用包进去，别的设施(Web Contain
 * system
 从参与度来说，也provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用。
 
+dependencyManagement
 
-## 构建配置
+使用dependencyManagement可以统一管理项目的版本号，确保应用的各个项目的依赖和版本一致，不用每个模块项目都弄一个版本号，不利于管理，当需要变更版本号的时候只需要在父类容器里更新，不需要任何一个子项目的修改；如果某个子项目需要另外一个特殊的版本号时，只需要在自己的模块dependencies中声明一个版本号即可。子类就会使用子类声明的版本号，不继承于父类版本号。
+
+与dependencies区别：
+
+1)Dependencies相对于dependencyManagement，所有生命在dependencies里的依赖都会自动引入，并默认被所有的子项目继承。
+
+2)dependencyManagement里只是声明依赖，并不自动实现引入，因此子项目需要显示的声明需要用的依赖。如果不在子项目中声明依赖，是不会从父项目中继承下来的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom;另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。
+
+## 4.构建配置
 
 ### 默认build插件
 
@@ -386,7 +395,7 @@ pluginManagement的配置和plugins的配置是一样的，只是用于继承，
 
 在<build>中，<pluginManagement>与<plugins>并列，两者之间的关系类似于<dependencyManagement>与<dependencies>之间的关系。<pluginManagement>中也配置<plugin>，其配置参数与<plugins>中的<plugin>完全一致。只是，<pluginManagement>往往出现在父项目中，其中配置的<plugin>往往通用于子项目。子项目中只要在<plugins>中以<plugin>声明该插件，该插件的具体配置参数则继承自父项目中<pluginManagement>对该插件的配置，从而避免在子项目中进行重复配置。
 
-## 继承与聚合
+## 5.继承与聚合
 
 
 ### 项目分模块
