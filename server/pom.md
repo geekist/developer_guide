@@ -200,6 +200,7 @@ provided意味着打包的时候可以不用包进去，别的设施(Web Contain
 
 ## 构建配置
 
+### 默认build插件
 
 Maven是通过pom.xml来执行任务的，其中的build标签描述了如何来编译及打包项目，而具体的编译和打包工作是通过build中配置的 plugin 来完成。当然plugin配置不是必须的，默认情况下，Maven 会绑定以下几个插件来完成基本操作。
 
@@ -236,21 +237,322 @@ Maven是通过pom.xml来执行任务的，其中的build标签描述了如何来
 
  等plugin
 
- 
 
+### build插件配置的两种方式
+
+在Maven的pom.xml文件中，存在如下两种<build>：
+
+（1）全局配置（project build）
+
+针对整个项目的所有情况都有效
+
+（2）配置（profile build）
+
+针对不同的profile配置
 
 ```xml
-<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
+<project 
+  <!-- "Project Build" contains elements of the BaseBuild set and the Build set-->  
+  <build>...</build>  
+   
+  <profiles>  
+    <profile>  
+      <!-- "Profile Build" contains elements of the BaseBuild set only -->  
+      <build>...</build>  
+    </profile>  
+  </profiles>  
+</project>
 ```
+###  配置说明
+
+基本元素
+
+* defaultGoal
+ 
+ 执行build任务时，如果没有指定目标，将使用的默认值。如下配置：在命令行中执行mvn，则相当于执行mvn install
+
+* directory
+ 
+build目标文件的存放目录，默认在${basedir}/target目录
+
+* finalName
+
+build目标文件的名称，默认情况为${artifactId}-${version}
+
+* filter
+
+定义*.properties文件，包含一个properties列表，该列表会应用到支持filter的resources中。
+
+也就是说，定义在filter的文件中的name=value键值对，会在build时代替${name}值应用到resources中。
+
+maven的默认filter文件夹为${basedir}/src/main/filters
+
+```xml
+<build>  
+  <defaultGoal>install</defaultGoal>  
+  <directory>${basedir}/target</directory>  
+  <finalName>${artifactId}-${version}</finalName> 
+  <filters>
+   <filter>filters/filter1.properties</filter>
+  </filters> 
+  ...
+</build> 
+```          
+
+Resources配置
+
+用于包含或者排除某些资源文件
+
+* resources
+
+一个resources元素的列表。每一个都描述与项目关联的文件是什么和在哪里
+
+* targetPath
+
+指定build后的resource存放的文件夹，默认是basedir。
+
+通常被打包在jar中的resources的目标路径是META-INF
+
+* filtering
+
+true/false，表示为这个resource，filter是否激活
+
+* directory
+
+定义resource文件所在的文件夹，默认为${basedir}/src/main/resources
+
+* includes
+
+指定哪些文件将被匹配，以*作为通配符
+
+* excludes
+
+指定哪些文件将被忽略
+
+* testResources
+
+定义和resource类似，只不过在test时使用
+
+```xml
+<build>  
+        ...  
+       <resources>  
+          <resource>  
+             <targetPath>META-INF/plexus</targetPath>  
+             <filtering>true</filtering>  
+            <directory>${basedir}/src/main/plexus</directory>  
+            <includes>  
+                <include>configuration.xml</include>  
+            </includes>  
+            <excludes>  
+                <exclude>**/*.properties</exclude>  
+            </excludes>  
+         </resource>  
+    </resources>  
+    <testResources>  
+        ...  
+    </testResources>  
+    ...  
+</build>  
+```   
+
+plugins配置
+
+用于指定使用的插件
+
+pluginManagement配置
+
+pluginManagement的配置和plugins的配置是一样的，只是用于继承，使得可以在孩子pom中使用。
+
+```xml
+<build>  
+    ...  
+    <plugins>  
+        <plugin>  
+            <groupId>org.apache.maven.plugins</groupId>  
+            <artifactId>maven-jar-plugin</artifactId>  
+            <version>2.0</version>  
+            <extensions>false</extensions>  
+            <inherited>true</inherited>  
+            <configuration>  
+                <classifier>test</classifier>  
+            </configuration>  
+            <dependencies>...</dependencies>  
+            <executions>...</executions>  
+        </plugin>  
+    </plugins>  
+</build> 
+``` 
+
+在<build>中，<pluginManagement>与<plugins>并列，两者之间的关系类似于<dependencyManagement>与<dependencies>之间的关系。<pluginManagement>中也配置<plugin>，其配置参数与<plugins>中的<plugin>完全一致。只是，<pluginManagement>往往出现在父项目中，其中配置的<plugin>往往通用于子项目。子项目中只要在<plugins>中以<plugin>声明该插件，该插件的具体配置参数则继承自父项目中<pluginManagement>对该插件的配置，从而避免在子项目中进行重复配置。
 
 ## 继承与聚合
+
+
+### 项目分模块
+
+随着项目扩大，Maven项目也会越来越大。会带来一些麻烦。
+
+1.比如修改了JS文件，但我们依旧要将整个Project都build一下。
+
+2.所有人都在一个Project里面进行更改，可能导致混乱、冲突，也不利于维护。
+
+3.每添加一个jar包或者依赖时，是为整个Project添加的。可见性很大。
+
+因此，为了“高内聚，低耦合”考虑，maven对Project进行模块划分，每个模块都会对应着一个POM.xml文件，然后按照一定的关系组合（继承和聚合）成大的Project。也即是多模块系统。
+
+### 聚合
+
+#### 为什么要使用聚合？
+
+***将多个模块组合在一起，统一构建***
+
+把Project模块化成多个项目后，尤其是模块非常多的时候，我们需要一次构建多个项目，而不是到多个模块的目录下分别执行命令进行构建。Maven的聚合特性就是满足该需求的。
+把多个模块或项目聚合到一起，我们可以建立一个专门负责聚合工作的project。通过构建这个新的Project，就可以完成整个Project的构建。
+
+#### 如何使用聚合？
+
+在聚合工程的pom.xml配置中，增加modules节点
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com</groupId>
+	<artifactId>mavenaggregator</artifactId>
+ 
+	<!--  must be pom if aggregator -->
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
+	<modules>
+		<!--  relative paths to the directories of pom -->
+	    <module>my-project</module>
+	    <module>another-project</module>
+	</modules>
+ 
+</project>
+```
+
+被聚合的模块配置问题：
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com</groupId>
+	<artifactId>my-project</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my-project</name>
+	<url>http://maven.apache.org</url>
+</project>
+```
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com</groupId>
+	<artifactId>my-project</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my-project</name>
+	<url>http://maven.apache.org</url>
+</project>
+```
+
+#### 使用聚合的注意事项：
+
+* 聚合项目的packaging的标签为pom
+
+* 项目都是在父项目的子目录下，但也可以把子项目放在与父项目同级的地方，只要你修改一下module元素的值即可。
+
+```
+<modules>
+    <module>../account</module>
+    <module>../mail</module>
+</modules>
+```
+
+### 继承
+
+#### 为什么要使用继承：
+
+***解决重复配置的问题***
+
+在Java中为了复用，我们经常使用继承。同样在maven中，也是通过继承来减少重复，增加复用。提取共有部分进行管理，主要解决的是重复配置的问题，通常用于声明一些公共依赖模块、属性等。
+
+#### 如何使用继承
+
+* 父类的配置文件设置packaging的标签为：pom
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com</groupId>
+	<artifactId>parent-project</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my-project</name>
+	<url>http://maven.apache.org</url>
+</project>
+```
+
+* 子类的配置文件设置父类
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com</groupId>
+	<artifactId>child-project</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my-project</name>
+	<url>http://maven.apache.org</url>
+ 
+	<parent>
+        <groupId>com</groupId>
+        <artifactId>parent-project</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+</project>
+```
+
+#### 使用继承的注意事项
+
+* 父类的packaging位pom类型
+
+* 可以被继承的元素：
+
+| 可以被继承的元素 | 说明 |
+| ---- | ---- |
+| groupId |	项目组ID，项目坐标的核心坐标； |
+| version  |	项目版本，项目坐标的核心坐标； |
+| description	|项目的描述信息；|
+| organization	|项目的组织信息；|
+| inceptionYear	|项目的创始年份；|
+| url	| 项目的URL地址；|
+| developers	| 项目的开发者信息；|
+| contributors	| 项目的贡献值和信息；|
+| distributionManagement	|项目的部署配置；|
+| issueManagement	|项目的缺陷跟踪系统；|
+| ciManagement	|项目的持续集成系统信息；|
+| scm	|项目的版本控制系统信息；|
+| mailingLists	|项目的邮件列表信息；|
+| properties	|自定义的Maven属性；|
+| dependencies	|项目的依赖配置；|
+| dependencyManagement	|项目的依赖管理配置；|
+| repositories	|项目的仓库配置；|
+| build	|包括项目的源码目录配置、输出目录配置、插件配置、插件管理配置等；|
+| reporting	|包括项目的报告输出目录配置、报告插件配置等。|
+
+### 聚合与继承在一个项目中同时使用
+
+一个项目往往既使用了聚合，又使用了继承。
 
 

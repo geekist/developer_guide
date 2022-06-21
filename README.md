@@ -66,14 +66,11 @@ Json
 
 Maven
 
-* [项目构建工具maven介绍](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
+* [Maven](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
 
 
-* [maven配置文件pom.xml介绍](https://github.com/geekist/developer_guide/blob/main/server/pom.md)
+* [POM](https://github.com/geekist/developer_guide/blob/main/server/pom.md)
 
-* [pom组合与继承](https://github.com/geekist/developer_guide/blob/main/server/pom_2.md)
-
-* [maven项目的父类模板](./server/maven_parent.md)
 
 源代码管理
 
