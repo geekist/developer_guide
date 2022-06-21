@@ -481,22 +481,117 @@ profile定义的位置
 
 （3）    全局的profile配置。全局的profile是定义在Maven安装目录下的“conf/settings.xml”文件中的。
 
+### 6.1 profile的配置写法
 
-5.1 Profile的激活方式
-1. 使用 activeByDefault 设置激活
+在项目根目录的pom.xml文件中，
 
-在以上的实例中，我们使用了以下方式设置了默认激活：
+```xml
+<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<profileActive>local</profileActive>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profileActive>test</profileActive>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profileActive>prod</profileActive>
+			</properties>
+		</profile>
+	</profiles>
+```
 
-<activation> 
-    <activeByDefault>true</activeByDefault> 
-</activation>
-1
-2
-3
-2. 在 settings.xml 中使用 activeProfiles 指定激活
+### 6.2 在profile中可以被配置的项及使用方法：
 
-profile配置如下：
+pom中的下列元素中的配置均可通过profiles定义:
 
+```xml
+<project>
+    <profiles>
+        <profile>
+            <build>
+                <defaultGoal>...</defaultGoal>
+                <finalName>...</finalName>
+                <resources>...</resources>
+                <testResources>...</testResources>
+                <plugins>...</plugins>
+            </build>
+            <reporting>...</reporting>
+            <modules>...</modules>
+            <dependencies>...</dependencies>
+            <dependencyManagement>...</dependencyManagement>
+            <distributionManagement>...</distributionManagement>
+            <repositories>...</repositories>
+            <pluginRepositories>...</pluginRepositories>
+            <properties>...</properties>
+        </profile>
+    </profiles>
+</project>
+```
+
+在前面的例子中，我们可以看到定义了多个profile，每个profile都有唯一的id，也包含properties属性。
+
+这里为每个profile都定义一个名为profiles.active的properties，每个环境的值不同。当我们打包项目时，激活不同的环境，profiles.active字段就会被赋予不同的值。profiles.active字段可以应用到许多地方，及其灵活。可以在配置文件里被引用；也可以结合pom文件里的resource和filter属性，作为文件名的一部分或者文件夹名的一部分。
+
+例如，我们在pom.xml的resouece标签中使用了该定义：
+
+```xml
+<resource>
+    <!--这里是关键！ 根据不同的环境，把对应文件夹里的配置文件打包-->
+    <directory>src/main/resources/${profiles.active}</directory>
+</resource>
+```
+当我们在执行maven命令的时候，指定某一个profile被激活，如：
+
+```
+mvn clean package -Plocal
+```
+则resouce中的directory为： src/resources/local目录。
+
+
+### 6.3 Profile的激活方式
+
+#### 1. 使用 activeByDefault设置激活
+
+我们可以在profile中的activation元素中指定激活条件，当没有指定条件，并且指定activeByDefault为true的时候，就表示当没有指定其他profile为激活状态时，该profile就默认会被激活。
+在上面的例子中：
+
+```xml
+<profile>
+			<id>local</id>
+			<properties>
+				<profileActive>local</profileActive>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+</profile>
+```
+我们设置id为local的profile的activeByDefault属性为true，当我们调用mvn package的时候，则localprofile将会被激活，但是当我们使用mvn package –P test的时候，testProfile将被激活，而这个时候local将不会被激活。
+
+
+#### 2. 在 settings.xml中使用activeProfiles设置激活
+
+我们就可以在settings.xml中定义activeProfiles，具体定义如下：
+
+```xml
+<activeProfiles> 
+    <activeProfile>profile1</activeProfile> 
+</activeProfiles> 
+```
+这样，如果profile的配置如下所示：
+
+```xml
 <profiles> 
     <profile> 
         <id>profile1</id> 
@@ -512,47 +607,40 @@ profile配置如下：
         </properties> 
     </profile> 
 </profiles>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-激活如下（支持多个）：
+```
+那么，profile为profile1的配置会被激活。
 
+补充：考虑这样一种情况，我们在activeProfiles下同时定义了多个需要激活的profile。这里还拿上面的profile定义来举例，我们定义了同时激活profileTest1和profileTest2。
+```
 <activeProfiles> 
     <activeProfile>profile1</activeProfile> 
-</activeProfiles> 
-1
-2
-3
-3. 在maven命令中使用参数显示激活
+    <activeProfile>profile2</activeProfile> 
+</activeProfiles>
+```
+从profileTest1和profileTest2我们可以看出它们共同定义了属性hello。那么这个时候我在pom.xml中使用属性hello的时候，它到底取的哪个值呢？是根据activeProfile定义的顺序，后面的覆盖前面的吗？根据我的测试，答案是非也，它是根据profile定义的先后顺序来进行覆盖取值的，然后后面定义的会覆盖前面定义的。
 
-Eclipse窗口式运行帮我们隐藏了很多东西，其实原始的 maven 命令应该是这样写的：
 
-mvn clean package –Pprofile1 
-1
-当然，也可以取消激活：
+#### 3.使用-P参数显示的激活一个profile
 
-mvn clean package –P!profile1 
-1
-还有激活多个：
+我们在进行Maven操作时，可以使用-P参数显示的指定当前激活的是哪一个profile。比如我们需要在对项目进行打包的时候使用id为profile1的profile，我们就可以这样做：
+```
+mvn package –P profile1 
+```
 
-mvn clean package -Pprofile1,profile2,!profile3
-1
-4. 根据环境来激活
+当我们使用activeByDefault或settings.xml中定义了处于激活的profile，但是当我们在进行某些操作的时候又不想它处于激活状态，这个时候我们可以这样做：
+```
+Mvn package –P !profile2
+``` 
+这里假设profileTest1是在settings.xml中使用activeProfile标记的处于激活状态的profile，那么当我们使用“-P !profile”的时候就表示在当前操作中该profile将不处于激活状态。
+
+
+#### 4.根据环境来激活profile
+
+profile一个非常重要的特性就是它可以根据不同的环境来激活，比如说根据操作系统的不同激活不同的profile，也可以根据jdk版本的不同激活不同的profile，等等。
+
 
 profile一个非常重要的特性就是它可以根据不同的环境来激活，比如根据jdk的版本：
-
+```xml
 <!-- 如果jdk的版本为1.8则激活该profile -->
 <profiles>
     <profile>
@@ -562,17 +650,9 @@ profile一个非常重要的特性就是它可以根据不同的环境来激活�
         </activation>
     </profile>
 </profiles>
-1
-2
-3
-4
-5
-6
-7
-8
-9
+```
 根据操作系统：
-
+```xml
 <profiles>
     <profile>
         <id>profile1</id>
@@ -587,22 +667,10 @@ profile一个非常重要的特性就是它可以根据不同的环境来激活�
         </activation>
     </profile>
 </profiles>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-根据环境变量：
+```
 
+根据环境变量：
+```xml
 <profiles>
     <profile>
         <id>profile1</id>
@@ -614,19 +682,10 @@ profile一个非常重要的特性就是它可以根据不同的环境来激活�
         </activation>
     </profile>
 </profiles>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-根据文件是否存在来激活：
+```
 
+根据文件是否存在来激活：
+```
 <profiles>
     <profile>
         <id>profile1</id>
@@ -638,25 +697,63 @@ profile一个非常重要的特性就是它可以根据不同的环境来激活�
         </activation>
     </profile>
 </profiles>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-不同类型的激活方式可以组合使用，但是只有但两个条件都匹配时才能激活。
-————————————————
-版权声明：本文为CSDN博主「代码与酒」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/qq_16313365/article/details/79387561
+```
 
+>查看当前处于激活状态的profile
+>
+>我们可以同时定义多个profile，那么在建立项目的过程中，到底激活的是哪一个profile呢？Maven为我们提供了一个指令可以查看当前处于激活状态的profile都有哪些，这个指定就是：
+>
+> mvn help:active-profiles
 
+## 7.Maven变量
 
-## 7、Maven插件
+### 关于Filter
+Filter 是 maven 的 resource插件提供的功能，作用是用环境变量、pom文件里定义的属性和指定配置文件里的属性替换属性(*.properties)文件里的占位符(${jdbc.url})。
+
+在src/main/resources目录有个配置文件jdbc.properties，内容如下：
+```
+jdbc.url=${pom.jdbc.url}
+jdbc.username=${pom.jdbc.username}
+jdbc.passworkd=${pom.jdbc.password}
+```
+
+配置 resource 插件，启用filtering功能并添加属性到pom：
+
+```xml
+<project>
+    ...
+    <!-- 用pom里定义的属性做替换 -->
+    <properties>
+        <pom.jdbc.url>jdbc:mysql://127.0.0.1:3306/dev</pom.jdbc.url>
+        <pom.jdbc.username>root</pom.jdbc.username>
+        <pom.jdbc.password>123456</pom.jdbc.password>
+    </properties>
+    <build>
+        ...
+        <!-- 可以把属性写到文件里,用属性文件里定义的属性做替换 -->
+        <filters>
+            <filter>src/main/filters.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        ...
+    </build>
+    ...
+</project>
+```
+
+编译包后 target 目录下的 jdbc.properties :
+```
+jdbc.url=jdbc:mysql://127.0.0.1:3306/dev
+jdbc.username=root
+jdbc.passworkd=123456
+```
+
+## 8、Maven插件
 
 我们在前面介绍了Maven的lifecycle，phase和goal：使用Maven构建项目就是执行lifecycle，执行到指定的phase为止。每个phase会执行自己默认的一个或多个goal。goal是最小任务单元。
 
@@ -732,7 +829,7 @@ cobertura-maven-plugin：生成单元测试覆盖率报告；
 findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
 
 
-## 使用Maven进行模块化管理
+# 五、使用Maven进行模块化管理
 
 在软件开发中，把一个大项目分拆为多个模块是降低软件复杂度的有效方法：
 
