@@ -2610,6 +2610,70 @@ input parameter2:  world
 
 ## 选择与循环结构
 
+### 条件表达式
+
+
+整形表达式
+
+| 符号 | 含义 | 备注 |
+| ---- | ---- | ---- |
+| -eq	| eques | 判断是否相等	|
+| -ne	| not eques | 判断是否不等	|
+| -gt	| greater than | 大于	|
+| -ge	| greater or eques | 大于等于	|
+| -lt	| lower than | 小于	|
+| -le	| lower or eques | 小于等于	|
+
+
+```
+[root@geekist ~]# [ 10 -eq 15 ]
+[root@geekist ~]# echo $?
+1
+```
+
+字符串比较表达式
+
+| 符号 | 含义 | 备注 |
+| ---- | ---- | ---- |
+| string | string不为空则为真|
+| "string1" =	"string2"| string1 和 string2 相同. 单或双等号都可以，不过双等号更受欢迎。	| |
+|string1 != string2	| string1 和 string2 不相同。	| |
+| -n string 	| 字符串 string 的长度大于零。	| |
+| -z	string | 字符串 string 的长度为零	| |
+
+```
+huanyu@ubuntu:~/shell$ [ -z $String ]
+huanyu@ubuntu:~/shell$ echo $?
+0 返回0，说明string长度为0，说明string没有被赋值
+```
+
+文件测试表达式
+
+| 符号	| 含义 | 备注 |
+| ---- | ---- | ---- |
+| -d	| directory 是否为目录	| |
+|-f	 | file 是否为普通文件 |	
+| -e |	exist 是否存在	|
+| -r	| read 是否可读	|
+| -w	| write 是否可写 |	
+| -x	| 是否可执行	|
+| -nt	| new than 文件时间更新 |	
+| -ot	| old than 文件时间更旧	|
+
+
+ test 命令执行各种各样的表达式的检查与比较。 它有两种等价模式：
+ ```
+test expression
+```
+和
+```
+[ expression ] (注意，中括号两边有空格)
+```
+这里的 expression 是一个表达式，其执行结果是 true 或者是 false。当表达式为真时，这个 test 命令返回一个零 退出状态，当表达式为假时，test 命令退出状态为1
+
+
+
+
 ### 流程控制语句if
 
 ```
@@ -2674,6 +2738,109 @@ fi
 
 ## 键盘输入、菜单、参数位置
 
+## shell中$$
+
+| 符号 | 含义 |
+| ---- | ---- |
+| $$ | Shell本身的PID（ProcessID）|
+| $! | Shell最后运行的后台Process的PID |
+| $? | 最后运行的命令的结束代码（返回值）|
+| $- | 使用Set命令设定的Flag一览 |
+| $* | 所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数。|
+| $@ | 所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。|
+| $# | 添加到Shell的参数个数 |
+| $0 | Shell本身的文件名 |
+| $1～$n | 添加到Shell的各参数值。$1是第1参数、$2是第2参数…。|
 
 
+## shell数据类型
+
+
+Shell 脚本语言是一门弱类型语言，实际上，它并没有数据类型的概念。无论你输入的是字符串还是数字，在 shell 中都按照字符串类型来存储。至于具体是什么类型，Shell 会根据上下文去确定。
+
+例如，当你尝试对一个字符串进行加一操作时，Shell 解释执行时便会报错。
+```shell
+#!/bin/bash
+NUM="Hello"
+echo NUM+1            # 输出结果：Hello+1
+echo `exprNUM + 1`   # 执行出错：expr: 非整数参数
+NUM=1
+echo `expr $NUM + 1`   # 输出结果：2
+Bash
+```
+又例如，字符串 “true” 和 “false” 可以作为普通字符串使用，但在比较语句中，Shell 会将其当成布尔型的值进行比较。
+```shell
+#!/bin/bash
+RESULT="false"
+if $RESULT; then
+    echo "Is true."
+else
+    echo "Is false."
+fi
+Bash
+```
+因此，我们需要理解 shell 在数据类型上的特殊性，虽然 shell 脚本语言是弱类型语言，但其在解释执行时会进行语法检查，确认具体类型。
+
+### 字符串
+字符串是 shell 脚本语言最常用的数据类型。字符串的定义可以使用单引号，也可以使用双引号，甚至可以不用引号。
+
+例如，下面 3 种定义方式是等效的：
+```shell
+str=getiot.tech
+str='getiot.tech'
+str="getiot.tech"
+Bash
+```
+
+但三者的使用还是有差别的，具体来说：
+
+如果文本中不包含空白符，则可以不用引号包裹，但如果文本中包含空白符，则必须用单引号或双引号包裹；
+单引号包裹的任何字符都会按原样输出，单引号字符串中的变量是无效的；
+单引号包裹的字符中可以出现双引号（不需要转义），但不能出现单引号（使用转义符也不行）；
+双引号包裹的内容可以包含变量；
+双引号包裹的内容可以使用转义字符。
+Bash 提供了一种获取字符串长度的方法：
+```shell
+#!/bin/bash
+str="getiot.tech"
+echo ${#str}       # 输出结果：11
+Bash
+```
+
+布尔型
+布尔型变量的定义与字符串一样，只是它的值只能是 true 和 false 两者之一。
+```shell
+flag=true
+flag=false
+Bash
+```
+
+数值型
+Shell 脚本能够处理数值型数据，但并没有像 C 语言那样区分字符型、整型、浮点型，而是统统存储为字符串。
+
+不过，shell 依然能够处理数值型数据，例如使用 $ 和 [] 包含待运算的数学公式。
+```shell
+#!/bin/bash
+a=1; b=2
+echo a+b       # 输出结果：1+2
+echo [a+$b]    # 输出结果：3
+Bash
+```
+
+另外，shell 还提供了一个数学运算命令 expr（evaluate expression），例如：
+```shell
+#!/bin/bash
+a=1; b=2
+c=`expr a +b`
+echo $c          # 输出结果：3
+Bash
+```
+可惜的是，上述两种运算方式并不支持浮点运算。好在，我们还可以在 shell 中使用 bc 计算器进行数值运算。
+```shell
+#!/bin/bash
+var=`echo "scale=4;10/3"|bc`
+echo $var         # 输出结果：3.3333
+Bash
+```
+将数学表达式通过管道传递给 bc 计算器，其中 scale=4 表示保留四位小数。
 
