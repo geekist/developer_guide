@@ -1,4 +1,21 @@
 
+后端
+
+* [Java语言](https://github.com/geekist/developer_guide/blob/main/java/java.md)
+
+* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
+
+* [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
+
+前端
+
+
+Android
+
+
+iOS
+
+
 [计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
 
 
