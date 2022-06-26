@@ -1,44 +1,168 @@
+# 一、基本概念
+
+## 框架
+
+框架是一种把头文件、库、突破、声音等内容聚集在一个独立单元中的集合体。每个框架都是一个重要的技术集合，通常包含数十个甚至上百个头文件。每个框架都有一个主头文件，包含了框架内的所有头文件。通过在主文件中使用\#import,可以访问框架内的所有内容。
 
 
-基本特性
-main
-#import <Foundation/Foundation.h>
-int main (int argc, const char *argv[])
-{
-  NSLog(@"Hello world!");
-  return 0;
-}
-@
+Foundation框架
+主要是NSXXX对象，比如NSString、NSArray、NSEnumerator、NSNumber等100多个类
+
+CoreFoundation框架
+CoreFoundation是纯C语言编写的，函数或变量以CF开头。
+Foundation框架是以CoreFoundation框架为基础创建的，几乎都有CoreFoundation的NS版本。
+
+CoreGraphics框架
+用于处理集合图形，以CG开头的类。
+
+AppKit
+AppKit是基于OS X平台（Mac），比如NSColor
+
+UIKit
+UIKit是基于IOS平台（iPhone），比如UIColor
+
+## \#import
+
+`#import`和`#include`一样，用来通知编译器查询头文件中相应的定义代码。
+在Objective-C中，import可以保证头文件纸杯包含一次。
+
+## @"字符串"
+
+@符合是Objective-C在标准C语言上添加的特性之一。
+
 object-c中，@符号是表示对C语言的扩展，以@开头的说明是扩展功能，比如大部分的面向对象特性，@”字符串”等
 
-import
-import和java中的一样，保证头文件只被包含一次
+@"字符串" 符号意味着引号内的字符串应作为Cocoa的NSString元素来处理。
 
-@string
-@符号表示将字符串作为NSString字符串对象处理，而不是普通的c字符串
+## NSLog()打印日志
 
-NSLog
+语法：
+```c
 NSLog(@"%d %@", 5, @"helloworld");
-输出参数和c一样，object-c只是扩展了c没有的功能，c原有的功能仍旧保留着
+```
+
+输出参数和c一样，object-c只是扩展了c没有的功能，c原有的功能仍旧保留着。
+```c
 %d：整数
 %s: 字符串
 %lu：long
 %@：NSString对象_指针_
+```
 
-尽量使用NSLog来输出日志，而不再使用printf
+## 前缀
 
-BOOL
-object-c只有YES和NO两个BOOL值
+NSString、NSLog等前缀NS代表NextStep。
 
-注：object-c中的BOOL其实是signed char类型，占用8位，1字节，如果将大于1字节的值赋给BOOL类型的变量，那么只取低8位。比如：0x2300得到的BOOL值为0，即NO值
+Objective-C中使用前缀是因为没有命名空间的概念，所以使用前缀来防止命名冲突。
 
-YES为整型1，NO为整型0，和c的true和false是有区别的：
-if (23-5 == YES)是false，因为if (18 == 1)是false
-if (1 == YES)才是true
-但是
-if (23-5)是true，因为它没有与YES和NO比较，而是传统c语言的条件语句
+## bool类型和BOOL类型
 
-和YES和NO比较，仅仅是与(int)0和(int)1的比较
+bool类型是C语言的数据类型，它拥有false和true两个值。
+
+BOOL类型是Objective-C中的布尔类型，它拥有YES和NO两个值。
+
+尽量使用BOOL类型。
+
+## id类型
+
+id（identifier)是一种泛型，用来引用任何类型的对象。
+```c
+id shape = shapes[5];
+```
+
+## [对象 操作];
+
+Objective-C中，方括号[]表示通知某个对象去执行某个操作。第一项是对象，第二项是需要对象执行的操作。称为发送消息。即向对象发送一个消息。
+
+实际上，是类对象的方法调用。
+
+## 接口文件解读
+
+OC中的类定义分为接口文件和实现文件两个部分。接口文件声明了类的成员变量和方法。实现文件中对变量初始化以及实现方法。
+
+```objective-c
+@interface Circle: NSObject
+{
+@public
+
+@protected
+
+@private
+  Color _color;     //继承NSObject，并添加自己的Color属性
+}
+
+- (void) setColor: (Color) color;
+
+- (void) draw;
+
+@end
+```
+
+
+
+```objective-c
+@implementation Circle
+
+- (void) setColor: (Color) c
+{
+  self._color = c;
+}
+
+@end
+```
+
+## 实现文件解读
+
+
+
+
+
+
+# 二、对C的扩展
+
+# 三、面向对象的基础知识
+
+# 四、继承
+
+# 五、复合
+
+# 六、源文件组织
+
+# 七、深入了解Xcode
+
+# 八、Foundation Kit介绍
+
+# 九、内存
+
+# 十、对象初始化
+
+# 十一、属性
+
+# 十二、类别
+
+# 十三、协议
+
+# 十四、代码块和并发性
+
+# 十五、AppKit简介
+
+# 十六、UIKIt简介
+
+# 十七、文件的加载和保存
+
+# 十八、键值编程
+
+# 十九、静态分析工具
+
+# 二十、NSPredicate
+
+基本特性
+
+
+
+
+
+
 
 nil值
 nil值表示空对象或NULL值，可以作为对象参数传递，也可以作为指针传递。
@@ -84,26 +208,7 @@ get方法
 object-c中，get方法一般将参数作为指针来返回值，即对于get方法一般传入指针来获取需要的值。
 对于自己设计的get方法一般也要遵循这个规则。
 
-@interface接口
-@interface Circle: NSObject
-{
-@public
-@protected
-@private
-  Color _color;     //继承NSObject，并添加自己的Color属性
-}
-- (void) setColor: (Color) color;
-- (void) draw;
-@end
-@implementation实现
-@implementation Circle
 
-- (void) setColor: (Color) c
-{
-  self._color = c;
-}
-
-@end
 实例化
 Circle *shape = [Circle new];
 很显然，这里有了new还需要释放！
@@ -170,22 +275,7 @@ Command + Shift + 向左/向右 切换到上一个文档或下一个文档
 获取文档帮助
 option + 点击类名
 
-框架
-Foundation框架
-主要是NSXXX对象，比如NSString、NSArray、NSEnumerator、NSNumber等100多个类
 
-CoreFoundation框架
-CoreFoundation是纯C语言编写的，函数或变量以CF开头。
-Foundation框架是以CoreFoundation框架为基础创建的，几乎都有CoreFoundation的NS版本。
-
-CoreGraphics框架
-用于处理集合图形，以CG开头的类。
-
-AppKit
-AppKit是基于OS X平台（Mac），比如NSColor
-
-UIKit
-UIKit是基于IOS平台（iPhone），比如UIColor
 
 一些有用的数据结构而不是对象
 NSRange
@@ -1022,42 +1112,3 @@ xxx = 对象.属性名在等号右边，表示对象的属性的get方法被调�
 
 在实现文件声明
 在实现文件中声明，表示属性是私有的，
-# 一、启程
-
-# 二、对C的扩展
-
-# 三、面向对象的基础知识
-
-# 四、继承
-
-# 五、复合
-
-# 六、源文件组织
-
-# 七、深入了解Xcode
-
-# 八、Foundation Kit介绍
-
-# 九、内存
-
-# 十、对象初始化
-
-# 十一、属性
-
-# 十二、类别
-
-# 十三、协议
-
-# 十四、代码块和并发性
-
-# 十五、AppKit简介
-
-# 十六、UIKIt简介
-
-# 十七、文件的加载和保存
-
-# 十八、键值编程
-
-# 十九、静态分析工具
-
-# 二十、NSPredicate
