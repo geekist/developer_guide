@@ -9,9 +9,9 @@
 
 Redis
  
-* [redis介绍]](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
+* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
-* [spring-data-redis操作redis缓存]](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
+* [spring-data-redis操作redis缓存](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
 
 前端
 
