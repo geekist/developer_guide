@@ -7,6 +7,12 @@
 
 * [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
+Redis
+ 
+* [redis介绍]](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
+
+* [spring-data-redis操作redis缓存]](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
+
 前端
 
 html
