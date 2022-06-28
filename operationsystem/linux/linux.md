@@ -19,11 +19,15 @@
     - [poweroff](#poweroff)
   - [3、Linux重启命令](#3linux重启命令)
     - [reboot 重启系统](#reboot-重启系统)
-    - [查看系统版本号：](#查看系统版本号)
-    - [查看Linux内核版本](#查看linux内核版本)
-    - [查看CPU内核数：](#查看cpu内核数)
-    - [查看内存情况：](#查看内存情况)
-    - [查看cpu使用率](#查看cpu使用率)
+  - [4、系统基本情况](#4系统基本情况)
+    - [查看系统版本号：lsb_release -a](#查看系统版本号lsb_release--a)
+    - [查看Linux内核版本 uname -a](#查看linux内核版本-uname--a)
+    - [查看CPU内核数：grep ^processor /proc/cpuinfo | wc -l](#查看cpu内核数grep-processor-proccpuinfo--wc--l)
+    - [查看内存情况： free](#查看内存情况-free)
+    - [查看cpu使用率 top -bn 1 -i -c](#查看cpu使用率-top--bn-1--i--c)
+    - [查看硬盘使用情况：df -h](#查看硬盘使用情况df--h)
+    - [查看目录的大小：du](#查看目录的大小du)
+    - [查看目录大小，并按照大小排序](#查看目录大小并按照大小排序)
 - [三、shell介绍](#三shell介绍)
   - [1、shell](#1shell)
   - [2、shell命令](#2shell命令)
@@ -109,6 +113,7 @@
     - [在后台运行一个进程 &](#在后台运行一个进程-)
     - [进程返回前台 fg%n](#进程返回前台-fgn)
     - [停止一个进程 ctrl Z](#停止一个进程-ctrl-z)
+    - [nohup命令](#nohup命令)
     - [kill – 给一个进程发送终止信号](#kill--给一个进程发送终止信号)
     - [killall – 给匹配特定程序或用户名的多个进程发送终止信号](#killall--给匹配特定程序或用户名的多个进程发送终止信号)
 - [八、网络及操作](#八网络及操作)
@@ -144,6 +149,7 @@
 - [十一、编写shell程序](#十一编写shell程序)
   - [1、开始shell程序](#1开始shell程序)
     - [什么是shell脚本？](#什么是shell脚本)
+    - [shell脚本编译器vim](#shell脚本编译器vim)
     - [shell脚本格式](#shell脚本格式)
     - [使shell脚本可执行](#使shell脚本可执行)
     - [shell脚本的存放位置](#shell脚本的存放位置)
@@ -159,9 +165,13 @@
     - [shell函数传参方法： function_name parm1 parm21](#shell函数传参方法-function_name-parm1-parm21)
   - [数据结构与运算符](#数据结构与运算符)
   - [选择与循环结构](#选择与循环结构)
+    - [条件表达式](#条件表达式)
     - [流程控制语句if](#流程控制语句if)
     - [test命令和[]](#test命令和)
   - [键盘输入、菜单、参数位置](#键盘输入菜单参数位置)
+  - [shell中$$](#shell中)
+  - [shell数据类型](#shell数据类型)
+    - [字符串](#字符串)
 
 # 一、Linux操作系统介绍
 
@@ -370,7 +380,6 @@ halt [-n] [-w] [-d] [-f] [-i] [-p]
 
 ```
 
-
 ### poweroff
 
 poweroff 命令命令用于关闭计算器并切断电源。
@@ -428,7 +437,10 @@ reboot [-n] [-w] [-d] [-f] [-i]
 # reboot
 ```
 
-### 查看系统版本号：
+
+## 4、系统基本情况
+
+### 查看系统版本号：lsb_release -a
 
 ```
 [root@geekist local]# lsb_release -a
@@ -440,7 +452,7 @@ Codename:       SoaringFalcon
 [root@geekist local]#
 ```
 
-### 查看Linux内核版本
+### 查看Linux内核版本 uname -a
 
 uname -a
 
@@ -450,7 +462,7 @@ uname -a
 
 ```
 
-### 查看CPU内核数：
+### 查看CPU内核数：grep ^processor /proc/cpuinfo | wc -l
 
 ```
 grep ^processor /proc/cpuinfo | wc -l
@@ -466,7 +478,7 @@ linux x86、x86_64、AMD64的区别：
 
 x86、x86_64主要的区别就是32位和64位的问题，x86中只有8个32位通用寄存器，eax,ebx,ecx，edx, ebp, esp, esi, edi。x86_64把这8个通用寄存器扩展成了64位的，并且比x86增加了若干个寄存器（好像增加了8个，变成了总共16个通用寄存器）。同样的MMX的寄存器的位数和数量也进行了扩展。此外cpu扩展到64位后也能支持更多的内存了，等等许多好处。
 
-### 查看内存情况：
+### 查看内存情况： free
 
 ```
 [root@iZbp19n36uysranoj3k2x5Z etc]# free
@@ -486,7 +498,7 @@ Swap：虚拟内存
 
 为了提高磁盘存取效率, Linux做了一些精心的设计, 除了对dentry进行缓存(用于VFS,加速文件路径名到inode的转换), 还采取了两种主要Cache方式：Buffer Cache和Page Cache。前者针对磁盘块的读写，后者针对文件inode的读写。这些Cache有效缩短了 I/O系统调用(比如read,write,getdents)的时间。
 
-### 查看cpu使用率
+### 查看cpu使用率 top -bn 1 -i -c
 
 ```
 [root@iZbp1hvca0d8vk8fgxk0b5Z ~]# top -bn 1 -i -c
@@ -519,6 +531,73 @@ top命令可以看到总体的系统运行状态和cpu使用效率
 
 %st: 被虚拟机偷走的cpu
 
+### 查看硬盘使用情况：df -h
+
+df 以磁盘分区为单位查看文件系统，可以获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
+
+例如，我们使用df -h命令来查看磁盘信息， -h 选项为根据大小适当显示：
+
+```
+[root@iZbp1hvca0d8vk8fgxk0b5Z /]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        7.7G     0  7.7G   0% /dev
+tmpfs           7.7G     0  7.7G   0% /dev/shm
+tmpfs           7.7G  508K  7.7G   1% /run
+tmpfs           7.7G     0  7.7G   0% /sys/fs/cgroup
+/dev/vda1        40G   32G  8.9G  78% /
+tmpfs           1.6G     0  1.6G   0% /run/user/0
+```
+显示内容参数说明：
+
+Filesystem：文件系统
+Size： 分区大小
+Used： 已使用容量
+Avail： 还可以使用的容量
+Use%： 已用百分比
+Mounted on： 挂载点
+
+### 查看目录的大小：du
+
+du 的英文原义为 disk usage，含义为显示磁盘空间的使用情况，用于查看当前目录的总大小。
+
+例如查看当前目录的大小：
+
+```
+du -sh
+605M 
+```
+
+du 命令用于查看当前目录的总大小，其中参数为：
+
+```
+-s：对每个Names参数只给出占用的数据块总数。
+-a：递归地显示指定目录中各文件及子目录中各文件占用的数据块数。若既不指定-s，也不指定-a，则只显示Names中的每一个目录及其中的各子目录所占的磁盘块数。
+-b：以字节为单位列出磁盘空间使用情况（系统默认以k字节为单位）。
+-k：以1024字节为单位列出磁盘空间使用情况。
+-c：最后再加上一个总计（系统默认设置）。
+-l：计算所有的文件大小，对硬链接文件，则计算多次。
+-x：跳过在不同文件系统上的目录不予统计。
+-h：以K，M，G为单位，提高信息的可读性。
+```
+
+### 查看目录大小，并按照大小排序
+
+```shell
+du -sh  | sort -rn   #从大到小
+
+du -sh | sort -n    #从小到大
+```
+```shell
+[root@iZbp1hvca0d8vk8fgxk0b5Z target]#  du -sh * | sort -nr
+740K    classes
+156K    yychildren-parent.jar.original
+149M    yychildren-parent.jar
+24K     maven-status
+4.0K    maven-archiver
+4.0G    nohup.out
+0       logPath_IS_UNDEFINED
+0       generated-sources
+```
 
 # 三、shell介绍
 
@@ -1737,8 +1816,6 @@ chown bob: 文件所有者改为用户 bob，文件用户组改为，用户 bob 
 
 父进程终止子进程自然终止。
 
-
-
 ### 5、进程状态
 
 task_struct中的state描述进程的当前状态。进程的状态一共有5种，而进程必然处于其中一种状态：
@@ -1881,9 +1958,67 @@ fg 命令之后，跟随着一个百分号和工作序号（叫做 jobspec）。
 ```
 停止 xlogo 程序之后，通过调整 xlogo 的窗口大小，我们可以证实这个程序已经停止了。 它看起来像死掉了一样。使用 fg 命令，可以恢复程序到前台运行，或者用 bg 命令把程序移到后台。
 
+### nohup命令
+
+nohup 命令是英语词组 no hangup 的缩写，意思是不挂断，也就是指程序不退出。这个命令会使程序忽略 HUP 信号，保证程序能够正常进行。即使关闭终端，程序仍然在执行。（一般程序在关闭终端后，后接收hup信号，关闭应用程序）。要运行后台中的 nohup 命令，添加 & （ 表示”and”的符号）到命令的尾部。
+
+原程序的的标准输出被自动改向到当前目录下的nohup.out文件，起到了log的作用。如果当前目录的 nohup.out 文件不可写，输出重定向到 $HOME/nohup.out 文件中。
+
+nohup.out文件
+
+实际使用过程中，往往人们为了省心经常没有给nohup.out进行重定向输出，也没有按日期分割文件，会造成这个文件特别巨大，达到2G或者3G，这个使用想查看文件，搜索出错内容就比较痛苦了。一般有两种方式：
+
+1、linux本机查看：使用tail 命令，查看最新的日志，或滚动监控日志打印。
+
+```shell
+#查看最后1000行日志文件
+tail -1000 nohup.out
+```
+
+```shell
+tail -f nohup.out  #会把 filename 文件里的最尾部的内容显示在屏幕上，并且不断刷新，只要 filename 更新就可以看到最新的文件内容。
+```
+
+2.ftp下载到windown主机查看：一般小的log文件都没有问题，但是过G的，一般的文本文档查看就显得无力了。推荐使用UltraEdit进行打开。
+
+nohup.out文件的重定向
+
+0：标准输入
+1：标准输出
+2：错误输出
+
+```shell
+#将标准输出定向到log文件
+nohup java -jar shop-admin-s.jar 1>log
+
+#将错误输出定向到log文件
+nohup java -jar shop-admin-s.jar 2>log
+
+#标准错误输出和标准输出都定向到log中   
+#>log 一定要写在前面 : 意思是1指向log文件，2 指向1，所以2也指向log满足输出到log
+nohup java -jar shop-admin-s.jar >log 2>&1 &
+
+#简写
+nohup java -jar shop-admin-s.jar &>log &
+
+#什么信息也不要
+nohup java -jar shop-admin-s.jar >/dev/null 2>&1 &
+
+#只输出错误信息
+nohup java -jar shop-admin-s.jar >/dev/null 2>log &
+```
+
+不停止服务，清空nohup文件
+
+```shell
+cp /dev/null nohup.out
+```
+
+```shell
+cat /dev/null > nohup.out
+```
 
 ### kill – 给一个进程发送终止信号
-
 
 kill 命令被用来给程序发送信号。
 
