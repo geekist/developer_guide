@@ -76,43 +76,70 @@ Objective-C中，方括号[]表示通知某个对象去执行某个操作。第�
 
 实际上，是类对象的方法调用。
 
-## 接口文件解读
+# 二、类定义
 
 OC中的类定义分为接口文件和实现文件两个部分。接口文件声明了类的成员变量和方法。实现文件中对变量初始化以及实现方法。
 
+
+## 类接口文件
+
 ```objective-c
-@interface Circle: NSObject
+@interface Circle: NSObject 
 {
-@public
-
-@protected
-
-@private
-  Color _color;     //继承NSObject，并添加自己的Color属性
+ShapeColor fillColor;
+ShapeRect bounds;
 }
 
-- (void) setColor: (Color) color;
+- (void) setFillColor: (ShapeColor) fillColor;
+
+- (void) setBounds:(ShapeRect) bounds;
 
 - (void) draw;
 
 @end
 ```
 
+* 接口文件声明
 
+`@interface Circle : NSObject`
+
+>@符号告诉编译器，这是新类Circle的接口。
+
+>：告诉编译器，类Circle继承于NSObject
+
+* 类的实例变量定义
+
+用大括号引用起来的变量定义成为类的实例变量。
 
 ```objective-c
-@implementation Circle
-
-- (void) setColor: (Color) c
 {
-  self._color = c;
+ShapeColor fillColor;
+ShapeRect bounds;
 }
-
-@end
 ```
 
-## 实现文件解读
+* 类的方法声明
 
+类的方法声明列出了每个方法的名称、方法返回值的类型和参数。
+
+```objective-c
+- (void) setFillColor: (ShapeColor) fillColor;
+
+- (void) setBounds:(ShapeRect) bounds;
+
+- (void) draw;
+```
+
+>\- 表示这是Objective-C方法的声明，这是区分类的方法声明和函数的一种方式。函数原型中没有短线。
+>
+>() 括号和括号中的类型组成了类方法的返回类型。(void)表示无返回值。Objective-C可以返回标准类型（整形、浮点型、字符串等）指针、对象和结构体。
+>
+>：中缀符号。方法中冒号是名称的一部分，它告诉编译器，后面出现的是类方法的参数。参数类型在圆括号中指定。
+>
+>@end 告诉编译器，对Circle类的声明完成。
+
+
+## 类实现文件
 
 
 
