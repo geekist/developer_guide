@@ -177,6 +177,94 @@ int main (int argc, const char * argv[]) {
 }
 ```
 
+# 三、继承与组合
+
+## 继承
+
+### 语法格式：
+
+```objective-c
+@interface Circle : NSObject
+```
+冒号后面的标识符是需要继承的类。如果使用cocoa框架，所有的类都继承自NSObject类。
+
+继承实现举例：
+
+```objective-c
+@interface Shape : NSObject {
+  ShapeColor fillColor;
+  ShapeRect bounds;
+}
+
+- (void) setFillColor:(ShapeColor)fillColor;
+- (void) setBounds:(ShapeRect)bounds;
+- (void) draw;
+@end
+
+@implementation Shape
+-(void)setFillColor:(ShapeColor)c {
+  fillColor = c;
+}
+
+- (void) setBounds:(ShapeRect)b {
+  bounds = b;
+}
+@end
+
+@interface Circle : Shape
+@end
+
+@implementation Circle
+-(void) draw {
+    NSLog(@"");
+}
+@end
+
+@interface Rectangle : Shape
+@end
+
+@implementation Rectangle
+
+- (void) draw {
+  NSLog(@"");
+}
+@end
+```
+
+### 继承的工作机制：
+
+当实现类方法时，Objective-C的调度制度将在当前类中搜索响应的方法，如果无法在接受消息的对象的类中找到响应的方法，它就会在该对象的超类中进行寻找。必要时会在继承链的每一个类中重复执行此操作。如果在最顶层的NSObject类中也没有找到该方法，则会出现一个运行时错误。
+
+### self参数
+
+每个方法调用都有一个名为self的隐藏参数，该参数是一个指向接受消息的对象的指针。
+```
+[self draw];
+```
+
+### 重写方法
+
+可以定义与父类同名的方法，当向子类发送消息时，将运行重写后的方法，父类的方法会被忽略。
+
+### super关键字
+
+为避免重写方法导致的父类方法被忽略，引入super关键字来调用父类的实现。
+
+```
+@implementation Circle
+
+- (void) setFillColor: (ShapeColor)c {
+  if(c == kRedColor) {
+    c = kGreenColor;
+  }
+
+  [super setFillColor: c];
+}
+
+```
+
+
+### super关键字
 
 
 # 二、对C的扩展
