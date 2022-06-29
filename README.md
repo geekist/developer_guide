@@ -151,5 +151,5 @@ Linux脚本
 
 日记月累
 
-* [字符集和字符编码介绍](https://github.com/geekist/developer_guide/blob/main/other/charset.md))
+* [字符集和字符编码介绍](https://github.com/geekist/developer_guide/blob/main/other/charset.md)
   

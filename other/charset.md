@@ -130,7 +130,7 @@ UTF-8字符串可以由一个简单的算法可靠地识别出来。就是，一
 
 因为每个字符使用不同数量的字节编码，所以寻找串中第N个字符是一个O(N)复杂度的操作 — 即，串越长，则需要更多的时间来定位特定的字符。同时，还需要位变换来把字符编码成字节，把字节解码成字符。
 
-四、Accept-Charset/Accept-Encoding/Accept-Language/Content-Type/Content-Encoding/Content-Language
+# 四、Accept-Charset/Accept-Encoding/Accept-Language/Content-Type/Content-Encoding/Content-Language
 
 在HTTP中，与字符集和字符编码相关的消息头是Accept-Charset/Content-Type，另外主区区分Accept-Charset/Accept-Encoding/Accept-Language/Content-Type/Content-Encoding/Content-Language：
 
@@ -145,4 +145,16 @@ Content-Type：WEB服务器告诉浏览器自己响应的对象的类型和字�
 Content-Encoding：WEB服务器表明自己使用了什么压缩方法（gzip，deflate）压缩响应中的对象。例如：Content-Encoding：gzip
 
 Content-Language：WEB服务器告诉浏览器自己响应的对象的语言。
+
+# 五、utf8mb3和utf8mb4
+
+utf8mb4是mysql特有的概念，原因是mysql在5.5.3之前，Unicode收录的字符还不是很多，（最大）3个字节足够存储，所以那时的mysql把utf8（alias of "utf8mb3"）存储也设计为3字节存储。
+
+后来Unicode收录的字符更多了，扩张到4字节了（比如表情😁）。 MySQL也在5.5.3版本之后增加了这个utf8mb4的编码，mb4就是most bytes 4的意思，专门用来兼容四字节的Unicode。
+
+MySQL官方网站也解释了utf8mb3和utf8mb4之间的关系。[](https://dev.mysql.com/doc/ref...https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-utf8mb4.html
+
+[](https://dev.mysql.com/doc/ref...https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-utf8mb3.html
+
+即： MySQL的utf8mb4是utf8
 
