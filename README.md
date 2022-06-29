@@ -148,4 +148,8 @@ Linux脚本
 个推消息推送服务
 
 * [Android端个推开发指南](https://github.com/geekist/developer_guide/blob/main/android/3rd/getui.md)
+
+日记月累
+
+* [字符集和字符编码介绍](https://github.com/geekist/developer_guide/blob/main/other/charset.md))
   
