@@ -78,10 +78,16 @@ Objective-C中，方括号[]表示通知某个对象去执行某个操作。第�
 
 # 二、类定义
 
-OC中的类定义分为接口文件和实现文件两个部分。接口文件声明了类的成员变量和方法。实现文件中对变量初始化以及实现方法。
+OC中的类定义分为接口文件和实现文件两个部分。
+
+接口文件声明了类的成员变量和方法。用于定义类的公共接口。
+
+实现文件中对变量初始化以及实现方法。
 
 
 ## 类接口文件
+
+接口文件声明了类的成员变量和方法。用于定义类的公共接口。
 
 ```objective-c
 @interface Circle: NSObject 
@@ -103,7 +109,7 @@ ShapeRect bounds;
 
 `@interface Circle : NSObject`
 
->@符号告诉编译器，这是新类Circle的接口。
+>@inteface是编译器指令，告诉编译器，这是新类Circle的接口。
 
 >：告诉编译器，类Circle继承于NSObject
 
@@ -141,7 +147,35 @@ ShapeRect bounds;
 
 ## 类实现文件
 
+```objective-c
+@implementation Circle
 
+-(void) setFillColor: (ShapeColor) c {
+  fillColor = c;
+}
+
+- (void) setBounds: (ShapeREct) b {
+  bounds = b;
+}
+```
+
+@implementation 是一个编译器指令，表明即将为某个类提供代码。
+
+方法的定义在实现文件中。
+
+类实现文件中还可以定义在@interface中没有声明过的方法。可以看做是类的私有方法，只在该类中使用。
+
+
+## 类的实例化
+
+类的实例化为类分配内存，然后将这些内存初始化并保存默认值。内存分配和初始化工作完成后，类的对象实例就可以使用了。 
+
+```objective-c
+int main (int argc, const char * argv[]) {
+  Circle *circle = [[Circle alloc]init];
+  [circle setFillColor: kRedColor];
+}
+```
 
 
 
