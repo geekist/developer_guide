@@ -1,3 +1,29 @@
+
+* [一、mybatis的mapper映射文件概述](#一mybatis的mapper映射文件概述)
+* [二、mapper文件的结构](#二mapper文件的结构)
+* [三、xml元素详解](#三xml元素详解)
+  * [resultMap](#resultmap)
+  * [select](#select)
+    * [返回单值](#返回单值)
+    * [返回单对象](#返回单对象)
+      * [通过javabean返回单对象](#通过javabean返回单对象)
+      * [通过map返回单对象](#通过map返回单对象)
+    * [返回数据集](#返回数据集)
+      * [通过list返回数据集](#通过list返回数据集)
+      * [通过map返回数据集](#通过map返回数据集)
+  * [insert](#insert)
+  * [update](#update)
+  * [delete](#delete)
+* [四、动态SQL](#四动态sql)
+  * [if语句](#if语句)
+  * [if \+ where 语句](#if--where-语句)
+  * [if \+ set 语句](#if--set-语句)
+  * [choose(when,otherwise) 语句](#choosewhenotherwise-语句)
+  * [trim语句](#trim语句)
+  * [SQL片段](#sql片段)
+  * [foreach语句](#foreach语句)
+
+
 # 一、mybatis的mapper映射文件概述
 
 MyBatis配置文件分为：mybatis配置文件和mapper配置文件。mybatis配置文件主要用来设计po类的别名，方便对po类的引用；mapper配置文件用来管理SQL语句。
