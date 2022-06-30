@@ -6,6 +6,8 @@ github地址是https://github.com/pagehelper/Mybatis-PageHelper
 
 # 二、整合pagehelper
 
+在springboot中使用PageHelper插件有两种较为相似的方式，一种是配置类，另外一种是配置application，本文要介绍的是配置application文件的方式。方法很简单，分为两步，第一 导入依赖；第二 配置文件。
+
 ## pom 配置
 
 增加pageHelper的依赖
