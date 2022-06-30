@@ -239,3 +239,348 @@ resultType属性的值可以是如下情形：
 
 resultMap的使用：
 >该属性的值是：<resultMap>元素的id属性的值。只有当po数据字段与数据库表列名不一致的时候，才使用。
+
+## insert
+
+在mybatis中，使用<insert>元素来管理insert语句。如果sql语句比较简单，可使用@Insert注解来代替mapper映射文件。
+
+如果需要插入的数据字段比较多，可以使用po类封装这些数据字段，示例如下：
+
+```xml
+<insert id="insertUserInfoByBean" parameterType="UserInfo">
+insert into t_user (f_name,f_birth,f_salary) values (#{name},#{birth},#{salary})
+</insert>
+```
+IDao类的接口方法定义如下：
+```java
+int insertUserInfoByBean(UserInfo userInfo);
+```
+<insert>元素的id属性值是IDao类接口方法的名称。
+
+<insert>元素的parameterType属性值可以省略。其值是接口方法参数的类型。如果接口方法的参数是java bean，那么该值是全类型名（即：包名+类名），或者是类型的别名。
+
+注意：在sql语句中，如：#{name}，#{birth}等参数，其名称：name,birth，必须与接口参数UserInfo的数据字段一致。即：UserInfo的数据字段名称必须是name,birth。否则无法识别。
+
+如果需要插叙的数据字段比较少，那么可以直接传递给参数到接口方法中，mapper映射文件的示例如下：
+
+```xml
+<insert id="insertUserInfo" >
+insert into t_user (f_name,f_birth,f_salary) values (#{name},#{birth},#{salary})
+</insert>
+```
+
+IDao接口类的定义如下：
+
+```java
+int insertUserInfo(@Param("name") String userName,@Param("birth") Date birthDay,@Param("salary") double salary);
+```
+
+注解@Param用来指定接口方法的参数名与sql语句中的参数名之间的映射。@Param注解的参数，如：name，必须与sql语句中的参数，如：#{name}中的name 是完全一致的。
+
+如果sql语句比较简单，可以使用注解来代替mapper映射文件，示例如下：
+
+```java
+@Insert("{insert into t_user (f_name,f_birth,f_salary) values (#{name},#{birth},#{salary})}")
+int insertUserInfo(@Param("name") String userName,@Param("birth") Date birthDay,@Param("salary") double salary);
+```
+
+## update
+
+<update>元素用来维护update类型的sql语句。如果该sql语句比较简单，可以使用@Update注解代替mapper映射文件。
+
+
+## delete 
+
+<delete>元素用来维护delete类型的sql语句。如果该sql语句比较简单，可以使用@Delete注解来代替mapper映射文件。
+
+# 四、动态SQL
+
+ 使用动态sql来支持复杂的sql语句。在动态sql部分，包含如下xml元素：if, choose, when, otherwise, trim, where, set, foreach。
+
+假设一个数据库表的元素定义如下：
+```sql
+CREATE TABLE IF NOT EXISTS `runoob_tbl`(
+   `id` INT UNSIGNED AUTO_INCREMENT,
+   `username` VARCHAR(50)   NULL,
+   `sex` VARCHAR(10) NULL,
+   `birthday` DATE NULL,
+   `address` DATE NULL,
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8md4;
+```
+
+## if语句
+
+根据 username 和 sex 来查询数据。如果username为空，那么将只根据sex来查询；反之只根据username来查询。首先不使用 动态SQL 来书写
+
+```xml
+<select id="selectUserByUsernameAndSex" resultType="user" parameterType="com.ys.po.User">
+<!-- 这里和普通的sql 查询语句差不多，对于只有一个参数，后面的 #{id}表示占位符，里面不一定要写id,
+写啥都可以，但是不要空着，如果有多个参数则必须写pojo类里面的属性 -->
+select * from user where username=#{username} and sex=#{sex}
+</select>
+```
+    
+上面的查询语句，我们可以发现，如果 #{username} 为空，那么查询结果也是空，如何解决这个问题呢？使用if来判断
+
+```xml
+<select id="selectUserByUsernameAndSex" resultType="user" parameterType="com.ys.po.User">
+select * from user where
+<if test="username != null">
+   username=#{username}
+</if>
+
+<if test="username != null">
+and sex=#{sex}
+</if>
+</select>
+```
+
+## if + where 语句
+
+```xml
+<select id="selectUserByUsernameAndSex" resultType="user" parameterType="com.ys.po.User">
+select * from user
+
+<where>
+
+<if test="username != null">
+username=#{username}
+</if>
+
+<if test="username != null">
+and sex=#{sex}
+</if>
+
+</where>
+</select>
+```
+这个“where”标签会知道如果它包含的标签中有返回值的话，它就插入一个‘where’。此外，如果标签返回的内容是以AND 或OR 开头的，则它会剔除掉。
+
+## if + set 语句
+
+同理，上面的对于查询 SQL 语句包含 where 关键字，如果在进行更新操作的时候，含有 set 关键词，我们怎么处理呢？
+
+```xml
+<!-- 根据 id 更新 user 表的数据 -->
+<update id="updateUserById" parameterType="com.ys.po.User">
+update user u
+<set>
+<if test="username != null and username != ''">
+u.username = #{username},
+</if>
+<if test="sex != null and sex != ''">
+u.sex = #{sex}
+</if>
+</set>
+
+where id=#{id}
+</update>
+```
+ 
+
+这样写，如果第一个条件 username 为空，那么 sql 语句为：update user u set u.sex=? where id=? ； 如果第一个条件不为空，那么 sql 语句为：update user u set u.username = ? ,u.sex = ? where id=?
+
+## choose(when,otherwise) 语句
+
+有时候，我们不想用到所有的查询条件，只想选择其中的一个，查询条件有一个满足即可，使用 choose 标签可以解决此类问题，类似于 Java 的 switch 语句
+
+```xml
+<select id="selectUserByChoose" resultType="com.ys.po.User" parameterType="com.ys.po.User">
+select * from user
+<where>
+<choose>
+<when test="id !='' and id != null">
+id=#{id}
+</when>
+<when test="username !='' and username != null">
+and username=#{username}
+</when>
+<otherwise>
+and sex=#{sex}
+</otherwise>
+</choose>
+</where>
+</select>
+```
+也就是说，这里我们有三个条件，id,username,sex，只能选择一个作为查询条件
+
+如果 id 不为空，那么查询语句为：select * from user where id=?
+
+如果 id 为空，那么看username 是否为空，如果不为空，那么语句为 select * from user where username=?;
+
+如果 username 为空，那么查询语句为 select * from user where sex=?
+
+## trim语句
+
+trim标记是一个格式化的标记，可以完成set或者是where标记的功能
+
+用 trim 改写上面第二点的 if+where 语句
+
+```xml
+<select id="selectUserByUsernameAndSex" resultType="user" parameterType="com.ys.po.User">
+select * from user
+<!-- <where>
+<if test="username != null">
+username=#{username}
+</if>
+
+<if test="username != null">
+and sex=#{sex}
+</if>
+</where> -->
+<trim prefix="where" prefixOverrides="and | or">
+<if test="username != null">
+and username=#{username}
+</if>
+<if test="sex != null">
+and sex=#{sex}
+</if>
+</trim>
+</select>
+```
+ 
+prefix：前缀；prefixoverride：去掉第一个and或者是or。
+
+用 trim 改写上面第三点的 if+set 语句
+
+```xml
+<!-- 根据 id 更新 user 表的数据 -->
+<update id="updateUserById" parameterType="com.ys.po.User">
+update user u
+<!-- <set>
+<if test="username != null and username != ''">
+u.username = #{username},
+</if>
+<if test="sex != null and sex != ''">
+u.sex = #{sex}
+</if>
+</set> -->
+<trim prefix="set" suffixOverrides=",">
+<if test="username != null and username != ''">
+u.username = #{username},
+</if>
+<if test="sex != null and sex != ''">
+u.sex = #{sex},
+</if>
+</trim>
+
+where id=#{id}
+</update>　　 　
+```
+ suffix：后缀　　
+suffixoverride：去掉最后一个逗号（也可以是其他的标记，就像是上面前缀中的and一样）　
+
+
+## SQL片段
+
+有时候可能某个 sql 语句我们用的特别多，为了增加代码的重用性，简化代码，我们需要将这些代码抽取出来，然后使用时直接调用。
+
+比如：假如我们需要经常根据用户名和性别来进行联合查询，那么我们就把这个代码抽取出来，如下：
+
+```xml
+<!-- 定义 sql 片段 -->
+<sql id="selectUserByUserNameAndSexSQL">
+<if test="username != null and username != ''">
+AND username = #{username}
+</if>
+<if test="sex != null and sex != ''">
+AND sex = #{sex}
+</if>
+</sql>
+```
+ 
+
+引用 sql 片段
+
+```xml
+<select id="selectUserByUsernameAndSex" resultType="user" parameterType="com.ys.po.User">
+select * from user
+<trim prefix="where" prefixOverrides="and | or">
+<!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+<include refid="selectUserByUserNameAndSexSQL"></include>
+<!-- 在这里还可以引用其他的 sql 片段 -->
+</trim>
+</select>
+```
+ 
+
+注意：
+>最好基于 单表来定义 sql 片段，提高片段的可重用性
+>
+>在 sql 片段中不要包括 where
+
+## foreach语句
+
+需求：我们需要查询 user 表中 id 分别为1,2,3的用户
+
+sql语句：select * from user where id=1 or id=2 or id=3
+　　　　　select * from user where id in (1,2,3)
+
+建立一个 UserVo 类，里面封装一个 List<Integer> ids 的属性
+
+```java
+package com.ys.vo;
+
+import java.util.List;
+
+public class UserVo {
+//封装多个用户的id
+private List<Integer> ids;
+
+public List<Integer> getIds() {
+return ids;
+}
+
+public void setIds(List<Integer> ids) {
+this.ids = ids;
+}
+
+}　
+
+```　
+ 
+我们用 foreach 来改写 select * from user where id=1 or id=2 or id=3
+
+```xml
+<select id="selectUserByListId" parameterType="com.ys.vo.UserVo" resultType="com.ys.po.User">
+select * from user
+<where>
+<!--
+collection:指定输入对象中的集合属性。该属性的值有三种：list,array,map，根据传入的集合类型而设定该值。
+item:每次遍历生成的对象
+index:当前迭代的次数
+open:开始遍历时的拼接字符串
+close:结束时拼接的字符串
+separator:遍历对象之间需要拼接的字符串
+select * from user where 1=1 and (id=1 or id=2 or id=3)
+-->
+<foreach collection="list" item="id" open="and (" close=")" separator="or">
+id=#{id}
+</foreach>
+</where>
+</select>
+```
+ 
+
+我们用 foreach 来改写 select * from user where id in (1,2,3)
+
+```xml
+<select id="selectUserByListId" parameterType="com.ys.vo.UserVo" resultType="com.ys.po.User">
+select * from user
+<where>
+<!--
+collection:指定输入对象中的集合属性.该属性的值有三种：list,array,map，根据传入的集合类型而设定该值。
+item:每次遍历生成的对象
+index:当前迭代的次数
+open:开始遍历时的拼接字符串
+close:结束时拼接的字符串
+separator:遍历对象之间需要拼接的字符串
+select * from user where 1=1 and id in (1,2,3)
+-->
+<foreach collection="list" item="id" open="and id in (" close=") " separator=",">
+#{id}
+</foreach>
+</where>
+</select>
+```
