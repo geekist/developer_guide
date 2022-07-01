@@ -81,12 +81,11 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 try (SqlSession session = sqlSessionFactory.openSession()) {
   BlogMapper mapper = session.getMapper(BlogMapper.class);
   Blog blog = mapper.selectBlog(101);
+}finally {
+    session.close();
 }
 ```
 
-
-
-## 三、MyBatis整合Spring Boot
 
 
 

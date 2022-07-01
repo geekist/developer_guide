@@ -17,6 +17,7 @@ Mybatis
 
 * [MyBatis介绍](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis.md)
 
+* [MyBatis-Spring-Boot-Starter](https://github.com/geekist/developer_guide/blob/main/server/mybatis/MyBatis-Spring-Boot-Starter.md)
 
 * [MyBatis的XML映射文件](https://github.com/geekist/developer_guide/blob/main/server/mybatis/sql_xml.md)
 
