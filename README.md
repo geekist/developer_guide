@@ -15,6 +15,9 @@ Redis
 
 Mybatis
 
+* [MyBatis介绍](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis.md)
+
+
 * [MyBatis的XML映射文件](https://github.com/geekist/developer_guide/blob/main/server/mybatis/sql_xml.md)
 
 * [分页工具pagehelper](https://github.com/geekist/developer_guide/blob/main/server/mybatis/pagehelper.md)
