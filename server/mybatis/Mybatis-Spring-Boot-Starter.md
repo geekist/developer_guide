@@ -4,7 +4,7 @@
   * [2\.2在application\.yml中配置数据源](#22在applicationyml中配置数据源)
   * [2\.3 编写Mapper接口类](#23-编写mapper接口类)
   * [2\.4 编写Mapper配置文件](#24-编写mapper配置文件)
-  * [2\.5 在启动类中添加对 mapper 包扫描@MapperScan，自动注入所有的mapper](#25-在启动类中添加对-mapper-包扫描mapperscan 自动注入所有的mapper)
+  * [2\.5 自动注入mapper类](#25-自动注入mapper类)
   * [2\.6 使用Mapper进行数据库操作](#26-使用mapper进行数据库操作)
 
 
@@ -158,7 +158,9 @@ public interface MBabyMapper extends Mapper<MBaby>{
 </mapper>
 ```
 
-## 2.5 在启动类中添加对 mapper 包扫描@MapperScan，自动注入所有的mapper
+## 2.5 自动注入mapper类 
+
+在启动类中添加对 mapper 包扫描@MapperScan，自动注入所有的mapper
 
 ```java
 @EnableWebMvc
