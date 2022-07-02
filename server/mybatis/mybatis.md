@@ -1,4 +1,14 @@
 
+* [一、Mybatis介绍](#一mybatis介绍)
+* [二、使用Mybatis](#二使用mybatis)
+  * [2\.1 引入Mybatis依赖](#21-引入mybatis依赖)
+  * [2\.2 xml配置文件配置数据库连接](#22-xml配置文件配置数据库连接)
+  * [2\.3 SqlSessionFactory和SqlSession](#23-sqlsessionfactory和sqlsession)
+  * [2\.4 编写实体类](#24-编写实体类)
+  * [2\.5 编写Mapper接口类](#25-编写mapper接口类)
+  * [2\.6 为Mapper类编写Mapper\.xml配置文件](#26-为mapper类编写mapperxml配置文件)
+  * [2\.7 使用session进行数据库操作](#27-使用session进行数据库操作)
+
 # 一、Mybatis介绍
 
 MyBatis 是一款优秀的持久层框架,它支持自定义 SQL、存储过程以及高级映射。
@@ -15,9 +25,9 @@ Mybatis官方文档 : http://www.mybatis.org/mybatis-3/zh/index.html
 
 GitHub : https://github.com/mybatis/mybatis-3
 
-## 二、使用Mybatis
+# 二、使用Mybatis
 
-### 引入Mybatis依赖
+## 2.1 引入Mybatis依赖
 
 如果使用Maven来构建项目，需要将下面的依赖置于pom.xml文件中
 
@@ -29,7 +39,7 @@ GitHub : https://github.com/mybatis/mybatis-3
 </dependency>
 ```
 
-### 用xml配置文件配置数据库连接
+## 2.2 xml配置文件配置数据库连接
 
 XML 配置文件中包含了对 MyBatis 系统的核心设置，包括获取数据库连接实例的数据源（DataSource）以及决定事务作用域和控制方式的事务管理器（TransactionManager）。
 
@@ -56,15 +66,38 @@ XML 配置文件中包含了对 MyBatis 系统的核心设置，包括获取数�
 </configuration>
 ```
 
-在代码中读取xml的配置
+## 2.3 SqlSessionFactory和SqlSession
+
+MyBatis的核心是SqlSessionFactory和SqlSession。通过SqlSessionFactoryBuilder创建一个读取了数据库配置的SqlSessionFactory，然后通过SqlSessionFactory创建SqlSession实现对数据的操作。
 
 ```java
-String resource = "org/mybatis/example/mybatis-config.xml";
-InputStream inputStream = Resources.getResourceAsStream(resource);
-SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class MybatisUtils {
+private static SqlSessionFactory sqlSessionFactory;
+static {
+    try {
+       String resource = "mybatis-config.xml";
+       InputStream inputStream =Resources.getResourceAsStream(resource);
+       sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+//获取SqlSession连接
+public static SqlSession getSession(){
+    return sqlSessionFactory.openSession();
+}
+
+}
 ```
 
-### 用代码配置数据库连接
+也可以用代码配置数据库连接，不通过xml配置的方式来实现数据库配置。
 
 ```java
 DataSource dataSource = BlogDataSourceFactory.getBlogDataSource();
@@ -75,14 +108,61 @@ configuration.addMapper(BlogMapper.class);
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 ```
 
-### 使用SQL
+## 2.4 编写实体类
 
 ```java
-try (SqlSession session = sqlSessionFactory.openSession()) {
-  BlogMapper mapper = session.getMapper(BlogMapper.class);
-  Blog blog = mapper.selectBlog(101);
-}finally {
-    session.close();
+public class User {
+    private int id; //id
+    private String name; //姓名
+    private String pwd; //密码
+    //构造,有参,无参
+    //set/get
+    //toString()
+}
+```
+
+## 2.5 编写Mapper接口类
+
+```
+import com.kuang.pojo.User;
+import java.util.List;
+public interface UserMapper {
+List<User> selectUser();
+}
+```
+
+## 2.6 为Mapper类编写Mapper.xml配置文件
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuang.dao.UserMapper">
+<select id="selectUser" resultType="com.kuang.pojo.User">
+select * from user
+</select>
+</mapper>
+```
+
+
+## 2.7 使用session进行数据库操作
+
+```java
+public class MyTest {
+@Test
+public void selectUser() {
+SqlSession session = MybatisUtils.getSession();
+//方法一:
+//List<User> users =
+session.selectList("com.kuang.mapper.UserMapper.selectUser");
+//方法二:
+UserMapper mapper = session.getMapper(UserMapper.class);
+List<User> users = mapper.selectUser();
+for (User user: users){
+System.out.println(user);
+}
+session.close();
+}
 }
 ```
 

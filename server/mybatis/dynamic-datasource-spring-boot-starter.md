@@ -54,7 +54,6 @@ DS支持继承抽象类上的DS，暂不支持继承接口上的DS。
 
 # 二、 使用
 
-
 ## 引入dynamic-datasource-spring-boot-starter
 ```xml
 <dependency>

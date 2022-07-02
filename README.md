@@ -23,8 +23,7 @@ Mybatis
 
 * [分页工具pagehelper](https://github.com/geekist/developer_guide/blob/main/server/mybatis/pagehelper.md)
 
-* [数据库动态切换工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/dynamic-datasource-spring-boot-starter
-.md)
+* [数据库动态切换工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/dynamic-datasource-spring-boot-starter.md)
 
 
 * yuya逆向生成工具
