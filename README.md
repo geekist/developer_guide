@@ -7,6 +7,10 @@
 
 * [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
+Authority
+
+* [kaptcha](https://github.com/geekist/developer_guide/blob/main/server/kaptcha.md)
+
 Redis
  
 * [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
@@ -163,4 +167,7 @@ Linux脚本
 日记月累
 
 * [字符集和字符编码介绍](https://github.com/geekist/developer_guide/blob/main/other/charset.md)
+
+* [Session、Cookie和Token](https://github.com/geekist/developer_guide/blob/main/other/session_cookie_token.md)
+
   
