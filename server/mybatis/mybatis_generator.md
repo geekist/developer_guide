@@ -8,6 +8,8 @@
 
 作为一个基于 MyBatis 的独立工具，MyBatis Generator 能够满足我们以上的要求，能够通过简单的配置去帮我们生成数据表所对应的 PO、DAO、XML 等文件，减去我们手动去生成这些文件的时间，有效提高开发效率。
 
+官网：http://mybatis.org/generator/index.html
+
 # 二、Mybatis Generator配置步骤
 
 
@@ -371,4 +373,15 @@ context 除了上面配置的之外，还有许多子元素需要配置，而且
 
 当完成所有配置后，就可以利用 Maven 工具来进行代码生成了。具体操作方法如下，点击项目 Maven 配置中的 MyBatis Generator 生成即可。
 
-也可以配置plugin的exclude属性，在build的过程中执行代码自动生成。
+Mybatis Generator插件包含一个goal：
+```
+mybatis-generator:generate
+```
+该插件可以通过命令行来运行，或者直接在idea编辑器中双击插件即可。
+```
+mvn mybatis-generator:generate
+```
+```
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
+带有参数的插件执行方式
