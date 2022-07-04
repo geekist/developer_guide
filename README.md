@@ -25,12 +25,13 @@ Mybatis
 
 * [MyBatis的XML映射文件](https://github.com/geekist/developer_guide/blob/main/server/mybatis/sql_xml.md)
 
+* [mybatis-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator.md)
+
+
 * [分页工具pagehelper](https://github.com/geekist/developer_guide/blob/main/server/mybatis/pagehelper.md)
 
 * [数据库动态切换工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/dynamic-datasource-spring-boot-starter.md)
 
-
-* yuya逆向生成工具
 
 前端
 

@@ -50,103 +50,118 @@ kaptcha工作的原理是调用com.google.code.kaptcha.servlet.KaptchaServlet，
 
 ## 2.2 编写kaptcha的配置类
 ```java
-package com.lzzy.meet.common.kaptcha;
+package com.yuya.console.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
-/**
- * @ClassName KaptchaConfig
- * kaptcha配置类
- * @Author Lizhou
- * @Date 2019-09-05 13:50:50
- * @Version 1.0
- **/
-@Slf4j
-@Component
+@Configuration
 public class KaptchaConfig {
 
+    private final static String CODE_LENGTH = "4";
+
+    private final static String SESSION_KEY = "handsome_yang";
+
     @Bean
-    public DefaultKaptcha getKaptcheCode() {
+    public DefaultKaptcha defaultKaptcha() {
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         Properties properties = new Properties();
-        properties.setProperty("kaptcha.border", "no");
+        // 设置边框，合法值：yes , no
+        properties.setProperty("kaptcha.border", "yes");
+        // 设置边框颜色，合法值： r,g,b (and optional alpha) 或者 white,
+        properties.setProperty("kaptcha.border.color", "98,211,194");
+        // 设置字体颜色， r,g,b 或者 white,black,blue.
         properties.setProperty("kaptcha.textproducer.font.color", "black");
-        properties.setProperty("kaptcha.image.width", "100");
-        properties.setProperty("kaptcha.image.height", "36");
-        properties.setProperty("kaptcha.textproducer.font.size", "30");
-        properties.setProperty("kaptcha.obscurificator.impl", "com.google.code.kaptcha.impl.ShadowGimpy");
-        properties.setProperty("kaptcha.session.key", "code");
-        properties.setProperty("kaptcha.noise.impl", "com.google.code.kaptcha.impl.NoNoise");
-        properties.setProperty("kaptcha.background.clear.from", "232,240,254");
-        properties.setProperty("kaptcha.background.clear.to", "232,240,254");
-        properties.setProperty("kaptcha.textproducer.char.length", "4");
-        properties.setProperty("kaptcha.textproducer.font.names", "彩云,宋体,楷体,微软雅黑");
+        // 设置图片宽度
+//        properties.setProperty("kaptcha.image.width", "118");
+//        // 设置图片高度
+//        properties.setProperty("kaptcha.image.height", "40");
+        properties.setProperty("kaptcha.textproducer.char.space", "6");
+        // 设置字体尺寸
+//        properties.setProperty("kaptcha.textproducer.font.size", "0");
+        // 设置session key
+        properties.setProperty("kaptcha.session.key", SESSION_KEY);
+        // 设置验证码长度
+        properties.setProperty("kaptcha.textproducer.char.length", CODE_LENGTH);
+        // 设置字体
+        properties.setProperty("kaptcha.textproducer.font.names", "Arial,Courier,cmr10,宋体,楷体,微软雅黑");
         Config config = new Config(properties);
         defaultKaptcha.setConfig(config);
+    	
         return defaultKaptcha;
     }
 }
 ```
 
 ## 2.3 编写kaptcha的控制层
-```
-package com.lzzy.meet.common.kaptcha;
 
-import com.google.code.kaptcha.Constants;
-import com.google.code.kaptcha.Producer;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+```java
+ package com.yuya.console.controller.system;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.yuya.common.base.BaseController;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
- * @ClassName KaptchaController
- * kaptcha调用
- * @Author Lizhou
- * @Date 2019-09-05 13:59:59
- * @Version 1.0
- **/
-@Slf4j
-@Controller
-@RequestMapping("kaptcha")
-public class KaptchaController {
-
+ * 图片验证码（支持算术形式）
+ * 
+ * @author yuya
+ */
+@RestController
+@RequestMapping("/captcha")
+@Api(value = "验证码管理" , tags = "验证码管理（已完成）")
+public class SysCaptchaController extends BaseController {
+	
+	 /**
+     * 验证码工具
+     */
     @Autowired
-    private Producer producer;
+    DefaultKaptcha defaultKaptcha;
 
-    @GetMapping("kaptcha-image")
-    public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setDateHeader("Expires", 0);
-        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-        response.setHeader("Pragma", "no-cache");
-        response.setContentType("image/jpeg");
-        String capText = producer.createText();
-        log.info("******************当前验证码为：{}******************", capText);
-        // 将验证码存于session中
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
-        BufferedImage bi = producer.createImage(capText);
-        ServletOutputStream out = response.getOutputStream();
-        // 向页面输出验证码
-        ImageIO.write(bi, "jpg", out);
+    @GetMapping("/kaptcha")
+    @ApiOperation(value = "获取验证码", tags = "验证码管理（已完成）")
+    public void defaultKaptcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        byte[] captcha = null;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         try {
-        	// 清空缓存区
-            out.flush();
-        } finally {
-        	// 关闭输出流
-            out.close();
+            // 将生成的验证码保存在session中
+            String createText = defaultKaptcha.createText();
+            request.getSession().setAttribute("rightCode", createText);
+            BufferedImage bi = defaultKaptcha.createImage(createText);
+            ImageIO.write(bi, "jpg", out);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
         }
+
+        captcha = out.toByteArray();
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("image/jpeg");
+        ServletOutputStream sout = response.getOutputStream();
+        sout.write(captcha);
+        sout.flush();
+        sout.close();
     }
 }
 ```
