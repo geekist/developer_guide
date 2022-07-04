@@ -29,6 +29,9 @@ Mybatis
 
 * [mybatis-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator.md)
 
+* [自动生成lombok风格的mybatis-generator插件mybatis-generator-lombok-plugin](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator_lombok_plugin.md)
+
+
 * [mybatis-dsc-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_dsc_generator.md)
 
 
