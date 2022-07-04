@@ -10,6 +10,8 @@
 
 官网：http://mybatis.org/generator/index.html
 
+Mybatis Generator可以生成的对象：数据库entity、接口Mapper和Mapper.xml
+
 # 二、Mybatis Generator配置步骤
 
 

@@ -25,8 +25,7 @@ Mybatis
 
 * [MyBatis的XML映射文件](https://github.com/geekist/developer_guide/blob/main/server/mybatis/sql_xml.md)
 
-* [tkmybatis](https://github.com/geekist/developer_guide/blob/main/server/mybatis/sql_xml.md)
-
+* [tkmybatis简化xml文件的手写工作量](https://github.com/geekist/developer_guide/blob/main/server/mybatis/tkmybatis.md)
 
 * [mybatis-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator.md)
 
