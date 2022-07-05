@@ -1,4 +1,4 @@
-![](./assets/../dto.jpg)
+![](./assets/dto.jpg)
 
 ## DTO 
 
