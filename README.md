@@ -37,6 +37,9 @@ Mybatis
 
 * [数据库动态切换工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/dynamic-datasource-spring-boot-starter.md)
 
+其他工具
+
+* [lombok](https://github.com/geekist/developer_guide/blob/main/server/lombok.md)
 
 前端
 
