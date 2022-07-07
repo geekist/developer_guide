@@ -31,9 +31,7 @@ Mybatis
 
 * [自动生成lombok风格的mybatis-generator插件mybatis-generator-lombok-plugin](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator_lombok_plugin.md)
 
-
 * [mybatis-dsc-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_dsc_generator.md)
-
 
 * [分页工具pagehelper](https://github.com/geekist/developer_guide/blob/main/server/mybatis/pagehelper.md)
 
@@ -177,8 +175,5 @@ Linux脚本
 * [字符集和字符编码介绍](https://github.com/geekist/developer_guide/blob/main/other/charset.md)
 
 * [Session、Cookie和Token](https://github.com/geekist/developer_guide/blob/main/other/session_cookie_token.md)
-
-* [DTO、PO、VO、BO介绍](https://github.com/geekist/developer_guide/blob/main/other/dto.md)
-
 
   
