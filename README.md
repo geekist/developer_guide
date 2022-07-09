@@ -52,7 +52,7 @@ Spring Cloud
 
 Java log系统
 
-*  [SLF4J(Simple Logging Facade for Java)](https://github.com/geekist/developer_guide/blob/slf4j.md)
+*  [SLF4J(Simple Logging Facade for Java)](https://github.com/geekist/developer_guide/blob/main/server/slf4j.md)
 
 *  [Logback](https://github.com/geekist/developer_guide/blob/main/server/logback.md)
 
