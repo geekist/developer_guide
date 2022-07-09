@@ -47,6 +47,17 @@ Spring Cloud
 
 *  [Spring Cloud alibaba介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_1.md)
 
+*  [Spring Cloud alibaba demo](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_demo.md)
+
+
+Java log系统
+
+*  [SLF4J(Simple Logging Facade for Java)](https://github.com/geekist/developer_guide/blob/slf4j.md)
+
+*  [Logback](https://github.com/geekist/developer_guide/blob/main/server/logback.md)
+
+
+* [spring boot整合logstash](https://blog.csdn.net/syc000666/article/details/98668485)
 
 前端
 
