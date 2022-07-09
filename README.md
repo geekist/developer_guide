@@ -45,7 +45,7 @@ Spring Cloud
 
 *  [Spring Cloud介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_0.md)
 
-*  [Spring Cloud alibaba介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_1.md)
+*  [Spring Cloud alibaba介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_1.md)
 
 
 前端
