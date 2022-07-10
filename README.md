@@ -1,17 +1,41 @@
 
-后端
+后端开发
 
-* [Java语言](https://github.com/geekist/developer_guide/blob/main/java/java.md)
+Linux环境下Web服务器开发
 
 * [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
 
+* [Linux基本命令和shell脚本](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
+
 * [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
+
+* [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
+
+Java语言
+
+* [Java语言](https://github.com/geekist/developer_guide/blob/main/java/java.md)
+
+* [Java语法糖lombok](https://github.com/geekist/developer_guide/blob/main/server/lombok.md)
+
+Spring
+
+
+Spring boot
+
+Spring Cloud
+
+*  [Spring Cloud介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_0.md)
+
+*  [Spring Cloud alibaba介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_1.md)
+
+*  [Spring Cloud alibaba demo](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_demo.md)
+
 
 Authority
 
-* [kaptcha](https://github.com/geekist/developer_guide/blob/main/server/kaptcha.md)
+* [Google kaptcha验证码图形生成工具](https://github.com/geekist/developer_guide/blob/main/server/kaptcha.md)
 
-Redis
+Redis数据缓存服务器
  
 * [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
@@ -39,25 +63,17 @@ Mybatis
 
 其他工具
 
-* [lombok](https://github.com/geekist/developer_guide/blob/main/server/lombok.md)
-
-Spring Cloud
-
-*  [Spring Cloud介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_0.md)
-
-*  [Spring Cloud alibaba介绍](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_1.md)
-
-*  [Spring Cloud alibaba demo](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_demo.md)
 
 
 Java log系统
 
-*  [SLF4J(Simple Logging Facade for Java)](https://github.com/geekist/developer_guide/blob/main/server/slf4j.md)
+*  [日志统一接口：SLF4J(Simple Logging Facade for Java)](https://github.com/geekist/developer_guide/blob/main/server/slf4j.md)
 
-*  [Logback](https://github.com/geekist/developer_guide/blob/main/server/logback.md)
+*  [spring boot内置Logging工具：Logback](https://github.com/geekist/developer_guide/blob/main/server/logback.md)
 
+*  [spring cloud微服务整合分布式日志工具：TLog](https://github.com/geekist/developer_guide/blob/main/server/tlog.md)
 
-* [spring boot整合logstash](https://blog.csdn.net/syc000666/article/details/98668485)
+* [spring boot整合可视化日志工具：logstash](https://blog.csdn.net/syc000666/article/details/98668485)
 
 前端
 
@@ -160,7 +176,6 @@ Maven
 
 Linux脚本
 
-* [Shell](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
 杂项
 
