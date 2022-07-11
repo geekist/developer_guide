@@ -3,17 +3,23 @@
 
 Linux环境下Web服务器开发
 
-* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
-
 * [Linux基本命令和shell脚本](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
 * [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
 * [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
 
+Java Web开发
+
+* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
+
+* [Restful API规则](https://github.com/geekist/developer_guide/blob/main/server/restful_api.md)
+
 Java语言
 
 * [Java语言](https://github.com/geekist/developer_guide/blob/main/java/java.md)
+
+* [Java注解](https://github.com/geekist/developer_guide/blob/main/java/java_annotation.md)
 
 * [Java语法糖lombok](https://github.com/geekist/developer_guide/blob/main/server/lombok.md)
 
@@ -21,8 +27,11 @@ Spring
 
 * [Spring](https://github.com/geekist/developer_guide/blob/main/server/spring.md)
 
+* [Spring 注解](https://github.com/geekist/developer_guide/blob/main/server/spring_annotation.md)
 
 Spring boot
+
+* [Spring boot](https://github.com/geekist/developer_guide/blob/main/server/spring_boot.md)
 
 Spring Cloud
 
@@ -32,14 +41,12 @@ Spring Cloud
 
 *  [Spring Cloud alibaba demo](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_demo.md)
 
-
 Authority
 
 * [Google kaptcha验证码图形生成工具](https://github.com/geekist/developer_guide/blob/main/server/kaptcha.md)
 
 Redis数据缓存服务器
  
-* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
 * [spring-data-redis操作redis缓存](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
 
@@ -96,6 +103,11 @@ iOS
 [Objective-C语言](https://github.com/geekist/developer_guide/blob/main/ios/Objective-C.md)
 
 [Swift]()
+
+数据库
+
+* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
+
 
 
 [计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)

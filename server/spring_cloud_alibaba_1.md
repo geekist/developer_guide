@@ -33,7 +33,7 @@ Dubbo：Apache Dubbo™ 是一款高性能 Java RPC 框架。
 Oauth2.0 安全认证。
 
 
-# 二、组件的注册和发现Nacos
+# 二、注册中心和配置中心-nacos
 
 Spring Cloud Alibaba 提供的 Spring Cloud Alibaba Nacos Discovery 组件，基于 Spring Cloud 的编程模型，接入 Nacos 作为注册中心，实现服务的注册与发现。
 
@@ -76,7 +76,6 @@ Nacos Discovery 可以帮助您将服务自动注册到 Nacos 服务端并且能
 
 
 另外，Provider 和 Consumer 是角色上的定义，一个服务同时即可以是 Provider 也可以作为 Consumer。例如说，优惠劵服务可以给订单服务提供接口，同时又调用用户服务提供的接口。
-
 
 
 ## 2、Nacos安装和使用
@@ -195,26 +194,11 @@ shutdown.cmd
 
 ### 1、引入依赖
 
-```xml
- <!--
-        引入 Spring Boot、Spring Cloud、Spring Cloud Alibaba 三者 BOM 文件，进行依赖版本的管理，防止不兼容。
-        在 https://dwz.cn/mcLIfNKt 文章中，Spring Cloud Alibaba 开发团队推荐了三者的依赖关系
-     -->
+spring cloud alibaba和spring cloud之间有依赖关系，要注意版本的对应，防止不兼容
 
-    <properties>
-        <java.version>1.8</java.version>
-        <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.2.0.RELEASE</spring.cloud.alibaba.version>
-    </properties>
-    <dependencyManagement>
+```xml
+<dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -231,24 +215,27 @@ shutdown.cmd
             </dependency>
         </dependencies>
     </dependencyManagement>
+```
 
-    <dependencies>
-        <!-- 引入 SpringMVC 相关依赖，并实现对其的自动配置 -->
-        <dependency>
+引入 Spring Cloud Alibaba Nacos Discovery 相关依赖，将 Nacos 作为注册中心，并实现对其的自动配置
+
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+</dependency>
+```
+
+因为是一个restful api的测试，所以需要添加web依赖
+
+```xml
+<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!-- 引入 Spring Cloud Alibaba Nacos Discovery 相关依赖，将 Nacos 作为注册中心，并实现对其的自动配置 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-    </dependencies>
 ```
 
 ### 2、配置application.yaml文件，设置discovery
-
 ```
 spring:
   application:
@@ -261,8 +248,7 @@ spring:
         service: ${spring.application.name} # 注册到 Nacos 的服务名，默认 ${spring.application.name}?
 
 server:
-  port: 18080 # 服务器端口 8080
-
+  port: 18080 # 服务器端口 18080
 ```
 
 ### 3、在app文件中设置enablediscovery
@@ -278,28 +264,67 @@ public class SpringCloudProviderApplication {
 
 }
 ```
+经历以上三步，就可以在nacos的服务中心看到该应用被注册到了nacos的服务中。
 
-### 4、添加一个restful的controller
+### 4、添加一个restful的controller接口作为provider
 
-```
+Controller
+
+```java
+package com.ytech.provider.controller;
+
+import com.ytech.provider.service.ProviderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
+@RequestMapping("/provider")
 public class ProviderController {
 
     @Autowired
     ProviderService providerService;
 
-
-    @RequestMapping("/api/echo")
-    public String echo(){
-        return providerService.echo("just a test");
+    @GetMapping("/echo")
+    public String getEchoString() {
+        return providerService.provider_echo();
     }
 }
-
 ```
 
-将nacos运行起来，然后可以看到ProviderController已经被注册到nacos中了
+Service
+
+```java
+package com.ytech.provider.service;
+
+public interface ProviderService {
+    String provider_echo();
+}
+```
+
+ServiceImpl
+
+```java
+package com.ytech.provider.service.impl;
+
+import com.ytech.provider.service.ProviderService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProviderServiceImpl implements ProviderService {
+    @Override
+    public String provider_echo() {
+        return "hey,buddy,what's wrong with you ?";
+    }
+}
+```
 
 此时，在浏览器直接调用，就可以得到结果了。
+
+```
+http://localhost:50006/provider/echo
+```
 
 # 四、GateWay实现路由
 
