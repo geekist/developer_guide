@@ -1,40 +1,19 @@
 
-# Spring介绍
+# 一、 Spring介绍
 
-## Spring历史
+## 1、Spring历史
 
-pring : 春天 --->给软件行业带来了春天
-
-2002年，Rod Jahnson首次推出了Spring框架雏形interface21框架。
-
-2004年3月24日，Spring框架以interface21框架为基础，经过重新设计，发布了1.0正式版。
-
-很难想象Rod Johnson的学历 , 他是悉尼大学的博士，然而他的专业不是计算机，而是音乐学。
+Spring : 春天 --->给软件行业带来了春天。2002年，悉尼大学音乐学博士Rod Jahnson首次推出了Spring框架雏形interface21框架。2004年3月24日，Spring框架以interface21框架为基础，经过重新设计，发布了1.0正式版。
 
 Spring理念 : 使现有技术更加实用 . 本身就是一个大杂烩 , 整合现有的框架技术。
-
-## Spring官方
 
 * **官网 :** http://spring.io/
 
 * **官方下载地址 :**  https://repo.spring.io/libs-release-local/org/springframework/spring/
 
 * **GitHub :** https://github.com/spring-projects
-
-## Spring核心概念
-
-Spring是一个开源免费的框架 , 容器 .
-
-Spring是一个轻量级的框架 , 非侵入式的 .
-
-控制反转 IoC , 面向切面 Aop
-
-对事物的支持 , 对框架的支持
-
-***一句话概括：Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。***
-
-
-## Spring组成部分
+* 
+## 2、Spring组成部分
 
 ![](./assets/spring_framework.png)
 
@@ -69,4 +48,14 @@ Web 上下文模块建立在应用程序上下文模块之上，为基于 Web �
 * **Spring MVC 框架：**
 
 MVC 框架是一个全功能的构建 Web 应用程序的 MVC 实现。通过策略接口，MVC 框架变成为高度可配置的，MVC 容纳了大量视图技术，其中包括 JSP、Velocity、Tiles、iText和 POI。
+
+
+## 3、Spring核心概念
+
+Spring是一个开源免费的框架 , 容器。Spring是一个轻量级的框架 , 非侵入式的。主要特性为：控制反转 IoC , 面向切面 Aop
+
+***一句话概括：Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。***
+
+
+
 
