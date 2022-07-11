@@ -6,8 +6,8 @@
   - [1、JavaBean](#1javabean)
   - [2、SpringBean](#2springbean)
   - [3、二者之间的区别](#3二者之间的区别)
-- [三、依赖翻转（IOC）和依赖注入（DI）](#三依赖翻转ioc和依赖注入di)
-  - [1、控制翻转和依赖注入的定义](#1控制翻转和依赖注入的定义)
+- [三、控制反转（IOC）和依赖注入（DI）](#三控制反转ioc和依赖注入di)
+  - [1、控制反转和依赖注入的定义](#1控制反转和依赖注入的定义)
   - [2、依赖注入的方式](#2依赖注入的方式)
   - [3、Spring IOC容器创建和管理Bean](#3spring-ioc容器创建和管理bean)
     - [3.1 Spring IoC容器的定义和作用](#31-spring-ioc容器的定义和作用)
@@ -17,7 +17,7 @@
     - [3.2、Spring IoC的依赖配置和自动装载](#32spring-ioc的依赖配置和自动装载)
     - [3.2.1 依赖配置](#321-依赖配置)
     - [3.2.2 依赖注入的自动装载](#322-依赖注入的自动装载)
-  - [4、Spirng通过配置实现依赖注入](#4spirng通过配置实现依赖注入)
+  - [5、Spirng通过配置实现依赖注入](#5spirng通过配置实现依赖注入)
   - [4、Spring通过注解实现依赖注入](#4spring通过注解实现依赖注入)
 - [四、切片编程（AOP）](#四切片编程aop)
   - [1、AOP介绍](#1aop介绍)
@@ -130,9 +130,9 @@ Spring中的bean，是通过配置文件、javaconfig等的设置，有Spring自
 
 　　传统javabean作为值对象传递，不接受任何容器管理其生命周期；spring中的bean由spring管理其生命周期行为。
 
-# 三、依赖翻转（IOC）和依赖注入（DI）
+# 三、控制反转（IOC）和依赖注入（DI）
 
-## 1、控制翻转和依赖注入的定义
+## 1、控制反转和依赖注入的定义
 
 在我们的开发实践中，随处可见一个类的定义或者实现需要用到另外一个或多个类。例如：
 
@@ -360,9 +360,7 @@ BeanFactory 或者相关的接口，如 BeanFactoryAware，InitializingBean，Di
 
 * 通过构造函数来注入依赖
 
-
 通过构造函数来注入依赖的例子可以参加上面的举例。
-
 
 * 通过set方法来注入依赖
 
@@ -371,7 +369,6 @@ BeanFactory 或者相关的接口，如 BeanFactoryAware，InitializingBean，Di
 与构造函数注入方式不同的是，在 UserController 中加入了一个 setUserService 的方法来设置 UserService 的属性，传入的参数依旧是 UserService。
 
 ![](./assets/spring_ioc_8.jpg)
-
 
 ### 3.2.2 依赖注入的自动装载
 
@@ -433,7 +430,7 @@ BeanFactory 或者相关的接口，如 BeanFactoryAware，InitializingBean，Di
 
 此时容器会根据类中定义的 myUserService 成员属性(变量)自动关联到 UserService，在 UserController 中 setUserService 时自动装载 UserService 的实例。
 
-## 4、Spirng通过配置实现依赖注入
+## 5、Spirng通过配置实现依赖注入
 
 回顾上面的例子，如果采用Spring IoC，我们可以这样做：
 
@@ -456,17 +453,13 @@ Spring IoC 会通过一个 XML 文件配置对象之间的关系。
 
 **step3：配置好依赖关系后，:Spring容器完成 UserService 的初始化。**
 
-
 **step4：在 UserController 需要使用的时候直接使用这个 UserService 实体就行了。**
 
 总结：
 
-
 * Spring 容器会读取 XML 配置文件中的信息，获取 Bean 之间的依赖关系。
 
-
 * Spring 容器通过反射机制创建对象的实例，由于 Spring 容器管理所有注册 Bean 因此为后续建立它们之间的依赖关系打下基础。
-
 
 * Spring 容器通过 Bean 之间的依赖关系创建实例，同时保证 Bean 在使用依赖项的时候直接过去对应的实例，而不用自己去创建实例。
 
@@ -476,25 +469,19 @@ Spring IoC 会通过一个 XML 文件配置对象之间的关系。
 
 ## 4、Spring通过注解实现依赖注入
 
-
 使用Spring的IoC容器，实际上就是通过类似XML这样的配置文件，把我们自己的Bean的依赖关系描述出来，然后让容器来创建并装配Bean。一旦容器初始化完毕，我们就直接从容器中获取Bean使用它们。
-
 
 使用XML配置的优点是所有的Bean都能一目了然地列出来，并通过配置注入能直观地看到每个Bean的依赖。它的缺点是写起来非常繁琐，每增加一个组件，就必须把新的Bean配置到XML中。
 
-
 有没有其他更简单的配置方式呢？
 
-
 有！我们可以使用Annotation配置，可以完全不需要XML，让Spring自动扫描Bean并组装它们。
-
 
 我们把上一节的示例改造一下，先删除XML配置文件，然后，给UserService和MailService添加几个注解。
 
 首先，我们给MailService添加一个@Component注解：
 
 ```java
-
 @Component
 public class UserService {
     ...
@@ -506,13 +493,11 @@ public class UserService {
 然后，我们给UserController添加一个@Component注解和一个@Autowired注解：
 
 ```java
-
 @Component
 public class UserController {
 
     @Autowired
     USerService userService;
-
     ...
 }
 ```
