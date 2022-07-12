@@ -33,10 +33,9 @@ Dubbo：Apache Dubbo™ 是一款高性能 Java RPC 框架。
 Oauth2.0 安全认证。
 
 
-# 二、注册中心和配置中心-nacos
+# 二、Nacos-注册中心和配置中心
 
 Spring Cloud Alibaba 提供的 Spring Cloud Alibaba Nacos Discovery 组件，基于 Spring Cloud 的编程模型，接入 Nacos 作为注册中心，实现服务的注册与发现。
-
 
 ## 1、Nacos discovery服务注册与发现
 
@@ -190,9 +189,11 @@ shutdown.cmd
 或者双击shutdown.cmd运行文件。
 
 
-# 三、搭建服务提供者，并注册到Nacos中
+## 3、Nacos注册和配置中心实例
 
-### 1、引入依赖
+创建一个spring initializer模块，提供restful api接口；
+
+### 3.1、引入依赖
 
 spring cloud alibaba和spring cloud之间有依赖关系，要注意版本的对应，防止不兼容
 
@@ -235,7 +236,7 @@ spring cloud alibaba和spring cloud之间有依赖关系，要注意版本的对
         </dependency>
 ```
 
-### 2、配置application.yaml文件，设置discovery
+### 3.2、配置application.yaml文件，设置discovery
 ```
 spring:
   application:
@@ -251,7 +252,7 @@ server:
   port: 18080 # 服务器端口 18080
 ```
 
-### 3、在app文件中设置enablediscovery
+### 3.3、在app文件中添加enablediscovery注解
 
 ```
 @SpringBootApplication
@@ -266,7 +267,7 @@ public class SpringCloudProviderApplication {
 ```
 经历以上三步，就可以在nacos的服务中心看到该应用被注册到了nacos的服务中。
 
-### 4、添加一个restful的controller接口作为provider
+### 3.4、添加一个restful的controller接口作为provider
 
 Controller
 
@@ -326,7 +327,7 @@ public class ProviderServiceImpl implements ProviderService {
 http://localhost:50006/provider/echo
 ```
 
-# 四、通过Feign创建Consumer来调用Provider
+# 三、Feign-微服务调用
 
 ## 1、Feign介绍
 
@@ -342,125 +343,217 @@ Spring Cloud Feign帮助我们定义和实现依赖服务接口的定义。在Sp
 
 Spring Cloud Feign具备可插拔的注解支持，支持Feign注解、JAX-RS注解和Spring MVC的注解。
 
-## 2、创建一个Spring boot模块，注册到Nacos中
+## 2、Feign微服务调用实例
 
-## 添加Feign的依赖
+**首先重复上节步骤，创建一个spring boot接口服务程序Consumer**
 
-* 在Spring boot的基础上添加Spring Feign的依赖
+配置服务端口和nacos
 
 ```xml
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-```
-
->需要注意的是引入openfeign，必须要引入loadbalancer，否则无法启动。
-
-
-
-* 配置文件application.yml：
-
-```yml
-
 server:
-  port: 18763
+  port: 50005
 
 spring:
   application:
-    name: common
-
+    name: consumer
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+        username: "nacos"
+        password: "nacos"
 ```
 
-* 开启feignClient的功能。
+### 2.1 添加Feign的依赖
+
+在Spring boot的基础上添加Spring Feign的依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
+
+### 2.2 在主程序添加@EnableFeignClients注解
+
+开启feignClient的功能
 
 ```java
-package com.ytech.common;
+package com.ytech.consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication
 @EnableDiscoveryClient
+@SpringBootApplication
 @EnableFeignClients
-public class CommonApplication {
+public class ConsumerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CommonApplication.class, args);
+        SpringApplication.run(ConsumerApplication.class, args);
     }
 }
-
 ```
->此时打开nacos的网页浏览器，已经可以看到wolf_warrior模块已经注册到了nacos服务上。
 
-* 增加一个FeignClient的接口，调用Common模块的user方法
+### 2.3 增加一个FeignClient的接口调用provider方法
+
+在FeignClient注解的value键值对中，填入服务提供者provider的服务名称，必须一致，用于指定从哪个服务中调用功能
+在@GetMapping注解的value键值对中，填入被微服务进行地址路径。
 
 ```java
-
-package com.ytech.wolf_warrior;
+package com.ytech.consumer.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/api/v1")
-@FeignClient(value = "common" )
-public interface UserFeignClient {
-
-    @GetMapping(value = "/user")
-    public ResponseEntity<Object> getUser();
+@Component
+@FeignClient(value = "provider")
+public interface EchoFeign {
+    @GetMapping(value = "/provider/echo")
+    public String echoFeign();
 }
-
 ```
 
-* 增加一个restController类，给外界提供该方法
+* 增加一个restController接口调用微服务
 
 ```java
+package com.ytech.consumer.controller;
 
-package com.ytech.wolf_warrior;
-
+import com.ytech.consumer.feign.EchoFeign;
+import com.ytech.consumer.service.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+@RequestMapping("/consumer")
+public class ConsumerController {
 
     @Autowired
-    UserFeignClient userFeignClient;
+    ConsumerService consumerService;
 
-    @GetMapping("/feign_user")
-    public ResponseEntity<Object> getFeignUser(){
-        return userFeignClient.getUser();
+    @Autowired
+    EchoFeign echoFeign;
+
+    @GetMapping("/echo")
+    public String echo() {
+        return consumerService.consumerEcho();
     }
 
-    @GetMapping("/test")
-    public String getFeignUser2(){
-        return "hey,buddy,what's wrong with you ?";
+    @GetMapping("/echoFeign")
+    public String echoFeign() {
+        return echoFeign.echoFeign() + " from:[consumer]";
     }
 }
-
+```
+本地浏览器打开
+```
+http://localhost:50005/consumer/echoFeign 
 ```
 
-* 在本地浏览器打开***http://localhost:18763/feign_user***
-* 
+# 四、Hystrix-微服务降级与熔断
 
-![](./assets/consumer_1.png)
+## 1、Hystrix介绍
+
+通常一个分布式系统是由许多相互依赖的服务所组成的，这些被依赖的服务极易出现故障或响应延迟的问题。如果其中某个服务失败则会影响其他服务并进一步降低整体性能，并导致应用程序其他功能无法正常访问，在最坏的情况下，整个应用程序将崩溃。Hystrix就是为了解决服务间调用问题的一个框架。
+
+Hystrix是由Netflix API 团队在2011年开发，2012 年Hystrix不断发展和成熟，并且 Netflix 内的许多团队都采用了它。如今，每天在 Netflix 上通过 Hystrix 执行数以千亿计的线程隔离和数以千计的信号隔离调用。
+
+Hystrix 框架通过提供熔断和降级来控制服务之间的交互依赖，通过隔离故障服务并停止故障的级联效应以提高系统的总体弹性。
+
+主要功能：
+
+- 为第三方客户端提供保护，控制延迟和失败（通常依赖网络）等故障。
+  
+- 停止复杂的分布式系统中的级联故障。
+
+- 快速失败，迅速恢复。
+
+- 回退并在可能的情况下正常降级。
+
+- 启用近乎实时的监视，警报和配置控制。
+
+Hystrix官方网址： https://github.com/Netflix/Hystrix/wiki
+
+## 2、Hystrix实现熔断和降级的实例
+
+### 2.1 导入依赖(实际开发中并不需要？)
+
+```xml
+<dependency>
+   <groupId>org.springframework.cloud</groupId>
+   <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+```
+
+### 2.2  在application.yml中添加对hystrix的依赖
+
+```
+feign:
+  hystrix:
+    enabled: true
+
+#hystrix的超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+```
+
+### 2.3 编写熔断处理类
+
+```java
+package com.ytech.consumer.feign;
+
+import feign.hystrix.FallbackFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Component
+@FeignClient(name = "provider",
+        contextId = "EchoFeign",
+        configuration = NotBreakerConfiguration.class,
+        fallbackFactory = EchoFeign.EchoFeignFallbackFactory.class)
+public interface EchoFeign {
+
+    @GetMapping(value = "/provider/echo")
+    String echoFeign();
+
+    /**
+     * 熔断处理
+     */
+    @Slf4j
+    @Component
+    class EchoFeignFallbackFactory implements FallbackFactory<EchoFeign> {
+        @Override
+        public EchoFeign create(Throwable throwable) {
+            return new EchoFeign() {
+                @Override
+                public String echoFeign() {
+                    return "opps,there maybe something wrong!";
+                }
+            };
+        }
+    }
+}
+```
+
+测试：
+不开启provider应用，只开启consumer，则可以看到熔断生效
 
 
-# 四、GateWay实现路由
+# 五、GateWay实现路由
 
 ## 1、SpringCloud Gateway 简介
 
@@ -504,7 +597,7 @@ SpringCloud官方，对SpringCloud Gateway 特征介绍如下：
 
 ## 3、在项目中引入Sprint Cloud Gateway
 
-### 3.1 新建一个工程，并引入Gateway的依赖
+### 3.1 新建一个模块，并引入Gateway的依赖
 
 ```
 <dependency>
@@ -532,7 +625,6 @@ public class YychildrenGatewayApplication {
 ### 3.3 在配置文件中进行配置
 
 ```
-
 server:
   port: 10061
 
@@ -612,9 +704,8 @@ predicates:
 
 条件断言，满足网关网址,例如：http://192.168.3.16：10061/api/teacher/**的所有请求，跳转到服务yychild-teacher下。
 
+spring cloud 网关的文章参见: https://juejin.cn/post/6996852203755405326#heading-6
 
-
-
-# 五、熔断处理
+spring cloud 网关的代码参见：https://github.com/geekist/spring_cloud_alibaba_demo.git
 
 
