@@ -29,6 +29,9 @@ Spring
 
 * [Spring 注解](https://github.com/geekist/developer_guide/blob/main/server/spring_annotation.md)
 
+* [Spring validation](https://github.com/geekist/developer_guide/blob/main/server/spring_validation.md)
+
+
 Spring boot
 
 * [Spring boot](https://github.com/geekist/developer_guide/blob/main/server/spring_boot.md)
