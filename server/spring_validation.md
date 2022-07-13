@@ -191,4 +191,83 @@ public Result saveUser(@RequestBody @Validated UserDTO userDTO) {
 
 # 三、统一异常处理
 
+在Spring 3.2中，新增了@ControllerAdvice、@RestControllerAdvice 注解，可以用于定义@ExceptionHandler、@InitBinder、@ModelAttribute，并应用到所有@RequestMapping、@PostMapping， @GetMapping注解中。
 
+## 1、@ControllerAdvice定义
+```java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface ControllerAdvice {
+    @AliasFor("basePackages")
+    String[] value() default {};
+
+    @AliasFor("value")
+    String[] basePackages() default {};
+
+    Class<?>[] basePackageClasses() default {};
+
+    Class<?>[] assignableTypes() default {};
+
+    Class<? extends Annotation>[] annotations() default {};
+}
+```
+@ControllerAdvice类似切面中，可以在controller处理的时候环绕执行相应的方法。
+
+其主要功能是：
+
+- 捕获全局的异常
+
+- 进行数据的绑定
+
+- 全局数据的预处理
+
+## 2、编写全局处理类
+
+```java
+package com.yuya.common.config;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.transaction.TransactionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.yuya.common.exception.BusException;
+import com.yuya.common.exception.ErrorEnum;
+import com.yuya.common.exception.ExtendException;
+import com.yuya.common.utils.ResponseUtils;
+
+
+/**
+ * 统一异常拦截，使用注解@ControllerAdvice实现
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @ExceptionHandler(BusException.class)
+    public void handleBusExp(HttpServletResponse response, Exception ex) throws TransactionException {
+        ErrorEnum errorEnum = ((BusException) ex).getErrorEnum();
+        ResponseUtils.sendFail(response, errorEnum);
+    }
+
+    @ExceptionHandler(ExtendException.class)
+    public void handleExtendExp(HttpServletResponse response, Exception ex) throws TransactionException {
+        ExtendException ee = (ExtendException) ex;
+        ResponseUtils.sendFail(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ee.getCode(), ee.getMsg());
+    }
+
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public void handleArgumentNotValidException(HttpServletResponse response, MethodArgumentNotValidException e) throws TransactionException {
+        ResponseUtils.sendFail(response, HttpServletResponse.SC_OK, -1, e.getBindingResult().getFieldError().getDefaultMessage());
+    }
+}
+
+```
