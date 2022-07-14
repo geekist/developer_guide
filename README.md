@@ -29,8 +29,7 @@ Spring
 
 * [Spring 注解](https://github.com/geekist/developer_guide/blob/main/server/spring_annotation.md)
 
-* [Spring validation](https://github.com/geekist/developer_guide/blob/main/server/spring_validation.md)
-
+* [Spring validation数据校验](https://github.com/geekist/developer_guide/blob/main/server/spring_validation.md)
 
 Spring boot
 
@@ -109,8 +108,9 @@ iOS
 
 数据库
 
-* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
+* [mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql.md)
 
+* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
 
 [计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
