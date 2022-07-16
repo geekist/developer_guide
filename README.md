@@ -225,6 +225,8 @@ Maven
 
 日记月累
 
+* [域名、DNS、CDN、https、SSL介绍](https://github.com/geekist/developer_guide/blob/main/other/domain.md)
+
 * [字符集和字符编码介绍](https://github.com/geekist/developer_guide/blob/main/other/charset.md)
 
 * [Session、Cookie和Token](https://github.com/geekist/developer_guide/blob/main/other/session_cookie_token.md)
