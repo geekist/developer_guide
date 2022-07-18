@@ -42,6 +42,10 @@
 - [五、Nginx日志配置](#五nginx日志配置)
   - [Nginx的访问日志](#nginx的访问日志)
   - [Nginx的错误日志](#nginx的错误日志)
+- [六、SSL证书配置](#六ssl证书配置)
+  - [nginx安装http_ssl_module模块](#nginx安装http_ssl_module模块)
+  - [复制ssl证书到nginx服务器](#复制ssl证书到nginx服务器)
+  - [配置nginx的ssl服务](#配置nginx的ssl服务)
 - [六、其他配置、websocket ssl、gzip等](#六其他配置websocket-sslgzip等)
 
 
@@ -151,7 +155,7 @@ fair：智能调整调度算法，动态的根据后端服务器的请求处理�
 
 ## Nginx的工作模式
 
-启动Nginx后，其实就是在80端口启动了Socket服务进行监听，如图所示，Nginx涉及Master进程和Worker进程。
+启动Nginx后，其实就是在用户配置的端口启动了Socket服务进行监听，如图所示，Nginx涉及Master进程和Worker进程。
 
 Master进程的作用是读取并验证配置文件nginx.conf；管理worker进程；
 

@@ -1,6 +1,5 @@
 # 一、数据库基本概念
 
-
 ## 1、术语
 
 * 数据库
@@ -83,7 +82,7 @@ MySQL已经存在很久了，它在世界范围内得到了广泛的安装和使
 
 事实上，MySQL受到的唯一真正的批评是它并不总是支持其他DBMS提供的功能和特性。然而，这一点也正在逐步得到改善，MySQL的各个新版本正不断增加新特性、新功能。
 
-# 二、MySQL操作
+# 二、MySQL数据库操作
 
 ## 连接数据库
 
@@ -132,6 +131,240 @@ SHOW ERRORS;
 
 #查看警告
 SHOW WARNINGS;
+```
+# 三、mysql 表操作
+
+## 创建表
+
+用CREATE TABLE创建表，必须给出下列信息：
+
+* 新表的名字，在关键字CREATE TABLE之后给出；
+
+* 表列的名字和定义，用逗号分隔。
+
+* 使用NULL或 NOT NULL，限定该列的值是空值或非空值。
+
+* PRIMARY KEY 主键。表中的每一行必须有主键值。如果主键使用单个列，它的值必须唯一。如果使用多个列，这些列的组合值必须唯一。
+
+* AUTO_INCREMWNT 告诉mysql，本列每当增加一行时自动增量。每个表只允许一个AUTO_INCREMENT列，且它必须被索引。主键自动增加的一个不足是你不知道生成的id是多少，但是可以用last_insert_id()函数来获得这个值。
+
+* DEFAULT 默认值。 在没有给出数量的情况下，可以使用默认给出的数量。
+
+* 引擎类型：
+InnoDB是一个可靠的事务处理引擎，它不支持全文本搜索；MEMORY在功能等同于MyISAM，但由于数据存储在内存（不是磁盘）中，速度很快（特别适合于临时表）；MyISAM是一个性能极高的引擎，它支持全文本搜索（参见第18章），但不支持事务处理。
+
+```sql
+create table u_order
+(
+    id        int NOT NULL AUTO_INCREMENT,
+    order_num int NOT NULL,
+    order_item int NOT NULL,
+    prod_id char(10) NOT NULL,
+    quantity int NOT NULL,
+    item_price decimal(8,2) NOT NULL,
+    PRIMARY KEY (order_num,order_item)
+) ENGINE=InnoDB;
+```
+## 更新表
+
+为了使用ALTER TABLE更改表结构，必须给出下面的信息：
+
+在ALTER TABLE之后给出要更改的表名（该表必须存在，否则将出错）；
+
+所做更改的列表。
+```sql
+alert table vendors add vend_phone char(20);
+
+alert table vendors drop column vend_phone;
+
+```
+
+## 删除表
+
+```sql
+drop table u_user;
+```
+
+## 重命名表
+
+```sql
+rename table u_user to u_super_user;
+```
+
+# 四、MYSQL数据类型
+
+数据类型是定义列中可以存储什么数据以及该数据实际怎样存储的基本规则。
+
+数据类型用于以下目的：
+
+- 数据类型允许限制可存储在列中的数据。例如，数值数据类型列只能接受数值。
+  
+- 数据类型允许在内部更有效地存储数据。可以用一种比文本串更简洁的格式存储数值和日期时间值。
+  
+- 数据类型允许变换排序顺序。如果所有数据都作为串处理，则1位于10之前，而10又位于2之前（串以字典顺序排序，从左边开始比较，一次一个字符）。作为数值数据类型，数值才能正确排序。
+
+在设计表时，应该特别重视所用的数据类型。使用错误的数据类型可能会严重地影响应用程序的功能和性能。更改包含数据的列不是一件小事（而且这样做可能会导致数据丢失）。
+
+## 字符串类型
+
+|数据类型 |说 明|
+| ---- | ---- |
+| CHAR | 1～255个字符的定长串。它的长度必须在创建时指定，否则MySQL|假定为CHAR(1)|
+| ENUM | 接受最多64 K个串组成的一个预定义集合的某个串|
+| LONGTEXT| 与TEXT相同，但最大长度为4 GB|
+| MEDIUMTEXT | 与TEXT相同，但最大长度为16 K|
+| SET | 接受最多64个串组成的一个预定义集合的零个或多个串 |
+| TEXT | 最大长度为64 K的变长文本 | 
+| TINYTEXT | 与TEXT相同，但最大长度为255字节|
+|VARCHAR | 长度可变，最多不超过255字节。如果在创建时指定为VARCHAR(n)，则可存储0到n个字符的变长串（其中n≤255）|
+
+
+## 数值类型
+
+|数据类型 |说 明|
+| ---- | ---- |
+|BIT |位字段，1～64位。（在MySQL 5之前，BIT在功能上等价于TINYINT|
+|BIGINT |整数值，支持9223372036854775808～9223372036854775807（如果是UNSIGNED，为0～18446744073709551615）的数|
+|BOOLEAN（或BOOL）| 布尔标志，或者为0或者为1，主要用于开/关（on/off）标志|
+|DECIMAL（或DEC）| 精度可变的浮点值|
+|DOUBLE |双精度浮点值|
+|FLOAT|单精度浮点值|
+|INT（或INTEGER）| 整数值，支持2147483648～2147483647（如果是UNSIGNED，为0～4294967295）的数|
+|MEDIUMINT |整数值，支持8388608～8388607（如果是UNSIGNED，为0～16777215）的数|
+|REAL |4字节的浮点值|
+|SMALLINT| 整数值，支持32768～32767（如果是UNSIGNED，为0～65535）的数|
+|TINYINT |整数值，支持128～127（如果为UNSIGNED，为0～255）的数|
+
+有符号或无符号
+ 所有数值数据类型（除BIT和BOOLEAN外）都可以有符号或无符号。有符号数值列可以存储正或负的数值，无符号数值列只能存储正数。默认情况为有符号，但如果你知道自己不要存储负值，可以使用UNSIGNED关键字，这样做将允许你存储两倍大小的值。
+
+ 不使用引号
+  与串不一样，数值不应该括在引号内。
+
+存储货币数据类型 
+MySQL中没有专门存储货币的数据类型，一般情况下使用DECIMAL(8, 2)
+
+
+## 日期和时间类型
+
+## 二进制类型
+
+# 五、数据库表的增删改查
+
+## INSERT 添加数据
+
+INSERT是用来插入（或添加）行到数据库表的。
+
+### 插入完整的行
+
+数据插入表中的最简单方法是使用基本的insert语句，要求指定表明和被插入到新行中的值。
+```sql
+insert into customers
+values (NULL,
+'Pep E.lapew',
+233,
+'CA',
+'90046',
+NULL,
+NULL
+);
+```
+更安全的方法是将列名和值都列出来：
+
+```sql
+insert into customers(cust_address,
+cust_city,
+cust_state,
+cust_zip,
+cust_country,
+cust_month)
+values(NULL,
+'Pep E.lapew',
+233,
+'CA',
+'90046',
+NULL,
+NULL
+);
+```
+在括号里明确给出了列名，在插入行时，mysql将values列表中的对应值填入到列表中的对应项。因为提供了列名，values必须以其指定的次序匹配指定的列名，不一定按照各个列出现在实际表中的次序。
+
+### 插入多个行
+
+```sql
+insert into customers(cust_name,
+cust_address,
+cust_city)
+values(
+    '1',
+    '2',
+    '3'
+),
+(
+    '4',
+    '5',
+    '6'
+);
+```
+
+### INSERT INTO插入检索出的数据
+
+```sql
+insert into customers(cust_id,
+cust_contact,
+cust_email,
+cust_name)
+select cust_id,
+cust_contact,
+cust_email,
+cust_name
+from custnew;
+```
+
+## DELETE FROM删除数据
+
+### 删除特定的行
+```sql
+delete from customers where cust_id = 10005;
+```
+### 删除所有的行
+
+```sql
+delete from customers;
+```
+
+## UPDATE 修改数据
+
+UPDATE语句非常容易使用，甚至可以说是太容易使用了。基本的UPDATE语句由3部分组成，分别是：
+
+要更新的表；
+
+列名和它们的新值；
+
+确定要更新行的过滤条件。
+
+### 修改指定的行
+
+```sql
+update customers
+set cust_name = 'hello',
+cust_email = 'wang@fan.com'
+where cust_id = 10005;
+```
+
+### 修改所有的行
+
+```sql
+update customers
+set cust_name = 'hello',
+cust_email = 'wang@fan.com'
+```
+
+### 删除列
+```sql
+update customers
+set cust_name = NULL，
+cust_email = NULL
 ```
 
 ## SELECT 检索数据
@@ -336,7 +569,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 ```
 ## 函数
 
-常用数值处理函数
+### 常用数值处理函数
 
 |函 数 |说 明|
 |---- | ---- |
@@ -350,7 +583,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 |Sqrt() |返回一个数的平方根|
 |Tan() |返回一个角度的正切|
 
-文本处理函数
+### 文本处理函数
 
 |函 数 |说 明|
 |---- | ---- |
@@ -365,7 +598,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 |SubString()| 返回子串的字符|
 |Upper()| 将串转换为大写|
 
-常用日期和时间处理函数
+### 常用日期和时间处理函数
 
 |函 数 |说 明|
 |---- | ---- |
@@ -387,7 +620,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 |Time() |返回一个日期时间的时间部分|
 |Year() |返回一个日期的年份部分|
 
-### DATE_FORMAT() 函数
+#### DATE_FORMAT() 函数
 DATE_FORMAT() 函数用于以不同的格式显示日期/时间数据。
 语法
 ```sql
@@ -429,10 +662,269 @@ DATE_FORMAT(date,format)
 |%Y	|年，4 位|
 |%y	|年，2 位|
 
+### 聚集函数
 
+#### AVG()函数
 
+AVG()通过对表中行数计数并计算特定列值之和，求得该列的平均值。AVG()可用来返回所有列的平均值，也可以用来返回特定列或行的平均值。
 
+```sql
+select avg(prod_price) as avg_price from tb_product;
+```
 
+```sql
+#返回特定供应商提供产品的评价价格
+select avg(prod_price) as avg_price from tb_product where vend_id = 1003;
+```
+上例中只过滤出vend_id为1003的产品。
 
+#### COUNT（）函数
 
+COUNT()函数进行计数。可利用COUNT()确定表中行的数目或符合特定条件的行的数目。
 
+COUNT()函数有两种使用方式。
+
+使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。
+
+使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。
+
+```sql
+#列出所有行的数目，不管行中各列有什么值
+select count(*) as num_cust from customers;
+
+#只计算某一列不为空的行数,本例中只计算cust_email不为空的值。
+select count(cust_email) as num_cust from customers;
+```
+
+#### MAX()函数
+
+MAX()返回指定列中的最大值。MAX()要求指定列名。MAX()一般用来找出最大的数值或日期值，但MySQL允许将它用来返回任意列中的最大值，包括返回文本列中的最大值。在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行。
+
+```sql
+select max(prod_price) as max_price from products;
+```
+
+#### MIN()函数
+返回指定列的最小值。MIN()要求指定列名。对非数值数据使用MIN() MIN()函数与MAX()函数类似，MySQL允许将它用来返回任意列中的最小值，包括返回文本列中的最小值。在用于文本数据时，如果数据按相应的列排序，则MIN()返回最前面的行。
+```sql
+#MIN()返回products表中最便宜物品的价格。
+select min(prod_price) as min_price from products;
+```
+
+#### SUM()函数
+返回指定列值的和（总计）。
+```sql
+select sum(quantity) as items_ordered from orderitems where order_num = 20005;
+```
+
+## 数据分组
+
+### GROUP BY
+
+在具体使用GROUP BY子句前，需要知道一些重要的规定。
+- GROUP BY子句可以包含任意数目的列。这使得能对分组进行嵌套，为数据分组提供更细致的控制。
+  
+- 如果在GROUP BY子句中嵌套了分组，数据将在最后规定的分组上进行汇总。换句话说，在建立分组时，指定的所有列都一起计算（所以不能从个别的列取回数据）。
+  
+- GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。
+
+- 除聚集计算语句外，SELECT语句中的每个列都必须在GROUP BY子句中给出。
+
+- 如果分组列中具有NULL值，则NULL将作为一个分组返回。如果列中有多行NULL值，它们将分为一组。
+
+- GROUP BY子句必须出现在WHERE子句之后，ORDER BY子句之前。
+
+```sql
+select vend_id, count(*) as num_prods from tb_product group by vend_id;
+```
+结果如下：
+|vend_id | num_prods|
+| ---- | ---- |
+| 1001 | 3 |
+| 1002 | 2 |
+| 1003 | 7 |
+| 1005 | 2 |
+上面的select语句指定了两个列，vend_id包含产品供应商的ID，num_prods为计算字段（用count（*）建立。group by子句只是mysql 按照vend_id排序并分组数据。这导致对每个vend_id而不是整表计算num_prods一次。从输出中可以看出，供应商1001有3个产品，供应商1002有两个产品，供应商1003有7个产品；供应商1005有2个产品。
+
+### HAVING过滤分组
+
+因为where子句对整个行进行过滤而不是对分组进行过滤，即where没有分组概念。因此，MYSQL使用having来过滤分组。
+
+```sql
+select vend_id, count(*) as num_prods from tb_product
+group by vend_id
+having count(*) >= 3;
+```
+结果如下：
+|vend_id | num_prods|
+| ---- | ---- |
+| 1001 | 3 |
+| 1003 | 7 |
+
+```sql
+select vend_id, count(*) as num_prods from products
+where prod_price >=10
+group by vend_id
+having count(*) >= 2;
+```
+
+第一行是使用了聚集函数的基本SELECT，它与前面的例子很相像。
+
+WHERE子句过滤所有prod_price至少为10的行。
+
+然后按vend_id分组数据，HAVING子句过滤计数为2或2以上的分组。
+
+如果没有WHERE子句，将会多检索出两行（供应商1002，销售的所有产品价格都在10以下；供应商1001，销售3个产品，但只有一个产品的价格大于等于10）
+
+## select 子句的顺序。
+在select语句中，必须遵循下面的语句顺序：
+
+|子 句 |说 明 | 是否必须使用 |
+| ---- | ---- | ---- |
+|SELECT | 要返回的列或表达式 | 是 |
+| FROM | 从中检索数据的表 | 仅在从表选择数据时使用 |
+| WHERE |  行级过滤 | 否 |
+| GROUP BY |分组说明  | 仅在按组计算聚集时使用 |
+| HAVING | 组级过滤  | 否 |
+| ORDER BY |输出排序顺序 | 否 |
+| LIMIT | 要检索的行数 | 否 |
+
+## select子查询
+
+不使用子查询的例子：
+```sql
+select order_num from orderitems where prod_id = 'TNT2';
+
+select cust_id from orders where order_num in(200005,200007);
+```
+合并后：
+```sql
+select cust_id from orders
+where order_num in (select order_num from orderitems where prod_id = 'TNT2');
+```
+使用计算字段进行子查询：
+```sql
+select cust_name,
+cust_state,
+(select count(*) from orders where orders.cust_id = customer.cust_id) as orders
+from customers
+order by cust_name;
+```
+这 条 SELECT 语句对 customers 表中每个客户返回 3 列 ：cust_name、cust_state和orders。orders是一个计算字段，它是由圆括号中的子查询建立的。该子查询对检索出的每个客户执行一次。在此例子中，该子查询执行了5次，因为检索出了5个客户。
+
+## join联结表
+
+### 分表存储数据
+
+例子：在记录供应商数据和产品数据的时候可建立两个表，一个存储供应商信息，另一个存储产品信息。vendors表包含所有供应商信息，每个供应商占一行，每个供
+应商具有唯一的标识。此标识称为主键（primary key可以是供应商ID或任何其他唯一值。
+
+products表只存储产品信息，它除了存储供应商ID（vendors表的主键）外不存储其他供应商信息。vendors表的主键又叫作products的外键，它将vendors表与products表关联，利用供应商ID能从vendors表中找出相应供应商的详细信息。
+
+### INNER JOIN
+
+```sql
+select vend_name,prod_name,prod_price from vendors, products
+where vendors.vend_id = products.vend_id
+order by vend_name, prod_name;
+```
+
+```sql
+SELECT a.vend_name,b.prod_name,b.prod_price  FROM vendors a INNER JOIN products b ON a.vend_id = b.vend_id;
+```
+
+### LEFT JOIN
+
+左连接LEFT JOIN的含义就是求两个表的交集外加左表剩下的数据。依旧从笛卡尔积的角度讲，就是先从笛卡尔积中挑出ON子句条件成立的记录，然后加上左表中剩余的记录（见最后三条）。
+```sql
+SELECT * FROM t_blog LEFT JOIN t_type ON t_blog.typeId=t_type.id;
+```
+    +----+-------+--------+------+------+
+    | id | title | typeId | id   | name |
+    +----+-------+--------+------+------+
+    |  1 | aaa   |      1 |    1 | C++  |
+    |  2 | bbb   |      2 |    2 | C    |
+    |  7 | ggg   |      2 |    2 | C    |
+    |  3 | ccc   |      3 |    3 | Java |
+    |  6 | fff   |      3 |    3 | Java |
+    |  4 | ddd   |      4 |    4 | C#   |
+    |  5 | eee   |      4 |    4 | C#   |
+    |  8 | hhh   |   NULL | NULL | NULL |
+    |  9 | iii   |   NULL | NULL | NULL |
+    | 10 | jjj   |   NULL | NULL | NULL |
+    +----+-------+--------+------+------+
+
+### RIGHT JOIN 右连接
+
+同理右连接RIGHT JOIN就是求两个表的交集外加右表剩下的数据。再次从笛卡尔积的角度描述，右连接就是从笛卡尔积中挑出ON子句条件成立的记录，然后加上右表中剩余的记录（见最后一条）
+```sql
+SELECT * FROM t_blog RIGHT JOIN t_type ON t_blog.typeId=t_type.id;
+```
+    +------+-------+--------+----+------------+
+    | id   | title | typeId | id | name       |
+    +------+-------+--------+----+------------+
+    |    1 | aaa   |      1 |  1 | C++        |
+    |    2 | bbb   |      2 |  2 | C          |
+    |    3 | ccc   |      3 |  3 | Java       |
+    |    4 | ddd   |      4 |  4 | C#         |
+    |    5 | eee   |      4 |  4 | C#         |
+    |    6 | fff   |      3 |  3 | Java       |
+    |    7 | ggg   |      2 |  2 | C          |
+    | NULL | NULL  |   NULL |  5 | Javascript |
+    +------+-------+--------+----+------------+
+
+### OUTER JOIN 外联结
+
+```sql
+    SELECT * FROM t_blog LEFT JOIN t_type ON t_blog.typeId=t_type.id
+    UNION
+    SELECT * FROM t_blog RIGHT JOIN t_type ON t_blog.typeId=t_type.id;
+```
+
+外连接就是求两个集合的并集。从笛卡尔积的角度讲就是从笛卡尔积中挑出ON子句条件成立的记录，然后加上左表中剩余的记录，最后加上右表中剩余的记录。另外MySQL不支持OUTER JOIN，但是我们可以对左连接和右连接的结果做UNION操作来实现。
+
+    +------+-------+--------+------+------------+
+    | id   | title | typeId | id   | name       |
+    +------+-------+--------+------+------------+
+    |    1 | aaa   |      1 |    1 | C++        |
+    |    2 | bbb   |      2 |    2 | C          |
+    |    7 | ggg   |      2 |    2 | C          |
+    |    3 | ccc   |      3 |    3 | Java       |
+    |    6 | fff   |      3 |    3 | Java       |
+    |    4 | ddd   |      4 |    4 | C#         |
+    |    5 | eee   |      4 |    4 | C#         |
+    |    8 | hhh   |   NULL | NULL | NULL       |
+    |    9 | iii   |   NULL | NULL | NULL       |
+    |   10 | jjj   |   NULL | NULL | NULL       |
+    | NULL | NULL  |   NULL |    5 | Javascript |
+    +------+-------+--------+------+------------+
+
+![](./assets/mysql_1.jpg)
+
+## UNION 组合查询
+
+多数SQL查询都只包含从一个或多个表中返回数据的单条SELECT语句。MySQL也允许执行多个查询（多条SELECT语句），并将结果作为单个查询结果集返回。这些组合查询通常称为并（union）或复合查询（compound query）。
+
+有两种基本情况，其中需要使用组合查询：
+
+- 在单个查询中从不同的表返回类似结构的数据；
+
+- 对单个表执行多个查询，按单个查询返回数据。
+
+```sql
+select vend_id, prod_id,prod_price
+from products
+where prod_price <=5
+
+union
+select vend_id, prod_id, prod_price
+from products
+where vend_id in (1001,1002);
+```
+
+等价于
+```sql
+select vend_id, prod_id,prod_price
+from products
+where (prod_price <=5 or vend_id in (1001,1002));
+```
