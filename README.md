@@ -50,7 +50,7 @@ Authority
 Redis数据缓存服务器
  
 
-* [spring-data-redis操作redis缓存](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
+* [使用spring-boot-starter-data-redis操作redis缓存数据库](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
 
 Mybatis
 
