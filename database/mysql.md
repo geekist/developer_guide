@@ -1,6 +1,88 @@
+- [一、数据库基本概念](#一数据库基本概念)
+  - [1.1、术语](#11术语)
+  - [1.2 MySQL介绍](#12-mysql介绍)
+- [二、MySQL数据库操作](#二mysql数据库操作)
+  - [2.1 连接数据库](#21-连接数据库)
+  - [2.2 打开数据库 USE](#22-打开数据库-use)
+  - [2.3 查看数据库和表 SHOW](#23-查看数据库和表-show)
+- [三、mysql 表操作](#三mysql-表操作)
+  - [3.1 创建表 CREATE TABLE](#31-创建表-create-table)
+  - [3.2 更新表 ALTER TABLE](#32-更新表-alter-table)
+  - [3.3 删除表 DROP TABLE](#33-删除表-drop-table)
+  - [3.4 重命名表 RENAME TABLE](#34-重命名表-rename-table)
+- [四、MYSQL数据类型](#四mysql数据类型)
+  - [4.1 字符串类型](#41-字符串类型)
+  - [4.2 数值类型](#42-数值类型)
+  - [4.3 日期和时间类型](#43-日期和时间类型)
+  - [4.4 二进制类型](#44-二进制类型)
+- [五、数据库表的增删改查](#五数据库表的增删改查)
+  - [5.1 添加数据 INSERT](#51-添加数据-insert)
+    - [插入完整的行](#插入完整的行)
+    - [插入多个行](#插入多个行)
+    - [INSERT INTO插入检索出的数据](#insert-into插入检索出的数据)
+  - [5.2 删除数据 DELETE FROM](#52-删除数据-delete-from)
+    - [删除特定的行](#删除特定的行)
+    - [删除所有的行](#删除所有的行)
+  - [5.3 修改数据 UPDATE](#53-修改数据-update)
+    - [修改指定的行](#修改指定的行)
+    - [修改所有的行](#修改所有的行)
+    - [删除列](#删除列)
+  - [5.4 检索数据 SELECT](#54-检索数据-select)
+    - [检索一列](#检索一列)
+    - [检索多个列](#检索多个列)
+    - [检索所有列](#检索所有列)
+    - [distinct 去重复的数据](#distinct-去重复的数据)
+    - [limit 限制结果](#limit-限制结果)
+    - [完全限制表名和列名](#完全限制表名和列名)
+    - [order by排序](#order-by排序)
+    - [desc降序排列](#desc降序排列)
+    - [Where过滤数据](#where过滤数据)
+      - [=](#)
+      - [<](#-1)
+      - [>](#-2)
+      - [<=](#-3)
+      - [>=](#-4)
+      - [<>](#-5)
+      - [BETWEEN](#between)
+      - [IS NULL](#is-null)
+      - [AND](#and)
+      - [OR](#or)
+      - [AND和OR的优先级](#and和or的优先级)
+      - [IN](#in)
+      - [NOT IN](#not-in)
+      - [LIKE + %通配符](#like--通配符)
+      - [LIKE + _通配符](#like--_通配符)
+      - [REGEXP 正则表达式](#regexp-正则表达式)
+    - [计算字段](#计算字段)
+    - [Concat函数实现拼接字段](#concat函数实现拼接字段)
+    - [使用别名](#使用别名)
+    - [函数](#函数)
+      - [常用数值处理函数](#常用数值处理函数)
+      - [文本处理函数](#文本处理函数)
+      - [常用日期和时间处理函数](#常用日期和时间处理函数)
+    - [聚集函数](#聚集函数)
+      - [AVG()函数](#avg函数)
+      - [COUNT（）函数](#count函数)
+      - [MAX()函数](#max函数)
+      - [MIN()函数](#min函数)
+      - [SUM()函数](#sum函数)
+    - [数据分组](#数据分组)
+      - [GROUP BY](#group-by)
+      - [HAVING过滤分组](#having过滤分组)
+    - [select 子句的顺序](#select-子句的顺序)
+    - [select子查询](#select子查询)
+    - [join联结表](#join联结表)
+      - [分表存储数据](#分表存储数据)
+      - [内联 INNER JOIN](#内联-inner-join)
+      - [左连接 LEFT JOIN](#左连接-left-join)
+      - [右连接 RIGHT JOIN](#右连接-right-join)
+      - [外联结 OUTER JOIN](#外联结-outer-join)
+    - [组合查询 UNION](#组合查询-union)
+- [其他：存储过程、数据库安全、数据库性能、数据库维护等](#其他存储过程数据库安全数据库性能数据库维护等)
+
 # 一、数据库基本概念
 
-## 1、术语
+## 1.1、术语
 
 * 数据库
   
@@ -66,7 +148,7 @@ SQL有如下的优点：
 
  SQL尽管看上去很简单，但它实际上是一种强有力的语言，灵活使用其语言元素，可以进行非常复杂和高级的数据库操作。
 
-## 2、MySQL介绍
+## 1.2 MySQL介绍
 
 MySQL是一种DBMS，即它是一种数据库软件。
 
@@ -84,7 +166,7 @@ MySQL已经存在很久了，它在世界范围内得到了广泛的安装和使
 
 # 二、MySQL数据库操作
 
-## 连接数据库
+## 2.1 连接数据库
 
 为了连接到MySQL，需要以下信息：
 
@@ -96,13 +178,13 @@ MySQL已经存在很久了，它在世界范围内得到了广泛的安装和使
   
 - 用户口令（如果需要）。
 
-## USE 打开数据库 
+## 2.2 打开数据库 USE  
 
 ```sql
 use database_name;
 ```
 
-## SHOW 查看数据库和表
+## 2.3 查看数据库和表 SHOW 
 
 ```sql
 #列出所有的数据库
@@ -132,9 +214,10 @@ SHOW ERRORS;
 #查看警告
 SHOW WARNINGS;
 ```
+
 # 三、mysql 表操作
 
-## 创建表
+## 3.1 创建表 CREATE TABLE
 
 用CREATE TABLE创建表，必须给出下列信息：
 
@@ -165,7 +248,7 @@ create table u_order
     PRIMARY KEY (order_num,order_item)
 ) ENGINE=InnoDB;
 ```
-## 更新表
+## 3.2 更新表 ALTER TABLE
 
 为了使用ALTER TABLE更改表结构，必须给出下面的信息：
 
@@ -179,13 +262,13 @@ alert table vendors drop column vend_phone;
 
 ```
 
-## 删除表
+## 3.3 删除表 DROP TABLE
 
 ```sql
 drop table u_user;
 ```
 
-## 重命名表
+## 3.4 重命名表 RENAME TABLE
 
 ```sql
 rename table u_user to u_super_user;
@@ -205,7 +288,7 @@ rename table u_user to u_super_user;
 
 在设计表时，应该特别重视所用的数据类型。使用错误的数据类型可能会严重地影响应用程序的功能和性能。更改包含数据的列不是一件小事（而且这样做可能会导致数据丢失）。
 
-## 字符串类型
+## 4.1 字符串类型
 
 |数据类型 |说 明|
 | ---- | ---- |
@@ -219,7 +302,7 @@ rename table u_user to u_super_user;
 |VARCHAR | 长度可变，最多不超过255字节。如果在创建时指定为VARCHAR(n)，则可存储0到n个字符的变长串（其中n≤255）|
 
 
-## 数值类型
+## 4.2 数值类型
 
 |数据类型 |说 明|
 | ---- | ---- |
@@ -244,14 +327,28 @@ rename table u_user to u_super_user;
 存储货币数据类型 
 MySQL中没有专门存储货币的数据类型，一般情况下使用DECIMAL(8, 2)
 
+## 4.3 日期和时间类型
 
-## 日期和时间类型
+| 数据类型 | 说 明 |
+| ---- | ---- |
+| DATE | 表示1000-01-01～9999-12-31的日期，格式为YYYY-MM-DD|
+| DATETIME | DATE和TIME的组合 |
+| TIMESTAMP |功能和DATETIME相同（但范围较小）|
+| TIME | 格式为HH:MM:SS|
+|YEAR | 用2位数字表示，范围是70（1970年）～69（2069年），用4位数字表示，范围是1901年～2155年|
 
-## 二进制类型
+## 4.4 二进制类型
+
+| 数据类型 | 说 明 |
+| ---- | ---- |
+| BLOB |Blob最大长度为64 KB |
+| MEDIUMBLOB | Blob最大长度为16 MB|
+| LONGBLOB | Blob最大长度为4 GB |
+| TINYBLOB | Blob最大长度为255字节 |
 
 # 五、数据库表的增删改查
 
-## INSERT 添加数据
+## 5.1 添加数据 INSERT 
 
 INSERT是用来插入（或添加）行到数据库表的。
 
@@ -321,7 +418,7 @@ cust_name
 from custnew;
 ```
 
-## DELETE FROM删除数据
+## 5.2 删除数据 DELETE FROM
 
 ### 删除特定的行
 ```sql
@@ -333,7 +430,7 @@ delete from customers where cust_id = 10005;
 delete from customers;
 ```
 
-## UPDATE 修改数据
+## 5.3 修改数据 UPDATE 
 
 UPDATE语句非常容易使用，甚至可以说是太容易使用了。基本的UPDATE语句由3部分组成，分别是：
 
@@ -367,7 +464,7 @@ set cust_name = NULL，
 cust_email = NULL
 ```
 
-## SELECT 检索数据
+## 5.4 检索数据 SELECT 
 
 ### 检索一列
 
@@ -440,7 +537,7 @@ DESC关键字只应用到直接位于其前面的列名。在上例中，只对p
 
 与DESC相反的关键字是ASC（ASCENDING），在升序排序时可以指定它。但实际上，ASC没有多大用处，因为升序是默认的（如果既不指定ASC也不指定DESC，则假定为ASC）。
 
-## Where过滤数据
+###  Where过滤数据
 
 数据库表一般包含大量的数据，很少需要检索表中所有行。通常只会根据特定操作或报告的需要提取表数据的子集。只检索所需数据需要指定搜索条件（search criteria），搜索条件也称为过滤条件（filtercondition）。
 
@@ -458,59 +555,60 @@ where子句操作符
 | > | 大于|
 | >= | 大于等于|
 | BETWEEN | 在两个指定的值之间|
-### =
+
+####  =
 ```sql
 select prod_name,prod_price from tb_product where prod_name = 'false';
 ```
 
-### <
+#### <
 ```sql
 select prod_name,prod_price from tb_product where prod_price < 10;
 ```
 
-### >
+#### >
 ```sql
 seleect prod_name,prod_price from tb_product where prod_price > 10;
 ```
 
-### <=
+#### <=
 ```sql
 select prod_name, prod_price from tb_product where prod_price <= 10;
 ```
 
-### >=
+#### >=
 ```sql
 select prod_name, prod_price from tb_product where prod_price >= 10;
 ```
 
-### <>
+#### <>
 ```sql
 select vend_id,prod_name from tb_product where vend_id <> 1003;
 ```
 
-### BETWEEN
+#### BETWEEN
 ```sql
 select vend_id,prod_name from tb_product where vend_id between  1003 and 1013;
 ```
 
 从这个例子中可以看到，在使用BETWEEN时，必须指定两个值——所需范围的低端值和高端值。这两个值必须用AND关键字分隔。BETWEEN匹配范围中所有的值，包括指定的开始值和结束值。
 
-### IS NULL
+#### IS NULL
 ```sql
 select prod_name from products where prod_price IS NULL;
 ```
 
-### AND 
+#### AND 
 ```sql
 select prod_name, prod_price where vend_id = 1003 and prod_price <= 10;
 ```
 
-### OR
+#### OR
 ```sql
 select prod_name, prod_price where vend_id = 1003 or prod_price <= 10;
 ```
 
-### AND和OR的优先级
+#### AND和OR的优先级
 WHERE可包含任意数目的AND和OR操作符。允许两者结合以进行复杂和高级的过滤。
 
 SQL语句优先处理AND操作符，然后处理OR操作符，如果需要OR操作符优先进行处理，需要用圆括号括起来
@@ -518,17 +616,17 @@ SQL语句优先处理AND操作符，然后处理OR操作符，如果需要OR操�
 select prod_name,prod_price from tb_product where (vend_id = 1002 OR vend_id = 1003) AND prod_price >= 10;
 ```
 
-### IN
+#### IN
 ```sql
 select prod_name,prod_price from tb_product where vend_id IN (1002,1003) order by prod_name;
 ```
 
-### NOT IN
+#### NOT IN
 ```sql
 select prod_name,prod_price from tb_product where vend_id NOT IN (1002,1003) order by prod_name;
 ```
 
-### LIKE + %通配符
+#### LIKE + %通配符
 
 ```sql
 select pord_id, prod_name from tb_product where prod_name LIKE 'jet%'
@@ -539,7 +637,7 @@ select pord_id, prod_name from tb_product where prod_name LIKE 'jet%'
 select pord_id, prod_name from tb_product where prod_name LIKE 'jet%x'
 #搜索以jet开头，以x结尾的任意字符串
 ```
-### LIKE + _通配符
+#### LIKE + _通配符
 ```sql
 select prod_id, prod_name from tb_product where prod_name like '_ton';
 #搜索以任意字符开头，ton结尾的字符串
@@ -549,13 +647,13 @@ select prod_id, prod_name from tb_product where prod_name like '_ton';
 
 在确实需要使用通配符时，除非绝对有必要，否则不要把它们用在搜索模式的开始处。把通配符置于搜索模式的开始处，搜索起来是最慢的。
 
-### REGEXP 正则表达式
+#### REGEXP 正则表达式
 ```sql
 #查找prod_name包含文本1000的所有行
 select prod_name from tb_product where prod_name REGEXP '1000'
 ```
 
-## 计算字段
+### 计算字段
 
 通过数据库的已有字段进行计算、组合或其他方式得到的新的字段，称为计算字段。
 
@@ -567,9 +665,9 @@ select Concat(vend_name,'(',vend_contry, ')') from tb_vendor order by vend_name;
 ```sql
 select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order by vend_name; 
 ```
-## 函数
+### 函数
 
-### 常用数值处理函数
+#### 常用数值处理函数
 
 |函 数 |说 明|
 |---- | ---- |
@@ -583,7 +681,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 |Sqrt() |返回一个数的平方根|
 |Tan() |返回一个角度的正切|
 
-### 文本处理函数
+#### 文本处理函数
 
 |函 数 |说 明|
 |---- | ---- |
@@ -598,7 +696,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 |SubString()| 返回子串的字符|
 |Upper()| 将串转换为大写|
 
-### 常用日期和时间处理函数
+#### 常用日期和时间处理函数
 
 |函 数 |说 明|
 |---- | ---- |
@@ -620,7 +718,7 @@ select Concat(vend_name,'(',vend_contry, ')') as vend_title from tb_vendor order
 |Time() |返回一个日期时间的时间部分|
 |Year() |返回一个日期的年份部分|
 
-#### DATE_FORMAT() 函数
+DATE_FORMAT() 函数
 DATE_FORMAT() 函数用于以不同的格式显示日期/时间数据。
 语法
 ```sql
@@ -717,9 +815,9 @@ select min(prod_price) as min_price from products;
 select sum(quantity) as items_ordered from orderitems where order_num = 20005;
 ```
 
-## 数据分组
+### 数据分组
 
-### GROUP BY
+#### GROUP BY
 
 在具体使用GROUP BY子句前，需要知道一些重要的规定。
 - GROUP BY子句可以包含任意数目的列。这使得能对分组进行嵌套，为数据分组提供更细致的控制。
@@ -746,7 +844,7 @@ select vend_id, count(*) as num_prods from tb_product group by vend_id;
 | 1005 | 2 |
 上面的select语句指定了两个列，vend_id包含产品供应商的ID，num_prods为计算字段（用count（*）建立。group by子句只是mysql 按照vend_id排序并分组数据。这导致对每个vend_id而不是整表计算num_prods一次。从输出中可以看出，供应商1001有3个产品，供应商1002有两个产品，供应商1003有7个产品；供应商1005有2个产品。
 
-### HAVING过滤分组
+#### HAVING过滤分组
 
 因为where子句对整个行进行过滤而不是对分组进行过滤，即where没有分组概念。因此，MYSQL使用having来过滤分组。
 
@@ -776,7 +874,8 @@ WHERE子句过滤所有prod_price至少为10的行。
 
 如果没有WHERE子句，将会多检索出两行（供应商1002，销售的所有产品价格都在10以下；供应商1001，销售3个产品，但只有一个产品的价格大于等于10）
 
-## select 子句的顺序。
+### select 子句的顺序
+
 在select语句中，必须遵循下面的语句顺序：
 
 |子 句 |说 明 | 是否必须使用 |
@@ -789,7 +888,7 @@ WHERE子句过滤所有prod_price至少为10的行。
 | ORDER BY |输出排序顺序 | 否 |
 | LIMIT | 要检索的行数 | 否 |
 
-## select子查询
+### select子查询
 
 不使用子查询的例子：
 ```sql
@@ -812,16 +911,16 @@ order by cust_name;
 ```
 这 条 SELECT 语句对 customers 表中每个客户返回 3 列 ：cust_name、cust_state和orders。orders是一个计算字段，它是由圆括号中的子查询建立的。该子查询对检索出的每个客户执行一次。在此例子中，该子查询执行了5次，因为检索出了5个客户。
 
-## join联结表
+### join联结表
 
-### 分表存储数据
+#### 分表存储数据
 
 例子：在记录供应商数据和产品数据的时候可建立两个表，一个存储供应商信息，另一个存储产品信息。vendors表包含所有供应商信息，每个供应商占一行，每个供
 应商具有唯一的标识。此标识称为主键（primary key可以是供应商ID或任何其他唯一值。
 
 products表只存储产品信息，它除了存储供应商ID（vendors表的主键）外不存储其他供应商信息。vendors表的主键又叫作products的外键，它将vendors表与products表关联，利用供应商ID能从vendors表中找出相应供应商的详细信息。
 
-### INNER JOIN
+#### 内联 INNER JOIN
 
 ```sql
 select vend_name,prod_name,prod_price from vendors, products
@@ -833,7 +932,7 @@ order by vend_name, prod_name;
 SELECT a.vend_name,b.prod_name,b.prod_price  FROM vendors a INNER JOIN products b ON a.vend_id = b.vend_id;
 ```
 
-### LEFT JOIN
+#### 左连接 LEFT JOIN
 
 左连接LEFT JOIN的含义就是求两个表的交集外加左表剩下的数据。依旧从笛卡尔积的角度讲，就是先从笛卡尔积中挑出ON子句条件成立的记录，然后加上左表中剩余的记录（见最后三条）。
 ```sql
@@ -854,7 +953,7 @@ SELECT * FROM t_blog LEFT JOIN t_type ON t_blog.typeId=t_type.id;
     | 10 | jjj   |   NULL | NULL | NULL |
     +----+-------+--------+------+------+
 
-### RIGHT JOIN 右连接
+#### 右连接 RIGHT JOIN 
 
 同理右连接RIGHT JOIN就是求两个表的交集外加右表剩下的数据。再次从笛卡尔积的角度描述，右连接就是从笛卡尔积中挑出ON子句条件成立的记录，然后加上右表中剩余的记录（见最后一条）
 ```sql
@@ -873,7 +972,7 @@ SELECT * FROM t_blog RIGHT JOIN t_type ON t_blog.typeId=t_type.id;
     | NULL | NULL  |   NULL |  5 | Javascript |
     +------+-------+--------+----+------------+
 
-### OUTER JOIN 外联结
+#### 外联结 OUTER JOIN 
 
 ```sql
     SELECT * FROM t_blog LEFT JOIN t_type ON t_blog.typeId=t_type.id
@@ -901,7 +1000,7 @@ SELECT * FROM t_blog RIGHT JOIN t_type ON t_blog.typeId=t_type.id;
 
 ![](./assets/mysql_1.jpg)
 
-## UNION 组合查询
+### 组合查询 UNION 
 
 多数SQL查询都只包含从一个或多个表中返回数据的单条SELECT语句。MySQL也允许执行多个查询（多条SELECT语句），并将结果作为单个查询结果集返回。这些组合查询通常称为并（union）或复合查询（compound query）。
 
@@ -928,3 +1027,5 @@ select vend_id, prod_id,prod_price
 from products
 where (prod_price <=5 or vend_id in (1001,1002));
 ```
+
+# 其他：存储过程、数据库安全、数据库性能、数据库维护等
