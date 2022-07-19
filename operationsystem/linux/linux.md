@@ -442,6 +442,17 @@ reboot [-n] [-w] [-d] [-f] [-i]
 
 ### 查看系统版本号：lsb_release -a
 
+LSB是Linux Standard Base的缩写， lsb_release命令 用来显示LSB和特定版本的相关信息。如果使用该命令时不带参数，则默认加上-v参数。
+
+参数：
+-v 显示版本信息。
+-i 显示发行版的id。
+-d 显示该发行版的描述信息。
+-r 显示当前系统是发行版的具体版本号。
+-c 发行版代号。
+-a 显示上面的所有信息。
+-h 显示帮助信息。
+
 ```
 [root@geekist local]# lsb_release -a
 LSB Version:    :core-4.1-amd64:core-4.1-noarch
@@ -462,10 +473,10 @@ uname -a
 
 ```
 
-### 查看CPU内核数：grep ^processor /proc/cpuinfo | wc -l
+### 查看CPU内核数：cat /proc/cpuinfo |grep "processor"|wc -l
 
 ```
-grep ^processor /proc/cpuinfo | wc -l
+cat /proc/cpuinfo |grep "processor"|wc -l
 ```
 
 
@@ -550,13 +561,18 @@ tmpfs           1.6G     0  1.6G   0% /run/user/0
 显示内容参数说明：
 
 Filesystem：文件系统
+
 Size： 分区大小
+
 Used： 已使用容量
+
 Avail： 还可以使用的容量
+
 Use%： 已用百分比
+
 Mounted on： 挂载点
 
-### 查看目录的大小：du
+### 查看当前目录的大小：du
 
 du 的英文原义为 disk usage，含义为显示磁盘空间的使用情况，用于查看当前目录的总大小。
 
@@ -705,7 +721,7 @@ cp is /bin/cp
 
 ### find 在指定目录中搜索文件
 
-ind 是 Linux 中强大的搜索命令，不仅可以按照文件名搜索文件，还可以按照权限、大小、时间、inode 号等来搜索文件。但是 find 命令是直接在硬盘中进行搜索的，如果指定的搜索范围过大，find命令就会消耗较大的系统资源，导致服务器压力过大。所以，在使用 find 命令搜索时，不要指定过大的搜索范围。
+find 是 Linux 中强大的搜索命令，不仅可以按照文件名搜索文件，还可以按照权限、大小、时间、inode 号等来搜索文件。但是 find 命令是直接在硬盘中进行搜索的，如果指定的搜索范围过大，find命令就会消耗较大的系统资源，导致服务器压力过大。所以，在使用 find 命令搜索时，不要指定过大的搜索范围。
 
 格式：
 
@@ -764,6 +780,10 @@ s: socket
 例子：
 
 ```
+#在磁盘中查找包含java的文件，并忽略大小写
+[root@geekist etc]# find / -iname java
+
+
 在当前目录中查找文件：
 
 find test.c
