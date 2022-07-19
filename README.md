@@ -43,13 +43,15 @@ Spring Cloud
 
 *  [Spring Cloud alibaba demo](https://github.com/geekist/developer_guide/blob/main/server/spring_cloud_alibaba_demo.md)
 
-Authority
+Spring 安全
 
 * [Google kaptcha验证码图形生成工具](https://github.com/geekist/developer_guide/blob/main/server/kaptcha.md)
 
+* [Shiro](https://github.com/geekist/developer_guide/blob/main/server/shiro.md)
+
+
 Redis数据缓存服务器
  
-
 * [使用spring-boot-starter-data-redis操作redis缓存数据库](https://github.com/geekist/developer_guide/blob/main/server/spring_data_redis.md)
 
 Mybatis
@@ -84,7 +86,7 @@ Java log系统
 
 *  [spring cloud微服务整合分布式日志工具：TLog](https://github.com/geekist/developer_guide/blob/main/server/tlog.md)
 
-* [spring boot整合可视化日志工具：logstash](https://blog.csdn.net/syc000666/article/details/98668485)
+*  [spring boot整合可视化日志工具：logstash](https://blog.csdn.net/syc000666/article/details/98668485)
 
 前端
 
