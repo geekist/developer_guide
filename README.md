@@ -5,7 +5,7 @@ Linux环境下Web服务器开发
 
 * [Linux基本命令和shell脚本](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
-* [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
+* [Linux环境下JDK、Git、Maven、Nginx和Nacos的安装与卸载](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
 * [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
 

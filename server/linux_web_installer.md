@@ -72,6 +72,7 @@
 
 
 在linux服务器上运行java web服务器，需要安装JDK、Git、Maven和Nginx。
+
 其中：
 
 * JDK是编译和运行Java服务器程序的依赖项，maven的运行也依赖于JDK。`JDK需要从oracle官网下载1.8.202版本，解压安装，不要安装openSDK版本`
@@ -80,110 +81,151 @@
 
 * Maven用来编译Java Web服务器程序。`Maven需要从官网下载，解压安装，不能通过yum安装，因为会默认安装opensdk`
 
-* Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。
+* Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。（需要编译安装，这样可以配置websocket、ssl等模块）
 
-总结，全新的服务器安装，除了git可以不考虑版本，直接通过yum从服务器下载之外，其他的JDK、Maven、Nginx和Nacos都需要下载压缩包安装或编译安装。（Nginx需要编译安装）
+**Linux环境下web服务器配置，除了git可以不考虑版本，直接通过yum从服务器下载之外，其他的JDK、Maven、Nginx和Nacos都需要下载压缩包安装或编译安装（Nginx需要编译安装）。**
 
 # 一、JDK安装和环境配置
 
-## 1、检查
-安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java，`如果已经预装了OpenSDK，需要先删除掉`。JDK的最后一个免费版本是1.8.202版本。
+## 1.1 彻底删除原有的JDK
 
-### 1.1、检查JDK是否安装
+安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java开发包。
+
+>安装JDK，不是OpenSDK。JDK的最后一个免费版本是1.8.202版本。
+
+### 1.1.1 检查JDK是否安装(java -version)
 
 检查生产环境是否安装了Java
-```
-java -version
-```
+
+**java -version**
+
 如果安装了java，可以看到java的sdk版本和JRE的版本信息
+```shell
+[root@geekist ~]# java -version
+java version "1.8.0_202"
+Java(TM) SE Runtime Environment (build 1.8.0_202-b08)
+Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)
 ```
+
+如果安装的opensdk或jdk的其他版本，需要删除。
+
+```shell
 [root@geekist ~]# java -version
 openjdk version "1.8.0_292"
 OpenJDK Runtime Environment (build 1.8.0_292-b10)
 OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 [root@geekist ~]#
 ```
-### 1.2、查看JDK安装目录
-用whereis、which、find等shell工具查找java目录
-```
-[root@geekist etc]# whereis java
-java: /etc/java
 
-[root@geekist etc]# which java
-/usr/bin/which: no java in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin)
+### 1.1.2 删除由rpm下载安装的JDK
 
-[root@geekist etc]# find / -name java
-/usr/share/bash-completion/completions/java
-/etc/java
-/etc/pki/java
-/etc/pki/ca-trust/extracted/java
-```
-### 1.3、检查JDK是否由rpm下载安装或者由压缩包解压安装
-通过rpm命令查看是否该安装是由rpm下载安装
-```
-rpm -qa |grep java
-```
+一般linux系统会默认通过rpm安装opensdk。
+
+rpm是linux系统中软件包管理的底层通用工具。通过rpm命令查看是否该安装是由rpm下载安装.rpm -qa 显示安装到系统中的所有软件包列表：
+
+**rpm -qa |grep java**
+
 如果是由rpm下载安装，则显示如下
-```
+
+```shell
 [root@geekist ~]# rpm -qa |grep java
 javapackages-filesystem-5.3.1-7.3.al8.noarch
 tzdata-java-2021a-1.1.al8.noarch
 java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
-## 2、删除已经安装的JDK
 
-### * 通过rpm下载安装的JDK的删除
 将用 rpm -qa|grep java列出的文件用rpm -e --nodeps 命令逐个删除
 
-```
-#rpm -e --nodeps javapackages-filesystem-5.3.1-7.3.al8.noarch
-```
-删除后用rpm -qa|grep java查看，发现剩下3个，然后依次删除。
-```
+**rpm -e --nodeps javapackages-filesystem-5.3.1-7.3.al8.noarch**
+
+删除后用rpm -qa|grep java查看，发现还剩下3个，然后依次删除。
+
+```shell
 #rpm -e --nodeps tzdata-java-2021a-1.1.al8.noarch
 #rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 #rpm -e --nodeps java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
-或者可以用yum命令：
-```
-yum remove maven
-```
+
+也可以用上层的yum命令来删除
+
+**yum remove java**
+
 全部删除完成后用java -version检查，发现已经无法运行
 ```
 [root@geekist ~]# java -version
 -bash: /usr/bin/java: No such file or directory
 ```
-### * 通过JDK压缩包解压安装的删除
 
-用whereis命令等查找安装目录：
+### 1.1.3 删除自己安装的JDK 
+
+首先用whereis、which、find等shell工具查找java目录
+
+**whereis java 搜索二进制文件**
+whereis 搜索二进制文件
 ```
-[root@geekist local]# whereis java
-java: /usr/local/jdk1.8.0_202/bin/java
+[root@geekist ~]# whereis java
+java: /usr/local/java /usr/local/java/jdk1.8.0_202/bin/java
+```
 
-[root@geekist local]# which java
-/usr/local/jdk1.8.0_202/bin/java
+**which 搜索bin目录下文件**
+```shell
+[root@geekist ~]# which java
+/usr/local/java/jdk1.8.0_202/bin/java
+```
 
-[root@geekist local]# find / -name java
+**find 搜索所有文件**
+```shell
+[root@geekist ~]# find / -iname java
+/root/.m2/repository/net/java
 /usr/share/bash-completion/completions/java
-/usr/local/jdk1.8.0_202/bin/java
-/usr/local/jdk1.8.0_202/jre/bin/java
+/usr/local/java
+/usr/local/java/jdk1.8.0_202/bin/java
+/usr/local/java/jdk1.8.0_202/jre/bin/java
+/etc/pki/java
+/etc/pki/ca-trust/extracted/java
+/var/yuya/yychildren/yychildren-common/src/main/java
+/var/yuya/yychildren/yychildren-generator/src/test/java
+/var/yuya/yychildren/yychildren-generator/src/main/java
+/var/yuya/yychildren/yychildren-console/src/main/java
+/var/yuya/yychildren/yychildren/yychildren-console/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-task/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-core/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-common/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-parent/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-generator/src/test/java
+/var/yuya/yychildren_server_springcloud/yychildren-generator/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-console/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-gateway/src/main/java
+/var/yuya/yychildren_server_springcloud/yychildren-teacher/src/main/java
 ```
 
-然后删除上述目录
-```
+可以看到java安装在/usr/local/java目录下，用rm命令删除已经安装的JDK
+```shell
 rm -rf /usr/local/java
 ```
 
 如果配置文件/etc/profile中配置了环境变量，也需要删除。
+```shell
+vim /etc/profile
 
-## 3、安装JDK
+删除下面的jdk配置
+ 78 #JDK环境变量配置：
+ 79 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
+ 80 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+ 81 export PATH=$JAVA_HOME/bin:$PATH
+ ```
 
-### * 使用压缩包安装JDK
+## 1.2 安装JDK
+
+### 1.2.1 使用压缩包安装JDK
+
+在oracle官网下载jdk_8u_202版本
 
 到oracle官网：http://www.oracle.com/ ---资源--下载--JDK--archive，找到8u-202版本，最后的免费版本
 
 新建一个 JDK 安装目录java
+
 ```
 mkdir /usr/local/java
 cd /usr/local/java
@@ -198,6 +240,7 @@ $ tar zxvf jdk-8u202-linux-x64.tar.gz
 ```
 至此，JDK安装完成。
 
+### 1.2.2 使用yum安装openjdk
 
 >使用yum安装openjdk
 >
@@ -212,31 +255,30 @@ $ tar zxvf jdk-8u202-linux-x64.tar.gz
 >```
 >yum install -y java-1.8.0-openjdk.x86_64
 >```
+>
+>安装成功后用上述查找方法，可以确认java安装成功。
+>
+>yum 安装openjdk，经测试直接安装在/usr目录下。手动删除需要逐个删除java目录。
 
-安装成功后用上述查找方法，可以确认java安装成功。
+## 1.3 配置java环境
 
-## 4、配置java环境
-
-### 4.1、配置文件
 打开linux配置文件，如果有以前的配置，可以先删除。
 
+```shell
+vim /etc/profile
 ```
-vi /etc/profile
-```
-
-### 4.2、添加java环境变量
 
 如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
 
 JDK的配置
-```
+```shell
 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
 
 >openJDK的配置
->```
+>```shell
 >#set java environment
 >JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
 >PATH=$PATH:$JAVA_HOME/bin
@@ -244,11 +286,14 @@ export PATH=$JAVA_HOME/bin:$PATH
 >export JAVA_HOME CLASSPATH PATH
 >```
 
-### 4.3、执行profile文件，使配置生效
+执行profile文件，使配置生效
 
-```
+**source  /etc/profile**
+
+```shell
  source  /etc/profile
 ```
+
 >配置环境变量，是为了有些程序编译时，需要寻找到lib目录和jre目录。
 
 
