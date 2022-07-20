@@ -162,7 +162,9 @@ java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 首先用whereis、which、find等shell工具查找java目录
 
 **whereis java 搜索二进制文件**
+
 whereis 搜索二进制文件
+
 ```
 [root@geekist ~]# whereis java
 java: /usr/local/java /usr/local/java/jdk1.8.0_202/bin/java
@@ -238,6 +240,31 @@ cd /usr/local/java
 ```
 $ tar zxvf jdk-8u202-linux-x64.tar.gz 
 ```
+文件安装完成，下面进行配置。
+
+打开linux配置文件，如果有以前的配置，可以先删除。
+
+```shell
+vim /etc/profile
+```
+
+如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
+
+JDK的配置
+```shell
+export JAVA_HOME=/usr/local/java/jdk1.8.0_202
+export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+执行profile文件，使配置生效
+
+**source  /etc/profile**
+
+```shell
+ source  /etc/profile
+```
+
 至此，JDK安装完成。
 
 ### 1.2.2 使用yum安装openjdk
@@ -259,24 +286,15 @@ $ tar zxvf jdk-8u202-linux-x64.tar.gz
 >安装成功后用上述查找方法，可以确认java安装成功。
 >
 >yum 安装openjdk，经测试直接安装在/usr目录下。手动删除需要逐个删除java目录。
-
-## 1.3 配置java环境
-
-打开linux配置文件，如果有以前的配置，可以先删除。
-
-```shell
-vim /etc/profile
-```
-
-如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
-
-JDK的配置
-```shell
-export JAVA_HOME=/usr/local/java/jdk1.8.0_202
-export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
-export PATH=$JAVA_HOME/bin:$PATH
-```
-
+>
+>打开linux配置文件，如果有以前的配置，可以先删除。
+>
+>```shell
+>vim /etc/profile
+>```
+>
+>如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
+>
 >openJDK的配置
 >```shell
 >#set java environment
@@ -285,16 +303,17 @@ export PATH=$JAVA_HOME/bin:$PATH
 >CLASSPATH=.:$JAVA_HOME/lib
 >export JAVA_HOME CLASSPATH PATH
 >```
+>
+>执行profile文件，使配置生效
+>
+>**source  /etc/profile**
+>
+>```shell
+> source  /etc/profile
+>```
+>至此，openSDK安装完成。
 
-执行profile文件，使配置生效
-
-**source  /etc/profile**
-
-```shell
- source  /etc/profile
-```
-
->配置环境变量，是为了有些程序编译时，需要寻找到lib目录和jre目录。
+配置环境变量，是为了有些程序编译时，需要寻找到lib目录和jre目录。
 
 
 # 二、Git安装和环境配置
