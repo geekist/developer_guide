@@ -401,45 +401,6 @@ yum remove git
 yum install -y git
 ```
 
-## 4、下载源代码
-
-首先创建源代码目录
-```
-mkdir /var/yuya
-```
-* 从源代码服务器克隆后台管理服务代码到本地
-
-```
-git clone "https://gitee.com/iyuya/yychildren.git"
-```
-例如：
-```
-[root@geekist yuya]# git clone "https://gitee.com/iyuya/yychildren.git"
-Cloning into 'yychildren'...
-Username for 'https://gitee.com': 13681986288
-Password for 'https://13681986288@gitee.com':
-remote: Enumerating objects: 8558, done.
-remote: Counting objects: 100% (3121/3121), done.
-remote: Compressing objects: 100% (2308/2308), done.
-remote: Total 8558 (delta 1555), reused 3 (delta 3), pack-reused 5437
-Receiving objects: 100% (8558/8558), 20.87 MiB | 3.17 MiB/s, done.
-Resolving deltas: 100% (4719/4719), done.
-```
-切换到正确的分支
-
-```
-git checkout dev
-
-git pull orign dev
-```
-
-* 从源代码服务器克隆客户端API代码到本地
-
-```
-git clone "https://gitee.com/iyuya/yychildren_server_springcloud.git"
-```
-同理可以下载正确的分支代码到本地。
-
 * 配置保存用户名和密码，不用每次都输入
 
 查找git的配置文件：
