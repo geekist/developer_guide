@@ -322,7 +322,58 @@ rename table u_user to u_super_user;
  所有数值数据类型（除BIT和BOOLEAN外）都可以有符号或无符号。有符号数值列可以存储正或负的数值，无符号数值列只能存储正数。默认情况为有符号，但如果你知道自己不要存储负值，可以使用UNSIGNED关键字，这样做将允许你存储两倍大小的值。
 
  不使用引号
-  与串不一样，数值不应该括在引号内。
+与串不一样，数值不应该括在引号内。
+
+* BOOLEAN类型
+
+MySQL没有内置的布尔类型。 但是它使用TINYINT(1)。 为了更方便，MySQL提供BOOLEAN或BOOL作为TINYINT(1)的同义词在MySQL中，0被认为是false，非零值被认为是true。 要使用布尔文本，可以使用常量TRUE和FALSE来分别计算为1和0。
+
+在表中创建boolean类型的列
+```sql
+USE testdb;
+CREATE TABLE tasks (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    completed BOOLEAN
+    #completed TINYINT(1)
+);
+```
+向tasts表中插入2行数据：可以插入true和false
+
+```sql
+INSERT INTO tasks(title,completed) 
+VALUES('Master MySQL Boolean type',
+        true),
+      ('Design database table',
+        false);
+```
+
+查询出来的结果是 0 和 1
+
+```sql
+select * from task;
+```
+
+where子句中作为boolean值来判断：
+
+筛选出completed = 1的数据列表；
+```sql
+SELECT 
+    id, title, completed
+FROM
+    tasks
+WHERE
+    completed = TRUE;
+```
+筛选出completed > 0 的数据列表；
+```sql
+SELECT 
+    id, title, completed
+FROM
+    tasks
+WHERE
+    completed is TRUE;
+```
 
 存储货币数据类型 
 MySQL中没有专门存储货币的数据类型，一般情况下使用DECIMAL(8, 2)
