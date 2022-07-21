@@ -61,7 +61,6 @@
 
 
 
-* Git用来从代码服务器获取代码。（`Git工具可以通过yum下载`）
 
 * Maven用来编译Java Web服务器程序。（`Maven需要从官网下载，解压安装，不能通过yum安装，因为会默认安装opensdk`）
 
@@ -306,41 +305,49 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 # 二、Git安装和环境配置
 
-## 1、检查
+ Git用来从代码服务器获取代码。Git工具可以通过yum下载。
 
-### 1.1检查是否安装了git
+ 本文只讨论yum方式的删除和安装
 
-```
-[root@iZbp19n36uysranoj3k2x5Z etc]# git --version
-git version 2.18.4
-```
+## 2.1 彻底卸载原有的git环境
 
-### 1.2检查git是否通过rpm方式安装
+### 2.1.1 检查是否安装了git（git --version)
 
-```
-[root@iZbp19n36uysranoj3k2x5Z etc]# rpm -qa|grep git
-crontabs-1.11-16.20150630git.el8.noarch
-audit-libs-3.0-0.17.20191104git1c2f876.el8.x86_64
-audit-3.0-0.17.20191104git1c2f876.el8.x86_64
-git-core-2.18.4-2.el8_2.x86_64
-git-2.18.4-2.el8_2.x86_64
-dracut-049-70.git20200228.el8.x86_64
-crypto-policies-20191128-2.git23e1bf1.el8.noarch
-python3-audit-3.0-0.17.20191104git1c2f876.el8.x86_64
-fprintd-1.90.0-0.20191121gitf022902.el8.x86_64
-git-core-doc-2.18.4-2.el8_2.noarch
-libnsl2-1.2.0-2.20180605git4a062cf.el8.x86_64
-dracut-squash-049-70.git20200228.el8.x86_64
-dracut-network-049-70.git20200228.el8.x86_64
-fprintd-pam-1.90.0-0.20191121gitf022902.el8.x86_64
-net-tools-2.0-0.51.20160912git.el8.x86_64
-lm_sensors-libs-3.4.0-21.20180522git70f7e08.el8.x86_64
-linux-firmware-20191202-97.gite8a0f4c9.el8.noarch
-dracut-config-rescue-049-70.git20200228.el8.x86_64
+```shell
+[root@geekist java]# git --version
+git version 2.27.0
 ```
 
-### 1.3查找git安装目录
+### 2.1.2 检查git是否通过rpm方式安装(rpm -qa|grep git)
+可以看到：
 
+`git-core-doc-2.27.0-1.1.al8.noarch`
+
+
+```shell
+[root@geekist java]# rpm -qa|grep git
+git-core-2.27.0-1.1.al8.x86_64
+audit-libs-3.0-0.17.20191104git1c2f876.1.al8.x86_64
+plymouth-scripts-0.9.4-7.20200615git1e36e30.1.al8.x86_64
+net-tools-2.0-0.52.20160912git.1.al8.x86_64
+linux-firmware-20200619-99.git3890db36.1.al8.noarch
+crontabs-1.11-16.20150630git.1.al8.noarch
+dracut-squash-049-95.git20200804.1.al8.x86_64
+plymouth-0.9.4-7.20200615git1e36e30.1.al8.x86_64
+audit-3.0-0.17.20191104git1c2f876.1.al8.x86_64
+lm_sensors-libs-3.4.0-21.20180522git70f7e08.1.al8.x86_64
+git-core-doc-2.27.0-1.1.al8.noarch
+git-2.27.0-1.1.al8.x86_64
+crypto-policies-scripts-20200713-1.git51d1222.1.al8.noarch
+crypto-policies-20200713-1.git51d1222.1.al8.noarch
+dracut-049-95.git20200804.1.al8.x86_64
+dracut-network-049-95.git20200804.1.al8.x86_64
+dracut-config-rescue-049-95.git20200804.1.al8.x86_64
+libnsl2-1.2.0-2.20180605git4a062cf.2.al8.x86_64
+plymouth-core-libs-0.9.4-7.20200615git1e36e30.1.al8.x86_64
+```
+
+### 2.1.3 查找git安装目录
 ```
 [root@iZbp19n36uysranoj3k2x5Z etc]# whereis git
 git: /usr/bin/git /usr/share/man/man1/git.1.gz
@@ -359,14 +366,15 @@ git: /usr/bin/git /usr/share/man/man1/git.1.gz
 /usr/libexec/git-core/git
 ```
 
-## 2、卸载Git
+## 2.1.4 卸载Git
 
 通过rpm或yum安装的git，可以通过yum方式卸载git
 ```
 yum remove git
 ```
 
-如果有配置保存在系统的配置文件里，同时需要删除。
+如果有配置保存在系统的配置文件里，同时需要删除。git的配置文件有三层：分别是：全局配置、当前用户、当前项目配置。一般用当前用户的配置。
+`~/.gitconfig`
 
 * /etc/gitconfig 文件（全局配置）
 
@@ -376,7 +384,7 @@ yum remove git
 
 一般在~/.gitconfig文件中可以看到：
 
-```
+```s
 [user]
     email = yuyaapp@163.com
     name = 13681986288
@@ -386,7 +394,7 @@ yum remove git
 ```
 删除原来的配置即可。
 
-## 3、安装Git
+## 2.2 安装Git
 
 用yum 安装git
 ```
