@@ -426,7 +426,7 @@ validate
 package
 ```
 
-## 5、maven 常用命令：
+# 五、maven 常用命令：
 
 在实际开发过程中，经常使用的命令有：
 
@@ -467,51 +467,75 @@ package
 * mvn site 生成项目相关信息的网站
 
 
-## 6、通过profiles构建不同的应用
+# 六、Maven profiles
+
+
+## 6.1 Maven Profiles介绍
 
 在开发过程中，我们的软件会面对不同的运行环境，比如开发环境、测试环境、生产环境，而我们的软件在不同的环境中，有的配置可能会不一样，比如数据源配置、日志文件配置、以及一些软件运行过程中的基本配置，那每次我们将软件部署到不同的环境时，都需要修改相应的配置文件，这样来回修改，很容易出错，而且浪费劳动力。
 
 maven提供了一种方便的解决这种问题的方案，就是profile功能。profile可以让我们定义一系列的配置信息，然后指定其激活条件。这样我们就可以定义多个profile，然后每个profile对应不同的激活条件和配置信息，从而达到不同环境使用不同配置信息的效果。
 
-profile定义的位置
+## 6.2 profiles定义的位置
 
-（1）    全局的profile配置。全局的profile是定义在Maven安装目录下的“conf/settings.xml”文件中的。
+profile可以定义在不同定义的位置
 
-（2）    针对于特定用户的profile配置，我们可以在用户的settings.xml文件中定义profile。该文件在用户家目录下的“.m2”目录下。
+* 全局的profile配置
 
-（3）    针对于特定项目的profile配置我们可以定义在该项目的pom.xml中。（下面举例是这种方式）
+全局的profile是定义在Maven安装目录下的“conf/settings.xml”文件中的
 
-### 6.1 profile的配置写法
+* 针对当前用户的profile配置
 
-在项目根目录的pom.xml文件中，
+针对于特定用户的profile配置，我们可以在用户的settings.xml文件中定义profile。该文件在用户家目录下的“.m2”目录下。
+
+* 针对单个工程的profile配置
+
+针对于特定项目的profile配置我们可以定义在该项目的pom.xml中。本文介绍的profiles就是针对工程设置的配置
+
+### 6.3 profile的配置写法
+
+在项目根目录的pom.xml文件中，添加profiles标签，一个profiles下面包含多个profile，可以针对不同使用场景定义不同的功能。
 
 ```xml
 <profiles>
-		<profile>
-			<id>local</id>
-			<properties>
-				<profileActive>local</profileActive>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>test</id>
-			<properties>
-				<profileActive>test</profileActive>
-			</properties>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<profileActive>prod</profileActive>
-			</properties>
-		</profile>
-	</profiles>
-```
+	<!--local profile,定义了profileActive变量值为local，并且设置项目默认的profile为local-->	
+    <profile>
+		<id>local</id>
+		<properties>
+			<profileActive>local</profileActive>
+		</properties>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+	</profile>
 
-### 6.2 在profile中可以被配置的项及使用方法：
+	<!--test profile,定义了profileActive变量值为test-->	
+	<profile>
+		<id>test</id>
+		<properties>
+			<profileActive>test</profileActive>
+		</properties>
+	</profile>
+		
+    <!--prod profile,定义了profileActive变量值为test-->	
+    <profile>
+		<id>prod</id>
+		<properties>
+			<profileActive>prod</profileActive>
+		</properties>
+	</profile>
+</profiles>
+
+<resource>
+    <!--这里是关键！ 根据不同的环境，把对应文件夹里的配置文件打包-->
+    <directory>src/main/resources/${profileActive}</directory>
+
+    <includes>
+        <!--读取打包命令中指定的环境-->
+        <include>application-${profileActive}.yml</include>
+    </includes>
+</resource>
+```
 
 pom中的下列元素中的配置均可通过profiles定义:
 
@@ -538,10 +562,15 @@ pom中的下列元素中的配置均可通过profiles定义:
     </profiles>
 </project>
 ```
+# 6.4 profile中的变量值如何被使用
 
 在前面的例子中，我们可以看到定义了多个profile，每个profile都有唯一的id，也包含properties属性。
 
-这里为每个profile都定义一个名为profiles.active的properties，每个环境的值不同。当我们打包项目时，激活不同的环境，profileActive字段就会被赋予不同的值。profileActive字段可以应用到许多地方，及其灵活。可以在配置文件里被引用；也可以结合pom文件里的resource和filter属性，作为文件名的一部分或者文件夹名的一部分。
+这里为每个profile都定义一个名为profileActive的properties，每个环境的值不同。
+
+当我们打包项目时，激活不同的环境，profileActive字段就会被赋予不同的值。
+
+profileActive字段可以应用到许多地方，及其灵活。可以在配置文件里被引用；也可以结合pom文件里的resource和filter属性，作为文件名的一部分或者文件夹名的一部分。
 
 例如，我们在pom.xml的resouece标签中使用了该定义：
 
@@ -554,7 +583,6 @@ pom中的下列元素中的配置均可通过profiles定义:
         <!--读取打包命令中指定的环境-->
         <include>application-${profileActive}.yml</include>
     </includes>
-
 </resource>
 ```
 如果我们在执行maven命令的时候，指定某一个profile被激活，如：
@@ -563,37 +591,40 @@ pom中的下列元素中的配置均可通过profiles定义:
 mvn clean package -Plocal
 ```
 则resouce中的directory为： src/resources/local目录。
-application-local.yml文件被使用。
+
+include文件为：application-local.yml文件。
 
 
-### 6.3 Profile的激活方式
+### 6.5 Profile的激活方式
 
-#### 1. 使用 activeByDefault设置激活
+#### 6.5.1 使用 activeByDefault设置激活
 
 我们可以在profile中的activation元素中指定激活条件，当没有指定条件，并且指定activeByDefault为true的时候，就表示当没有指定其他profile为激活状态时，该profile就默认会被激活。
 在上面的例子中：
 
 ```xml
 <profile>
-			<id>local</id>
-			<properties>
-				<profileActive>local</profileActive>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+	<id>local</id>
+	<properties>
+		<profileActive>local</profileActive>
+	</properties>
+	<activation>
+		<activeByDefault>true</activeByDefault>
+	</activation>
 </profile>
 ```
-我们设置id为local的profile的activeByDefault属性为true，当我们调用mvn package的时候，则localprofile将会被激活，但是当我们使用mvn package –P test的时候，testProfile将被激活，而这个时候local将不会被激活。
+我们设置id为local的profile的activeByDefault属性为true，
+
+当我们调用mvn package,后面不使用参数的时候，则localprofile将会被激活，但是当我们使用mvn package –P test的时候，testProfile将被激活，而这个时候local将不会被激活。
 
 
-#### 2. 在 settings.xml中使用activeProfiles设置激活
+#### 6.5.2  在 settings.xml中使用activeProfiles设置激活
 
 我们就可以在settings.xml中定义activeProfiles，具体定义如下：
 
 ```xml
 <activeProfiles> 
-    <activeProfile>profile1</activeProfile> 
+    <activeProfile>prod</activeProfile> 
 </activeProfiles> 
 ```
 这样，如果profile的配置如下所示：
@@ -601,47 +632,37 @@ application-local.yml文件被使用。
 ```xml
 <profiles> 
     <profile> 
-        <id>profile1</id> 
+        <id>local</id> 
         <properties> 
-            <hello>lilei</hello> 
+            <profileActive>local</hello> 
         </properties> 
     </profile> 
 
     <profile> 
-        <id>profile2</id> 
+        <id>prod</id> 
         <properties> 
-            <hello>hanmeimei</hello> 
+            <profileActive>prod</hello> 
         </properties> 
     </profile> 
 </profiles>
 ```
 那么，profile为profile1的配置会被激活。
 
-补充：考虑这样一种情况，我们在activeProfiles下同时定义了多个需要激活的profile。这里还拿上面的profile定义来举例，我们定义了同时激活profileTest1和profileTest2。
-```
-<activeProfiles> 
-    <activeProfile>profile1</activeProfile> 
-    <activeProfile>profile2</activeProfile> 
-</activeProfiles>
-```
-从profileTest1和profileTest2我们可以看出它们共同定义了属性hello。那么这个时候我在pom.xml中使用属性hello的时候，它到底取的哪个值呢？是根据activeProfile定义的顺序，后面的覆盖前面的吗？根据我的测试，答案是非也，它是根据profile定义的先后顺序来进行覆盖取值的，然后后面定义的会覆盖前面定义的。
-
-
-#### 3.使用-P参数显示的激活一个profile
+#### 6.5.3 使用-P参数显示的激活一个profile
 
 我们在进行Maven操作时，可以使用-P参数显示的指定当前激活的是哪一个profile。比如我们需要在对项目进行打包的时候使用id为profile1的profile，我们就可以这样做：
 ```
-mvn package –P profile1 
+mvn package –P test 
 ```
 
 当我们使用activeByDefault或settings.xml中定义了处于激活的profile，但是当我们在进行某些操作的时候又不想它处于激活状态，这个时候我们可以这样做：
 ```
-Mvn package –P !profile2
+Mvn package –P !test
 ``` 
 这里假设profileTest1是在settings.xml中使用activeProfile标记的处于激活状态的profile，那么当我们使用“-P !profile”的时候就表示在当前操作中该profile将不处于激活状态。
 
 
-#### 4.根据环境来激活profile
+#### 6.5.4 根据环境来激活profile
 
 profile一个非常重要的特性就是它可以根据不同的环境来激活，比如说根据操作系统的不同激活不同的profile，也可以根据jdk版本的不同激活不同的profile，等等。
 
@@ -706,11 +727,12 @@ profile一个非常重要的特性就是它可以根据不同的环境来激活�
 </profiles>
 ```
 
->查看当前处于激活状态的profile
->
->我们可以同时定义多个profile，那么在建立项目的过程中，到底激活的是哪一个profile呢？Maven为我们提供了一个指令可以查看当前处于激活状态的profile都有哪些，这个指定就是：
->
-> mvn help:active-profiles
+#### 6.5.6 查看当前激活的profile
+
+
+我们可以同时定义多个profile，那么在建立项目的过程中，到底激活的是哪一个profile呢？Maven为我们提供了一个指令可以查看当前处于激活状态的profile都有哪些，这个指定就是：
+
+**mvn help:active-profiles**
 
 ## 7.Maven变量
 
