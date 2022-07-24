@@ -1,68 +1,4 @@
-- [一、JDK安装和环境配置](#一jdk安装和环境配置)
-  - [1.1 彻底删除原有的JDK](#11-彻底删除原有的jdk)
-    - [1.1.1 检查JDK是否安装(java -version)](#111-检查jdk是否安装java--version)
-    - [1.1.2 删除由rpm下载安装的JDK](#112-删除由rpm下载安装的jdk)
-    - [1.1.3 删除自己安装的JDK](#113-删除自己安装的jdk)
-  - [1.2 安装JDK](#12-安装jdk)
-    - [1.2.1 使用压缩包安装JDK](#121-使用压缩包安装jdk)
-    - [1.2.2 使用yum安装openjdk](#122-使用yum安装openjdk)
-- [二、Git安装和环境配置](#二git安装和环境配置)
-  - [1、检查](#1检查)
-    - [1.1检查是否安装了git](#11检查是否安装了git)
-    - [1.2检查git是否通过rpm方式安装](#12检查git是否通过rpm方式安装)
-    - [1.3查找git安装目录](#13查找git安装目录)
-  - [2、卸载Git](#2卸载git)
-  - [3、安装Git](#3安装git)
-  - [4、下载源代码](#4下载源代码)
-- [三、Maven安装和环境配置](#三maven安装和环境配置)
-  - [1、检查](#1检查-1)
-    - [1.1检查Maven是否安装](#11检查maven是否安装)
-    - [1.2查看Maven安装目录](#12查看maven安装目录)
-    - [1.3检查Maven是否由rpm下载安装或者由压缩包解压安装](#13检查maven是否由rpm下载安装或者由压缩包解压安装)
-  - [2、卸载](#2卸载)
-    - [删除通过压缩包方式安装的maven](#删除通过压缩包方式安装的maven)
-  - [3、安装](#3安装)
-    - [用压缩包的方式安装maven](#用压缩包的方式安装maven)
-    - [4、配置](#4配置)
-- [四、Nginx的安装和环境配置](#四nginx的安装和环境配置)
-  - [1、检查](#1检查-2)
-    - [1.1检查nginx是否正在运行](#11检查nginx是否正在运行)
-    - [1.2通过whereis等方法查看nginx的安装目录](#12通过whereis等方法查看nginx的安装目录)
-    - [1.3检查是否yum安装](#13检查是否yum安装)
-  - [2、删除](#2删除)
-    - [通过压缩包编译的nginx的卸载](#通过压缩包编译的nginx的卸载)
-    - [通过yum安装的nginx的删除](#通过yum安装的nginx的删除)
-  - [3、安装](#3安装-1)
-    - [通过下载源码编译的方式安装nginx](#通过下载源码编译的方式安装nginx)
-    - [使用yum命令从云应用仓库下载并安装nginx](#使用yum命令从云应用仓库下载并安装nginx)
-  - [3、配置](#3配置)
-  - [4、常用命令](#4常用命令)
-    - [启动nginx](#启动nginx)
-    - [带配置文件的启动](#带配置文件的启动)
-    - [停止nginx](#停止nginx)
-    - [安全停止nginx](#安全停止nginx)
-    - [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
-- [五、Nacos安装和环境配置](#五nacos安装和环境配置)
-  - [1、检查](#1检查-3)
-    - [1.1通过进程查看命令查看nacos是否正在运行](#11通过进程查看命令查看nacos是否正在运行)
-    - [1.2通过whereis等命令查看nacos是否安装在本地](#12通过whereis等命令查看nacos是否安装在本地)
-  - [2、卸载](#2卸载-1)
-    - [2.1关闭nacos服务](#21关闭nacos服务)
-    - [2.2删除nacos所在的目录](#22删除nacos所在的目录)
-  - [3、安装](#3安装-2)
-    - [从 Github 上下载源码方式](#从-github-上下载源码方式)
-    - [下载编译后压缩包方式](#下载编译后压缩包方式)
-  - [4、配置](#4配置-1)
-  - [5、常用命令](#5常用命令)
-    - [5.1启动(standalone代表着单机模式运行，非集群模式):](#51启动standalone代表着单机模式运行非集群模式)
-    - [5.2关闭](#52关闭)
 
-
-
-
-
-
-* Maven用来编译Java Web服务器程序。（`Maven需要从官网下载，解压安装，不能通过yum安装，因为会默认安装opensdk`）
 
 * Nginx用来做WebServer服务器，实现反向代理和负载均衡等功能。（`需要编译安装，这样可以配置websocket、ssl等模块`）
 
@@ -72,21 +8,19 @@
 
 JDK是编译和运行Java服务器程序的依赖项，maven的运行也依赖于JDK。因此，首先需要在服务器安装和配置jdk
 
-（`JDK需要从oracle官网下载1.8.202版本，解压安装，不要安装openSDK版本`）
+**JDK需要从oracle官网下载1.8.202版本，解压安装，不要安装openSDK版本**
 
->安装JDK，不是OpenSDK。JDK的最后一个免费版本是1.8.202版本。
+>JDK的最后一个免费版本是1.8.202版本。
 
-## 1.1 彻底删除原有的JDK
 
-安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java开发包。
+## 1.1 查看当前Java环境
 
-### 1.1.1 检查JDK是否安装(java -version)
-
-检查生产环境是否安装了Java
+* 检查生产环境是否安装了Java 
 
 **java -version**
 
-如果安装了java，可以看到java的sdk版本和JRE的版本信息
+可以看到java的sdk版本和JRE的版本信息
+
 ```shell
 [root@geekist ~]# java -version
 java version "1.8.0_202"
@@ -94,7 +28,7 @@ Java(TM) SE Runtime Environment (build 1.8.0_202-b08)
 Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)
 ```
 
-如果安装的opensdk或jdk的其他版本，需要删除。
+如果安装的opensdk版本，
 
 ```shell
 [root@geekist ~]# java -version
@@ -104,11 +38,13 @@ OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 [root@geekist ~]#
 ```
 
-### 1.1.2 删除由rpm下载安装的JDK
-
 一般linux系统会默认通过rpm安装opensdk。
 
 rpm是linux系统中软件包管理的底层通用工具。通过rpm命令查看是否该安装是由rpm下载安装.rpm -qa 显示安装到系统中的所有软件包列表：
+
+* 检查java是否通过rpm软件包工具安装 
+
+如果已经安装了java，可以通过rpm软件包功能检查是否由rpm安装
 
 **rpm -qa |grep java**
 
@@ -121,6 +57,12 @@ tzdata-java-2021a-1.1.al8.noarch
 java-1.8.0-openjdk-headless-1.8.0.292.b10-0.1.al8.x86_64
 java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 ```
+
+## 1.2 删除JDK
+
+安装JDK之前，需要检查服务器上是否已经存在Java的环境，如果Java环境和要求不符合，需要首先删除已经安装的Java开发包。
+
+### 1.2.1 删除由rpm下载安装的JDK
 
 将用 rpm -qa|grep java列出的文件用rpm -e --nodeps 命令逐个删除
 
@@ -139,14 +81,10 @@ java-1.8.0-openjdk-1.8.0.292.b10-0.1.al8.x86_64
 **yum remove java**
 
 全部删除完成后用java -version检查，发现已经无法运行
-```
-[root@geekist ~]# java -version
--bash: /usr/bin/java: No such file or directory
-```
 
-### 1.1.3 删除自己安装的JDK 
+### 1.2.2 删除自己安装的JDK 
 
-首先用whereis、which、find等shell工具查找java目录
+* step1: 首先用whereis、which、find等shell工具查找java目录
 
 **whereis java 搜索二进制文件**
 
@@ -155,15 +93,17 @@ whereis 搜索二进制文件
 ```
 [root@geekist ~]# whereis java
 java: /usr/local/java /usr/local/java/jdk1.8.0_202/bin/java
-```
+``` 
 
 **which 搜索bin目录下文件**
+
 ```shell
 [root@geekist ~]# which java
 /usr/local/java/jdk1.8.0_202/bin/java
 ```
 
 **find 搜索所有文件**
+
 ```shell
 [root@geekist ~]# find / -iname java
 /root/.m2/repository/net/java
@@ -188,13 +128,22 @@ java: /usr/local/java /usr/local/java/jdk1.8.0_202/bin/java
 /var/yuya/yychildren_server_springcloud/yychildren-gateway/src/main/java
 /var/yuya/yychildren_server_springcloud/yychildren-teacher/src/main/java
 ```
+可以看到java安装在/usr/local/java目录下
 
-可以看到java安装在/usr/local/java目录下，用rm命令删除已经安装的JDK
+* step2: 用rm 命名删除已安装的java
+
+**rm -rf /usr/local/java**
+
+用rm命令删除已经安装的JDK
+
 ```shell
 rm -rf /usr/local/java
 ```
 
+### 1.2.3 清理配置信息
+
 如果配置文件/etc/profile中配置了环境变量，也需要删除。
+
 ```shell
 vim /etc/profile
 
@@ -202,16 +151,21 @@ vim /etc/profile
  78 #JDK环境变量配置：
  79 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
  80 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
- 81 export PATH=$JAVA_HOME/bin:$PATH
+ 81 export PATH=$PATH:$JAVA_HOME/bin
  ```
 
-## 1.2 安装JDK
+## 1.3 安装JDK
 
-### 1.2.1 使用压缩包安装JDK
+### 1.3.1 下载jdk
 
 在oracle官网下载jdk_8u_202版本
 
 到oracle官网：http://www.oracle.com/ ---资源--下载--JDK--archive，找到8u-202版本，最后的免费版本
+
+
+### 1.3.2 安装jdk
+
+**mkdir /usr/local/java**
 
 新建一个 JDK 安装目录java
 
@@ -223,11 +177,18 @@ cd /usr/local/java
 将之前下载的 tar 包拷贝到新建的目录下
 >拷贝可以用各自的linux桌面工具。
 
+**tar zxvf jdk-8u202-linux-x64.tar.gz** 
+
 将 JDK 源码包解压
 ```
 $ tar zxvf jdk-8u202-linux-x64.tar.gz 
 ```
+
+### 1.3.3 配置jdk
+
 文件安装完成，下面进行配置。
+
+**vim /etc/profile**
 
 打开linux配置文件，如果有以前的配置，可以先删除。
 
@@ -238,6 +199,7 @@ vim /etc/profile
 如果有以前安装java的残存配置信息，需要首先删除，然后添加新的配置信息；
 
 JDK的配置
+
 ```shell
 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
@@ -253,8 +215,6 @@ export PATH=$JAVA_HOME/bin:$PATH
 ```
 
 至此，JDK安装完成。
-
-### 1.2.2 使用yum安装openjdk
 
 >使用yum安装openjdk
 >
@@ -302,23 +262,183 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 配置环境变量，是为了有些程序编译时，需要寻找到lib目录和jre目录。
 
+# 二、Maven安装和环境配置
 
-# 二、Git安装和环境配置
+
+Maven用来编译Java Web服务器程序。
+
+**Maven必须通过下载安装包的方式安装，通过yum方式安装会默认安装openjdk依赖**
+
+
+## 2.1 查看maven环境
+
+
+* 查看系统是否安装了maven
+
+用mvn -v命令可以查看maven是否安装
+
+**mvn -v**
+
+```shell
+[root@geekist yychildren]# mvn -v
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /usr/local/apache-maven-3.8.6
+Java version: 1.8.0_332, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
+```
+
+* 查看Maven是否由rpm下载安装
+
+**rpm -qa |grep maven**
+
+通过rpm命令查看是否该安装是由rpm下载安装
+
+如果是由rpm下载安装，则显示如下
+```
+[root@geekist yychildren]# rpm -qa|grep maven
+maven-resolver-1.4.1-3.1.al8.noarch
+maven-shared-utils-3.2.1-0.1.1.al8.noarch
+maven-wagon-3.3.4-2.1.al8.noarch
+maven-lib-3.6.2-6.1.al8.noarch
+maven-3.6.2-6.1.al8.noarch
+maven-openjdk11-3.6.2-6.1.al8.noarch
+```
+## 2.2 删除maven
+
+### 2.2.1 删除通过yum方式安装的maven
+
+**yum remove maven**
+
+```
+yum remove maven 
+```
+或者通过rpm -e nodeps方式卸载。
+
+**rpm -e --nodeps maven-resolver-1.4.1-3.1.al8.noarch**
+
+逐个删除maven程序。
+
+最后可以删除/etc/profile配置文件
+
+
+### 2.2.2 删除通过压缩包方式安装的maven
+
+
+* 查看maven的安装目录
+
+**mvn -v**
+
+首先查找maven的安装路径，可以通过mvn -v或其他命令
+
+```
+[root@geekist yychildren]# mvn -v
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /usr/local/apache-maven-3.8.6
+Java version: 1.8.0_332, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
+```
+
+也可以用whereis、which、find等shell工具查找java目录
+```
+[root@geekist yychildren]# whereis mvn
+mvn: /usr/local/apache-maven-3.8.6/bin/mvn /usr/local/apache-maven-3.8.6/bin/mvn.cmd
+[root@geekist yychildren]# which mvn
+/usr/local/apache-maven-3.8.6/bin/mvn
+[root@geekist yychildren]# find / -name mvn
+/usr/local/apache-maven-3.8.6/bin/mvn
+[root@geekist yychildren]# find / -name maven
+/root/.m2/repository/org/apache/maven
+/root/.m2/repository/org/apache/maven/maven
+```
+
+* 然后删除maven所在目录
+```
+rm -rf /usr/local/apach-maven-3.8.6
+```
+
+最后可以删除/etc/profile配置文件
+
+```shell
+ #Maven环境变量配置：
+export MAVEN_HOME=/usr/local/maven/apache-maven-3.8.6
+export PATH=$PATH:$MAVEN_HOME/bin
+```
+
+## 2.3、安装Maven
+
+### 2.3.1 下载maven
+
+前往https://maven.apache.org/download.cgi下载最新版的Maven程序
+
+
+新建一个 JDK 安装目录java
+```
+mkdir /usr/local/maven
+cd /usr/local/maven
+```
+
+将之前下载的 tar 包拷贝到新建的目录下
+>拷贝可以用各自的linux桌面工具。
+
+### 2.3.2 安装maven
+
+解压maven到当前目录或指定目录
+```
+tar zxvf apache-maven-3.8.6-bin.tar.gz
+```
+
+### 2.3.3 配置maven
+
+```shell
+vi /etc/profile
+```
+在打开的文件中追加配置
+```shell
+export MAVEN_HOME=/usr/local/maven/apache-maven-3.8.6
+export PATH=$PATH:$MAVEN_HOME/bin
+```
+重新加载配置文件
+```
+source /etc/profile
+```
+
+>用yum方式安装Maven
+>```
+>yum -y install maven 
+>```
+>安装成功后，查看安装路径：
+>
+>```
+>[root@geekist /]# rpm -qa |grep maven
+>maven-lib-3.6.2-6.1.al8.noarch
+>maven-3.6.2-6.1.al8.noarch
+>maven-resolver-1.4.1-3.1.al8.noarch
+>maven-openjdk11-3.6.2-6.1.al8.noarch
+>maven-shared-utils-3.2.1-0.1.1.al8.noarch
+>maven-wagon-3.3.4-2.1.al8.noarch
+>```
+
+# 三、Git安装和环境配置
 
  Git用来从代码服务器获取代码。Git工具可以通过yum下载。
 
  本文只讨论yum方式的删除和安装
 
-## 2.1 彻底卸载原有的git环境
+## 3.1 检查当前Git环境
 
-### 2.1.1 检查是否安装了git（git --version)
+### 3.1.1 检查是否安装了git（git --version)
 
 ```shell
 [root@geekist java]# git --version
 git version 2.27.0
 ```
 
-### 2.1.2 检查git是否通过rpm方式安装(rpm -qa|grep git)
+### 3.1.2 检查git是否通过rpm方式安装(rpm -qa|grep git)
+
+**rpm -qa|grep git**
+
 可以看到：
 
 `git-core-doc-2.27.0-1.1.al8.noarch`
@@ -347,7 +467,7 @@ libnsl2-1.2.0-2.20180605git4a062cf.2.al8.x86_64
 plymouth-core-libs-0.9.4-7.20200615git1e36e30.1.al8.x86_64
 ```
 
-### 2.1.3 查找git安装目录
+### 3.1.3 查找git安装目录
 ```
 [root@iZbp19n36uysranoj3k2x5Z etc]# whereis git
 git: /usr/bin/git /usr/share/man/man1/git.1.gz
@@ -366,12 +486,19 @@ git: /usr/bin/git /usr/share/man/man1/git.1.gz
 /usr/libexec/git-core/git
 ```
 
-## 2.1.4 卸载Git
+## 3.2 卸载Git
+
+
+### 3.2.1 卸载通过rpm安装的Git
+
+**yum remove git**
 
 通过rpm或yum安装的git，可以通过yum方式卸载git
 ```
 yum remove git
 ```
+
+### 3.2.2 清除配置信息
 
 如果有配置保存在系统的配置文件里，同时需要删除。git的配置文件有三层：分别是：全局配置、当前用户、当前项目配置。一般用当前用户的配置。
 `~/.gitconfig`
@@ -394,12 +521,21 @@ yum remove git
 ```
 删除原来的配置即可。
 
-## 2.2 安装Git
+## 3.3 安装Git
+
+
+### 3.3.1 用rpm方式安装Git
+
+**yum install -y git**
+
+**yum install -y git**
 
 用yum 安装git
 ```
 yum install -y git
 ```
+
+### 3.3.2 配置Git信息
 
 * 配置保存用户名和密码，不用每次都输入
 
@@ -421,130 +557,6 @@ yum install -y git
     name = 13681986288
 [credential]
     helper = store
-```
-
-# 三、Maven安装和环境配置
-
-## 1、检查
-
-### 1.1检查Maven是否安装
-
-用mvn -v命令可以查看maven是否安装
-```
-[root@geekist yychildren]# mvn -v
-Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
-Maven home: /usr/local/apache-maven-3.8.6
-Java version: 1.8.0_332, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
-```
-
-### 1.2查看Maven安装目录
-用whereis、which、find等shell工具查找java目录
-```
-[root@geekist yychildren]# whereis mvn
-mvn: /usr/local/apache-maven-3.8.6/bin/mvn /usr/local/apache-maven-3.8.6/bin/mvn.cmd
-[root@geekist yychildren]# which mvn
-/usr/local/apache-maven-3.8.6/bin/mvn
-[root@geekist yychildren]# find / -name mvn
-/usr/local/apache-maven-3.8.6/bin/mvn
-[root@geekist yychildren]# find / -name maven
-/root/.m2/repository/org/apache/maven
-/root/.m2/repository/org/apache/maven/maven
-```
-### 1.3检查Maven是否由rpm下载安装或者由压缩包解压安装
-通过rpm命令查看是否该安装是由rpm下载安装
-```
-rpm -qa |grep maven
-```
-如果是由rpm下载安装，则显示如下
-```
-[root@geekist yychildren]# rpm -qa|grep maven
-maven-resolver-1.4.1-3.1.al8.noarch
-maven-shared-utils-3.2.1-0.1.1.al8.noarch
-maven-wagon-3.3.4-2.1.al8.noarch
-maven-lib-3.6.2-6.1.al8.noarch
-maven-3.6.2-6.1.al8.noarch
-maven-openjdk11-3.6.2-6.1.al8.noarch
-```
-##  2、卸载
-
-### 删除通过压缩包方式安装的maven
-
-首先查找maven的安装路径，可以通过mvn -v或其他命令
-```
-[root@geekist yychildren]# mvn -v
-Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
-Maven home: /usr/local/apache-maven-3.8.6
-Java version: 1.8.0_332, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
-```
-
-然后删除maven所在目录
-```
-rm -rf /usr/local/apach-maven-3.8.6
-```
-
-最后可以删除/etc/profile配置文件
-
-
->## 删除通过yum方式安装的maven
->```
->yum remove maven 
->```
->或者通过rpm -e nodeps方式卸载。
-
-## 3、安装
-
-### 用压缩包的方式安装maven
-
-前往https://maven.apache.org/download.cgi下载最新版的Maven程序
-
-
-新建一个 JDK 安装目录java
-```
-mkdir /usr/local/maven
-cd /usr/local/maven
-```
-
-将之前下载的 tar 包拷贝到新建的目录下
->拷贝可以用各自的linux桌面工具。
-
-解压maven到当前目录或指定目录
-```
-tar zxvf apache-maven-3.8.6-bin.tar.gz
-```
-
->## 用yum方式安装Maven
->```
->yum -y install maven 
->```
->安装成功后，查看安装路径：
->
->```
->[root@geekist /]# rpm -qa |grep maven
->maven-lib-3.6.2-6.1.al8.noarch
->maven-3.6.2-6.1.al8.noarch
->maven-resolver-1.4.1-3.1.al8.noarch
->maven-openjdk11-3.6.2-6.1.al8.noarch
->maven-shared-utils-3.2.1-0.1.1.al8.noarch
->maven-wagon-3.3.4-2.1.al8.noarch
->```
-***安装Maven  --尽量不要用yum的方式安装maven，因为这样会重新安装openJDK，导致已经安装的Java环境被破坏***
-
-### 4、配置
-```
-vi /etc/profile
-```
-在打开的文件中追加配置
-```
-export MAVEN_HOME=/usr/local/maven/apache-maven-3.8.3
-export PATH=$PATH:$MAVEN_HOME/bin
-```
-重新加载配置文件
-```
-source /etc/profile
 ```
 
 # 四、Nginx的安装和环境配置
