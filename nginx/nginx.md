@@ -394,37 +394,36 @@ nginx热启动，修改了配置文件后，可以使用此方法不停止nginx
 ./nginx -s reload            //重载配置文件（修改了配置文件需要执行此命令 比较常用）
 ```
 
-# 四、Nginx配置文件介绍
+# 四、Nginx配置文件
 
-## nginx配置文件语法：
-
-* 组成：
+## 4.1 nginx配置文件语法
 
 
 配置文件由注释行，指令块配置项和一系列指令配置项组成。
-```
-# user nobody;
-worker_processes 4;
-events {
-    worker_connections 1024;
-}
-```
 
-注释行：
+* **注释行**
 
 字符"#"表示该行是注释行，nginx在读取配置文件时将忽略的文本。
 
-块配置项：
+* **块配置项**
 
 块配置项由一个块配置项名和一对大括号组成。
 
 块配置后面是否带有参数，如location /webstatic {}，取决于解析该配置块的模块。
 
-指令配置项：
+* **指令配置项**
 
 每一条指令由配置项名称和值参数组成，值参数可以时一个或多个附加参数，取决于解析该条指令的模块。
 
 指令配置项总是以分号结尾(;)。
+
+```
+# user nobody; --------------------注释行
+worker_processes 4; ---------------指令配置项
+events { --------------------------块配置项
+    worker_connections 1024; ------指令配置项
+}
+```
 
 * 指令特点
 
@@ -434,59 +433,81 @@ events {
 
 最后同样重要的是配置的继承。在一个区段中嵌套其他区段，那么被嵌套的区段会继承其父区段的配置。在嵌套模块中重新声明指令会覆盖该继承。
 
-## nginx 基本模块分类
+## 4.2 nginx 基本模块分类
 
-1、全局块：配置影响nginx全局的指令。一般有运行nginx服务器的用户组，nginx进程pid存放路径，日志存放路径，配置文件引入，允许生成worker process数等。
 
-2、events块：配置影响nginx服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网路连接，开启多个网络连接序列化等。
 
-3、http块：可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type定义，日志自定义，是否使用sendfile传输文件，连接超时时间，单连接请求数等。
 
 4、server块：配置虚拟主机的相关参数，一个http中可以有多个server。
 
 5、location块：配置请求的路由，以及各种页面的处理情况。
 
-## 全局块配置
+### 4.2.1 全局块配置
+
+全局块：配置影响nginx全局的指令。一般有运行nginx服务器的用户组，nginx进程pid存放路径，日志存放路径，配置文件引入，允许生成worker process数等。
 
 全局配置主要配置nginx在运行时与具体业务功能（比如http服务或者email服务代理）无关的一些参数，比如工作进程数，运行的身份等。
 
+**user**
+
+指定nginx进程使用什么用户启动,nobody表示任意用户
+
 ```
-user  www ;
+user  root ;
+```
 
-#指定nginx进程使用什么用户启动
+**worker_processes**
 
+指定启动多少进程来处理请求，一般情况下设置成CPU的核数，如果开启了ssl和gzip更应该设置成与逻辑CPU数量一样甚至为2倍，可以减少I/O操作。
+
+可以使用grep ^processor /proc/cpuinfo | wc -l查看CPU核数。
+
+```shell
 worker_processes 4;
+```
 
-#指定启动多少进程来处理请求，一般情况下设置成CPU的核数，如果开启了ssl和gzip更应该设置成与逻辑CPU数量一样甚至为2倍，可以减少I/O操作。使用grep ^processor /proc/cpuinfo | wc -l查看CPU核数。
+**worker_cpu_affinity**
 
+和worker_processes配合使用，指定cpu的内核，例如，四核CPU，0001代表第一个cpu内核；0010代表第二个cpu内核；0100代表第三个cpu内核；1000代表第四个cpu内核；
 
+再如：两核cpu，01代表第一个cpu，10代表第二个cpu
 
+```shell
 worker_cpu_affinity 0001 0010 0100 1000; 
+```
 
-#worker_cpu_affinity 0001 0010 0100 1000;: 在高并发情况下，通过设置将CPU和具体的进程绑定来降低由于多核CPU切换造成的寄存器等现场重建带来的性能损耗。如
+**error_log**
 
+error_log是个主模块指令，用来定义全局错误日志文件。格式为：日志路径 日志级别；
 
+日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
 
+```shell
 error_log  /data/logs/nginx_error.log  crit;
+```
 
-#error_log /data/logs/nginx_error.log crit;: error_log是个主模块指令，用来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
-
-
-
-
-pid /usr/local/webserver/nginx/nginx.pid;
+**pid**
 
 pid指定进程pid文件的位置。
 
-worker_rlimit_nofile 65535;
+```
+pid logs/nginx.pid;
+```
+这里的路径是相对于nginx的默认安装路径，如：/usr/local/nginx
 
-worker_rlimit_nofile 65535;用于指定一个nginx进程可以打开的最多文件描述符数目，这里是65535，需要使用命令“ulimit -n 65535”来设置。
+**worker_rlimit_nofile**
+
+用于指定一个nginx进程可以打开的最多文件描述符数目，这里是65535 
+
+现在在linux 2.6内核下开启文件打开数为65535，worker_rlimit_nofile就相应应该填写65535。
+
+```shell
+worker_rlimit_nofile 65535;
 ```
 
-**其中比较重要的是工作进程数：如果是4核CPU的话，要换成4**
+### 4.2.2 event模块
 
-
-### event模块
+events块：配置影响nginx服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网路连接，开启多个网络连接序列化等。
 
 events模块主要配置影响nginx服务器或与用户的网络连接
 
@@ -496,24 +517,29 @@ events模块主要配置影响nginx服务器或与用户的网络连接
   worker_connections      65536;
 }
 ```
-
-use epoll;
+**use**
 
 use是个事件模块指令，用来指定Nginx的工作模式。Nginx支持的工作模式有select、poll、kqueue、epoll、rtsig和/dev/poll。其中select和poll都是标准的工作模式，kqueue和epoll是高效的工作模式，不同的是epoll用在Linux平台上，而kqueue用在BSD系统中。
 对于Linux系统，epoll工作模式是首选。在操作系统不支持这些高效模型时才使用select。
+```
+use epoll;
+```
+**worker_connections**
 
+```shell
 worker_connections 65536;
+```
 
 每一个worker进程能并发处理（发起）的最大连接数（包含与客户端或后端被代理服务器间等所有连接数）。
 
-nginx作为反向代理服务器，计算公式 最大连接数 = worker_processes * worker_connections/4，所以这里客户端最大连接数是65536，这个可以增到到8192都没关系，看情况而定，但不能超过后面的worker_rlimit_nofile。
+nginx作为反向代理服务器，计算公式 最大连接数 = worker_processes * worker_connections/4，所以这里客户端最大连接数是65536，这个可以增到到8192都没关系，看情况而定，但不能超过worker_rlimit_nofile。
 
 当nginx作为http服务器时，计算公式里面是除以2。进程的最大连接数受Linux系统进程的最大打开文件数限制，在执行操作系统命令ulimit -n 65536后worker_connections的设置才能生效。
 
 
-### http模块
+### 4.2.3 http模块
 
-可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。
+http块可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type定义，日志自定义，是否使用sendfile传输文件，连接超时时间，单连接请求数等。
 
 ```
 http{
