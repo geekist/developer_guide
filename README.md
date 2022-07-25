@@ -1,13 +1,22 @@
 
 后端开发
 
-Linux环境下Web服务器开发
+Linux环境配置
 
 * [Linux基本命令和shell脚本](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
 * [Linux环境下JDK、Git、Maven、Nginx和Nacos的安装与卸载](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
+Nginx服务器
+
 * [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
+
+* [Nginx服务器配置gzip](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_gzip.md)
+
+* [Nginx服务器配置ssl](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_ssl.md)
+
+* [Nginx服务器配置stub_status](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_stub_stauts.md)
+
 
 Java Web开发
 
@@ -34,6 +43,9 @@ Spring
 Spring boot
 
 * [Spring boot](https://github.com/geekist/developer_guide/blob/main/server/spring_boot.md)
+
+* [Spring boot项目配置profile和yml](https://github.com/geekist/developer_guide/blob/main/server/spring_boot_yaml.md)
+
 
 Spring Cloud
 
