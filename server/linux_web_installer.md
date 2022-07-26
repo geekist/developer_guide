@@ -700,7 +700,7 @@ nginx: /usr/local/nginx
 
 ### 4.3.1 通过下载源码编译的方式安装nginx
 
-* step1:在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2
+* **step1:在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2**
 
 网页上提供了Nginx 服务器三种版本的下载，分别是：
 
@@ -720,7 +720,7 @@ nginx: /usr/local/nginx
 
 >“pgp”链接，记录的是提供下载的版本使用PGP加密自由软件GnuPG计算后的签名。PGP可以理解为Pretty Good Privacy。这些数据可以用于下载文件的验证。
 
-* step2:使用ftp工具等，将nginx上传到linux。
+* **step2:使用ftp工具等，将nginx上传到linux**
 
 ```
 cd /usr/local
@@ -731,7 +731,7 @@ cd nginx
 # 上传nginx到该目录下
 ```
 
-* step3:安装GCC与dev库
+* **step3:安装GCC与dev库**
 
 ```
 GCC编译器:yum install gcc gcc-c++
@@ -748,7 +748,7 @@ OpenSSL开发库:yum install -y openssl openssl-devel
 yum install -y  gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
 ```
 
-* step4:编译Nginx
+* **step4:编译Nginx以及gzip、ssl、stub_status模块**
 
 ```shell
 #进入nginx目录
