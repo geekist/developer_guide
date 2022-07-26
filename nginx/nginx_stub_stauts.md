@@ -10,13 +10,17 @@
 
 使用nginx -V命令可以查看nginx是否安装了对应的模块
 
-没有安装stub_status的ssl模块示例如下：
+如果安装了stub_status模块，在configure arguments中会显示：
+
+**--with-http_stub_status_module**
+
+示例如下：
 
 ```
 [root@iZbp19n36uysranoj3k2x5Z sbin]# ./nginx -V
 nginx version: nginx/1.13.7
 built by gcc 8.3.1 20191121 (Red Hat 8.3.1-5) (GCC)
-configure arguments: --prefix=/usr/local/nginx --with-http_gzip_static_module
+configure arguments: --prefix=/usr/local/nginx --with-http_gzip_static_module  --with-http_stub_status_module
 ```
 
 ## 2.2 编译安装stub_status模块
