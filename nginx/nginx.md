@@ -21,32 +21,24 @@
   - [停止nginx](#停止nginx)
   - [安全停止nginx](#安全停止nginx)
   - [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
-- [四、Nginx配置文件介绍](#四nginx配置文件介绍)
-  - [nginx配置文件语法：](#nginx配置文件语法)
-  - [nginx 基本模块分类](#nginx-基本模块分类)
-  - [全局块配置](#全局块配置)
-    - [event模块](#event模块)
-    - [http模块](#http模块)
-    - [server模块](#server模块)
-      - [listen指令](#listen指令)
-      - [server_name:](#server_name)
-    - [Location 模块](#location-模块)
-      - [location功能](#location功能)
-      - [localtion语法](#localtion语法)
+- [四、Nginx配置文件](#四nginx配置文件)
+  - [4.1 nginx配置文件语法](#41-nginx配置文件语法)
+  - [4.2 nginx 基本模块分类](#42-nginx-基本模块分类)
+    - [4.2.1 全局块配置](#421-全局块配置)
+    - [4.2.2 event模块](#422-event模块)
+    - [4.2.3 http模块](#423-http模块)
+    - [4.2.4 server模块](#424-server模块)
+    - [4.2.5 Location 模块](#425-location-模块)
       - [location匹配顺序](#location匹配顺序)
       - [root命令index命令alias和return命令](#root命令index命令alias和return命令)
       - [return指令](#return指令)
-      - [proxy_pass](#proxy_pass)
+      - [proxy_pass 反向代理](#proxy_pass-反向代理)
   - [error_page配置命令](#error_page配置命令)
   - [try_files指令](#try_files指令)
 - [五、Nginx日志配置](#五nginx日志配置)
   - [Nginx的访问日志](#nginx的访问日志)
   - [Nginx的错误日志](#nginx的错误日志)
-- [六、SSL证书配置](#六ssl证书配置)
-  - [nginx安装http_ssl_module模块](#nginx安装http_ssl_module模块)
-  - [复制ssl证书到nginx服务器](#复制ssl证书到nginx服务器)
-  - [配置nginx的ssl服务](#配置nginx的ssl服务)
-- [六、其他配置、websocket ssl、gzip等](#六其他配置websocket-sslgzip等)
+  - [配置的继承关系：](#配置的继承关系)
 
 
 
@@ -435,13 +427,6 @@ events { --------------------------块配置项
 
 ## 4.2 nginx 基本模块分类
 
-
-
-
-4、server块：配置虚拟主机的相关参数，一个http中可以有多个server。
-
-5、location块：配置请求的路由，以及各种页面的处理情况。
-
 ### 4.2.1 全局块配置
 
 全局块：配置影响nginx全局的指令。一般有运行nginx服务器的用户组，nginx进程pid存放路径，日志存放路径，配置文件引入，允许生成worker process数等。
@@ -541,90 +526,111 @@ nginx作为反向代理服务器，计算公式 最大连接数 = worker_process
 
 http块可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type定义，日志自定义，是否使用sendfile传输文件，连接超时时间，单连接请求数等。
 
-```
-http{
-  include       mime.types;
-  default_type  application/octet-stream;
-  #charset  gb2312;
- }
-```
 
-主要配置参数：
+**include mime.types;**
 
-```
-include mime.types;
+include 表示纳入mime.types文件的配置，即将mime.types文件复制在当前位置。如果nginx.conf有重复的指令，可以抽取出来，利用include来帮我们简化配置，避免修改一个相同的配置，要改动好几个地方。
 
-include 是个主模块指令，实现对配置文件所包含的文件的设定，可以减少主配置文件的复杂度。类似于Apache中的include方法。
+**default_type application/octet-stream**
 
-default_type  application/octet-stream;
+如果Web程序没设置，Nginx也没找到对应文件的扩展名的话，就使用默认的Type，这个在Nginx 里用 default_type定义: default_type application/octet-stream，这是应用程序文件类型的默认值。
 
-default_type属于HTTP核心模块指令，这里设定默认类型为二进制流，也就是当文件类型未定义时使用这种方式，例如在没有配置PHP环境时，Nginx是不予解析的，此时，用浏览器访问PHP文件就会出现下载窗口。
+是HTTP规范中Content-Type的一种，意思是 未知的应用程序文件 ，浏览器一般不会自动执行或询问执行。只能提交一个二进制，如果提交文件的话，只能提交一个文件,后台接收参数只能有一个，而且只能是流（或者字节数组）。
 
-charset gb2312; 
+上面两个配置，决定发送给客户端的文件类型。Nginx通过服务器端文件的后缀名来判断这个文件属于什么类型，再将该数据类型写入HTTP头部的Content-Type字段中，发送给客户端。
+
+比如，当我们打开OSC的一个页面，看到一个PNG格式的图片的时候，Nginx是这样发送格式信息的：
+
+服务器上有enter_narrow.png这个文件，后缀名是png；
+根据mime.types，这个文件的数据类型应该是image/png；
+将Content-Type的值设置为image/png，然后发送给客户端。
+
+
+**charset gb2312;**
 
 指定客户端编码格式。
 
-server_names_hash_bucket_size 128;
+**server_names_hash_bucket_size 128;**
 
 服务器名字的hash表大小。
 
-client_header_buffer_size 32k;
+**client_header_buffer_size 32k;**
 
 用来指定来自客户端请求头的header buffer 大小。对于大多数请求，1K的缓存已经足够了，如果自定义了消息头或有更大的cookie，可以增大缓存区大小。
 
-large_client_header_buffers 4 128k;
+**large_client_header_buffers 4 128k;**
 
 用来指定客户端请求中较大的消息头的缓存最大数量和大小，4为个数，128k为大小，最大缓存为4个128KB。
 
-client_max_body_size 8m;
 
-客户端请求的最大的单个文件字节数。
-
-client_max_body_size 10m;
+**client_max_body_size 10m;**
 
 允许客户端请求的最大单文件字节数。如果有上传较大文件，请设置它的限制值。
 
-client_body_buffer_size 128k;
+**client_body_buffer_size 128k;**
 
 缓冲区代理缓冲用户端请求的最大字节数。
 
-sendfile on ;
+**sendfile on ;**
 
-开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，减少用户空间到内核空间的上下文切换。对于普通应用设为 on，如果用来进行下载等应用磁盘IO重负载应用，可设置为off，以平衡磁盘与网络I/O处理速度，降低系统的负载。开启 tcp_nopush on; 和tcp_nodelay on; 防止网络阻塞。
+开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，减少用户空间到内核空间的上下文切换。
 
-keepalive_timeout 65 :
+sendfile 配置可以提高 Nginx 静态资源托管效率。sendfile 是一个系统调用，直接在内核空间完成文件发送，不需要先 read 再 write，没有上下文切换开销。
+
+对于普通应用设为 on，如果用来进行下载等应用磁盘IO重负载应用，可设置为off，以平衡磁盘与网络I/O处理速度，降低系统的负载。
+
+开启 tcp_nopush on; 和tcp_nodelay on; 防止网络阻塞。
+
+http {
+    sendfile           on;
+    tcp_nopush         on;
+    tcp_nodelay        on;
+
+    keepalive_timeout  60;
+    ... ...
+}
+ 
+ * **tcp_nopush         on;**
+
+tcp_nopush 是 FreeBSD 的一个 socket 选项，对应 Linux 的 TCP_CORK，Nginx 里统一用 tcp_nopush 来控制它，并且只有在启用了 sendfile 之后才生效。启用它之后，数据包会累计到一定大小之后才会发送，减小了额外开销，提高网络效率。
+
+* **tcp_nodelay        on;**
+
+tcp_nodelay 也是一个 socket 选项，启用后会禁用 Nagle 算法，尽快发送数据，某些情况下可以节约 200ms（Nagle 算法原理是：在发出去的数据还未被确认之前，新生成的小数据先存起来，凑满一个 MSS 或者等到收到确认后再发送）。Nginx 只会针对处于 keep-alive 状态的 TCP 连接才会启用 tcp_nodelay。
+
+可以看到 TCP_NOPUSH 是要等数据包累积到一定大小才发送，TCP_NODELAY 是要尽快发送，二者相互矛盾。实际上，它们确实可以一起用，最终的效果是先填满包，再尽快发送。
+
+**keepalive_timeout 65 :**
 
 长连接超时时间，单位是秒，这个参数很敏感，涉及浏览器的种类、后端服务器的超时设置、操作系统的设置，可以另外起一片文章了。长连接请求大量小文件的时候，可以减少重建连接的开销，但假如有大文件上传，65s内没上传完成会导致失败。如果设置时间过长，用户又多，长时间保持连接会占用大量资源。
 
-client_body_timeout 60s;
+**client_body_timeout 60s;**
 
 用于设置客户端请求主体读取超时时间，默认是60s。如果超过这个时间，客户端还没有发送任何数据，nginx将返回Request time out(408)错误。
 
-send_timeout :
+**send_timeout :**
 
 用于指定响应客户端的超时时间。这个超时仅限于两个连接活动之间的时间，如果超过这个时间，客户端没有任何活动，Nginx将会关闭连接。
 
-gzip on;
+**gzip on;**
 
 开启gzip压缩输出
 
-gzip_min_length 1k; 
+**gzip_min_length 1k;**
 
 最小压缩文件大小，页面字节数从header头的Content-Length中获取。默认值为0，不管多大页面都压缩，建议设置成大于1K的字节数，小于1K可能会越压越大。
 
-gzip_buffers 4 16k; 
+**gzip_buffers 4 16k; **
 
 压缩缓冲区，表示申请四个16K的内存作为压缩结果流缓存，默认是申请与原始数据大小相同的内存空间来存储gzip压缩结果。
 
-gzip_http_version 1.1;
 
- 用于设置识别HTTP协议版本，默认是1.1，目前主流浏览器都已成指出。（默认1.1，前端如果是squid2.5请使用1.0）
+**gzip_comp_level 2;** 
 
-gzip_comp_level 6; 压缩等级，1压缩比最小，处理速度最快，9压缩比最大，传输速度快，但是消耗CPU资源。
+压缩等级，1压缩比最小，处理速度最快，9压缩比最大，传输速度快，但是消耗CPU资源。
 
-```
 
-### server模块
+### 4.2.4 server模块
 
 http服务上支持若干虚拟主机。每个虚拟主机一个对应的server配置项，配置项里面包含该虚拟主机相关的配置。每个server通过监听地址或端口来区分。
 
@@ -641,80 +647,67 @@ server {
 }
 ```
 
-#### listen指令
+* **listen**
 
-* 如果不填写端口，则采用标准端口。
+  如果不填写端口，则采用标准端口。
 
-* 如果不填写ip地址，则监听所有地址。
+  如果不填写ip地址，则监听所有地址。
 
-* 如果缺少整条listen指令，则标准端口是80/tcp，默认端口是8000/tcp，由超级用户的权限决定。
+  如果缺少整条listen指令，则标准端口是80/tcp，默认端口是8000/tcp，由超级用户的权限决定。
 
-* 如果有多个server配置了相同的ip地址和端口，Nginx会匹配server_name指令与请求头部的host字段。
+  如果有多个server配置了相同的ip地址和端口，Nginx会匹配server_name指令与请求头部的host字段。
 
-#### server_name:
+  ```shell
 
-* server_name指令的参数可以是精确的文本、通配符或正则表达式。通配符可以在字符串的头部、尾部或两端包含*，*可以匹配任意字符。Nginx采用Perl格式的正则表达式，以~开头。以下是一个精确匹配的例子：
+  #监听所有IP地址发送到80端口的请求
+  listen 80;
 
-* 如果有多个server_name匹配host字段，Nginx根据以下规则选择第一个相匹配的server处理请求：
-```
-精确匹配
-以 * 开始的最长通配符，如 *.example.org
-以 * 结尾的最长通配符，如 mail. *
-第一个匹配的正则表达式（根据在配置文件中出现的先后顺序）
-```
-如果找不到任何与host字段相匹配的server_name，Nginx会根据请求端口将其发送给默认的server。默认server就是配置文件中第一个出现的server，也可以通过default_server指定某个server为默认server
-
-nginx支持三种类型的 虚拟主机配置
-
-* 1、基于ip的虚拟主机, (一个主机绑定多个ip地址)
-
-```
-server{
+  #监听单个ip地址发送的80端口的请求
   listen       192.168.1.1:80;
+  ```
+
+* **server_name**
+
+  server_name指令的参数可以是精确的文本、通配符或正则表达式。
+  
+  通配符可以在字符串的头部、尾部或两端包含*，*可以匹配任意字符。Nginx采用Perl格式的正则表达式，以~开头.
+
+  ```shell
   server_name  localhost;
-}
 
-server{
-  listen       192.168.1.2:80;
-  server_name  localhost;
-}
+  server_name   www.iyuya.com;
 
-```
+  server_name   *.iyuya.com;
+  ```
 
-* 2、基于域名的虚拟主机(servername)
+  客户端通过域名访问服务器时会将域名与被解析的ip一同放在请求中。当请求到了nginx中时。nginx会先去匹配ip，如果listen中没有找到对应的ip，就会通过域名进行匹配，匹配成功以后，再匹配端口。当这三步完成，就会找到对应的server的location对应的资源。
 
-```
-#域名可以有多个，用空格隔开
-server{
-  listen       80;
-  server_name  www.nginx1.com www.nginx2.com;
-}
+  如果ip中配置了ip，那么我们就使用客户端带来的ip进行匹配，这个时候server_name失效。
 
-server{
-  listen       80;
-  server_name  www.nginx3.com;
-}
+  如果找不到任何与host字段相匹配的server_name，Nginx会根据请求端口将其发送给默认的server。默认server就是配置文件中第一个出现的server，也可以通过default_server指定某个server为默认server
+ 
 
-``` 
+  * **多个server的匹配规则**
 
-* 3、基于端口的虚拟主机(listen不写ip的端口模式)
+  如果有多个server_name匹配host字段，Nginx根据以下规则选择第一个相匹配的server处理请求：
 
-```
-server{
-  listen       80;
-  server_name  localhost;
-}
 
-server{
-  listen       81;
-  server_name  localhost;
-}
+  1、完全匹配
 
-```
+  2、通配符在前的，如*.test.com
 
-### Location 模块
+  3、在后的，如www.test.*
 
-#### location功能
+  4、正则匹配，如~^\.www\.test\.com$
+
+  如果都不匹配
+
+  1、优先选择listen配置项后有default或default_server的
+
+  2、找到匹配listen端口的第一个server块
+
+
+### 4.2.5 Location 模块
 
 location是Nginx中的块级指令(block directive),location指令的功能是用来匹配不同的url请求，进而对请求做不同的处理和响应。nginx用请求URI与location中配置的URI做匹配。
 
@@ -735,7 +728,7 @@ http {
 
 大致的意思是，当你访问 www.yayujs.com 的 80 端口的时候，返回/home/www/ts/index.html 文件。
 
-#### localtion语法
+* **localtion语法的两种匹配规则**
 
 location有两种匹配规则：
 
@@ -751,9 +744,11 @@ location [ = | ~ | ~* | ^~ ] uri { … }
 location @name { … }
 ```
 
-location匹配参数解释：
+* **=完全匹配**
+  
+ “=” ，匹配后面的字符串，要求路径完全匹配
 
-（1） “=” ，匹配后面的字符串，要求路径完全匹配
+例如：
 
 ```
 server {
@@ -766,37 +761,53 @@ server {
 
 要求：匹配"/123/",要求在路径字段完全匹配；
 
-输入：http://website.com/123匹配，大部分浏览器会默认加斜杠；
-输入：http://website.com/123/?param1&param2匹配，忽略 querystring
-输入：http://website.com/1234/不匹配
+输入：http://website.com/123                   不匹配，没有加斜杠；
+输入：http://website.com/123/?param1&param2    匹配，忽略 querystring
+输入：http://website.com/1234/                 不匹配，1234
 ```
 
-（2） “~”，匹配后面的正则匹配表达式，区分大小写。
+ * **“~”，匹配后面的正则匹配表达式，区分大小写**
+
+例如：
 
 ```
-location ~ /Abc/ {
-  .....
+server {
+    server_name website.com;
+    location ~ ^/abcd$ {
+    […]
+    }
 }
-
-要求： 在路径字典完全匹配“/Abc”
-
-#http://abc.com/Abc/ [匹配成功]
-#http://abc.com/abc/ [匹配失败]
 ```
+^/abcd$这个正则表达式表示字符串必须以/开始，以d结束，中间必须是abc
 
-（3）“~*”，匹配后面的正则表达式，并忽略大小写
+http://website.com/abcd                  匹配（完全匹配）
+http://website.com/ABCD                  不匹配，大小写敏感
+http://website.com/abcd?param1&param2    匹配
+http://website.com/abcd/                 不匹配,多了斜杠，不能匹配正则表达式
+http://website.com/abcde                 不匹配，多了e，不能匹配正则表达式
 
+
+* **“~*”，匹配后面的正则表达式，并忽略大小写**
+
+例如：
 ```
-location ~* /Abc/ {
-  .....
+server {
+    server_name website.com;
+    location ~* ^/abcd$ {
+    […]
+    }
 }
-
-# 则会忽略 uri 部分的大小写
-#http://abc.com/Abc/ [匹配成功]
-#http://abc.com/abc/ [匹配成功]
 ```
 
-（4）“^~”，前缀匹配，匹配之后的正则表达式开头的字符串，如果命中，则其他的location都不执行匹配。
+http://website.com/abcd                    匹配 (完全匹配)
+http://website.com/ABCD                    匹配 (大小写不敏感)
+http://website.com/abcd?param1&param2      匹配
+http://website.com/abcd/                   不匹配，不能匹配正则表达式
+http://website.com/abcde                   不匹配，不能匹配正则表达式
+
+* **“^~”，前缀匹配，匹配以表达式开头的字符串，如果命中，则其他的location都不执行匹配**
+
+“^~”，前缀匹配，匹配以表达式开头的字符串，如果命中，则其他的location都不执行匹配。
 
 ```
 location ^~ /index/ {
@@ -804,10 +815,12 @@ location ^~ /index/ {
 }
 #以 /index/ 开头的请求，都会匹配上
 #http://abc.com/index/index.page  [匹配成功]
-#http://abc.com/error/error.page [匹配失败]
+#http://abc.com/error/error.page  [匹配失败]
 ```
 
-（5）不加任何规则时，默认是大小写敏感，前缀匹配，相当于加了“~”与“^~”
+* **不加任何规则，直接跟url**
+
+不加任何规则时，默认是大小写敏感的前缀匹配，相当于加了“~”与“^~”
 
 ```
 location /index/ {
@@ -819,7 +832,9 @@ location /index/ {
 #http://abc.com/Index  [匹配失败]
 ```
 
-（6）“@”，nginx内部跳转
+* **“@”，nginx内部跳转**
+
+内部跳转，相当于goto 语句
 
 ```
 location /index/ {
@@ -840,7 +855,6 @@ location @index_error {
 
 解释：
 
-* 序号越小优先级越高
  
 * 最高优先级 location =    # 精准匹配
 
@@ -900,11 +914,15 @@ location / {
 ```
 访问根目录/， 比如http://localhost/ 将匹配规则A
 
-访问 http://localhost/login 将匹配规则B，http://localhost/register 则匹配规则H
+访问 http://localhost/login 将匹配规则B，
+
+访问 http://localhost/register 则匹配规则H
 
 访问 http://localhost/static/a.html 将匹配规则C
 
-访问 http://localhost/b.jpg 将匹配规则D和规则E，但是规则D顺序优先，规则E不起作用， 而 http://localhost/static/c.png 则优先匹配到 规则C
+访问 http://localhost/b.jpg 将匹配规则D和规则E，但是规则D顺序优先，规则E不起作用， 
+
+访问 http://localhost/static/c.png 则优先匹配到 规则C
 
 访问 http://localhost/a.PNG 则匹配规则E， 而不会匹配规则D，因为规则E不区分大小写。
 
@@ -915,11 +933,11 @@ location / {
 
 #### root命令index命令alias和return命令
 
-* root
+* **root**
 
 root指令用于指定网站的根目录。
 
-* index
+* **index**
 
 index 指令用于设置网站的默认首页。
 
@@ -937,15 +955,23 @@ root和alias都可以用来定义网站的根目录，但alias不会追加locati
         index  index.html index.htm;
  }
 
-当nginx接收到：nginx主机IP/helloworld/hello.html时，
+当nginx接收到：
+http://server/helloworld/hello.html时，
 
 首先根据location的匹配规则，大小写敏感的前缀匹配方式，"/" 匹配上后，匹配剩余的部分"helloworld/hello.html"会追加到root的后面，通过root + location 的方式来返回：
 
-nginx主机IP/usr/share/nginx/html/helloworld/hello.html
+匹配后的url：
+http://server/usr/share/nginx/html/helloworld/hello.html
+
+
 
 当nginx收到nginx主机IP/时，
 
-采用root + index 的方式，nginx主机IP/usr/share/nginx/html/index.html
+http://server/
+
+采用root + index 的方式，
+
+匹配后的url: http://server/usr/share/nginx/html/index.html
 ```
 
 使用root和alias的区别：
@@ -992,13 +1018,9 @@ return 资源文件路径
 
 ```
 
-#### proxy_pass
+#### proxy_pass 反向代理
 
 proxy_pass用于设置被代理服务器的地址，可以是主机名称（https://www.baidu.com这样的）、IP地址(域名加端口号)的形式。
-
-
-
-假设请求：http://localhost/online/wxapi/test/loginSwitch
 
 * 第一种情况：proxy_pass结尾有`IP+port+/`  ---有杠去除location
 
@@ -1008,11 +1030,15 @@ location /online/wxapi/ {
         proxy_set_header X-Real-IP $remote_addr;
 }
 ```
+
 proxy_pass后面有斜杠，则拼接不包含前缀：
+
+假设请求：http://server/online/wxapi/test/loginSwitch
 
 代理后的实际地址：http://localhost:8080/test/loginSwitch
 
 * 第二种情况: proxy_pass最后有：`IP_port`（不带杠)---保留location
+
 ```
 location /online/wxapi/ {
         proxy_pass http://localhost:8080;
@@ -1020,6 +1046,8 @@ location /online/wxapi/ {
 }
 ```
 IP+Port：拼接包含前缀
+
+假设请求：http://server/online/wxapi/test/loginSwitch
 
 代理后的实际地址：http://localhost:8080/online/wxapi/test/loginSwitch
 
@@ -1211,8 +1239,6 @@ if ($time_iso8601 ~ "^(\d{4})-(\d{2})-(\d{2})") {
  access_log  /var/logs/xxxx/access/xxxxx_xx_access_$year-$month-$day.log  main;
 
 
-
-
 ## Nginx的错误日志
 
 日志格式：
@@ -1223,6 +1249,14 @@ Default:
 error_log logs/error.log error;
 
 ```
+
+## 配置的继承关系：
+
+命令指令不可以继承；
+
+值指令可以继承，继承规则为：
+当子类没有定义时，以父类的为标准；
+当子类定义了，则覆盖父类的值；
 
 
 
