@@ -696,7 +696,7 @@ nginx: /usr/local/nginx
 ```
 
 
-## 4.3 安装
+## 4.3 安装Nginx以及gzip、ssl和stub_status模块
 
 ### 4.3.1 通过下载源码编译的方式安装nginx
 
@@ -746,21 +746,21 @@ OpenSSL开发库:yum install -y openssl openssl-devel
 可以一键安装：
 ```
 yum install -y  gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
-
 ```
 
 * step4:编译Nginx
 
-```
-//进入nginx目录
-cd /usr/local/nginx
-//进入目录
-cd nginx-1.13.7
-//执行命令
-./configure  --with-http_gzip_static_module --with-http_ssl_module
-//执行make命令
+```shell
+#进入nginx目录
+cd /usr/local/nginx/nginx-1.13.7
+
+#检查编译选项，并配置安装模块
+./configure  --with-http_gzip_static_module --with-http_ssl_module --with-http_stub_status_module
+
+#执行make命令
 make
-//执行make install命令
+
+#执行make install命令
 make install
 ```
 至此，nginx安装成功。
@@ -806,8 +806,139 @@ make install
 
 ## 4.4 配置
 
->Nginx的配置文件通过config目录下的nginx.conf来进行配置，详情参见nginx的配置文档。
+Nginx的配置文件通过config目录下的nginx.conf来进行配置，详情参见nginx的配置文档。
 
+### 4.4.1 配置gzip
+
+一个典型的gzip配置如下：
+
+```shell
+  #开启文件压缩传输，需要ngx_http_gzip_module模块支持   
+	gzip  on;
+	gzip_comp_level 2;  # gzip 压缩级别，1-10，数字越大压缩的越好，也越占用CPU时间。一般设置1和2
+	gzip_min_length 1k; # 启用gzip压缩的最小文件，小于设置值的文件将不会压缩
+  gzip_vary on; 		  # 是否在http header中添加Vary: Accept-Encoding，建议开启
+  gzip_proxied any;   # 压缩反向代理的资源
+	gzip_types 
+		text/plain 
+		application/javascript 
+		application/x-javascript 
+		text/css 
+		application/xml 
+		text/javascript 
+		application/x-httpd-php 
+		image/jpeg 
+		image/gif 
+		image/png;	#压缩的文件类型。其中的值可以在 mime.types 文件中找到。
+	gzip_disable "MSIE [1-6]\."; # 禁用IE 6 gzip
+	# 设置缓存路径并且使用一块最大100M的共享内存，用于硬盘上的文件索引，包括文件名和请求次数。
+	# 每个文件在1天内若不活跃（无请求）则从硬盘上淘汰，硬盘缓存最大10G，满了则根据LRU算法自动清除缓存。
+	proxy_cache_path /var/cache/nginx/cache levels=1:2 keys_zone=imgcache:100m inactive=1d max_size=10g;
+```
+
+### 4.4.2 配置ssl
+
+ssl配置是在server块来进行，添加如下配置命令：
+
+    listen 443 ssl; #默认监听443端口，ssl表示开启ssl
+
+    ssl_certificate cert/5528405__iyuya.com.pem;  #证书文件，路径在conf/cert目录下。
+
+    ssl_certificate_key cert/5528405__iyuya.com.key; #证书密钥文件，路径在conf/cert目录下。
+
+    ssl_session_timeout 5m; #指定客户端可以重用会话参数的时间
+
+    # 加密套件，多个之间用冒号分隔，前有感叹号的表示必须废弃
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+
+    # 指定支持的协议，这里表示支持1、1.1和1.2， 如果只写1.2表示仅支持1.2.  注：OpenSSL版本要求 >= 1.0.1
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #表示使用的TLS协议的类型。
+    
+    # 设置协商加密算法，优先使用服务端定义的加密套件
+    ssl_prefer_server_ciphers on;
+
+一个配置ssl的例子如下：
+
+```shell
+server {
+    listen 443 ssl;
+
+    server_name biz.iyuya.com; #证书绑定的域名。
+
+    root /home/web;
+
+    index index.html index.htm;
+
+    ssl_certificate cert/5528405__iyuya.com.pem;  #证书文件，路径在conf/cert目录下。
+
+    ssl_certificate_key cert/5528405__iyuya.com.key; #证书密钥文件，路径在conf/cert目录下。
+
+    ssl_session_timeout 5m; #指定客户端可以重用会话参数的时间
+
+    # 加密套件，多个之间用冒号分隔，前有感叹号的表示必须废弃
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+
+    # 指定支持的协议，这里表示支持1、1.1和1.2， 如果只写1.2表示仅支持1.2.  注：OpenSSL版本要求 >= 1.0.1
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #表示使用的TLS协议的类型。
+    
+    # 设置协商加密算法，优先使用服务端定义的加密套件
+    ssl_prefer_server_ciphers on;
+
+    error_page 404 500 502 503 504  /502.html;
+
+    location = /502.html {
+        root   /data/maintain; # 页面所在的文件夹位置，注意是文件夹位置，而不是页面路径
+    }
+
+    location /api {
+        rewrite ^/api/(.*)$ /$1 break;
+
+        proxy_pass http://8.136.150.121:60011;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+### 4.4.3 配置websocket
+
+要是nginx支持websocket，需要在websocket的location中添加如下配置：
+
+```shell
+proxy_http_version 1.1;  
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "Upgrade";
+```
+
+一个使用websocket的例子如下：
+```shell
+location /websocket {
+    proxy_pass http://127.0.0.1:60012;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_read_timeout 600s;
+}
+```
+### 4.4.4 配置stub_status
+
+在server或location端添加配置信息：
+
+```
+location /nginx_status {
+    # Turn on nginx stats
+    stub_status on;
+    # I do not need logs for stats
+    access_log   off;
+    # Security: Only allow access from 192.168.1.100 IP #
+    #allow 192.168.1.100;
+    # Send rest of the world to /dev/null #
+    #deny all;
+}
+```
 ## 4.5 运行Nginx
 
 ### 启动nginx
