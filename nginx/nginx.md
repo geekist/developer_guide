@@ -28,17 +28,24 @@
     - [4.2.2 event模块](#422-event模块)
     - [4.2.3 http模块](#423-http模块)
     - [4.2.4 server模块](#424-server模块)
+      - [server模块指令](#server模块指令)
+      - [多个server的匹配规则](#多个server的匹配规则)
     - [4.2.5 Location 模块](#425-location-模块)
-      - [location匹配顺序](#location匹配顺序)
-      - [root命令index命令alias和return命令](#root命令index命令alias和return命令)
-      - [return指令](#return指令)
-      - [proxy_pass 反向代理](#proxy_pass-反向代理)
-  - [error_page配置命令](#error_page配置命令)
-  - [try_files指令](#try_files指令)
+      - [location模块指令](#location模块指令)
+        - [匹配规则](#匹配规则)
+        - [多个location匹配顺序](#多个location匹配顺序)
+        - [root指令](#root指令)
+        - [index指令](#index指令)
+        - [alias指令](#alias指令)
+        - [return指令](#return指令)
+        - [proxy_pass 反向代理](#proxy_pass-反向代理)
+        - [error_page配置命令](#error_page配置命令)
+        - [rewrite指令](#rewrite指令)
+        - [try_files指令](#try_files指令)
 - [五、Nginx日志配置](#五nginx日志配置)
   - [Nginx的访问日志](#nginx的访问日志)
   - [Nginx的错误日志](#nginx的错误日志)
-  - [配置的继承关系：](#配置的继承关系)
+- [六 Nginx配置的继承关系：](#六-nginx配置的继承关系)
 
 
 
@@ -638,6 +645,7 @@ http服务上支持若干虚拟主机。每个虚拟主机一个对应的server�
 
 通常server指令中会包含一条listen指令，用于指定该虚拟服务器将要监听的IP地址和端口。示例如下：
 
+#### server模块指令
 
 ```
 server {
@@ -687,7 +695,7 @@ server {
   如果找不到任何与host字段相匹配的server_name，Nginx会根据请求端口将其发送给默认的server。默认server就是配置文件中第一个出现的server，也可以通过default_server指定某个server为默认server
  
 
-  * **多个server的匹配规则**
+  #### 多个server的匹配规则
 
   如果有多个server_name匹配host字段，Nginx根据以下规则选择第一个相匹配的server处理请求：
 
@@ -727,6 +735,11 @@ http {
 ```
 
 大致的意思是，当你访问 www.yayujs.com 的 80 端口的时候，返回/home/www/ts/index.html 文件。
+
+
+#### location模块指令
+
+##### 匹配规则
 
 * **localtion语法的两种匹配规则**
 
@@ -847,7 +860,7 @@ location @index_error {
 #以 /index/ 开头的请求，如果链接的状态为 404。则会匹配到 @index_error 这条规则上。
 ```
 
-#### location匹配顺序
+##### 多个location匹配顺序
 
 ```
 = > ^~ > ~ | ~* > 最长前缀匹配 > /
@@ -859,18 +872,18 @@ location @index_error {
 * 最高优先级 location =    # 精准匹配
 
 
-* 第二优先级 location ^~   # 带参前缀匹配
+* 第二优先级 location ^~   # 带参前缀匹配，如果找到则停止匹配
 
 
-* 第三优先级 location ~    # 正则匹配（区分大小写）
+* 第三优先级 location ~    # 正则匹配（区分大小写），同一个级别，如果找到则继续向后匹配，如果都没有匹配的，则采用该匹配；
 
 
-* 第四优先级 location ~*   # 正则匹配（不区分大小写）
+* 第四优先级 location ~*   # 正则匹配（不区分大小写）同一个级别，如果找到则继续向后匹配，如果都没有匹配的，则采用该匹配；
 
 
-* 第五优先级 location /a   # 普通前缀匹配，优先级低于带参数前缀匹配。
+* 第五优先级 location /a   # 普通前缀匹配，优先级低于带参数前缀匹配。同一个级别，如果找到则继续向后匹配，如果都没有匹配的，则采用该匹配；
 
-* 第六优先级 location /    # 任何没有匹配成功的，都会匹配这里处理
+* 第六优先级 location /    # 任何没有匹配成功的，都会匹配这里处理。
 
 例子：
 
@@ -931,19 +944,17 @@ location / {
 访问 http://localhost/qll/id/1111 则最终匹配到规则H，因为以上规则都不匹配。
 ```
 
-#### root命令index命令alias和return命令
-
-* **root**
+##### root指令
 
 root指令用于指定网站的根目录。
 
-* **index**
+##### index指令
 
 index 指令用于设置网站的默认首页。
 
 除了用在location，index还可以使用在http、server块中。
 
-* alias
+##### alias指令
 
 root和alias都可以用来定义网站的根目录，但alias不会追加location匹配到的部分，
 
@@ -1003,7 +1014,7 @@ location ~ /helloworld/.*\.png$
 使用alias时，访问的资源路径是/usr/share/nginx/html/helloworld，没错，就是alias的绝对路径，它不会把正则表达式部分追加到alias指定的路径之后。
 ```
 
-#### return指令
+##### return指令
 
 使用return可以返回数据或资源文件的路径
 
@@ -1018,7 +1029,7 @@ return 资源文件路径
 
 ```
 
-#### proxy_pass 反向代理
+##### proxy_pass 反向代理
 
 proxy_pass用于设置被代理服务器的地址，可以是主机名称（https://www.baidu.com这样的）、IP地址(域名加端口号)的形式。
 
@@ -1079,7 +1090,7 @@ IP+Port+/+web + /，最后有斜杠，拼接不包含前缀
 
 但是，如果location是正则表达式，则上述不正确，参见yuya的config
 
-## error_page配置命令
+##### error_page配置命令
 
 语法：
 
@@ -1155,8 +1166,42 @@ error_page 404 =200 /404.html 可显示自定义404页面内容，但返回200�
 error_page 404 /404.php 如果是动态404错误页面，包含 header 代码（例如301跳转），将无法正常执行。正常返回404代码。
 error_page 404 = /404.php 如果是动态404错误页面，包含 header 代码（例如301跳转），加等号配置可以正常执行，返回php中定义的状态码。但如果php中定义返回404状态码，404状态码可以正常返回，但无法显示自定义页面内容（出现系统默认404页面），这种情况可以考虑用410代码替代（ header("HTTP/1.1 410 Gone"); 正常返回410状态码，且可正常显示自定义内容）。
 ```
+##### rewrite指令
 
-## try_files指令
+是实现URL重写的指令。该指令可以在server块或location块中配置，其基本语法结构如下：
+
+```
+rewrite regex replacement [flag];
+```
+
+regex的含义：用于匹配URI的正则表达式。
+
+replacement：将regex正则匹配到的内容替换成 replacement。
+
+flag: flag标记。
+
+flag有如下值：
+last: 本条规则匹配完成后，继续向下匹配新的location URI 规则。(不常用)
+
+break: 本条规则匹配完成即终止，不再匹配后面的任何规则(不常用)。
+
+redirect: 返回302临时重定向，浏览器地址会显示跳转新的URL地址。
+
+permanent: 返回301永久重定向。浏览器地址会显示跳转新的URL地址。
+
+例子：
+
+rewrite ^/(.*) http://www.baidu.com/$1 permanent;
+
+说明：
+rewrite 为固定关键字，表示开始进行rewrite匹配规则。
+regex 为 ^/(.*)。 这是一个正则表达式，匹配完整的域名和后面的路径地址。
+replacement就是 http://www.baidu.com/$1这块了，其中1是取regex部分()里面的内容。如果匹配成功后跳转到的URL。
+flag 就是 permanent，代表永久重定向的含义，即跳转到 http://www.baidu.com/$1 地址上。
+
+当请求为：http://server/test/123.html时，会跳转到：http://www.baidu.com/test/123.html
+
+##### try_files指令
 
 try_files是nginx中http_core核心模块所带的指令，主要是能替代一些rewrite的指令，提高解析效率。
 
@@ -1204,8 +1249,10 @@ $uri为home.html。
 
 # 五、Nginx日志配置
 
+Nginx日志对于统计、系统服务排错很有用。Nginx日志主要分为两种：access_log(访问日志)和error_log(错误日志)。通过访问日志我们可以得到用户的IP地址、浏览器的信息，请求的处理时间等信息。错误日志记录了访问出错的信息，可以帮助我们定位错误的原因。本文将详细描述一下如何配置Nginx日志。
 
 可以应用access_log指令的作用域分别有http，server，location
+
 
 ## Nginx的访问日志
 
@@ -1250,7 +1297,7 @@ error_log logs/error.log error;
 
 ```
 
-## 配置的继承关系：
+# 六 Nginx配置的继承关系：
 
 命令指令不可以继承；
 
