@@ -36,14 +36,14 @@
 Spring Task是Spring 3.0自带的定时任务，可以将它看作成一个轻量级的Quartz，功能虽然没有Quartz那样强大，但是使用起来非常简单，无需增加额外的依赖，可直接上手使用。
 
 ### 2.1.1 使用@EnableScheduling开启定时任务
-
+```java
 @EnableScheduling
 public class ScheduledTest {
 ......
 }
-
+```
 ### 2.1.2 使用@Scheduled声明定时任务
-
+```java
 @EnableScheduling
 public class ScheduledTest {
 
@@ -52,8 +52,10 @@ public class ScheduledTest {
         log.info("这个定时任务----");
     }
 }
-
+```
 ### 2.1.3 使用@Component将定时任务类注册成一个bean组件，交给Spring容器管理。
+
+```java
 @Configuration
 @EnableScheduling
 public class ScheduledTest {
@@ -63,6 +65,7 @@ public class ScheduledTest {
         log.info("这个定时任务----");
     }
 }
+```
 
 注：这里使用@Configuration，是因为其本身就是一个@Component
 
@@ -70,7 +73,9 @@ public class ScheduledTest {
 其中Scheduled注解中有以下几个参数：
 
 1.cron是设置定时执行的表达式，如 0 0/5 * * * ?每隔五分钟执行一次 秒 分 时 天 月
-关于cron介绍，参见：(Cron表达式详细介绍)[https://github.com/geekist/developer_guide/blob/main/server/cron.md]
+关于cron介绍，
+参见：
+[Cron表达式详细介绍](https://github.com/geekist/developer_guide/blob/main/server/cron.md)
 
 2.zone表示执行时间的时区
 
