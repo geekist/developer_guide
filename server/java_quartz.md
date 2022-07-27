@@ -1,8 +1,7 @@
 
-## Spring 定时任务
 
 
-### 一、java内置的实现定时功能的类
+# 一、java内置的实现定时功能的类
 
 在 JDK 中，内置了两个类，可以实现定时任务的功能：
 
@@ -24,66 +23,65 @@
 
 3、项目可能存在定时任务较多，需要统一的管理，此时不得不进行二次封装。
 
-### 二、Spring 定时任务
+# 二、Spring 定时任务
 
 关于“任务”的叫法，也有叫“作业”的。在英文上，有 Task 也有 Job 。本质是一样的，本文两种都会用。一般来说是调度任务，定时执行。
 
 在 Spring 体系中，内置了两种定时任务的解决方案：
 
-#### 2.1 Spring Task
+## 2.1 Spring Task
 
 第一种，Spring Framework 的 Spring Task 模块，提供了轻量级的定时任务的实现。
 
-* 配置
+Spring Task是Spring 3.0自带的定时任务，可以将它看作成一个轻量级的Quartz，功能虽然没有Quartz那样强大，但是使用起来非常简单，无需增加额外的依赖，可直接上手使用。
 
-spring task 不需要特殊配置，是spring framework内置的；
+### 2.1.1 使用@EnableScheduling开启定时任务
 
-* 创建和执行任务
+@EnableScheduling
+public class ScheduledTest {
+......
+}
 
-```java
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import java.util.concurrent.atomic.AtomicInteger;
+### 2.1.2 使用@Scheduled声明定时任务
 
-@Component
-//@Configuration // 1.主要用于标记配置类，兼备Component的效果。
-@EnableScheduling // 2.开启定时任务
-public class DemoJob {
-    private final AtomicInteger counts = new AtomicInteger();
+@EnableScheduling
+public class ScheduledTest {
 
-    @Scheduled(fixedRate = 2000)
-    public void execute() {
-        String str = "[execute][定时第" + counts.incrementAndGet() + "次执行]\"";
-        System.out.println(str);
+    @Scheduled(cron = "*/1 * * * * ?")
+    public void test(){
+        log.info("这个定时任务----");
     }
 }
 
+### 2.1.3 使用@Component将定时任务类注册成一个bean组件，交给Spring容器管理。
+@Configuration
+@EnableScheduling
+public class ScheduledTest {
 
-```
+    @Scheduled(cron = "*/1 * * * * ?")
+    public void test(){
+        log.info("这个定时任务----");
+    }
+}
 
-
-@EnableScheduling 开启对定时任务的支持
-@Scheduled 可以作为一个触发源添加到一个方法中
-
-   其中Scheduled注解中有以下几个参数：
-
-　　1.cron是设置定时执行的表达式，如 0 0/5 * * * ?每隔五分钟执行一次 秒 分 时 天 月
-
-　　2.zone表示执行时间的时区
-
-　　3.fixedDelay 和fixedDelayString 表示一个固定延迟时间执行，上个任务完成后，延迟多长时间执行
-
-　　4.fixedRate 和fixedRateString表示一个固定频率执行，上个任务开始后，多长时间后开始执行
-
-　　5.initialDelay 和initialDelayString表示一个初始延迟时间，第一次被调用前延迟的时间
+注：这里使用@Configuration，是因为其本身就是一个@Component
 
 
+其中Scheduled注解中有以下几个参数：
+
+1.cron是设置定时执行的表达式，如 0 0/5 * * * ?每隔五分钟执行一次 秒 分 时 天 月
+关于cron介绍，参见：(Cron表达式详细介绍)[https://github.com/geekist/developer_guide/blob/main/server/cron.md]
+
+2.zone表示执行时间的时区
+
+3.fixedDelay 和fixedDelayString 表示一个固定延迟时间执行，上个任务完成后，延迟多长时间执行
+
+4.fixedRate 和fixedRateString表示一个固定频率执行，上个任务开始后，多长时间后开始执行
+
+5.initialDelay 和initialDelayString表示一个初始延迟时间，第一次被调用前延迟的时间
 
 
-
-#### 2.2 Spring Boot Quartz
+## 2.2 Spring Boot Quartz
 
 第二种，Spring Boot 2.0 版本，整合了 Quartz 作业调度框架，提供了功能强大的定时任务的实现。
 
