@@ -31,9 +31,13 @@
   - [4.2 删除Nginx](#42-删除nginx)
     - [4.2.1 删除通过yum安装的nginx](#421-删除通过yum安装的nginx)
     - [4.2.2 通过压缩包编译的nginx的卸载](#422-通过压缩包编译的nginx的卸载)
-  - [4.3 安装](#43-安装)
+  - [4.3 安装Nginx以及gzip、ssl和stub_status模块](#43-安装nginx以及gzipssl和stub_status模块)
     - [4.3.1 通过下载源码编译的方式安装nginx](#431-通过下载源码编译的方式安装nginx)
   - [4.4 配置](#44-配置)
+    - [4.4.1 配置gzip](#441-配置gzip)
+    - [4.4.2 配置ssl](#442-配置ssl)
+    - [4.4.3 配置websocket](#443-配置websocket)
+    - [4.4.4 配置stub_status](#444-配置stub_status)
   - [4.5 运行Nginx](#45-运行nginx)
     - [启动nginx](#启动nginx)
     - [带配置文件的启动](#带配置文件的启动)
@@ -749,6 +753,9 @@ yum install -y  gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
 ```
 
 * **step4:编译Nginx以及gzip、ssl、stub_status模块**
+
+**./configure  --with-http_gzip_static_module --with-http_ssl_module --with-http_stub_status_module**
+
 
 ```shell
 #进入nginx目录

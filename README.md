@@ -61,6 +61,10 @@ Spring 安全
 
 * [Shiro](https://github.com/geekist/developer_guide/blob/main/server/shiro.md)
 
+Spring定时任务
+
+* [Spring定时任务](https://github.com/geekist/developer_guide/blob/main/server/java_quartz.md)
+
 
 Redis数据缓存服务器
  
@@ -172,11 +176,17 @@ JavaWeb开发
 
 其他
 
+cron表达式
+
+* [Cron表达式](https://github.com/geekist/developer_guide/blob/main/server/cron.md)
+
 * [如何生成GitHubMarkdown文件的目录](./tools/tools.md)
 
-* [正则表达式](./regex.md)
+
 
 正则表达式（regular expression）
+
+* [正则表达式](./regex.md)
 
 * [正则表达式-维基百科](https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)
 
