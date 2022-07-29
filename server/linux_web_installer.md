@@ -49,8 +49,8 @@
   * [5\.2 卸载Nacos](#52-卸载nacos)
   * [5\.3 安装Nacos](#53-安装nacos)
     * [5\.3\.1 下载编译后压缩包方式安装](#531-下载编译后压缩包方式安装)
-  * [4、配置(yy项目不需要配置Nacos)](#4配置yy项目不需要配置nacos)
-  * [5\.4 运行Nacos](#54-运行nacos)
+  * [5\.4 配置(yy项目不需要配置Nacos)](#54-配置yy项目不需要配置nacos)
+  * [5\.5 运行Nacos](#55-运行nacos)
 
 **Linux环境下web服务器配置，除了git可以不考虑版本，直接通过yum从服务器下载之外，其他如JDK、Maven、Nginx和Nacos都需要下载压缩包安装或编译安装（Nginx需要编译安装）。**
 
@@ -1138,11 +1138,11 @@ cd nacos/bin
 >cd distribution/target/nacos-server-$version/nacos/bin
 >```
 
-## 4、配置(yy项目不需要配置Nacos)
+## 5.4 配置(yy项目不需要配置Nacos)
 
 >当前的nacos配置，不需要通过服务器端配置文件进行特殊配置。
 
-## 5.4 运行Nacos
+## 5.5 运行Nacos
 
 * 启动Nacos
 **cd /usr/local/nacos/nacos/bin**
