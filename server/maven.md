@@ -29,25 +29,31 @@
 - [六、Maven profiles](#六maven-profiles)
   - [6.1 Maven Profiles介绍](#61-maven-profiles介绍)
   - [6.2 profiles定义的位置](#62-profiles定义的位置)
-    - [6.3 profile的配置写法](#63-profile的配置写法)
-- [6.4 profile中的变量值如何被使用](#64-profile中的变量值如何被使用)
-    - [6.5 Profile的激活方式](#65-profile的激活方式)
-      - [6.5.1 使用 activeByDefault设置激活](#651-使用-activebydefault设置激活)
-      - [6.5.2  在 settings.xml中使用activeProfiles设置激活](#652--在-settingsxml中使用activeprofiles设置激活)
-      - [6.5.3 使用-P参数显示的激活一个profile](#653-使用-p参数显示的激活一个profile)
-      - [6.5.4 根据环境来激活profile](#654-根据环境来激活profile)
-      - [6.5.6 查看当前激活的profile](#656-查看当前激活的profile)
-  - [7.Maven变量](#7maven变量)
+  - [6.3 profile的配置写法](#63-profile的配置写法)
+  - [6.4 profile中的变量值如何被使用](#64-profile中的变量值如何被使用)
+  - [6.5 Profile的激活方式](#65-profile的激活方式)
+    - [6.5.1 使用 activeByDefault设置激活](#651-使用-activebydefault设置激活)
+    - [6.5.2  在 settings.xml中使用activeProfiles设置激活](#652--在-settingsxml中使用activeprofiles设置激活)
+    - [6.5.3 使用-P参数显示的激活一个profile](#653-使用-p参数显示的激活一个profile)
+    - [6.5.4 根据环境来激活profile](#654-根据环境来激活profile)
+    - [6.5.6 查看当前激活的profile](#656-查看当前激活的profile)
+  - [6.7 Maven变量](#67-maven变量)
     - [关于Filter](#关于filter)
-  - [8、Maven命令和Maven插件](#8maven命令和maven插件)
-    - [1.Maven插件定义](#1maven插件定义)
-    - [2. Maven插件执行语法](#2-maven插件执行语法)
-    - [3.Maven插件类型](#3maven插件类型)
-    - [4.第三方插件使用举例](#4第三方插件使用举例)
-    - [5. Maven命令](#5-maven命令)
-- [五、使用Maven进行模块化管理](#五使用maven进行模块化管理)
+  - [6.8 Maven命令和Maven插件](#68-maven命令和maven插件)
+    - [6.8.1 Maven插件定义](#681-maven插件定义)
+    - [6.8.2 Maven插件执行语法](#682-maven插件执行语法)
+    - [6.8.3 Maven插件类型](#683-maven插件类型)
+    - [6.8.4 第三方插件使用举例](#684-第三方插件使用举例)
+    - [6.8.5 Maven命令](#685-maven命令)
+- [七、使用Maven进行模块化管理](#七使用maven进行模块化管理)
     - [POM的继承关系](#pom的继承关系)
     - [POM的合成关系](#pom的合成关系)
+- [八、Maven版本管理](#八maven版本管理)
+  - [8.1 SNAPSHOT含义](#81-snapshot含义)
+  - [8.1 使用 ${revision}](#81-使用-revision)
+  - [8.2 子模块和依赖模块的版本号设置](#82-子模块和依赖模块的版本号设置)
+
+
 # 一、Maven介绍
 
 ## 1、引入（java项目开发的琐碎配置）
@@ -541,7 +547,7 @@ profile可以定义在不同定义的位置
 
 针对于特定项目的profile配置我们可以定义在该项目的pom.xml中。本文介绍的profiles就是针对工程设置的配置
 
-### 6.3 profile的配置写法
+## 6.3 profile的配置写法
 
 在项目根目录的pom.xml文件中，添加profiles标签，一个profiles下面包含多个profile，可以针对不同使用场景定义不同的功能。
 
@@ -611,7 +617,7 @@ pom中的下列元素中的配置均可通过profiles定义:
     </profiles>
 </project>
 ```
-# 6.4 profile中的变量值如何被使用
+## 6.4 profile中的变量值如何被使用
 
 在前面的例子中，我们可以看到定义了多个profile，每个profile都有唯一的id，也包含properties属性。
 
@@ -644,9 +650,9 @@ mvn clean package -Plocal
 include文件为：application-local.yml文件。
 
 
-### 6.5 Profile的激活方式
+## 6.5 Profile的激活方式
 
-#### 6.5.1 使用 activeByDefault设置激活
+### 6.5.1 使用 activeByDefault设置激活
 
 我们可以在profile中的activation元素中指定激活条件，当没有指定条件，并且指定activeByDefault为true的时候，就表示当没有指定其他profile为激活状态时，该profile就默认会被激活。
 在上面的例子中：
@@ -667,7 +673,7 @@ include文件为：application-local.yml文件。
 当我们调用mvn package,后面不使用参数的时候，则localprofile将会被激活，但是当我们使用mvn package –P test的时候，testProfile将被激活，而这个时候local将不会被激活。
 
 
-#### 6.5.2  在 settings.xml中使用activeProfiles设置激活
+### 6.5.2  在 settings.xml中使用activeProfiles设置激活
 
 我们就可以在settings.xml中定义activeProfiles，具体定义如下：
 
@@ -697,7 +703,7 @@ include文件为：application-local.yml文件。
 ```
 那么，profile为profile1的配置会被激活。
 
-#### 6.5.3 使用-P参数显示的激活一个profile
+### 6.5.3 使用-P参数显示的激活一个profile
 
 我们在进行Maven操作时，可以使用-P参数显示的指定当前激活的是哪一个profile。比如我们需要在对项目进行打包的时候使用id为profile1的profile，我们就可以这样做：
 ```
@@ -711,7 +717,7 @@ Mvn package –P !test
 这里假设profileTest1是在settings.xml中使用activeProfile标记的处于激活状态的profile，那么当我们使用“-P !profile”的时候就表示在当前操作中该profile将不处于激活状态。
 
 
-#### 6.5.4 根据环境来激活profile
+### 6.5.4 根据环境来激活profile
 
 profile一个非常重要的特性就是它可以根据不同的环境来激活，比如说根据操作系统的不同激活不同的profile，也可以根据jdk版本的不同激活不同的profile，等等。
 
@@ -776,14 +782,14 @@ profile一个非常重要的特性就是它可以根据不同的环境来激活�
 </profiles>
 ```
 
-#### 6.5.6 查看当前激活的profile
+### 6.5.6 查看当前激活的profile
 
 
 我们可以同时定义多个profile，那么在建立项目的过程中，到底激活的是哪一个profile呢？Maven为我们提供了一个指令可以查看当前处于激活状态的profile都有哪些，这个指定就是：
 
 **mvn help:active-profiles**
 
-## 7.Maven变量
+## 6.7 Maven变量
 
 ### 关于Filter
 Filter 是 maven 的 resource插件提供的功能，作用是用环境变量、pom文件里定义的属性和指定配置文件里的属性替换属性(*.properties)文件里的占位符(${jdbc.url})。
@@ -831,15 +837,15 @@ jdbc.username=root
 jdbc.passworkd=123456
 ```
 
-## 8、Maven命令和Maven插件
+## 6.8 Maven命令和Maven插件
 
-### 1.Maven插件定义
+### 6.8.1 Maven插件定义
 
 Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，像编译是通过maven-compile-plugin实现的、测试是通过maven-surefire-plugin实现的，maven也内置了很多插件，所以我们在项目进行编译、测试、打包的过程是没有感觉到。
 
 进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。
 
-### 2. Maven插件执行语法
+### 6.8.2 Maven插件执行语法
 
 ```
 mvn [plugin-name]:[goal-name]
@@ -851,7 +857,7 @@ mvn [plugin-name]:[goal-name]
 mvn compiler:compile
 ```
 
-### 3.Maven插件类型
+### 6.8.3 Maven插件类型
 
 Maven提供以下两种类型的插件：
 
@@ -867,7 +873,7 @@ Maven提供以下两种类型的插件：
 >
 >第二个列表的GroupId为org.codehaus.mojo，这里的插件没有那么核心，但也有不少十分有用，其地址为：http://mojo.codehaus.org/plugins.html。
 
-### 4.第三方插件使用举例
+### 6.8.4 第三方插件使用举例
 
 除了这些核心插件之外，还有很多优秀的第三方插件，可以帮助我们快捷、方便的构架项目。当使用到某些功能或者特性的时候多加搜索，往往得到让你惊喜的效果。
 
@@ -946,7 +952,7 @@ mvn mybatis-generator:generate
 ```
 所有的文件就会自动生成。
 
-### 5. Maven命令
+### 6.8.5 Maven命令
 
 maven的命令格式如下：
 
@@ -988,7 +994,7 @@ mvn package -Dmaven.test.skip=true
 比如项目开发需要有多个环境，一般为开发，测试，预发，正式4个环境，可以通过-P参数配置运行环境。
 
 
-# 五、使用Maven进行模块化管理
+# 七、使用Maven进行模块化管理
 
 在软件开发中，把一个大项目分拆为多个模块是降低软件复杂度的有效方法：
 
@@ -1286,4 +1292,98 @@ multiple-project
          <module>my-child-project2<module>  
     </modules>  
 </project>  
+```
+
+# 八、Maven版本管理
+
+## 8.1 SNAPSHOT含义
+
+快照（SNAPSHOT）是一种特殊的版本，指定了某个当前的开发进度的副本。不同于常规的版本，Maven每次构建都会在远程仓库中检查新的快照。
+
+Maven中的仓库分为两种，Snapshot快照仓库和Release发布仓库。Snapshot快照仓库用于保存开发过程中的不稳定版本，Release正式仓库则是用来保存稳定的发行版本。定义一个组件/模块为快照版本，只需要在pom.xml文件中在该模块的版本号后加上-SNAPSHOT即可（注意这里必须是大写），如下所示：
+```xml
+<groupId>com.jsoft.test</groupId>
+<artifactId>testcommon</artifactId>
+<version>0.1-SNAPSHOT</version>
+<packaging>jar</packaging>
+```
+Maven会根据模块的版本号（pom.xml文件中的version）中是否带有-SNAPSHOT来判断是快照版本还是正式版本。如果是快照版本，那么在mvn deploy时会自动发布到快照版本库中。
+
+使用快照版本的模块，在不更改版本号的情况下，直接编译打包时，Maven会自动从镜像服务器上下载最新的快照版本。如果是正式发布版本，那么在mvn deploy时会自动发布到正式版本库中，而使用正式版本的模块，在不更改版本号的情况下，编译打包时如果本地已经存在该版本的模块则不会主动去镜像服务器上下载。
+
+所以，我们在开发阶段，可以将公用库的版本设置为快照版本，而被依赖组件则引用快照版本进行开发，在公用库的快照版本更新后，我们也不需要修改pom.xml文件提示版本号来下载新的版本，直接Maven执行相关编译、打包命令即可重新下载最新的快照库了，从而也方便了我们进行开发。
+
+虽然，快照的情况下，Maven在日常工作中会自动获取最新的快照，你也可以在任何Maven命令中使用-U参数强制Maven下载最新的快照构建。命令如下：
+
+```
+mvn clean package -U
+```
+
+## 8.1 使用 ${revision} 
+
+从 3.5.0-beta-1 开始，Maven 支持使用 ${revision} 作为 pom 文件中版本的占位符，IDEA 会报错但不影响使用。
+
+```
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>18</version>
+  </parent>
+
+  <groupId>org.apache.maven.ci</groupId>
+  <artifactId>ci-parent</artifactId>
+  <name>First CI Friendly</name>
+  <version>${revision}</version>
+  ...
+</project>
+```
+上例使用了${revision}作为版本的占位符。
+
+设置版本号有两种方法：
+
+* **在pom.xml文件中的properties中设置**
+
+```xml
+<project>
+  ...
+  <properties>
+    <revision>1.0.0-SNAPSHOT</revision>
+  </properties>
+</project>
+```
+
+* **用maven命令行打包时设置**
+
+```shell
+mvn -Drevision=1.0.0-SNAPSHOT clean package
+```
+
+## 8.2 子模块和依赖模块的版本号设置
+
+开发过程中，为管理版本方便，可以设置同一项目中所有模块版本保持一致，子模块统一继承父模块的版本，不用额外设置版本号。
+
+子模块使用父模块的版本号，依然用${revision}，不用显示设置子模块的版本。
+
+如果子模块之间有相互依赖关系，用${project.version}占位符来表示被依赖的模块的版本号。
+```xml
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.maven.ci</groupId>
+    <artifactId>ci-parent</artifactId>
+    <version>${revision}</version>
+  </parent>
+  <groupId>org.apache.maven.ci</groupId>
+  <artifactId>child1</artifactId>
+   ...
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.ci</groupId>
+      <artifactId>child2</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+</project>
 ```
