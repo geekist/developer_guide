@@ -1,58 +1,56 @@
-- [一、JDK安装和环境配置](#一jdk安装和环境配置)
-  - [1.1 查看当前Java环境](#11-查看当前java环境)
-  - [1.2 删除JDK](#12-删除jdk)
-    - [1.2.1 删除由rpm下载安装的JDK](#121-删除由rpm下载安装的jdk)
-    - [1.2.2 删除通过压缩包安装的JDK](#122-删除通过压缩包安装的jdk)
-    - [1.2.3 清理配置信息](#123-清理配置信息)
-  - [1.3 安装JDK](#13-安装jdk)
-    - [1.3.1 下载jdk](#131-下载jdk)
-    - [1.3.2 安装jdk](#132-安装jdk)
-    - [1.3.3 配置jdk](#133-配置jdk)
-- [二、Maven安装和环境配置](#二maven安装和环境配置)
-  - [2.1 查看当前Maven环境](#21-查看当前maven环境)
-  - [2.2 删除maven](#22-删除maven)
-    - [2.2.1 删除通过yum方式安装的maven](#221-删除通过yum方式安装的maven)
-    - [2.2.2 删除通过压缩包方式安装的maven](#222-删除通过压缩包方式安装的maven)
-    - [2.2.3 清理配置信息](#223-清理配置信息)
-  - [2.3、安装Maven](#23安装maven)
-    - [2.3.1 下载maven](#231-下载maven)
-    - [2.3.2 安装maven](#232-安装maven)
-    - [2.3.3 配置maven](#233-配置maven)
-- [三、Git安装和环境配置](#三git安装和环境配置)
-  - [3.1 检查当前Git环境](#31-检查当前git环境)
-  - [3.2 卸载Git](#32-卸载git)
-    - [3.2.1 卸载通过rpm安装的Git](#321-卸载通过rpm安装的git)
-    - [3.2.2 清除配置信息](#322-清除配置信息)
-  - [3.3 安装Git](#33-安装git)
-    - [3.3.1 用rpm方式安装Git](#331-用rpm方式安装git)
-    - [3.3.2 配置Git信息](#332-配置git信息)
-- [四、Nginx的安装和环境配置](#四nginx的安装和环境配置)
-  - [4.1 查看当前Nginx环境](#41-查看当前nginx环境)
-  - [4.2 删除Nginx](#42-删除nginx)
-    - [4.2.1 删除通过yum安装的nginx](#421-删除通过yum安装的nginx)
-    - [4.2.2 通过压缩包编译的nginx的卸载](#422-通过压缩包编译的nginx的卸载)
-  - [4.3 安装Nginx以及gzip、ssl和stub_status模块](#43-安装nginx以及gzipssl和stub_status模块)
-    - [4.3.1 通过下载源码编译的方式安装nginx](#431-通过下载源码编译的方式安装nginx)
-  - [4.4 配置](#44-配置)
-    - [4.4.1 配置gzip](#441-配置gzip)
-    - [4.4.2 配置ssl](#442-配置ssl)
-    - [4.4.3 配置websocket](#443-配置websocket)
-    - [4.4.4 配置stub_status](#444-配置stub_status)
-  - [4.5 运行Nginx](#45-运行nginx)
-    - [启动nginx](#启动nginx)
-    - [带配置文件的启动](#带配置文件的启动)
-    - [停止nginx](#停止nginx)
-    - [安全停止nginx](#安全停止nginx)
-    - [热启动（修改配置文件后重新启动）](#热启动修改配置文件后重新启动)
-- [五、Nacos安装和环境配置](#五nacos安装和环境配置)
-  - [5.1 查看当前Nacos环境](#51-查看当前nacos环境)
-  - [5.2 卸载Nacos](#52-卸载nacos)
-  - [5.3 安装Nacos](#53-安装nacos)
-    - [5.3.1 源码方式安装](#531-源码方式安装)
-    - [5.3.2 下载编译后压缩包方式安装](#532-下载编译后压缩包方式安装)
-  - [4、配置(yy项目不需要配置Nacos)](#4配置yy项目不需要配置nacos)
-  - [5.4 运行Nacos](#54-运行nacos)
-
+* [一、JDK安装和环境配置](#一jdk安装和环境配置)
+  * [1\.1 查看当前Java环境](#11-查看当前java环境)
+  * [1\.2 删除JDK](#12-删除jdk)
+    * [1\.2\.1 删除由rpm下载安装的JDK](#121-删除由rpm下载安装的jdk)
+    * [1\.2\.2 删除通过压缩包安装的JDK](#122-删除通过压缩包安装的jdk)
+    * [1\.2\.3 清理配置信息](#123-清理配置信息)
+  * [1\.3 安装JDK](#13-安装jdk)
+    * [1\.3\.1 下载jdk](#131-下载jdk)
+    * [1\.3\.2 安装jdk](#132-安装jdk)
+    * [1\.3\.3 配置jdk](#133-配置jdk)
+* [二、Maven安装和环境配置](#二maven安装和环境配置)
+  * [2\.1 查看当前Maven环境](#21-查看当前maven环境)
+  * [2\.2 删除maven](#22-删除maven)
+    * [2\.2\.1 删除通过yum方式安装的maven](#221-删除通过yum方式安装的maven)
+    * [2\.2\.2 删除通过压缩包方式安装的maven](#222-删除通过压缩包方式安装的maven)
+    * [2\.2\.3 清理配置信息](#223-清理配置信息)
+  * [2\.3、安装Maven](#23安装maven)
+    * [2\.3\.1 下载maven](#231-下载maven)
+    * [2\.3\.2 安装maven](#232-安装maven)
+    * [2\.3\.3 配置maven](#233-配置maven)
+* [三、Git安装和环境配置](#三git安装和环境配置)
+  * [3\.1 检查当前Git环境](#31-检查当前git环境)
+  * [3\.2 卸载Git](#32-卸载git)
+    * [3\.2\.1 卸载通过rpm安装的Git](#321-卸载通过rpm安装的git)
+    * [3\.2\.2 清除配置信息](#322-清除配置信息)
+  * [3\.3 安装Git](#33-安装git)
+    * [3\.3\.1 用rpm方式安装Git](#331-用rpm方式安装git)
+    * [3\.3\.2 配置Git信息](#332-配置git信息)
+* [四、Nginx的安装和环境配置](#四nginx的安装和环境配置)
+  * [4\.1 查看当前Nginx环境](#41-查看当前nginx环境)
+  * [4\.2 删除Nginx](#42-删除nginx)
+    * [4\.2\.1 删除通过yum安装的nginx](#421-删除通过yum安装的nginx)
+    * [4\.2\.2 通过压缩包编译的nginx的卸载](#422-通过压缩包编译的nginx的卸载)
+  * [4\.3 安装Nginx以及gzip、ssl和stub\_status模块](#43-安装nginx以及gzipssl和stub_status模块)
+    * [4\.3\.1 通过下载源码编译的方式安装nginx](#431-通过下载源码编译的方式安装nginx)
+  * [4\.4 配置](#44-配置)
+    * [4\.4\.1 配置gzip](#441-配置gzip)
+    * [4\.4\.2 配置ssl](#442-配置ssl)
+    * [4\.4\.3 配置websocket](#443-配置websocket)
+    * [4\.4\.4 配置stub\_status](#444-配置stub_status)
+  * [4\.5 运行Nginx](#45-运行nginx)
+    * [4\.5\.1 启动nginx](#451-启动nginx)
+    * [4\.5\.2 带配置文件的启动](#452-带配置文件的启动)
+    * [4\.5\.3 停止nginx](#453-停止nginx)
+    * [4\.5\.4 安全停止nginx](#454-安全停止nginx)
+    * [4\.5\.5 热启动（修改配置文件后重新启动）](#455-热启动修改配置文件后重新启动)
+* [五、Nacos安装和环境配置](#五nacos安装和环境配置)
+  * [5\.1 查看当前Nacos环境](#51-查看当前nacos环境)
+  * [5\.2 卸载Nacos](#52-卸载nacos)
+  * [5\.3 安装Nacos](#53-安装nacos)
+    * [5\.3\.1 下载编译后压缩包方式安装](#531-下载编译后压缩包方式安装)
+  * [5\.4 配置(yy项目不需要配置Nacos)](#54-配置yy项目不需要配置nacos)
+  * [5\.5 运行Nacos](#55-运行nacos)
 
 **Linux环境下web服务器配置，除了git可以不考虑版本，直接通过yum从服务器下载之外，其他如JDK、Maven、Nginx和Nacos都需要下载压缩包安装或编译安装（Nginx需要编译安装）。**
 
@@ -154,7 +152,7 @@ java: /usr/local/java /usr/local/java/jdk1.8.0_202/bin/java
 /usr/local/java/jdk1.8.0_202/bin/java
 ```
 
-**find 搜索所有文件**
+**find / -iname java 搜索所有文件**
 
 ```shell
 [root@geekist ~]# find / -iname java
@@ -196,6 +194,8 @@ rm -rf /usr/local/java
 
 如果配置文件/etc/profile中配置了环境变量，也需要删除。
 
+**vim /etc/profile**
+
 ```shell
 vim /etc/profile
 
@@ -227,7 +227,12 @@ cd /usr/local/java
 ```
 
 将之前下载的 tar 包拷贝到新建的目录下
+
+**cp jdk-xxx.tar.gz /usr/local/java**
+
 >拷贝可以用各自的linux桌面工具。
+
+**cd /usr/local/java**
 
 **tar zxvf jdk-8u202-linux-x64.tar.gz** 
 
@@ -258,7 +263,7 @@ export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
 export PATH=$JAVA_HOME/bin:$PATH
 ```
 
-执行profile文件，使配置生效
+重新加载profile文件，使配置生效
 
 **source  /etc/profile**
 
@@ -316,10 +321,9 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 # 二、Maven安装和环境配置
 
-
 Maven用来编译Java Web服务器程序。
 
-**Maven必须通过下载安装包的方式安装，通过yum方式安装会默认安装openjdk依赖**
+***Maven必须通过下载安装包的方式安装，通过yum方式安装会默认安装openjdk依赖***
 
 
 ## 2.1 查看当前Maven环境
@@ -393,6 +397,14 @@ OS name: "linux", version: "5.10.23-5.al8.x86_64", arch: "amd64", family: "unix"
 ```
 
 也可以用whereis、which、find等shell工具查找java目录
+
+**whereis maven**
+
+
+**which maven**
+
+**find / -iname maven**
+
 ```
 [root@geekist yychildren]# whereis mvn
 mvn: /usr/local/apache-maven-3.8.6/bin/mvn /usr/local/apache-maven-3.8.6/bin/mvn.cmd
@@ -406,13 +418,13 @@ mvn: /usr/local/apache-maven-3.8.6/bin/mvn /usr/local/apache-maven-3.8.6/bin/mvn
 ```
 
 * 然后删除maven所在目录
-```
-rm -rf /usr/local/apach-maven-3.8.6
-```
+
+**rm -rf /usr/local/apach-maven-3.8.6**
+
 
 ### 2.2.3 清理配置信息
 
-最后可以删除/etc/profile配置文件
+最后可以删除/etc/profile配置文件中的maven配置信息
 
 ```shell
  #Maven环境变量配置：
@@ -428,22 +440,26 @@ export PATH=$PATH:$MAVEN_HOME/bin
 
 
 新建一个 JDK 安装目录java
-```
-mkdir /usr/local/maven
-cd /usr/local/maven
-```
+
+**mkdir /usr/local/maven**
+
+**cp apache-maven-xxx.tar.gz /usr/local/maven**
+
 
 将之前下载的 tar 包拷贝到新建的目录下
 >拷贝可以用各自的linux桌面工具。
 
 ### 2.3.2 安装maven
 
+**cd /usr/local/maven**
+
 解压maven到当前目录或指定目录
-```
-tar zxvf apache-maven-3.8.6-bin.tar.gz
-```
+
+**tar zxvf apache-maven-3.8.6-bin.tar.gz**
 
 ### 2.3.3 配置maven
+
+**vim /etc/profile**
 
 ```shell
 vi /etc/profile
@@ -454,9 +470,9 @@ export MAVEN_HOME=/usr/local/maven/apache-maven-3.8.6
 export PATH=$PATH:$MAVEN_HOME/bin
 ```
 重新加载配置文件
-```
-source /etc/profile
-```
+
+**source /etc/profile**
+
 
 >用yum方式安装Maven
 >```
@@ -558,7 +574,8 @@ yum remove git
 ### 3.2.2 清除配置信息
 
 如果有配置保存在系统的配置文件里，同时需要删除。git的配置文件有三层：分别是：全局配置、当前用户、当前项目配置。一般用当前用户的配置。
-`~/.gitconfig`
+
+
 
 * /etc/gitconfig 文件（全局配置）
 
@@ -567,6 +584,8 @@ yum remove git
 * 当前使用仓库的 Git 目录中的 config 文件（即 .git/config）：
 
 一般在~/.gitconfig文件中可以看到：
+
+**vim ~/.gitconfig**
 
 ```s
 [user]
@@ -585,8 +604,6 @@ yum remove git
 
 **yum install -y git**
 
-**yum install -y git**
-
 用yum 安装git
 ```
 yum install -y git
@@ -595,6 +612,8 @@ yum install -y git
 ### 3.3.2 配置Git信息
 
 * 配置保存用户名和密码，不用每次都输入
+
+**vim ~/.gitconfig**
 
 查找git的配置文件：
 
@@ -624,18 +643,26 @@ yum install -y git
 
 * 检查nginx是否正在运行
 
-```
-ps -ef|grep nginx
-```
+**ps -ef|grep nginx**
 
 * 通过whereis等方法查看nginx的安装目录
+
+**whereis nginx**
+
 ```
 [root@geekist local]# whereis nginx
 nginx: /usr/local/nginx
+```
+**which nginx**
 
+```
 [root@geekist local]# which nginx
 /usr/bin/which: no nginx in (/usr/local/jdk1.8.0_202/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre/bin:/usr/local/apache-maven-3.8.6/bin:/root/bin:/usr/local/apache-maven-3.8.6/bin)
+```
 
+**find / -iname nginx**
+
+```
 [root@geekist local]# find / -name nginx
 /usr/local/nginx
 /usr/local/nginx/sbin/nginx
@@ -645,9 +672,9 @@ nginx: /usr/local/nginx
 
 * 检查是否yum安装
 
-```
-rpm -qa|grep nginx
-```
+
+**rpm -qa|grep nginx**
+
 
 ## 4.2 删除Nginx
 
@@ -667,23 +694,34 @@ No Packages marked for removal
 
 * 1、查看nginx是否活动
   
-```
-ps -ef|grep nginx
-```
+
+**ps -ef|grep nginx**
+
 
 * 2、如果活动进程，先停止nginx
 
-```
-./nginx -s stop
-```
+
+**./nginx -s stop**
+
 
 * 3、查找nginx的所有相关目录
-  
+
+ **whereis nginx** 
 ```
 [root@geekist local]# whereis nginx
 nginx: /usr/local/nginx
+```
+
+**which nginx**
+
+```
 [root@geekist local]# which nginx
 /usr/bin/which: no nginx in (/usr/local/jdk1.8.0_202/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.al8.x86_64/jre/bin:/usr/local/apache-maven-3.8.6/bin:/root/bin:/usr/local/apache-maven-3.8.6/bin)
+```
+
+**find / -iname nginx**
+
+```
 [root@geekist local]# find / -name nginx
 /usr/local/nginx
 /usr/local/nginx/sbin/nginx
@@ -693,18 +731,21 @@ nginx: /usr/local/nginx
 
 * 4、对找到的目录删除相关文件
 
+**rm -rf /usr/local/nginx**
+
 ```
 [root@localhost ~]# rm -rf /usr/local/nginx
 [root@localhost ~]# rm -rf /usr/local/nginx/sbin/nginx
 [root@localhost ~]# rm -rf /var/spool/mail/nginx
 ```
 
-
 ## 4.3 安装Nginx以及gzip、ssl和stub_status模块
 
 ### 4.3.1 通过下载源码编译的方式安装nginx
 
-* **step1:在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2**
+* step1: 下载Nginx，上传到linux服务器
+
+在Nginx官网：http://nginx.org/en/download.html 下载nginx，最新版本是1.20.2
 
 网页上提供了Nginx 服务器三种版本的下载，分别是：
 
@@ -724,18 +765,24 @@ nginx: /usr/local/nginx
 
 >“pgp”链接，记录的是提供下载的版本使用PGP加密自由软件GnuPG计算后的签名。PGP可以理解为Pretty Good Privacy。这些数据可以用于下载文件的验证。
 
-* **step2:使用ftp工具等，将nginx上传到linux**
+* step2:解压缩Nginx
 
-```
-cd /usr/local
 
-mkdir nginx
+**cd /usr/local**
 
-cd nginx
-# 上传nginx到该目录下
-```
+**mkdir nginx**
 
-* **step3:安装GCC与dev库**
+**cp ngix-xxx.tar.gz /usr/local/nginx**
+
+**cd /usr/local/nginx**
+
+**tar zxvf nginx-xxx.tar.gz**
+
+* step3:编译环境安装，安装GCC与dev库
+
+**yum install -y  gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel**
+
+也可以单独安装
 
 ```
 GCC编译器:yum install gcc gcc-c++
@@ -747,14 +794,18 @@ zlib压缩库:yum install -y zlib zlib-devel
 OpenSSL开发库:yum install -y openssl openssl-devel
 ```
 
-可以一键安装：
-```
-yum install -y  gcc zlib zlib-devel pcre pcre-devel openssl openssl-devel
-```
+* step4:编译Nginx以及gzip、ssl、stub_status模块
 
-* **step4:编译Nginx以及gzip、ssl、stub_status模块**
+**cd /usr/local/nginx**
 
+配置编译选项，生成makefile文件
 **./configure  --with-http_gzip_static_module --with-http_ssl_module --with-http_stub_status_module**
+
+编译
+**make**
+
+安装
+**make install**
 
 
 ```shell
@@ -948,33 +999,33 @@ location /nginx_status {
 ```
 ## 4.5 运行Nginx
 
-### 启动nginx
+### 4.5.1 启动nginx
 
 ```
 执行启动命令：
 ./nginx                       //启动
 ```
 
-### 带配置文件的启动
+### 4.5.2 带配置文件的启动
 
 ```
 ./nginx -c conf/nginx.conf
 ```
 
-### 停止nginx
+### 4.5.3 停止nginx
 
 
 ```
 ./nginx -s stop
 ```
 
-### 安全停止nginx
+### 4.5.4 安全停止nginx
 
 ```
 ./nginx -s quit                
 ```
 
-### 热启动（修改配置文件后重新启动）
+### 4.5.5 热启动（修改配置文件后重新启动）
 ```
 ./nginx -t
 ```
@@ -993,6 +1044,8 @@ nacos快速安装文档：https://nacos.io/zh-cn/docs/quick-start.html
 
 * 通过进程查看命令查看nacos是否正在运行
 
+**ps -ef|grep nacos**
+
 ```
 [root@iZbp19n36uysranoj3k2x5Z ~]# ps -ef|grep nacos
 root      765081       1  0 May07 ?        02:42:17 /usr/java/jdk1.8/bin/java -Xms512m -Xmx512m -Xmn256m -Dnacos.standalone=true -Dnacos.member.list= -Djava.ext.dirs=/usr/java/jdk1.8/jre/lib/ext:/usr/java/jdk1.8/lib/ext -Xloggc:/usr/local/nacos/logs/nacos_gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M -Dloader.path=/usr/local/nacos/plugins/health,/usr/local/nacos/plugins/cmdb -Dnacos.home=/usr/local/nacos -jar /usr/local/nacos/target/nacos-server.jar --spring.config.additional-location=file:/usr/local/nacos/conf/ --logging.config=/usr/local/nacos/conf/nacos-logback.xml --server.max-http-header-size=524288 nacos.nacos
@@ -1000,13 +1053,23 @@ root     3681989 3681899  0 10:29 pts/0    00:00:00 grep --color=auto nacos
 ```
 * 通过whereis等命令查看nacos是否安装在本地
 
+**whereis nacos**
+
 ```
 [root@iZbp19n36uysranoj3k2x5Z ~]# whereis nacos
 nacos: /usr/local/nacos
+```
 
+**which nacos**
+
+```shell
 [root@iZbp19n36uysranoj3k2x5Z ~]# which nacos
 /usr/bin/which: no nacos in (/usr/local/mysql/mysql-5.6/bin:/usr/java/jdk1.8/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/apache-maven-3.6.3/bin:/root/bin)
+```
 
+**find / -iname nacos**
+
+```shell
 [root@iZbp19n36uysranoj3k2x5Z ~]# find / -name nacos
 /root/.m2/repository/com/alibaba/nacos
 /root/logs/nacos
@@ -1020,12 +1083,13 @@ nacos: /usr/local/nacos
 
 如果在服务器开放了nacos的8848端口，则可以通过ip：8848/nacos访问；
 
-
 ## 5.2 卸载Nacos
 
 * 关闭nacos服务
 
-**shutdown.sh**
+***切记!!!一定要在nacos的bin目录下运行./shutdown.sh,不能直接运行shutdown！！！，shutdown是linux系统关机命令！！！***
+
+**./shutdown.sh**
 
 ```shell
 ./shutdown.sh
@@ -1039,43 +1103,51 @@ rm -rf /usr/local/nacos
 
 ##  5.3 安装Nacos
 
-### 5.3.1 源码方式安装
-
-源代码下载到本地后，通过运行maven的编译安装命令安装nacos
-
-**mvn clean install**
-
-```
-git clone https://github.com/alibaba/nacos.git
-cd nacos/
-mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  
-ls -al distribution/target/
-
-// change the $version to your actual path
-cd distribution/target/nacos-server-$version/nacos/bin
-```
-
-### 5.3.2 下载编译后压缩包方式安装
+### 5.3.1 下载编译后压缩包方式安装
 
 nacos 下载地址：https://github.com/alibaba/nacos/releases
 
 从最新稳定版本下载nacos-server-$version.zip 包。(当前官方最新文档为2.0.3)
 
+**cd /usr/local**
+
+**mkdir nacos**
+
+**cp nacos-server-$version.tar.gz /usr/local/nacos**
+
 **tar zxvf nacos-server-$version.tar.gz**
 
-```
+```shell
 tar -zxvf nacos-server-$version.tar.gz
 cd nacos/bin
 ```
-## 4、配置(yy项目不需要配置Nacos)
+
+>源码方式安装
+>
+>源代码下载到本地后，通过运行maven的编译安装命令安装nacos
+>
+>**mvn clean install**
+>
+>```
+>git clone https://github.com/alibaba/nacos.git
+>cd nacos/
+>mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  
+>ls -al distribution/target/
+>
+>// change the $version to your actual path
+>cd distribution/target/nacos-server-$version/nacos/bin
+>```
+
+## 5.4 配置(yy项目不需要配置Nacos)
 
 >当前的nacos配置，不需要通过服务器端配置文件进行特殊配置。
 
-## 5.4 运行Nacos
+## 5.5 运行Nacos
 
 * 启动Nacos
+**cd /usr/local/nacos/nacos/bin**
 
-**startup.sh -m standalone**
+**./startup.sh -m standalone**
 
 启动(standalone代表着单机模式运行，非集群模式):
 
@@ -1086,7 +1158,10 @@ cd nacos/bin
   
 关闭
 
-**shutdown.sh**
+**./shutdown.sh**
+
+***切记!!!一定要在nacos的bin目录下运行./shutdown.sh,不能直接运行shutdown！！！，shutdown是linux系统关机命令！！！***
+
 ```
 ./shutdown.sh
 ```
