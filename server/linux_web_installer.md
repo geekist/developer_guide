@@ -205,6 +205,11 @@ vim /etc/profile
  80 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
  81 export PATH=$PATH:$JAVA_HOME/bin
  ```
+重新加载profile文件，使配置生效
+
+**source  /etc/profile**
+
+
 
 ## 1.3 安装JDK
 
@@ -285,6 +290,11 @@ export PATH=$JAVA_HOME/bin:$PATH
 >
 >```
 >yum install -y java-1.8.0-openjdk.x86_64
+>```
+>也可以直接模糊安装
+>
+>```shell
+>yum install -y java
 >```
 >
 >安装成功后用上述查找方法，可以确认java安装成功。
@@ -645,6 +655,15 @@ yum install -y git
 
 **ps -ef|grep nginx**
 
+如果nginx正在运行，停止nginx
+
+**./nginx -s quit**
+
+```
+安全停止nginx
+./nginx -s quit 
+```
+
 * 通过whereis等方法查看nginx的安装目录
 
 **whereis nginx**
@@ -799,14 +818,18 @@ OpenSSL开发库:yum install -y openssl openssl-devel
 **cd /usr/local/nginx**
 
 配置编译选项，生成makefile文件
+
 **./configure  --with-http_gzip_static_module --with-http_ssl_module --with-http_stub_status_module**
 
 编译
+
 **make**
 
 安装
+
 **make install**
 
+例子如下：
 
 ```shell
 #进入nginx目录
@@ -862,7 +885,9 @@ make install
 >[root@geekist nginx]# ls
 >```
 
-## 4.4 配置
+## 4.4 配置gzip、ssl、websocket、stub等模块
+
+一般而言，网站需要安装gzip，ssl等模块，如初次安装没有安装这些模块，可以在nginx安装后再安装。安装方法参见文章
 
 Nginx的配置文件通过config目录下的nginx.conf来进行配置，详情参见nginx的配置文档。
 
@@ -997,6 +1022,43 @@ location /nginx_status {
     #deny all;
 }
 ```
+
+
+### 4.4.5 配置logs按天记录
+
+因为nginx的日志文件记录太多，需要按照天来记录日志文件：
+
+最简单的配置方法：在http模块配置
+```shell
+#日志配置--记录nginx所有的访问日志和错误日志
+   
+    map $time_iso8601 $year {
+        default '0000';
+        "~^(\d{4})-(\d{2})-(\d{2})" $1;
+    }
+    map $time_iso8601 $month {
+        default '00';
+        "~^(\d{4})-(\d{2})-(\d{2})" $2;
+    } 
+    map $time_iso8601 $day {
+        default '00';
+        "~^(\d{4})-(\d{2})-(\d{2})" $3;
+    }
+
+    access_log  logs/access.$year-$month-$day.log;
+    error_log   logs/error.$year-$month-$day.log;
+
+```
+
+配置完成后，给logs目录增加写权限，可以
+
+**cd /usr/local/nginx**
+
+**chmod 777 logs**
+
+
+
+
 ## 4.5 运行Nginx
 
 ### 4.5.1 启动nginx
@@ -1103,7 +1165,7 @@ rm -rf /usr/local/nacos
 
 ##  5.3 安装Nacos
 
-### 5.3.1 下载编译后压缩包方式安装
+### 5.3.1 下载编译后的压缩包方式安装
 
 nacos 下载地址：https://github.com/alibaba/nacos/releases
 
@@ -1165,3 +1227,67 @@ cd nacos/bin
 ```
 ./shutdown.sh
 ```
+
+## 5.4 下载源代码并启动服务
+
+### 5.4.1 下载启动服务器脚本
+
+到达源代码目录
+**cd /var/yuya**
+
+下载源代码
+**git clone https://gitee.com/iyuya/yuya_deploy.git**
+
+```shell
+[root@iZbp19n36uysranoj3k2x5Z yuya]# git clone https://gitee.com/iyuya/yuya_deploy.git
+Cloning into 'yuya_deploy'...
+remote: Enumerating objects: 160, done.
+remote: Counting objects: 100% (160/160), done.
+remote: Compressing objects: 100% (152/152), done.
+remote: Total 160 (delta 89), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (160/160), 39.69 KiB | 2.48 MiB/s, done.
+Resolving deltas: 100% (89/89), done.
+```
+查看代码情况：
+
+**git status**
+
+```shell
+[root@iZbp19n36uysranoj3k2x5Z yuya_deploy]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+```
+
+切换到master分支并拉取最新代码
+
+**git checkout master**
+
+```shell
+[root@iZbp19n36uysranoj3k2x5Z yuya_deploy]# git checkout master
+Already on 'master'
+Your branch is up to date with 'origin/master'.
+```
+
+**git pull origin master**
+
+```shell
+[root@iZbp19n36uysranoj3k2x5Z yuya_deploy]# git pull origin master
+warning: Pulling without specifying how to reconcile divergent branches is
+discouraged. You can squelch this message by running one of the following
+commands sometime before your next pull:
+
+  git config pull.rebase false  # merge (the default strategy)
+  git config pull.rebase true   # rebase
+  git config pull.ff only       # fast-forward only
+
+You can replace "git config" with "git config --global" to set a default
+preference for all repositories. You can also pass --rebase, --no-rebase,
+or --ff-only on the command line to override the configured default per
+invocation.
+
+From https://gitee.com/iyuya/yuya_deploy
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+```
+
+执行脚本即可。
