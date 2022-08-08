@@ -651,4 +651,52 @@ HTML 颜色由一个十六进制符号来定义，这个符号由红色、绿色
 每种颜色的最小值是0（十六进制：#00）。最大值是255（十六进制：#FF）。
 
 
+# 四、html5新元素
+
+## 画布Canvas
+
+`<canvas>`元素是HTML5中的新元素，通过使用该元素，可以在网页中绘制所需的图形。用于图形的绘制，通过脚本 (通常是JavaScript)来完成.
+
+标签只是图形容器，必须使用脚本来绘制图形。可以通过多种方法使用Canva绘制路径,盒、圆、字符以及添加图像。
+
+```html
+
+<canvas id="myCanvas" width="200" height="100"></canvas>
+
+<canvas id="myCanvas" width="200" height="100"
+style="border:1px solid #000000;">
+</canvas>
+```
+
+## 矢量图SVG
+
+SVG表示可缩放矢量图形，是基于可扩展标记语言（标准通用标记语言的子集），用于描述二维矢量图形的一种图形格式，它在2003年1月14日成为W3C推荐标准。
+
+HTML5 支持内联 SVG。
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="190">
+  <polygon points="100,10 40,180 190,60 10,60 160,180"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;">
+</svg>
+
+</body>
+</html>
+```
+
+SVG 与 Canvas两者间的区别
+
+SVG 是一种使用 XML 描述 2D 图形的语言。
+
+Canvas 通过 JavaScript 来绘制 2D 图形。
+
+SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。您可以为某个元素附加 JavaScript 事件处理器。
+
+在 SVG 中，每个被绘制的图形均被视为对象。如果 SVG 对象的属性发生变化，那么浏览器能够自动重现图形。
+
+Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象。
 
