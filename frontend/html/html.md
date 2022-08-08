@@ -510,10 +510,145 @@ JavaScript</div>
 
 ## 内联元素span
 
-span元素是内联元素，可用作文本的容器。span元素也没有特定的含义。当与 CSS 一同使用时，<span> 元素可用于为部分文本设置样式属性。
+span元素是内联元素，可用作文本的容器。span元素也没有特定的含义。当与 CSS 一同使用时，`<span>` 元素可用于为部分文本设置样式属性。
 
-##
+## 表单
 
+HTM表单用于收集用户的输入信息。表单表示文档中的一个区域，此区域包含交互控件，将用户收集到的信息发送到 Web 服务器。
+
+表单元素是允许用户在表单中输入内容，比如：文本域（textarea）、下拉列表（select）、单选框（radio-buttons）、复选框（checkbox） 等等
+
+多数情况下被用到的表单标签是输入标签`<input>`。输入类型是由 type 属性定义。
+
+
+* 文本域（Text Fields）
+
+文本域通过`<input type="text">` 标签来设定，当用户要在表单中键入字母、数字等内容时，就会用到文本域。
+
+```html
+<form>
+First name: <input type="text" name="firstname"><br>
+Last name: <input type="text" name="lastname">
+</form>
+```
+
+注意:表单本身并不可见。同时，在大多数浏览器中，文本域的默认宽度是 20 个字符。
+
+* 密码字段
+
+密码字段通过标签`<input type="password">`来定义:
+
+```html
+<form>
+Password: <input type="password" name="pwd">
+</form>
+```
+注意：密码字段字符不会明文显示，而是以星号 * 或圆点 . 替代。
+
+* 单选按钮（Radio Buttons）
+
+`<input type="radio">` 标签定义了表单的单选框选项:
+
+```html
+<form action="">
+<input type="radio" name="sex" value="male">男<br>
+<input type="radio" name="sex" value="female">女
+</form>
+```
+
+* 复选框（Checkboxes）
+
+`<input type="checkbox">`定义了复选框。
+
+复选框可以选取一个或多个选项：
+
+```
+<form>
+<input type="checkbox" name="vehicle" value="Bike">我喜欢自行车<br>
+<input type="checkbox" name="vehicle" value="Car">我喜欢小汽车
+</form>
+```
+* 下拉菜单select
+
+```html
+<form action="">
+<select name="cars">
+<option value="volvo">Volvo</option>
+<option value="saab">Saab</option>
+<option value="fiat" selected>Fiat</option>
+<option value="audi">Audi</option>
+</select>
+</form>
+```
+
+* 提交按钮(Submit)
+
+`<input type="submit">`定义了提交按钮。当用户单击确认按钮时，表单的内容会被传送到服务器。表单的动作属性 action 定义了服务端的文件名。
+
+action 属性会对接收到的用户输入数据进行相关的处理:
+
+```html
+<form name="input" action="html_form_action.php" method="get">
+Username: <input type="text" name="user">
+<input type="submit" value="Submit">
+</form>
+```
+
+说明：
+假如在上面的文本框内键入几个字母，然后点击确认按钮，那么输入数据会传送到 html_form_action.php 文件，该页面将显示出输入的结果。
+
+以上实例中有一个 method 属性，它用于定义表单数据的提交方式，可以是以下值：
+
+post：指的是 HTTP POST 方法，表单数据会包含在表单体内然后发送给服务器，用于提交敏感数据，如用户名与密码等。
+
+get：默认值，指的是 HTTP GET 方法，表单数据会附加在 action 属性的 URL 中，并以 ?作为分隔符，一般用于不敏感信息，如分页等。例如：https://www.runoob.com/?page=1，这里的 page=1 就是 get 方法提交的数据。
+
+## 框架 iframe
+
+通过使用框架，可以在同一个浏览器窗口中显示不止一个页面。
+
+iframe语法:
+
+```html
+<iframe src="URL"></iframe>
+```
+
+* iframe - 设置高度与宽度
+
+height 和 width 属性用来定义iframe标签的高度与宽度。
+
+属性默认以像素为单位, 但是你可以指定其按比例显示 (如："80%")。
+
+```html
+<iframe loading="lazy" src="demo_iframe.htm" width="200" height="200"></iframe>
+```
+
+* iframe - 移除边框
+
+frameborder 属性用于定义iframe表示是否显示边框。
+
+设置属性值为 "0" 移除iframe的边框:
+
+```html
+<iframe src="demo_iframe.htm" frameborder="0"></iframe>
+```
+
+使用 iframe 来显示目标链接页面
+iframe 可以显示一个目标链接的页面
+
+目标链接的属性必须使用 iframe 的属性，如下实例:
+
+```html
+<iframe src="demo_iframe.htm" name="iframe_a"></iframe>
+<p><a href="https://www.runoob.com" target="iframe_a" rel="noopener">RUNOOB.COM</a></p>
+```
+## 颜色
+
+HTML 颜色由红色、绿色、蓝色混合而成。
+
+HTML 颜色由一个十六进制符号来定义，这个符号由红色、绿色和蓝色的值组成（RGB）。
+
+每种颜色的最小值是0（十六进制：#00）。最大值是255（十六进制：#FF）。
 
 
 
