@@ -126,7 +126,7 @@ HTML 文本格式化标签
 
 HTML "计算机输出" 标签
 
-|标签	描述|
+|标签	| 描述|
 | ---- | ---- |
 |`<code>`	|定义计算机代码|
 |`<kbd>`	|定义键盘码|
@@ -162,49 +162,99 @@ HTML使用标签 <a>来设置超文本链接。超链接可以是一个字，一
 
 * 如果为这些超链接设置了CSS样式，展示样式会根据 CSS 的设定而显示。
 
-
 HTML 链接语法
 
-链接的 HTML 代码很简单。它类似这样：
-
+```html
 <a href="url">链接文本</a>
+```
+链接属性：
 
-href 属性描述了链接的目标。.
+href 属性描述了链接的目标。
 
-实例
-<a href="https://www.runoob.com/">访问菜鸟教程</a>
-上面这行代码显示为：访问菜鸟教程
+target 属性定义被链接的文档在何处显示。
 
-点击这个超链接会把用户带到菜鸟教程的首页。
+id 属性用于创建一个HTML文档书签。（书签不会以任何特殊方式显示，即在 HTML 页面中是不显示的，所以对于读者来说是隐藏的）
 
-提示: "链接文本" 不必一定是文本。图片或其他 HTML 元素都可以成为链接。
-
-HTML 链接 - target 属性
-使用 target 属性，你可以定义被链接的文档在何处显示。
-
-下面的这行会在新窗口打开文档：
-
-实例
+```html
+在新窗口打开文档：
 <a href="https://www.runoob.com/" target="_blank" rel="noopener noreferrer">访问菜鸟教程!</a>
 
-尝试一下 »
-
-HTML 链接- id 属性
-id 属性可用于创建一个 HTML 文档书签。
-
-提示: 书签不会以任何特殊方式显示，即在 HTML 页面中是不显示的，所以对于读者来说是隐藏的。
-
-实例
 在HTML文档中插入ID:
-
 <a id="tips">有用的提示部分</a>
+
 在HTML文档中创建一个链接到"有用的提示部分(id="tips"）"：
-
 <a href="#tips">访问有用的提示部分</a>
-或者，从另一个页面创建一个链接到"有用的提示部分(id="tips"）"：
 
-<a href="https://www.runoob.com/html/html-links.html#tips">
-访问有用的提示部分</a>
+从另一个页面创建一个链接到"有用的提示部分(id="tips"）"：
+<a href="https://www.runoob.com/html/html-links.html#tips">访问有用的提示部分</a>
+```
 
-基本的注意事项 - 有用的提示
-注释： 请始终将正斜杠添加到子文件夹。假如这样书写链接：href="https://www.runoob.com/html"，就会向服务器产生两次 HTTP 请求。这是因为服务器会添加正斜杠到这个地址，然后创建一个新的请求，就像这样：href="https://www.runoob.com/html/"。
+请始终将正斜杠添加到子文件夹。假如这样书写链接：href="https://www.runoob.com/html"，就会向服务器产生两次 HTTP 请求。这是因为服务器会添加正斜杠到这个地址，然后创建一个新的请求，就像这样：href="https://www.runoob.com/html/"。
+
+## head
+
+`<head>` 元素包含了所有的头部标签元素。在 `<head>`元素可以插入脚本（scripts）, 样式文件（CSS），及各种meta信息。
+
+可以添加在头部区域的元素标签为: `<title>, <style>, <meta>, <link>, <script>, <noscript> 和 <base>`。
+
+|标签	|描述 |
+| ---- | ---- |
+|`<head>`	|定义了文档的信息|
+|`<title>`	|定义了文档的标题|
+|`<base>`	|定义了页面链接标签的默认链接地址|
+|`<link>`	|定义了一个文档和外部资源之间的关系|
+|`<meta>`	|定义了HTML文档中的元数据|
+|`<script>`	|定义了客户端的脚本文件|
+|`<style>`	|定义了HTML文档的样式文件|
+
+
+```html
+
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>文档标题</title>
+</head>
+ 
+<body>
+文档内容......
+</body>
+ 
+</html>
+```
+
+ 
+```html
+<head>
+
+base标签描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接:
+<base href="http://www.runoob.com/images/" target="_blank">
+
+
+link标签定义了文档与外部资源之间的关系。标签通常用于链接到样式表:
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+
+style标签定义了HTML文档的样式文件引用地址.
+style元素中也可以直接添加样式来渲染 HTML 文档:
+<style type="text/css">
+
+meta标签提供了元数据.元数据也不显示在页面上，但会被浏览器解析。通常用于指定网页的描述，关键词，文件的最后修改时间，作者，和其他元数据。
+元数据可以使用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他Web服务。
+<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript">
+
+
+为网页定义描述内容:
+<meta name="description" content="免费 Web & 编程 教程">
+
+定义网页作者:
+<meta name="author" content="Runoob">
+
+每30秒钟刷新当前页面:
+<meta http-equiv="refresh" content="30">
+
+script元素
+script标签用于加载脚本文件，如： JavaScript。
+
+</head>
+```
