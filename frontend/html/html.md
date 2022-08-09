@@ -700,3 +700,451 @@ SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。您可
 
 Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象。
 
+
+## math
+
+HTML5 可以在文档中使用 MathML 元素，对应的标签是 <math>...</math> 。
+
+MathML 是数学标记语言，是一种基于XML（标准通用标记语言的子集）的标准，用来在互联网上书写数学符号和公式的置标语言。
+
+注意：目前只有 Firefox 或 Safari 浏览器支持，大部分浏览器还不支持 MathML 标签，如果你的浏览器不支持该标签，可以使用最新版的 Firefox 或 Safari 浏览器查看。
+
+## 拖放（drag and drop）
+
+
+拖放是一种常见的特性，即抓取对象以后拖到另一个位置。拖放（Drag 和 drop）是 HTML5 标准的组成部分。在 HTML5 中，拖放是标准的一部分，任何元素都能够拖放。
+
+
+下面的例子是一个简单的拖放实例：
+
+```html
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title>
+<style type="text/css">
+#div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
+</style>
+<script>
+function allowDrop(ev)
+{
+    ev.preventDefault();
+}
+ 
+function drag(ev)
+{
+    ev.dataTransfer.setData("Text",ev.target.id);
+}
+ 
+function drop(ev)
+{
+    ev.preventDefault();
+    var data=ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+}
+</script>
+</head>
+<body>
+
+<p>拖动 RUNOOB.COM 图片到矩形框中:</p>
+ 
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+<img loading="lazy" id="drag1" src="/images/logo.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+ 
+</body>
+</html>
+```
+
+
+
+* 设置元素为可拖放
+ 
+首先，为了使元素可拖动，把 draggable 属性设置为 true ：
+```
+<img draggable="true">
+```
+
+* 拖动什么 - ondragstart 和 setData()
+
+
+然后，规定当元素被拖动时，会发生什么。
+
+在上面的例子中，ondragstart 属性调用了一个函数，drag(event)，它规定了被拖动的数据。
+
+dataTransfer.setData() 方法设置被拖数据的数据类型和值：
+
+function drag(ev)
+{
+    ev.dataTransfer.setData("Text",ev.target.id);
+}
+
+Text 是一个 DOMString 表示要添加到 drag object 的拖动数据的类型。值是可拖动元素的 id ("drag1")。
+
+* 放到何处 - ondragover
+
+ondragover 事件规定在何处放置被拖动的数据。
+
+默认地，无法将数据/元素放置到其他元素中。如果需要设置允许放置，我们必须阻止对元素的默认处理方式。
+
+这要通过调用 ondragover 事件的 event.preventDefault() 方法：
+
+event.preventDefault()
+
+* 进行放置 - ondrop
+
+当放置被拖数据时，会发生 drop 事件。
+
+在上面的例子中，ondrop 属性调用了一个函数，drop(event)：
+
+function drop(ev)
+{
+    ev.preventDefault();
+    var data=ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+}
+
+代码解释：
+
+调用 preventDefault() 来避免浏览器对数据的默认处理（drop 事件的默认行为是以链接形式打开）
+通过 dataTransfer.getData("Text") 方法获得被拖的数据。该方法将返回在 setData() 方法中设置为相同类型的任何数据。
+被拖数据是被拖元素的 id ("drag1")
+把被拖元素追加到放置元素（目标元素）中
+
+## Geolocation（地理定位）
+
+HTML5 Geolocation（地理定位）用于定位用户的位置。
+
+HTML5 Geolocation API 用于获得用户的地理位置。
+
+* 显示地理位置信息
+
+
+下例是一个简单的地理定位实例，可返回用户位置的经度和纬度:
+
+```html
+var x=document.getElementById("demo");
+function getLocation()
+{
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    else
+    {
+        x.innerHTML="该浏览器不支持获取地理位置。";
+    }
+}
+ 
+function showPosition(position)
+{
+    x.innerHTML="纬度: " + position.coords.latitude + 
+    "<br>经度: " + position.coords.longitude;  
+}
+```
+
+检测是否支持地理定位.如果支持，则运行 getCurrentPosition() 方法。如果不支持，则向用户显示一段消息。如果 getCurrentPosition() 运行成功，则向参数showPosition中规定的函数返回一个 coordinates 对象.showPosition() 函数获得并显示经度和纬度.
+
+* 在地图中显示结果
+  
+如需在地图中显示结果，需要访问可使用经纬度的地图服务，比如谷歌地图或百度地图：
+
+```html
+function showPosition(position)
+{
+    var latlon=position.coords.latitude+","+position.coords.longitude;
+ 
+    var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
+    +latlon+"&zoom=14&size=400x300&sensor=false";
+    document.getElementById("mapholder").innerHTML="<img src='"+img_url+"'>";
+}
+```
+
+## Video
+
+HTML5 规定了一种通过 video 元素来包含视频的标准方法。
+
+`<video>` 元素提供了 播放、暂停和音量控件来控制视频。
+
+同时 `<video>` 元素也提供了 width 和 height 属性控制视频的尺寸.如果设置的高度和宽度，所需的视频空间会在页面加载时保留。如果没有设置这些属性，浏览器不知道大小的视频，浏览器就不能再加载时保留特定的空间，页面就会根据原始视频的大小而改变。
+
+`<video>` 与`</video>` 标签之间插入的内容是提供给不支持 video 元素的浏览器显示的。
+
+`<video>` 元素支持多个 `<source>` 元素. `<source>` 元素可以链接不同的视频文件。浏览器将使用第一个可识别的格式：
+
+`<video>` 和 `<audio>` 元素同样拥有方法、属性和事件。
+
+`<video>` 和 `<audio>` 元素的方法、属性和事件可以使用JavaScript进行控制.
+
+其中的方法用于播放、暂停以及加载等。其中的属性（比如时长、音量等）可以被读取或设置。其中的 DOM 事件能够通知您，比方说，`<video>` 元素开始播放、已暂停，已停止，等等。
+
+```html
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body> 
+
+<div style="text-align:center"> 
+  <button onclick="playPause()">播放/暂停</button> 
+  <button onclick="makeBig()">放大</button>
+  <button onclick="makeSmall()">缩小</button>
+  <button onclick="makeNormal()">普通</button>
+  <br> 
+  <video id="video1" width="420">
+    <source src="mov_bbb.mp4" type="video/mp4">
+    <source src="mov_bbb.ogg" type="video/ogg">
+    您的浏览器不支持 HTML5 video 标签。
+  </video>
+</div> 
+
+<script> 
+var myVideo=document.getElementById("video1"); 
+
+function playPause()
+{ 
+	if (myVideo.paused) 
+	  myVideo.play(); 
+	else 
+	  myVideo.pause(); 
+} 
+
+	function makeBig()
+{ 
+	myVideo.width=560; 
+} 
+
+	function makeSmall()
+{ 
+	myVideo.width=320; 
+} 
+
+	function makeNormal()
+{ 
+	myVideo.width=420; 
+} 
+</script> 
+
+</body> 
+</html>
+```
+
+## audio
+
+HTML5 规定了在网页上嵌入音频元素的标准，即使用 `<audio>` 元素。
+
+```
+<audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+您的浏览器不支持 audio 元素。
+</audio>
+```
+audio 元素的control 属性供添加播放、暂停和音量控件。
+
+在`<audio>` 与 `</audio>` 之间你需要插入浏览器不支持的`<audio>`元素的提示文本 。
+
+`<audio>` 元素允许使用多个 `<source>` 元素. `<source>` 元素可以链接不同的音频文件，浏览器将使用第一个支持的音频文件
+
+## input
+
+HTML5 拥有多个新的表单输入类型。这些新特性提供了更好的输入控制和验证。
+
+如：color、date、datetime、datetime-local、email、month、number、range、search、tel、time、url、week
+注意:并不是所有的主流浏览器都支持新的input类型，不过您已经可以在所有主流的浏览器中使用它们了。即使不被支持，仍然可以显示为常规的文本域。
+
+例如：
+
+```html
+从拾色器中选择一个颜色:
+选择你喜欢的颜色: <input type="color" name="favcolor">
+
+Input 类型: date
+date 类型允许你从一个日期选择器选择一个日期。
+定义一个时间控制器:
+生日: <input type="date" name="bday">
+
+Input 类型: datetime
+datetime 类型允许你选择一个日期（UTC 时间）。
+定义一个日期和时间控制器（本地时间）:
+生日 (日期和时间): <input type="datetime" name="bdaytime">
+
+Input 类型: datetime-local
+datetime-local 类型允许你选择一个日期和时间 (无时区).
+定义一个日期和时间 (无时区):
+生日 (日期和时间): <input type="datetime-local" name="bdaytime">
+
+Input 类型: email
+email 类型用于应该包含 e-mail 地址的输入域。
+在提交表单时，会自动验证 email 域的值是否合法有效:
+E-mail: <input type="email" name="email">
+
+Input 类型: month
+month 类型允许你选择一个月份。
+定义月与年 (无时区):
+生日 (月和年): <input type="month" name="bdaymonth">
+
+Input 类型: number
+number 类型用于应该包含数值的输入域。
+定义一个数值输入域(限定):
+数量 ( 1 到 5 之间 ): <input type="number" name="quantity" min="1" max="5">
+
+Input 类型: range
+range 类型用于应该包含一定范围内数字值的输入域。
+range 类型显示为滑动条。
+定义一个不需要非常精确的数值（类似于滑块控制）:
+<input type="range" name="points" min="1" max="10">
+
+定义一个搜索字段 (类似站点搜索或者Google搜索):
+Search Google: <input type="search" name="googlesearch">
+
+Input 类型: tel
+定义输入电话号码字段:
+电话号码: <input type="tel" name="usrtel">
+
+Input 类型: time
+time 类型允许你选择一个时间。
+定义可输入时间控制器（无时区）：
+选择时间: <input type="time" name="usr_time">
+
+Input 类型: url
+url 类型用于应该包含 URL 地址的输入域。
+在提交表单时，会自动验证 url 域的值。
+添加您的主页: <input type="url" name="homepage">
+
+Input 类型: week
+week 类型允许你选择周和年。
+定义周和年 (无时区):
+选择周: <input type="week" name="week_year">
+```
+
+## 表单新元素
+
+* datalist
+
+`<datalist>` 元素规定输入域的选项列表。
+
+`<datalist>` 属性规定 form 或 input 域应该拥有自动完成功能。当用户在自动完成域中开始输入时，浏览器应该在该域中显示填写的选项：
+
+使用 `<input>` 元素的列表属性与 `<datalist>` 元素绑定
+
+```html
+<input list="browsers">
+ 
+<datalist id="browsers">
+  <option value="Internet Explorer">
+  <option value="Firefox">
+  <option value="Chrome">
+  <option value="Opera">
+  <option value="Safari">
+</datalist>
+```
+
+* keygen
+
+`<keygen>` 元素的作用是提供一种验证用户的可靠方法。
+
+`<keygen>`标签规定用于表单的密钥对生成器字段。
+
+当提交表单时，会生成两个键，一个是私钥，一个公钥。
+
+私钥（private key）存储于客户端，公钥（public key）则被发送到服务器。公钥可用于之后验证用户的客户端证书（client certificate）。
+
+```html
+<form action="demo_keygen.asp" method="get">
+用户名: <input type="text" name="usr_name">
+加密: <keygen name="security">
+<input type="submit">
+</form>
+```
+
+* output
+
+<output> 元素用于不同类型的输出，比如计算或脚本输出：
+
+```html
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body>
+
+<form oninput="x.value=parseInt(a.value)+parseInt(b.value)">0
+<input type="range" id="a" value="50">100
++<input type="number" id="b" value="50">
+=<output name="x" for="a b"></output>
+</form>
+
+<p><strong>注意:</strong> Edge 12及更早 IE 版本的浏览器不支持 output 元素。</p>
+
+</body>
+</html>
+```
+
+## websocket
+
+WebSocket 协议本质上是一个基于 TCP 的协议。
+
+为了建立一个 WebSocket 连接，客户端浏览器首先要向服务器发起一个 HTTP 请求，这个请求和通常的 HTTP 请求不同，包含了一些附加头信息，其中附加头信息"Upgrade: WebSocket"表明这是一个申请协议升级的 HTTP 请求，服务器端解析这些附加的头信息然后产生应答信息返回给客户端，客户端和服务器端的 WebSocket 连接就建立起来了，双方就可以通过这个连接通道自由的传递信息，并且这个连接会持续存在直到客户端或者服务器端的某一方主动的关闭连接。
+
+```html
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title>菜鸟教程(runoob.com)</title>
+    
+      <script type="text/javascript">
+         function WebSocketTest()
+         {
+            if ("WebSocket" in window)
+            {
+               alert("您的浏览器支持 WebSocket!");
+               
+               // 打开一个 web socket
+               var ws = new WebSocket("ws://localhost:9998/echo");
+                
+               ws.onopen = function()
+               {
+                  // Web Socket 已连接上，使用 send() 方法发送数据
+                  ws.send("发送数据");
+                  alert("数据发送中...");
+               };
+                
+               ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+                  alert("数据已接收...");
+               };
+                
+               ws.onclose = function()
+               { 
+                  // 关闭 websocket
+                  alert("连接已关闭..."); 
+               };
+            }
+            
+            else
+            {
+               // 浏览器不支持 WebSocket
+               alert("您的浏览器不支持 WebSocket!");
+            }
+         }
+      </script>
+        
+   </head>
+   <body>
+   
+      <div id="sse">
+         <a href="javascript:WebSocketTest()">运行 WebSocket</a>
+      </div>
+      
+   </body>
+</html>
+```
+
