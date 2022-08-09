@@ -110,7 +110,6 @@ html
 
 *  [HTML](https://github.com/geekist/developer_guide/blob/main/frontend/html/html.md)
 
-
 css
 
 *  [CSS](https://github.com/geekist/developer_guide/blob/main/frontend/css.md)
@@ -119,7 +118,9 @@ css
 
 javascript
 
+*  [JavaScript](https://github.com/geekist/developer_guide/blob/main/frontend/javascript.md)
 
+* [javascript菜鸟教程](https://www.runoob.com/js/js-tutorial.html)
 
 vue
 
