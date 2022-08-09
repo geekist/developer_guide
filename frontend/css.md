@@ -808,3 +808,130 @@ clear 属性指定元素两侧不能出现浮动元素。
     clear:both;
 }
 ```
+
+## 对齐
+
+
+* 元素居中对齐
+
+要水平居中对齐一个元素(如 `<div>`), 可以使用 margin: auto;。
+
+设置到元素的宽度将防止它溢出到容器的边缘。
+
+元素通过指定宽度，并将两边的空外边距平均分配：
+
+div 元素是居中的
+
+```css
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+```
+尝试一下 »
+注意: 如果没有设置 width 属性(或者设置 100%)，居中对齐将不起作用。
+
+* 文本居中对齐
+
+如果仅仅是为了文本在元素内居中对齐，可以使用 text-align: center;
+
+```css
+.center {
+    text-align: center;
+    border: 3px solid green;
+}
+```
+
+* 图片居中对齐
+
+要让图片居中对齐, 可以使用 margin: auto; 并将它放到 块 元素中:
+
+```css
+img {
+    display: block;
+    margin: auto;
+    width: 40%;
+}
+```
+
+
+* 左右对齐 - 使用定位方式
+
+我们可以使用 position: absolute; 属性来对齐元素:
+
+```css
+.right {
+    position: absolute;
+    right: 0px;
+    width: 300px;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+```
+
+## 组合选择符
+
+
+CSS 组合选择符说明了两个选择器之间的关系。
+
+CSS组合选择符包括各种简单选择符的组合方式。
+
+在 CSS3 中包含了四种组合方式:
+
+* 后代选择器
+
+后代选择器(以空格     分隔) 后代选择器用于选取某元素的后代元素。
+
+以下实例选取所有 `<p>` 元素插入到 `<div>` 元素中: 
+
+```css
+div p
+{
+  background-color:yellow;
+}
+```
+
+* 子元素选择器 子元素选择器(以大于 > 号分隔）
+
+与后代选择器相比，子元素选择器（Child selectors）只能选择作为某元素直接/一级子元素的元素。
+
+以下实例选择了<div>元素中所有直接子元素 <p> ：
+
+```css
+div>p
+{
+  background-color:yellow;
+}
+```
+
+* 相邻兄弟选择器  相邻兄弟选择器（以加号 + 分隔）
+
+
+相邻兄弟选择器（Adjacent sibling selector）可选择紧接在另一元素后的元素，且二者有相同父元素。
+
+如果需要选择紧接在另一个元素后的元素，而且二者有相同的父元素，可以使用相邻兄弟选择器（Adjacent sibling selector）。
+
+以下实例选取了所有位于 <div> 元素后的第一个 <p> 元素:
+
+```css
+div+p
+{
+  background-color:yellow;
+}
+```
+
+后续兄弟选择器 （以波浪号 ～ 分隔）
+
+后续兄弟选择器选取所有指定元素之后的相邻兄弟元素。
+
+以下实例选取了所有 <div> 元素之后的所有相邻兄弟元素 <p> : 
+
+```css
+div~p
+{
+  background-color:yellow;
+}
+```
+
