@@ -1,17 +1,69 @@
 
-# CSS定义
+* [一、CSS定义](#一css定义)
+* [二、CSS语法](#二css语法)
+* [三、CSS声明的位置](#三css声明的位置)
+  * [3\.1 内联样式（在HTML元素中使用"style" 属性）](#31-内联样式在html元素中使用style-属性)
+  * [3\.2 内部样式表（在HTML文档头部 &lt;head&gt; 区域使用&lt;style&gt; 元素 来包含CSS）](#32-内部样式表在html文档头部-head-区域使用style-元素-来包含css)
+  * [3\.3 外部引用（使用外部 CSS 文件）](#33-外部引用使用外部-css-文件)
+* [四、选择器](#四选择器)
+  * [4\.1 元素选择器](#41-元素选择器)
+  * [4\.2 id选择器](#42-id选择器)
+  * [4\.3  class选择器](#43--class选择器)
+  * [4\.4 复合选择器](#44-复合选择器)
+  * [4\.5 群组选择器](#45-群组选择器)
+  * [4\.6 通用选择器](#46-通用选择器)
+  * [4\.7 多重样式](#47-多重样式)
+  * [4\.8 后代选择器](#48-后代选择器)
+  * [4\.9 伪类和伪元素](#49-伪类和伪元素)
+  * [4\.10 继承](#410-继承)
+  * [4\.11 多重样式优先级](#411-多重样式优先级)
+* [五、CSS的属性](#五css的属性)
+  * [5\.1 背景属性](#51-背景属性)
+  * [5\.2 Text文本属性](#52-text文本属性)
+  * [5\.3 字体](#53-字体)
+* [\- <h6><a id="user\-content\-表示标题和" class="anchor" href="\#%E8%A1%A8%E7%A4%BA%E6%A0%87%E9%A2%98%E5%92%8C" aria\-hidden="true"><span aria\-hidden="true" class="octicon octicon\-link"></span></a>表示标题和](#---表示标题和)
+  * [5\.5 表格属性](#55-表格属性)
+  * [5\.6 盒子模型](#56-盒子模型)
+  * [5\.6\.1 border属性](#561-border属性)
+  * [5\.6\.2 轮廓outline](#562-轮廓outline)
+* [5\.6\.3 外边距margin](#563-外边距margin)
+  * [5\.6\.4 填充padding](#564-填充padding)
+  * [5\.7 尺寸属性](#57-尺寸属性)
+  * [5\.8 CSS Display(显示) 与 Visibility（可见性）](#58-css-display显示-与-visibility可见性)
+  * [5\.9 Position(定位)](#59-position定位)
+  * [5\.10 overflow属性](#510-overflow属性)
+  * [5\.11 Float(浮动)属性](#511-float浮动属性)
+  * [5\.12 对齐属性](#512-对齐属性)
+
+
+# 一、CSS定义
 
 CSS 指层叠样式表 (Cascading Style Sheets)。CSS样式定义如何显示 HTML 元素。CSS是为了解决内容与表现分离的问题。外部样式表可以极大提高工作效率外部样式表通常存储在 CSS 文件中。
 
-# CSS语法
+css可以用来为网页创建样式表，通过样式表可以对网页进行装饰。所谓层叠，可以将整个网页想象成是一层一层的结构，层次高的将会覆盖层次低的。而css就可以分别为网页的各个层次设置样式。
+
+# 二、CSS语法
 
 CSS 规则由两个主要的部分构成：选择器，以及一条或多条声明。
 
-选择器通常是您需要改变样式的 HTML 元素。
+选择器：
 
-每条声明由一个属性和一个值组成。
+通常是您需要改变样式的`HTML 元素`。
+
+声明：
+
+每条声明由一个属性和一个值组成。多个声明之间用分号隔开。
 
 属性（property）是您希望设置的样式属性（style attribute）。每个属性有一个值。属性和值被冒号分开。
+
+```
+选择器 {样式名:样式值；样式名:样式值 ; }
+```
+例如：
+
+```
+p {color:red ; font-size:12px;}
+```
 
 ![](./assets/css_0.jpg)
 
@@ -24,11 +76,73 @@ p
 ```
 CSS声明总是以分号 ; 结束，声明总以大括号 {} 括起来.
 
-# id 选择器
+# 三、CSS声明的位置
 
-id 选择器可以为标有特定 id 的 HTML 元素指定特定的样式。
+CSS 可以通过以下方式添加到HTML中:
+
+## 3.1 内联样式（在HTML元素中使用"style" 属性）
+
+当特殊的样式需要应用到个别元素时，就可以使用内联样式。 使用内联样式的方法是在相关的标签中使用样式属性。样式属性可以包含任何 CSS 属性。以下实例显示出如何改变段落的颜色和左外边距。
+
+```html
+<p style="color:blue;margin-left:20px;">这是一个段落。</p>
+```
+
+## 3.2 内部样式表（在HTML文档头部 `<head>` 区域使用`<style>` 元素 来包含CSS）
+
+当单个文件需要特别样式时，就可以使用内部样式表。你可以在<head> 部分通过 <style>标签定义内部样式表:
+
+```html
+<head>
+<style type="text/css">
+
+body {background-color:yellow;}
+
+p {color:blue;}
+
+</style>
+
+</head>
+```
+
+## 3.3 外部引用（使用外部 CSS 文件）
+
+当样式需要被应用到很多页面的时候，外部样式表将是理想的选择。使用外部样式表，你就可以通过更改一个文件来改变整个站点的外观。
+
+```html
+<head>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+```
+# 四、选择器
+
+选择器（selector），会告诉浏览器：网页上的哪些元素需要设置什么样的样式。比如：p这个选择器就表示选择页面中的所有的p元素，在选择器之后所设置的样式会应用到所有的p元素上。
+
+
+## 4.1 元素选择器
+
+元素选择器（标签选择器），可以根据标签的名字来从页面中选取指定的元素。
+
+语法：
+
+```
+标签名 {}
+```
+比如p则会选中页面中的所有p标签，h1会选中页面中的所有h1标签。
+
+## 4.2 id选择器
+
+id选择器可以根据元素的id属性值选取元素。可以为标有特定 id 的 HTML 元素指定特定的样式。
 
 HTML元素以id属性来设置id选择器,CSS 中 id 选择器以 "#" 来定义。
+
+语法：
+
+```
+#id { }
+```
+
+比如#box会选中页面中id属性值为box的元素，和class属性不同，id属性是不能重复的。
 
 以下的样式规则应用于元素属性 id="para1":
 
@@ -39,15 +153,21 @@ HTML元素以id属性来设置id选择器,CSS 中 id 选择器以 "#" 来定义�
     color:red;
 }
 ```
-# class 选择器
+## 4.3  class选择器
 
 class 选择器用于描述一组元素的样式，class 选择器有别于id选择器，class可以在多个元素中使用。
 
 class 选择器在 HTML 中以 class 属性表示, 在 CSS 中，类选择器以一个点 . 号显示：
 
+语法：
+
+```css
+.className { }
+```
+
 在以下的例子中，所有拥有 center 类的 HTML 元素均为居中。
 
-```CSS
+```css
 .center {
     text-align:center;
 }
@@ -66,65 +186,38 @@ p.center {text-align:center;}
 .color { color:#ff0000; }
 ```
 
-# CSS 创建
+## 4.4 复合选择器
 
-当读到一个样式表时，浏览器会根据它来格式化 HTML 文档。
+复合选择器，可以同时使用多个选择器，这样可以选择同时满足多个选择器的元素。
 
-## 如何插入样式表
-
-插入样式表的方法有三种:
-
-* 外部样式表(External style sheet)
-
-* 内部样式表(Internal style sheet)
-
-* 内联样式(Inline style)
-
-## 外部样式表
-
-当样式需要应用于很多页面时，外部样式表将是理想的选择。在使用外部样式表的情况下，你可以通过改变一个文件来改变整个站点的外观。每个页面使用 <link> 标签链接到样式表。 <link> 标签在（文档的）头部：
-
-```html
-<head>
-<link rel="stylesheet" type="text/css" href="mystyle.css">
-</head>
+语法：
+```
+选择器1.选择器2{}
 ```
 
-浏览器会从文件 mystyle.css 中读到样式声明，并根据它来格式文档。
+例如div.box1会选中页面中具有box1这个class的div元素。
 
-外部样式表可以在任何文本编辑器中进行编辑。文件不能包含任何的 html 标签。样式表应该以 .css 扩展名进行保存。下面是一个样式表文件的例子：
+## 4.5 群组选择器
+
+群组选择器，可以同时使用多个选择器，多个选择器将被同时应用指定的样式。
+
+语法：
+
+```
+选择器1,选择器2,选择器3 { }
+```
+比如p,.hello,#box会同时选中页面中p元素，class为hello的元素，id为box的元素。
+
+## 4.6 通用选择器
+
+通用选择器，可以同时选中页面中的所有元素。
+
+语法：
 ```css
-hr {color:sienna;}
-p {margin-left:20px;}
-body {background-image:url("/images/back40.gif");}
-```
-Remark 不要在属性值与单位之间留有空格（如："margin-left: 20 px" ），正确的写法是 "margin-left: 20px" 。
-
-## 内部样式表
-
-当单个文档需要特殊的样式时，就应该使用内部样式表。可以使用 `<style>` 标签在文档头部定义内部样式表，就像这样:
-
-```html
-<head>
-<style>
-hr {color:sienna;}
-p {margin-left:20px;}
-body {background-image:url("images/back40.gif");}
-</style>
-</head>
+*{ }
 ```
 
-## 内联样式
-
-由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。
-
-要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：
-
-```html
-<p style="color:sienna;margin-left:20px">这是一个段落。</p>
-```
-
-## 多重样式
+## 4.7 多重样式
 
 如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。 
 
@@ -158,7 +251,77 @@ font-size:20pt;
 
 即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。
 
-多重样式优先级
+## 4.8 后代选择器
+
+html标签之间的关系
+
+![](./assets/css_05.png)
+
+* 祖先元素 直接或间接包含后代元素的元素。
+
+* 后代元素 直接或间接被祖先元素包含的元素。
+
+* 父元素 直接包含子元素的元素。
+
+* 子元素 直接被父元素包含的元素。
+
+* 兄弟元素 拥有相同父元素的元素。
+
+后代选择器可以根据标签的关系，为处在元素内部的代元素设置样式。
+
+语法：
+```
+祖先元素 后代元素 后代元素 { }
+```
+
+• 比如p strong会选中页面中所有的p元素内的strong元素。
+
+## 4.9 伪类和伪元素
+
+有时候，你需要选择本身没有标签，但是仍然易于识别的网页部位，比如段落首行或鼠标滑过的连接。CSS为他们提供一些选择器：伪类和伪元素。
+
+有四个伪类可以让你根据访问者与该链接的交互方式，将链接设置成4种不同的状态。
+
+a:link - 正常，未访问过的链接
+
+a:visited - 用户已访问过的链接
+
+a:hover - 当用户鼠标放在链接上时
+
+a:active - 链接被点击的那一刻
+
+```css
+a:link {color:#000000;}      /* 未访问链接*/
+a:visited {color:#00FF00;}  /* 已访问链接 */
+a:hover {color:#FF00FF;}  /* 鼠标移动到链接上 */
+a:active {color:#0000FF;}  /* 鼠标点击时 */
+```
+
+文本修饰
+text-decoration 属性主要用于删除链接中的下划线：
+
+```css
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover {text-decoration:underline;}
+a:active {text-decoration:underline;}
+```
+
+```css
+a:link {background-color:#B2FF99;}
+a:visited {background-color:#FFFF85;}
+a:hover {background-color:#FF704D;}
+a:active {background-color:#FF704D;}
+```
+
+## 4.10 继承
+
+就像父亲的财产会遗传给儿子一样，在CSS中祖先元素的样式同样也会被子元素继承。
+
+继承是指应用在一个标签上的那些CSS样式会同时被应用到其内嵌标签上。比如为父元素设置了字体颜色，子元素也会应用上相同的颜色。当然并不是所有的样式都会被继承，这一点我们讲到具体样式时，再去讨论。
+
+
+## 4.11 多重样式优先级
 
 样式表允许以多种方式规定样式信息。样式可以规定在单个的 HTML 元素中，在 HTML 页的头元素中，或在一个外部的 CSS 文件中。甚至可以在同一个 HTML 文档内部引用多个外部样式表。
 
@@ -168,7 +331,9 @@ font-size:20pt;
 
 **内联样式 > id 选择器 > 类选择器 = 伪类选择器 = 属性选择器 > 标签选择器 = 伪元素选择器**
 
-## 背景属性
+# 五、CSS的属性
+
+## 5.1 背景属性
 
 |Property	|描述  |
 |---- | ---- |
@@ -246,7 +411,7 @@ background-attachment
 background-position
 以上属性无需全部使用，可以按照页面的实际需要使用.
 
-## Text文本属性
+## 5.2 Text文本属性
 
 |属性	|描述|
 | ---- | ---- |
@@ -288,9 +453,6 @@ h1 {text-align:center;}
 p.date {text-align:right;}
 p.main {text-align:justify;}
 ```
-
-
-
 * 文本修饰
 
 text-decoration 属性用来设置或删除文本的装饰。
@@ -317,8 +479,6 @@ p.uppercase {text-transform:uppercase;}
 p.lowercase {text-transform:lowercase;}
 p.capitalize {text-transform:capitalize;}
 ```
-
-
 * 文本缩进
 
 文本缩进属性是用来指定文本的第一行的缩进。
@@ -327,7 +487,7 @@ p.capitalize {text-transform:capitalize;}
 p {text-indent:50px;}
 ```
 
-## 字体
+## 5.3 字体
 
 |属性    |描述|
 | ---- | ---- |
@@ -427,44 +587,9 @@ h2 {font-size:1.875em;}
 p {font-size:0.875em;}
 ```
 
-## 链接样式
 
-链接的样式，可以用任何CSS属性（如颜色，字体，背景等）。
 
-特别的链接，可以有不同的样式，这取决于他们是什么状态。
-
-这四个链接状态是：
-
-a:link - 正常，未访问过的链接
-a:visited - 用户已访问过的链接
-a:hover - 当用户鼠标放在链接上时
-a:active - 链接被点击的那一刻
-
-```css
-a:link {color:#000000;}      /* 未访问链接*/
-a:visited {color:#00FF00;}  /* 已访问链接 */
-a:hover {color:#FF00FF;}  /* 鼠标移动到链接上 */
-a:active {color:#0000FF;}  /* 鼠标点击时 */
-```
-
-文本修饰
-text-decoration 属性主要用于删除链接中的下划线：
-
-```css
-a:link {text-decoration:none;}
-a:visited {text-decoration:none;}
-a:hover {text-decoration:underline;}
-a:active {text-decoration:underline;}
-```
-
-```css
-a:link {background-color:#B2FF99;}
-a:visited {background-color:#FFFF85;}
-a:hover {background-color:#FF704D;}
-a:active {background-color:#FF704D;}
-```
-
-## 表格属性
+## 5.5 表格属性
 
 * 表格边框
 
@@ -564,7 +689,7 @@ th
 }
 ```
 
- ## 盒子模型
+ ## 5.6 盒子模型
 
  所有HTML元素可以看作盒子，在CSS中，"box model"这一术语是用来设计和布局时使用。
 
@@ -575,8 +700,6 @@ CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：�
 下面的图片说明了盒子模型(Box Model)：
 
 ![](./assets/css_1.gif)
-
-
 
 Content(内容) - 盒子的内容，显示文本和图像。
 
@@ -600,7 +723,7 @@ div {
 
 总元素的高度=高度+顶部填充+底部填充+上边框+下边框+上边距+下边距
 
-## border属性
+## 5.6.1 border属性
 
 |属性	|描述|
 | ---- | ---- |
@@ -626,7 +749,7 @@ div {
 |border-top-width	|设置元素的上边框的宽度。|
 |border-radius	|设置圆角的边框。|
 
-## 轮廓outline
+## 5.6.2 轮廓outline
 
 轮廓（outline）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。
 
@@ -643,7 +766,7 @@ div {
 |outline-width	|设置轮廓的宽|thin，medium，thick，length，inherit|	2|
 
 
-# 外边距 margin
+# 5.6.3 外边距margin
 
 CSS margin(外边距)属性定义元素周围的空间。
 
@@ -657,7 +780,7 @@ CSS margin(外边距)属性定义元素周围的空间。
 |margin-right	|设置元素的右外边距。|
 |margin-top	|设置元素的上外边距。|
 
-## 填充 padding
+## 5.6.4 填充padding
 
 CSS padding（填充）是一个简写属性，定义元素边框与元素内容之间的空间，即上下左右的内边距。
 ![](./assets/css_04.png)
@@ -670,54 +793,8 @@ CSS padding（填充）是一个简写属性，定义元素边框与元素内容
 |padding-right	|设置元素的右部填充|
 |padding-top	|设置元素的顶部填充|
 
-## 分组和嵌套选择器
 
-* 分组选择器
-
-
-可以使用分组选择器,将相同样式的元素放置在一起，减轻代码量。选择器之间用逗号分隔。
-
-在下面的例子中，我们对以上代码使用分组选择器：
-
-```css
-h1,h2,p
-{
-    color:green;
-}
-```
-
-
-
-* 嵌套选择器
-
-它可能适用于选择器内部的选择器的样式。
-
-```css
-/*p{ }: 为所有 p 元素指定一个样式。*/
-p
-{
-    color:blue;
-    text-align:center;
-}
-
-/*.marked{ }: 为所有 class="marked" 的元素指定一个样式。*/
-.marked
-{
-    background-color:red;
-}
-
-/*.marked p{ }: 为所有 class="marked" 元素内的 p 元素指定一个样式。*/
-.marked p
-{
-    color:white;
-}
-
-/*p.marked{ }: 为所有 class="marked" 的 p 元素指定一个样式。*/
-p.marked{
-    text-decoration:underline;
-}
-```
-## 尺寸
+## 5.7 尺寸属性
 
 |属性	|描述|
 | ---- | ---- |
@@ -729,7 +806,7 @@ p.marked{
 |min-width	|设置元素的最小宽度。|
 |width	|设置元素的宽度。|
 
-## CSS Display(显示) 与 Visibility（可见性）
+## 5.8 CSS Display(显示) 与 Visibility（可见性）
 
 
 display属性设置一个元素应如何显示，visibility属性指定一个元素应可见还是隐藏。
@@ -743,7 +820,7 @@ visibility:hidden可以隐藏某个元素，但隐藏的元素仍需占用与未
 
 display:none可以隐藏某个元素，且隐藏的元素不会占用任何空间。也就是说，该元素不但被隐藏了，而且该元素原本占用的空间也会从页面布局中消失。
 
-## Position(定位)
+## 5.9 Position(定位)
 
 
 position 属性指定了元素的定位类型。
@@ -764,7 +841,7 @@ absolute 定位的元素和其他元素重叠。
 
 sticky 定位 英文字面意思是粘，粘贴，所以可以把它称之为粘性定位。基于用户的滚动位置来定位。
 
-## overflow
+## 5.10 overflow属性
 
 CSS overflow 属性可以控制内容溢出元素框时在对应的元素区间内添加滚动条。
 
@@ -779,7 +856,7 @@ overflow属性有以下值：
 |inherit	|规定应该从父元素继承 overflow 属性的值。|
 
 
-## Float(浮动)
+## 5.11 Float(浮动)属性
 
 CSS 的 Float（浮动），会使元素向左或向右移动，其周围的元素也会重新排列。
 
@@ -809,8 +886,7 @@ clear 属性指定元素两侧不能出现浮动元素。
 }
 ```
 
-## 对齐
-
+## 5.12 对齐属性
 
 * 元素居中对齐
 
@@ -871,67 +947,5 @@ img {
 }
 ```
 
-## 组合选择符
 
-
-CSS 组合选择符说明了两个选择器之间的关系。
-
-CSS组合选择符包括各种简单选择符的组合方式。
-
-在 CSS3 中包含了四种组合方式:
-
-* 后代选择器
-
-后代选择器(以空格     分隔) 后代选择器用于选取某元素的后代元素。
-
-以下实例选取所有 `<p>` 元素插入到 `<div>` 元素中: 
-
-```css
-div p
-{
-  background-color:yellow;
-}
-```
-
-* 子元素选择器 子元素选择器(以大于 > 号分隔）
-
-与后代选择器相比，子元素选择器（Child selectors）只能选择作为某元素直接/一级子元素的元素。
-
-以下实例选择了<div>元素中所有直接子元素 <p> ：
-
-```css
-div>p
-{
-  background-color:yellow;
-}
-```
-
-* 相邻兄弟选择器  相邻兄弟选择器（以加号 + 分隔）
-
-
-相邻兄弟选择器（Adjacent sibling selector）可选择紧接在另一元素后的元素，且二者有相同父元素。
-
-如果需要选择紧接在另一个元素后的元素，而且二者有相同的父元素，可以使用相邻兄弟选择器（Adjacent sibling selector）。
-
-以下实例选取了所有位于 <div> 元素后的第一个 <p> 元素:
-
-```css
-div+p
-{
-  background-color:yellow;
-}
-```
-
-后续兄弟选择器 （以波浪号 ～ 分隔）
-
-后续兄弟选择器选取所有指定元素之后的相邻兄弟元素。
-
-以下实例选取了所有 <div> 元素之后的所有相邻兄弟元素 <p> : 
-
-```css
-div~p
-{
-  background-color:yellow;
-}
-```
 
