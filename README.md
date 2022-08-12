@@ -112,6 +112,8 @@ Java log系统
 
 *  [前端发展历史](https://github.com/geekist/developer_guide/blob/main/frontend/frontend_history.md)
 
+*  [web开发基础教程](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web)
+
 html
 
 *  [HTML](https://github.com/geekist/developer_guide/blob/main/frontend/html/html.md)
@@ -120,23 +122,19 @@ css
 
 *  [CSS](https://github.com/geekist/developer_guide/blob/main/frontend/css.md)
 
-* [CSS菜鸟教程](https://www.runoob.com/css/css-tutorial.html)
-
 javascript
 
 *  [JavaScript](https://github.com/geekist/developer_guide/blob/main/frontend/javascript.md)
-
-* [javascript菜鸟教程](https://www.runoob.com/js/js-tutorial.html)
 
 vue
 
 *  [Vue开发预备知识和环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
 
+* [vue-cli项目结构介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue_file_intro.md)
 
 ## 客户端开发
 
 Android
-
 
 iOS
 

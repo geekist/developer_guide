@@ -1,5 +1,5 @@
 
-# 一、Vue开发环境基础
+#  一、Vue开发环境基础
 
 ## 1.1 vue开发环境内容
 
@@ -13,7 +13,7 @@ vue.js所有的环境基础包括：
 
 * vue-cli：脚手架构建工具
 
-## 二、安装node.js
+# 二、安装node.js
 
 ## 2.1 node.js介绍
 
@@ -38,10 +38,6 @@ NPM是基于node js环境的一个包管理器。试问 为什么单纯的 jsp/p
 >渲染引擎: 渲染html&&css
 >
 >JavaScript引擎：运行 JavaScript，随着技术的发展， Chrome 使用的 JavaScript 引擎是 V8，它的速度非常快且性能好，同时由2009年5月Ryan Dahl开发的Node.js 诞生。
-
-[使用vscode 创建第一个vue项目](https://www.jianshu.com/p/08e12cdeed82)
-
-[Vue项目打包部署总结](https://segmentfault.com/a/1190000021530126)
 
 ## 2.2 彻底删除已安装的node.js
 
@@ -259,7 +255,7 @@ npm run 是 npm run-script 的缩写，一般都使用前者，但是后者可�
 >**cnpm install [依赖的name]**
 
 
-# 三、安装webpack
+# 四、安装webpack
 
 Webpack 是一个前端资源加载和打包工具。所谓的模块就是在平时的前端开发中，用到一些静态资源，如JavaScript、CSS、图片等文件，webpack就将这些静态资源文件称之为模块。 webpack支持AMD和CommonJS，以及其他的一些模块系统，并且兼容多种JS书写规范，可以处理模块间的依赖关系，所以具有更强大的JS模块化的功能，它能对静态资源进行统一的管理以及打包发布。 作为一款 Grunt和Gulp的替代产品，Webpack受到大多数开发者的喜爱，因为它能够编译打包CSS，做CSS预处理，对JS的方言进行编译，打包图片，代码压缩等等。
 
@@ -273,7 +269,7 @@ webpack安装：
 
 **npm install webpack webpack-cli -g**
 
-# 四、安装vue-cli
+# 五、安装vue-cli
 
 Vue CLI 致力于将 Vue 生态中的工具基础标准化，它确保了各种构建工具能够基于智能的默认配置即可平稳衔接，这样你可以专注在撰写应用上，而不必花更多的时间去纠结配置的问题。也就是可以通过简单的命令行或者图形界面创建一个vue应用。
 
@@ -282,7 +278,7 @@ Vue CLI 致力于将 Vue 生态中的工具基础标准化，它确保了各种�
 **npm install  vue-cli -g**
  
 
-# 五、安装开发工具VSCode
+# 六、安装开发工具VSCode
 
 
 ## 5.1 vscode介绍
@@ -313,7 +309,7 @@ Vetur支持.vue文件的语法高亮显示，除了支持template模板以外，
 
 ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次eslint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。
 
-## 六、创建和运行第一个vue项目
+## 七、使用vue-cli创建和运行第一个vue项目
 
 * 进入终端
 
@@ -359,7 +355,7 @@ npm run dev
 打开浏览器输入http://localhost:8080，如果出现vue的欢迎页面则说明成功
 
 
-# 七、错误解决办法：
+# 八、错误解决办法：
 
 安装好vscode环境后，在项目中执行：
 

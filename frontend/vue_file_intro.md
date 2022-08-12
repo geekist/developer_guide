@@ -5,20 +5,20 @@
 
 ![](./assets/vue-source.png)
 
-* **build**   
+* **build目录**   
 
 项目构建(webpack)相关代码
 
 
-* **config**  
+* **config目录**  
 
 配置目录，包括端口号等
 
-* **node_modules**  
+* **node_modules目录**  
 
 npm 加载的项目依赖模块
 
-* **src**
+* **src目录**
 
 这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件： 
 
@@ -34,11 +34,11 @@ npm 加载的项目依赖模块
  
  main.js:：项目的核心文件
 
-* **static**
+* **static目录**
 
 静态资源目录，如图片、字体等
 
-* **test**
+* **test目录**
 
 初始测试目录，可删除
 
