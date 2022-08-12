@@ -18,6 +18,7 @@ Nginx
 
 * [Nginx服务器配置stub_status](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_stub_stauts.md)
 
+## Java服务器程序开发
 
 Java Web开发
 
@@ -94,7 +95,6 @@ Mybatis
 其他工具
 
 
-
 Java log系统
 
 *  [日志统一接口：SLF4J(Simple Logging Facade for Java)](https://github.com/geekist/developer_guide/blob/main/server/slf4j.md)
@@ -105,7 +105,8 @@ Java log系统
 
 *  [spring boot整合可视化日志工具：logstash](https://blog.csdn.net/syc000666/article/details/98668485)
 
-前端
+
+## 前端开发
 
 html
 
@@ -126,6 +127,8 @@ javascript
 vue
 
 
+## 客户端开发
+
 Android
 
 
@@ -134,6 +137,8 @@ iOS
 [Objective-C语言](https://github.com/geekist/developer_guide/blob/main/ios/Objective-C.md)
 
 [Swift]()
+
+
 
 数据库
 
@@ -253,7 +258,7 @@ Maven
 * [YuYaEnginx配置](https://github.com/geekist/developer_guide/blob/main/nginx/yuya_nginx_conf.md)
 
 
-## [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
+* [yuya](https://github.com/geekist/developer_guide/blob/main/yuya/yuya.md)
 
 * [高德地图开发](https://github.com/geekist/developer_guide/blob/main/gaode_map/gaode_map.md) 
 
@@ -261,7 +266,7 @@ Maven
 
 * [Android端个推开发指南](https://github.com/geekist/developer_guide/blob/main/android/3rd/getui.md)
 
-日记月累
+## 日记月累
 
 * [域名、DNS、CDN、https、SSL介绍](https://github.com/geekist/developer_guide/blob/main/other/domain.md)
 
