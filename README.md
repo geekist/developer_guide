@@ -1,13 +1,14 @@
 
-后端开发
 
-Linux环境配置
+## Linux服务器
+
+Linux
 
 * [Linux基本命令和shell脚本](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
 * [Linux环境下JDK、Git、Maven、Nginx和Nacos的安装与卸载](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
-Nginx服务器
+Nginx
 
 * [Nginx服务器](https://github.com/geekist/developer_guide/blob/main/nginx/nginx.md)
 
