@@ -130,6 +130,8 @@ javascript
 
 vue
 
+*  [Vue开发预备知识和环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
+
 
 ## 客户端开发
 
@@ -178,8 +180,6 @@ JavaWeb开发
 * [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
 
-
-
 移动端开发
 
  * [移动端iOS开发](https://github.com/geekist/developer_guide/blob/main/iOS.md)
@@ -194,14 +194,13 @@ JavaWeb开发
 
 * [android设备接入阿里云物联网iOT](./iot/Android连接阿里云MQTT..md)
 
-其他
+## 专题技术
 
 cron表达式
 
 * [Cron表达式](https://github.com/geekist/developer_guide/blob/main/server/cron.md)
 
 * [如何生成GitHubMarkdown文件的目录](./tools/tools.md)
-
 
 
 正则表达式（regular expression）
@@ -280,3 +279,7 @@ Maven
 
 * [DTO、PO、VO、BO等区别](https://github.com/geekist/developer_guide/blob/main/other/dto.md)
  
+* [主流浏览器和内核介绍](https://github.com/geekist/developer_guide/blob/main/frontend/browser.md)
+
+ * [常用web图片格式GIF、JPG、PNG、WEBP介绍](https://segmentfault.com/a/1190000013589397)
+
