@@ -1,3 +1,4 @@
+
 - [一、JavaScript简介](#一javascript简介)
   - [1.1 javascript历史](#11-javascript历史)
   - [1.2 JavaScript特点](#12-javascript特点)
@@ -15,9 +16,9 @@
     - [2.8.2 BigInt 类型](#282-bigint-类型)
     - [2.8.3 字符串型（String）](#283-字符串型string)
     - [2.8.4 布尔类型（Boolean）](#284-布尔类型boolean)
-  - [2.8.5 null值](#285-null值)
-  - [2.8.6 undefined 值](#286-undefined-值)
-  - [2.8.7 Object 类型和 Symbol 类型](#287-object-类型和-symbol-类型)
+    - [2.8.5 null值](#285-null值)
+    - [2.8.6 undefined 值](#286-undefined-值)
+    - [2.8.7 Object 类型和 Symbol 类型](#287-object-类型和-symbol-类型)
     - [2.8.8 typeof运算符](#288-typeof运算符)
   - [2.9 交互alert、prompt和confirm](#29-交互alertprompt和confirm)
     - [2.9.1 alert](#291-alert)
@@ -58,9 +59,9 @@
     - [3.9.3 回调函数](#393-回调函数)
     - [3.9.4 函数表达式 vs 函数声明](#394-函数表达式-vs-函数声明)
   - [3.10 箭头函数](#310-箭头函数)
-- [四、Object对象](#四object对象)
-  - [4.1 Object对象](#41-object对象)
-    - [4.1.1 Object对象定义](#411-object对象定义)
+- [四、对象](#四对象)
+  - [4.1 对象](#41-对象)
+    - [4.1.1 对象定义](#411-对象定义)
     - [4.1.2 创建Object对象](#412-创建object对象)
   - [4.2 对象的属性](#42-对象的属性)
     - [4.2.1 对象属性的访问](#421-对象属性的访问)
@@ -103,7 +104,6 @@
   - [9.5 screen对象](#95-screen对象)
   - [9.6 history对象](#96-history对象)
   - [9.7 其他](#97-其他)
-
 # 一、JavaScript简介
 
 ## 1.1 javascript历史
@@ -496,7 +496,7 @@ alert( isGreater ); // true（比较的结果是 "yes"）
 
 使用typeof检查一个布尔值时，会返回"boolean"	
 
-## 2.8.5 null值
+### 2.8.5 null值
 特殊的 null 值不属于上述任何一种类型。
 
 它构成了一个独立的类型，只包含 null 值：
@@ -509,7 +509,7 @@ JavaScript 中的 null 仅仅是一个代表“无”、“空”或“值未知
 
 上面的代码表示 age 是未知的。
 
-## 2.8.6 undefined 值
+### 2.8.6 undefined 值
 
 特殊值 undefined 和 null 一样自成类型。
 
@@ -531,7 +531,7 @@ alert(age); // "undefined"
 ```
 ……但是不建议这样做。通常，使用 null 将一个“空”或者“未知”的值写入变量中，而undefined则保留作为未进行初始化的事物的默认初始值。
 
-## 2.8.7 Object 类型和 Symbol 类型
+### 2.8.7 Object 类型和 Symbol 类型
 
 object 类型是一个特殊的类型。
 
@@ -1715,12 +1715,12 @@ let sum = (a, b) => {  // 花括号表示开始一个多行函数
 alert( sum(1, 2) ); // 3
 ```
 
-# 四、Object对象
+# 四、对象
 
 
-## 4.1 Object对象
+## 4.1 对象
 
-### 4.1.1 Object对象定义
+### 4.1.1 对象定义
 
 Object类型，我们也称为一个对象。是JavaScript中的引用数据类型。它是一种复合值，它将很多值聚合到一起，可以通过名字访问这些值。
 
