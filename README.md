@@ -124,6 +124,8 @@ css
 
 javascript
 
+*  [现代JavaScript教程(javascript_info)](  https://zh.javascript.info/)
+
 *  [ECMAScript6入门--阮一峰开源书籍](https://es6.ruanyifeng.com/#docs/intro)
 
 *  [JavaScript](https://github.com/geekist/developer_guide/blob/main/frontend/javascript.md)
