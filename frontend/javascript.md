@@ -109,13 +109,18 @@ JavaScript是一门动态语言，所谓的动态语言可以暂时理解为在�
 
 Java也是一门面向对象的语言，但是与Java不同JavaScript是基于原型的面向对象。
 
+## 1.3 Javascript最新规范
+
+在下面的链接中可以看到ecma最新的ecmascript的规范：
+
+ * [JavaScript最新规范](https://tc39.es/ecma262/)
+
 
 # 二、JavaScript基本语法
 
-## 2.1 JavaScript代码位置
+## 2.1 JavaScript代码位置--script标签
 
-我们目前学习的JS全都是客户端的JS，也就是说全都是需要在浏览器中运行的，所以我们我们的JS代码全都需要在网页HTML中编写。
-
+我们几乎可以使用 `<script>` 标签将 JavaScript 程序插入到 HTML 文档的任何位置。
 
 HTML 中的 Javascript 脚本代码必须位于 <script> 与 </script> 标签之间。Javascript 脚本代码可被放置在 HTML 页面的 <body> 和 <head>部分中。
 
@@ -142,13 +147,41 @@ window.alert(5 + 6);
 </body>
 </html>
 ```
+><script> 标签有一些现在很少用到的特性（attribute），但是我们可以在老代码中找到它们：
+>
+>type 特性：<script type=…>
+>在老的 HTML4 标准中，要求 script 标签有 type 特性。通常是 type="text/javascript"。这样的特性声明现在已经不再需要。而且，现代 HTML 标准已经完全改变了此特性的含义。现在，它可以用于 JavaScript 模块。但这是一个高阶话题，我们将在本教程的另一部分中探讨 JavaScript 模块。
+>
+>language 特性：<script language=…>
+>这个特性是为了显示脚本使用的语言。这个特性现在已经没有任何意义，因为语言默认就是 JavaScript。不再需要使用它了。
 
-属性：
+* 外部脚本
 
-– type：默认值text/javascript可以不写，不写也是这个值。
+如果你有大量的 JavaScript 代码，我们可以将它放入一个单独的文件。
 
-– src：当需要引入一个外部的js文件时，使用该属性指向文件的地址。
+脚本文件可以通过 src 特性（attribute）添加到 HTML 文件中。
 
+```html
+<!--/path/to/script.js 是脚本文件从网站根目录开始的绝对路径。
+当然也可以提供当前页面的相对路径。
+例如，src ="script.js"，就像 src="./script.js"，表示当前文件夹中的 "script.js" 文件。
+-->
+
+<script src="/path/to/script.js"></script>
+
+<!--
+  我们也可以提供一个完整的 URL 地址，例如：
+-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+
+<!--
+  要附加多个脚本，请使用多个标签：
+  -->
+
+<script src="/js/script1.js"></script>
+<script src="/js/script2.js"></script>
+```
 
 ## 2.2 大小写敏感
 
@@ -193,85 +226,123 @@ abstract double goto native static boolean enum implements package super byte ex
 
 ## 2.6 变量
 
-变量的作用是给某一个值或对象标注名称。比如我们的程序中有一个值123，这个值我们是需要反复使用的，这个时候我们最好将123这个值赋值给一个变量，然后通过变量去使用123这个值。
+变量是数据的“命名存储”。我们可以使用变量来保存商品、访客和其他信息。
+
+如果将变量想象成一个“数据”的盒子，盒子上有一个唯一的标注盒子名字的贴纸。这样我们能更轻松地掌握“变量”的概念。
+
+例如，变量 message 可以被想象成一个标有 "message" 的盒子，盒子里面的值为 "Hello!".我们可以在盒子内放入任何值。并且，这个盒子的值，我们想改变多少次，就可以改变多少次：当值改变的时候，之前的数据就被从变量中删除了：
+
+![](./assets/javascript_3.png)
+
 
 变量的声明：
 
-使用var关键字声明一个变量。
-```
-var a;
-```
-
-变量的赋值：
-
-使用=为变量赋值。
-
-```
-a=123;
+使用let关键字声明一个变量。
+```js
+let message;
 ```
 
-声明和赋值同时进行：
+现在，我们可以通过赋值运算符 = 为变量添加一些数据：
+```js
+let message;
 
-```
-var a = 123;
-```
-
-## 2.7 数据类型
-
-数据类型决定了一个数据的特征，比如：123和”123”，直观上看这两个数据都是123，但实际上前者是一个数字，而后者是一个字符串。对于不同的数据类型我们在进行操作时会有很大的不同。
-
-JavaScript中一共有5种基本数据类型。String、Number、Boolean、Null、Undefined和Object类型
-
-### 2.7.0 typeof运算符
-  
-使用typeof操作符可以用来检查一个变量的数据类型。
-
-使用方式：
-
-typeof 数据，例如 typeof 123。
-
-返回结果是一个字符串：
-
-```
-– typeof 数值 number
-– typeof 字符串 string
-– typeof 布尔型 boolean
-– typeof undefined undefined
-– typeof null object
+message = 'Hello'; // 将字符串 'Hello' 保存在名为 message 的变量中
 ```
 
-### 2.7.1 字符串型（String）
+现在这个字符串已经保存到与该变量相关联的内存区域了，我们可以通过使用该变量名称访问它：
+```js
+let message;
+message = 'Hello!';
 
-String用于表示一个字符序列，即字符串。
-
-```
-var carname="Volvo XC60";
-var carname='Volvo XC60';
-
-可以在字符串中使用引号，只要不匹配包围字符串的引号即可：
-var answer="It's alright";
-var answer="He is called 'Johnny'";
-var answer='He is called "Johnny"';
+alert(message); // 显示变量内容
 ```
 
-字符串需要使用 ’或“ 括起来。可以在字符串中使用引号，只要不匹配包围字符串的引号即可：
+简洁一点，我们可以将变量定义和赋值合并成一行：
 
-转义字符：可以在字符串中使用转义字符，"\"
-```
-var answer="He is called \"Johnny\"";
+```js
+let message = 'Hello!'; // 定义变量，并且赋值
 
-\'  ==> '
-\"  ==> "
-\n  ==> 换行
-\t  ==> 制表符
-\\  ==> \	
+alert(message); // Hello!
 ```
 
-可以将其他数值转换为字符串，转换方式有三种方式：toString()、String()、拼串。
+也可以在一行中声明多个变量：
+```js
+let user = 'John', age = 25, message = 'Hello';
+```
+看上去代码长度更短，但并不推荐这样。为了更好的可读性，请一行只声明一个变量。
 
-### 2.7.2 数值型（Number）
 
-Number 类型用来表示整数和浮点数，最常用的功能就是用来表示10进制的整数和浮点数。
+在ecma6中废弃了var定义变量的方式。因为var方式定义的变量有以下的缺陷：
+
+1、var没有块级作用域，定义后，其作用域为函数内部或者全局；
+
+2、var允许重新声明；
+
+3、var变量有提升的隐喻。即变量可以未声明先使用，其值为undefined；
+
+因此，let方式定义的变量天然不具有上述的三个特则。
+
+变量命名的规则：
+
+1、变量名称必须仅包含字母、数字、符号 $ 和 _。
+
+2、首字符必须非数字。
+
+3、如果命名包括多个单词，通常采用驼峰命名方法。
+
+
+## 2.7 常量
+
+声明一个常数（不变）变量，可以使用 const 而非 let：
+
+```js
+const myBirthday = '18.04.1982';
+```
+
+使用 const 声明的变量称为“常量”。它们不能被修改，如果你尝试修改就会发现报错：
+```js
+const myBirthday = '18.04.1982';
+
+myBirthday = '01.01.2001'; // 错误，不能对常量重新赋值
+```
+
+当程序员能确定这个变量永远不会改变的时候，就可以使用 const 来确保这种行为，并且清楚地向别人传递这一事实。
+
+一个普遍的做法是将常量用作别名，以便记住那些在执行之前就已知的难以记住的值。使用大写字母和下划线来命名这些常量。
+
+例如，让我们以所谓的“web”（十六进制）格式为颜色声明常量：
+
+```js
+const COLOR_RED = "#F00";
+const COLOR_GREEN = "#0F0";
+const COLOR_BLUE = "#00F";
+const COLOR_ORANGE = "#FF7F00";
+
+// ……当我们需要选择一个颜色
+let color = COLOR_ORANGE;
+alert(color); // #FF7F00
+```
+
+## 2.8 数据类型
+
+在 JavaScript 中有8种基本的数据类型（译注：7 种原始类型和 1 种引用类型）。
+
+我们可以将任何类型的值存入变量。例如，一个变量可以在前一刻是个字符串，下一刻就存储一个数字：
+
+```js
+// 没有错误
+let message = "hello";
+message = 123456;
+```
+
+允许这种操作的编程语言，例如 JavaScript，被称为“动态类型”（dynamically typed）的编程语言，意思是虽然编程语言中有不同的数据类型，但是你定义的变量并不会在定义后，被限制为某一数据类型。
+
+### 2.8.1 数值型（Number）
+
+Number 类型用来表示整数和浮点数，最常用的功能就是用来表示10进制的整数和浮点数。数字可以有很多操作，比如，乘法 *、除法 /、加法 +、减法 - 等等。
+
+
+特殊数值：Infinity、-Infinity和NaN
 
 Number表示的数字大小是有限的，范围是：± 1.7976931348623157e+308如果超过了这个范围，则会返回± Infinity（正无穷和负无穷）
 
@@ -292,9 +363,100 @@ NaN，即非数值（Not a Number）是一个特殊的数值，JS中当对数值
 		
 使用typeof检查一个Number类型的数据时，会返回"number"
 
-### 2.7.3 布尔类型（Boolean）
+### 2.8.2 BigInt 类型
+
+在 JavaScript 中，“number” 类型无法安全地表示大于 (2^53-1)（即 9007199254740991），或小于 -(2^53-1) 的整数。
+
+更准确的说，“number” 类型可以存储更大的整数（最多 1.7976931348623157 * 10308），但超出安全整数范围 ±(253-1) 会出现精度问题，因为并非所有数字都适合固定的 64 位存储。因此，可能存储的是“近似值”。
+
+例如，这两个数字（正好超出了安全整数范围）是相同的：
+```
+console.log(9007199254740991 + 1); // 9007199254740992
+console.log(9007199254740991 + 2); // 9007199254740992
+也就是说，所有大于 (253-1) 的奇数都不能用 “number” 类型存储。
+```
+
+在大多数情况下，±(253-1) 范围就足够了，但有时候我们需要整个范围非常大的整数，例如用于密码学或微秒精度的时间戳。
+
+BigInt 类型是最近被添加到 JavaScript 语言中的，用于表示任意长度的整数。
+
+可以通过将 n 附加到整数字段的末尾来创建 BigInt 值。
+
+```
+// 尾部的 "n" 表示这是一个 BigInt 类型
+const bigInt = 1234567890123456789012345678901234567890n;
+```
+
+### 2.8.3 字符串型（String）
+
+String用于表示一个字符序列，即字符串。JavaScript 中的字符串必须被括在引号里。
+
+在 JavaScript 中，有三种包含字符串的方式。
+
+```js
+双引号："Hello".
+
+单引号：'Hello'.
+
+反引号：`Hello`.
+```
+双引号和单引号都是“简单”引用，在 JavaScript 中两者几乎没有什么差别。
+
+反引号是 功能扩展 引号。它们允许我们通过将变量和表达式包装在 ${…} 中，来将它们嵌入到字符串中。例如：
+
+```js
+let name = "John";
+
+// 嵌入一个变量
+alert( `Hello, ${name}!` ); // Hello, John!
+
+// 嵌入一个表达式
+alert( `the result is ${1 + 2}` ); // the result is 3
+```
+
+${…} 内的表达式会被计算，计算结果会成为字符串的一部分。可以在 ${…} 内放置任何东西：诸如名为 name 的变量，或者诸如 1 + 2 的算数表达式，或者其他一些更复杂的。
+
+需要注意的是，这仅仅在反引号内有效，其他引号不允许这种嵌入。
+
+
+```
+var carname="Volvo XC60";
+var carname='Volvo XC60';
+
+可以在字符串中使用引号，只要不匹配包围字符串的引号即可：
+var answer="It's alright";
+var answer="He is called 'Johnny'";
+var answer='He is called "Johnny"';
+```
+
+字符串需要使用 ’或“ 括起来。可以在字符串中使用引号，只要不匹配包围字符串的引号即可：
+
+转义字符：可以在字符串中使用转义字符，"\"
+```js
+var answer="He is called \"Johnny\"";
+
+\'  ==> '
+\"  ==> "
+\n  ==> 换行
+\t  ==> 制表符
+\\  ==> \	
+```
+
+可以将其他数值转换为字符串，转换方式有三种方式：toString()、String()、拼串。
+
+### 2.8.4 布尔类型（Boolean）
 
 布尔型也被称为逻辑值类型或者真假值类型。布尔型只能够取真（true）和假（false）两种数值。除此以外，其他的值都不被支持。
+
+```js
+let nameFieldChecked = true; // yes, name field is checked
+let ageFieldChecked = false; // no, age field is not checked
+布尔值也可作为比较的结果：
+
+let isGreater = 4 > 1;
+
+alert( isGreater ); // true（比较的结果是 "yes"）
+```
 
 其他的数据类型也可以通过Boolean()函数转换为布尔类型。
 
@@ -308,32 +470,248 @@ NaN，即非数值（Not a Number）是一个特殊的数值，JS中当对数值
 
 使用typeof检查一个布尔值时，会返回"boolean"	
 
-### 2.7.4 Undefined
+## 2.8.5 null值
+特殊的 null 值不属于上述任何一种类型。
 
-Undefined 类型只有一个值，即特殊的 undefined 。在使用 var 声明变量但未对其加以初始化时，这个变量的值就是 undefined。
+它构成了一个独立的类型，只包含 null 值：
+```js
+let age = null;
+```
+相比较于其他编程语言，JavaScript 中的 null 不是一个“对不存在的 object 的引用”或者 “null 指针”。
+
+JavaScript 中的 null 仅仅是一个代表“无”、“空”或“值未知”的特殊值。
+
+上面的代码表示 age 是未知的。
+
+## 2.8.6 undefined 值
+
+特殊值 undefined 和 null 一样自成类型。
+
+undefined 的含义是 未被赋值。
+
+如果一个变量已被声明，但未被赋值，那么它的值就是 undefined：
+```js
+let age;
+
+alert(age); // 弹出 "undefined"
+从技术上讲，可以显式地将 undefined 赋值给变量：
+
+let age = 100;
+
+// 将值修改为 undefined
+age = undefined;
+
+alert(age); // "undefined"
+```
+……但是不建议这样做。通常，使用 null 将一个“空”或者“未知”的值写入变量中，而undefined则保留作为未进行初始化的事物的默认初始值。
+
+## 2.8.7 Object 类型和 Symbol 类型
+
+object 类型是一个特殊的类型。
+
+其他所有的数据类型都被称为“原始类型”，因为它们的值只包含一个单独的内容（字符串、数字或者其他）。相反，object 则用于储存数据集合和更复杂的实体。
+
+因为它非常重要，所以我们对其进行单独讲解。在充分学习了原始类型后，我们将会在 对象 一章中介绍 object。
+
+symbol 类型用于创建对象的唯一标识符。我们在这里提到 symbol 类型是为了完整性，但我们要在学完 object 类型后再学习它。
+
+### 2.8.8 typeof运算符
+  
+使用typeof操作符可以用来检查一个变量的数据类型。
+
+使用方式：
+
+typeof 数据，例如 typeof 123。
+
+对 typeof x 的调用会以字符串的形式返回数据类型：
+
+```
+typeof undefined // "undefined"
+
+typeof 0 // "number"
+
+typeof 10n // "bigint"
+
+typeof true // "boolean"
+
+typeof "foo" // "string"
+
+typeof Symbol("id") // "symbol"
+
+typeof Math // "object"  (1)
+
+typeof null // "object"  (2)
+
+typeof alert // "function"  (3)
+```
+你可能还会遇到另一种语法：typeof(x)。它与 typeof x 相同。
+
+简单点说：typeof 是一个操作符，不是一个函数。这里的括号不是 typeof 的一部分。它是数学运算分组的括号。
+
+通常，这样的括号里包含的是一个数学表达式，例如 (2 + 2)，但这里它只包含一个参数 (x)。从语法上讲，它们允许在 typeof 运算符和其参数之间不打空格，有些人喜欢这样的风格。
+
+有些人更喜欢用 typeof(x)，尽管 typeof x 语法更为常见。
+
+## 2.9 交互alert、prompt和confirm
+
+### 2.9.1 alert
+
+这个我们前面已经看到过了。它会显示一条信息，并等待用户按下 “OK”。
+
+例如：
+
+```js
+alert("Hello");
+```
+弹出的这个带有信息的小窗口被称为 模态窗。“modal” 意味着用户不能与页面的其他部分（例如点击其他按钮等）进行交互，直到他们处理完窗口。在上面示例这种情况下 —— 直到用户点击“确定”按钮。
+
+### 2.9.2 prompt
+
+prompt 函数接收两个参数：
+```js
+result = prompt(title, [default]);
+```
+浏览器会显示一个带有文本消息的模态窗口，还有 input 框和确定/取消按钮。
+
+title:显示给用户的文本
+
+default:可选的第二个参数，指定 input 框的初始值。
+
+语法中的方括号 [...] 表示上述语法中 default 周围的方括号表示该参数是可选的，不是必需的。
+
+访问者可以在提示输入栏中输入一些内容，然后按“确定”键。然后我们在 result 中获取该文本。或者他们可以按取消键或按 Esc 键取消输入，然后我们得到 null 作为 result。
+
+prompt 将返回用户在 input 框内输入的文本，如果用户取消了输入，则返回 null。
+
+举个例子：
+```js
+let age = prompt('How old are you?', 100);
+
+alert(`You are ${age} years old!`); // You are 100 years old!
+```
+
+## 2.9.3 confirm
+
+confirm 函数显示一个带有 question 以及确定和取消两个按钮的模态窗口。
+```js
+result = confirm(question);
+```
+
+confirm 函数显示一个带有 question 以及确定和取消两个按钮的模态窗口。
+
+点击确定返回 true，点击取消返回 false。
 
 例如：
 ```
-var message; //message 的值就是 undefined。
+let isBoss = confirm("Are you the boss?");
+
+alert( isBoss ); // 如果“确定”按钮被按下，则显示 true
 ```
-需要注意的是typeof对没有初始化和没有声明的变量都会返undefined。
 
-使用typeof检查一个Undefined类型的值时，会返回"undefined"
+上述所有方法共有两个限制：
 
-### 2.7.5 Null
+- 模态窗口的确切位置由浏览器决定。通常在页面中心。
 
-Null 类型是第二个只有一个值的数据类型，这个特殊的值是null 。从语义上看null表示的是一个空的对象。所以使用typeof检查null会返回一个Object。
+- 窗口的确切外观也取决于浏览器。我们不能修改它。
 
-undefined值实际上是由null值衍生出来的，所以如果比较undefined和null是否相等，会返回true；
-		
-使用typeof检查一个Null类型的值时会返回"object"
+这就是简单的代价。还有其他一些方式可以显示更漂亮的窗口，并与用户进行更丰富的交互，但如果“花里胡哨”不是非常重要，那使用本节讲的这些方法也挺好。
 
-## 2.8 运算符
+## 2.10 类型转换
+
+### 2.10.1 字符串转换
+
+当我们需要一个字符串形式的值时，就会进行字符串转换。
+
+比如，alert(value) 将 value 转换为字符串类型，然后显示这个值。
+
+我们也可以显式地调用 String(value) 来将 value 转换为字符串类型：
+```js
+let value = true;
+alert(typeof value); // boolean
+
+value = String(value); // 现在，值是一个字符串形式的 "true"
+alert(typeof value); // string
+```
+字符串转换最明显。false 变成 "false"，null 变成 "null" 等。
+
+### 2.10.2 数字型转换
+
+在算术函数和表达式中，会自动进行 number 类型转换。
+
+```js
+
+//比如，当把除法 / 用于非 number 类型：
+alert( "6" / "2" ); // 3, string 类型的值被自动转换成 number 类型后进行计算
+
+//我们也可以使用 Number(value) 显式地将这个 value 转换为 number 类型。
+let str = "123";
+alert(typeof str); // string
+
+let num = Number(str); // 变成 number 类型 123
+
+alert(typeof num); // number
+
+//当我们从 string 类型源（如文本表单）中读取一个值，但期望输入一个数字时，通常需要进行显式转换。
+//如果该字符串不是一个有效的数字，转换的结果会是 NaN。例如：
+let age = Number("an arbitrary string instead of a number");
+
+alert(age); // NaN，转换失败
+```
+
+number 类型转换规则：
+
+|值	|变成……|
+| ---- | ---- |
+|undefined|	NaN|
+|null|	0|
+|true 和 false	|1 and 0|
+|string	|去掉首尾空格后的纯数字字符串中含有的数字。如果剩余字符串为空，则转换结果为 0。否则，将会从剩余字符串中“读取”数字。当类型转换出现 error 时返回 NaN。|
+
+例子：
+
+```js
+alert( Number("   123   ") ); // 123
+alert( Number("123z") );      // NaN（从字符串“读取”数字，读到 "z" 时出现错误）
+alert( Number(true) );        // 1
+alert( Number(false) );       // 0
+```
+
+请注意 null 和 undefined 在这有点不同：null 变成数字 0，undefined 变成 NaN。
+
+大多数数学运算符也执行这种转换，我们将在下一节中进行介绍。
+
+### 2.10.3 布尔型转换
+
+布尔（boolean）类型转换是最简单的一个。
+
+它发生在逻辑运算中（稍后我们将进行条件判断和其他类似的东西），但是也可以通过调用 Boolean(value) 显式地进行转换。
+
+转换规则如下：
+
+直观上为“空”的值（如 0、空字符串、null、undefined 和 NaN）将变为 false。
+其他值变成 true。
+比如：
+
+```js
+alert( Boolean(1) ); // true
+alert( Boolean(0) ); // false
+
+alert( Boolean("hello") ); // true
+alert( Boolean("") ); // false
+```
+请注意：包含 0 的字符串 "0" 是 true
+一些编程语言（比如 PHP）视 "0" 为 false。但在 JavaScript 中，非空的字符串总是 true。
+```js
+alert( Boolean("0") ); // true
+alert( Boolean(" ") ); // 空格，也是 true（任何非空字符串都是 true）
+```
+
+## 2.11 运算符
 
 JS中为我们定义了一套对数据进行运算的运算符。包括：算数运算符、位运算符、关系运算符等。
 
 
-### 2.8.1 算数运算符
+### 2.11.1 算数运算符
 
 算数运算符就是进行算数操作的运算符。
 
@@ -354,7 +732,7 @@ JS中为我们定义了一套对数据进行运算的运算符。包括：算数
 
 后置自减：a--  运算符在后置时，表达式值等于变量变更以后的值。
 
-### 2.8.2 逻辑操作符
+### 2.11.2 逻辑操作符
 
 一般情况下使用逻辑运算符会返回一个布尔值。逻辑运算符主要有三个：非、与、或。在进行逻辑操作时如果操作数不是布尔类型则会将其转换布尔类型在进行计算。
 
@@ -381,7 +759,7 @@ JS中为我们定义了一套对数据进行运算的运算符。包括：算数
 或运算符使用 || 表示。或运算符可以应用于任何数据类型，且不一定返回布尔值。对于非布尔值运算，会先将非布尔值转换为布尔值。对布尔值进行运算时，如果两个值都为false则返回false，
 否则返回true。非布尔值时：如果两个都为false ，则返回第二个值，否则返回靠前true的值。
 
-### 2.8.3 赋值运算符
+### 2.11.3 赋值运算符
 
 简单的赋值操作符由等于号 （ = ） 表示，其作用就是把右侧的值赋给左侧的变量。如果在等于号左边添加加减乘除等运算符，就可以完成复合赋值操作。
 
@@ -390,7 +768,7 @@ JS中为我们定义了一套对数据进行运算的运算符。包括：算数
 比如：a+=10和a=a+10是一样的。
 
 
-### 2.8.4 关系运算符
+### 2.11.4 关系运算符
 
 小于（<） 、大于（>） 、小于等于（<=）和大于等于（>=）
 
@@ -453,9 +831,9 @@ false；同样我们还有!==表示不全等，同样比较时不会自动转型
 | 15|?:|
 | 16|=、+=、-=、*=、/=、%=、<<=、>>=、>>>=、&=、^=、|=|
 
-## 2.9 语句
+## 2.12 语句
 
-### 2.9.1 语句和代码块
+### 2.12.1 语句和代码块
 
 语句
 
@@ -478,11 +856,11 @@ a++;
 alert(a);
 }
 ```
-### 2.9.2 条件语句
+### 2.12.2 条件语句
 
 条件语句是通过判断指定表达式的值来决定执行还是跳过某些语句。
 
-#### 2.9.2.1 if...else语句
+#### 2.12.2.1 if...else语句
 
 if...else语句是一种最基本的控制语句，它让JavaScript可以有条件的执行语句。
 
@@ -522,7 +900,7 @@ alert("你已经是个中年了！");
 }
 ```
 
-#### 2.9.2.2 switch...case语句
+#### 2.12.2.2 switch...case语句
 
 switch...case是另一种流程控制语句。switch语句更适用于多条分支使用同一条语句的情况。
 
@@ -541,13 +919,13 @@ default:
 
 需要注意的是case语句只是标识的程序运行的起点，并不是终点，所以一旦符合case的条件程序会一直运行到结束。所以我们一般会在case中添加break作为语句的结束。
 
-### 2.9.3 循环语句
+### 2.12.3 循环语句
 
 
 和条件语句一样，循环语句也是基本的控制语句。循环中的语句只要满足一定的条件将会一直执行。
 
 
-#### 2.9.3.1 while
+#### 2.12.3.1 while
 
 while语句是一个最基本的循环语句。while语句也被称为while循环。
 
@@ -560,7 +938,7 @@ while(条件表达式){
 ```
 和if一样while中的条件表达式将会被转换为布尔类型，只要该值为真，则代码块将会一直重复执行。代码块每执行一次，条件表达式将会重新计算。
 
-#### 2.9.3.2 do...while
+#### 2.12.3.2 do...while
 
 do...while和while非常类似，只不过它会在循环的尾部而不是顶部检查表达式的值。do...while循环会至少执行一次。
 
@@ -574,7 +952,7 @@ do{
 
 相比于while，do...while的使用情况并不是很多。
 
-#### 2.9.3.3 for
+#### 2.12.3.3 for
 
 for语句也是循环控制语句，我们也称它为for循环。大部分循环都会有一个计数器用以控制循环执行的次数，计数器的三个关键操作是初始化、检测和更新。for语句就将这三步操作明确为了语法的一部分。
 
@@ -586,7 +964,7 @@ for(初始化表达式 ; 条件表达式 ; 更新表达式){
 }
 ```
 
-### 2.9.4 break和continue
+### 2.12.4 break和continue
 
 break 和 continue 语句用于在循环中精确地控制代码的执行。使用break语句会使程序立刻退出最近的循环，强制执行循环后边的语句。
 
@@ -596,7 +974,7 @@ break 和 continue 语句用于在循环中精确地控制代码的执行。使�
 break和continue语句只在循环和switch语句中使用。
 
 
-### 2.9.5 label
+### 2.12.5 label
 
 使用 label 语句可以在代码中添加标签，以便将来使用。
 
