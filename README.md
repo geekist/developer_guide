@@ -124,13 +124,16 @@ css
 
 javascript
 
-*  [现代JavaScript教程(javascript_info)](  https://zh.javascript.info/)
 
-*  [ECMAScript6入门--阮一峰开源书籍](https://es6.ruanyifeng.com/#docs/intro)
+*  🔨[现代JavaScript教程(javascript_info)](https://zh.javascript.info/)
+
+*  🔨[ECMAScript6入门--阮一峰开源书籍](https://es6.ruanyifeng.com/#docs/intro)
 
 *  [JavaScript](https://github.com/geekist/developer_guide/blob/main/frontend/javascript.md)
 
 vue
+
+*  🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
 
 *  [Vue开发预备知识和环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
 

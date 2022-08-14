@@ -104,6 +104,8 @@
   - [9.5 screen对象](#95-screen对象)
   - [9.6 history对象](#96-history对象)
   - [9.7 其他](#97-其他)
+  
+  
 # 一、JavaScript简介
 
 ## 1.1 javascript历史
