@@ -784,7 +784,7 @@ var example2 = new Vue({
 example2.greet() // => 'Hello Vue.js!'
 ```
 
-## 十、双向绑定数据V-mode
+# 十、双向绑定数据V-mode
 
 ```js
 <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
@@ -802,3 +802,6 @@ new Vue({
   }
 })
 ```
+
+# 十一、组件
+
