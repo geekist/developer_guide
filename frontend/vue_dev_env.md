@@ -7,7 +7,7 @@ vue.js所有的环境基础包括：
 
 * Node.js ：这是基于Chrome的V8 JavaScript引擎构建的JavaScript运行时，(运行时：可以理解为运行环境)
 
-* npm：这是node.js的包管理工具  *cnpm：npm的淘宝镜像*
+* npm：这是node.js的包管理工具 --*(cnpm：npm的淘宝镜像)*
 
 * webpack：前端资源模块化管理和打包工具
 
@@ -73,15 +73,6 @@ C:\Users\{User}\AppData\Local\Temp\npm-*
 >安装过程中，不要选择安装node工具，否则后续会比较混乱；
 >因为此时没有管理员权限，等安装好后，用管理员权限执行buildtools 即可：
 >npm install --global --production windows-build-tools
-
-* Node.js配置环境变量
-
-计算机->属性->高级系统配置->环境变量->用户变量->编辑path,添加`global“目录如下：
-
-PATH: D:\node\nodejs
-
-总结：
-不需要添加系统环境变量NODE_PATH，只需编辑用户环境变量
 
 ![](./assets/vue-1.png)
 
@@ -269,17 +260,36 @@ webpack安装：
 
 **npm install webpack webpack-cli -g**
 
-# 五、安装vue-cli
+# 五、安装Vue CLI 3
 
 Vue CLI 致力于将 Vue 生态中的工具基础标准化，它确保了各种构建工具能够基于智能的默认配置即可平稳衔接，这样你可以专注在撰写应用上，而不必花更多的时间去纠结配置的问题。也就是可以通过简单的命令行或者图形界面创建一个vue应用。
 
 安装：
 
-**npm install  vue-cli -g**
- 
+Vue CLI 的包名称由 vue-cli 改成了 @vue/cli。 如果你已经全局安装了旧版本的 vue-cli (1.x 或 2.x)，你需要先通过 npm uninstall vue-cli -g 或 yarn global remove vue-cli 卸载它。
+
+```shell
+npm install -g @vue/cli
+# OR
+yarn global add @vue/cli
+``` 
+
+升级：
+
+如需升级全局的 Vue CLI 包，请运行：
+
+```shell
+npm update -g @vue/cli
+
+# 或者
+yarn global upgrade --latest @vue/cli
+```
+
+完成后通过
+
+vue --version来检查版本是否正确。
 
 # 六、安装开发工具VSCode
-
 
 ## 5.1 vscode介绍
 
