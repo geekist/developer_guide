@@ -805,3 +805,429 @@ new Vue({
 
 # 十一、组件
 
+组件可以理解成为一个自定义的控件，拥有自己的外观、行为以及与其他组件的交互。一个html页面可以看做有页头、侧边栏、内容区等组件，每个组件又包含了其它的像导航链接、博文之类的组件。
+
+![](./assets/vue-4.png)
+
+## 11.1 注册组件
+
+* 全局注册
+
+```
+Vue.component( id, [definition] )
+
+参数：
+{string} id
+{Function | Object} [definition]
+```
+
+id即为组件的名称，定义组件的名称有两种方式：小写加短横线方式或帕斯卡模式：kebab-case或KebabCase。
+
+例如：
+
+```js
+Vue.component('my_component',{})
+```
+
+注册完成后，可以在vue中使用该组件。
+
+```html
+<div id="app">
+  <my_component></my_component>
+</div>
+
+<script>
+  let vm = new Vue({
+    el:'#my_component',
+  })
+</script>
+```
+
+* 局部注册
+
+全局注册往往是不够理想的。比如，如果你使用一个像 webpack 这样的构建系统，全局注册所有的组件意味着即便你已经不再使用一个组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。
+
+在这些情况下，你可以通过一个普通的 JavaScript 对象来定义组件：
+
+```js
+var ComponentA = { /* ... */ }
+var ComponentB = { /* ... */ }
+var ComponentC = { /* ... */ }
+
+然后在 components 选项中定义你想要使用的组件：
+new Vue({
+  el: '#app',
+  components: {
+    'component-a': ComponentA,
+    'component-b': ComponentB
+  }
+})
+```
+
+在模块B中使用模块A
+
+```js
+var ComponentA = { /* ... */ }
+
+var ComponentB = {
+  components: {
+    'component-a': ComponentA
+  },
+  // ...
+}
+```
+
+## 11.2 Prop
+
+Pop可以理解为自定义控件的参数。
+
+```js
+Vue.component('blog-post', {
+  props: ['title'],
+  template: '<h3>{{ title }}</h3>'
+})
+```
+一个组件默认可以拥有任意数量的 prop，任何值都可以传递给任何 prop。在上述模板中，你会发现我们能够在组件实例中访问这个值，就像访问 data 中的值一样。
+一个 prop 被注册之后，你就可以像这样把数据作为一个自定义 attribute 传递进来：
+
+```html
+<blog-post title="My journey with Vue"></blog-post>
+<blog-post title="Blogging with Vue"></blog-post>
+<blog-post title="Why Vue is so fun"></blog-post>
+```
+
+* Prop 类型
+
+pop可以以字符串数组形式列出，也可以以对象的形式列出。
+
+```js
+props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
+
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+```
+
+* 给pop传递值
+
+```html
+
+<!--静态赋予一个变量的值 -->
+<blog-post title="My journey with Vue"></blog-post>
+
+
+<!-- 动态赋予一个变量的值 -->
+<blog-post v-bind:title="post.title"></blog-post>
+
+<!-- 动态赋予一个复杂表达式的值 -->
+<blog-post
+  v-bind:title="post.title + ' by ' + post.author.name"
+></blog-post>
+
+<!--传入一个数字
+-->
+<!-- 即便 `42` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post v-bind:likes="42"></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:likes="post.likes"></blog-post>
+
+<!--传入一个布尔值
+-->
+
+<!-- 包含该 prop 没有值的情况在内，都意味着 `true`。-->
+<blog-post is-published></blog-post>
+
+<!-- 即便 `false` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post v-bind:is-published="false"></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:is-published="post.isPublished"></blog-post>
+
+<!--
+传入一个数组
+-->
+
+<!-- 即便数组是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post v-bind:comment-ids="[234, 266, 273]"></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:comment-ids="post.commentIds"></blog-post>
+
+<!--
+传入一个对象
+-->
+
+<!-- 即便对象是静态的，我们仍然需要 `v-bind` 来告诉 Vue -->
+<!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
+<blog-post
+  v-bind:author="{
+    name: 'Veronica',
+    company: 'Veridian Dynamics'
+  }"
+></blog-post>
+
+<!-- 用一个变量进行动态赋值。-->
+<blog-post v-bind:author="post.author"></blog-post>
+
+```
+
+* pop验证
+
+
+我们可以为组件的 prop 指定验证要求，例如你知道的这些类型。如果有一个需求没有被满足，则 Vue 会在浏览器控制台中警告你。这在开发一个会被别人用到的组件时尤其有帮助。
+
+为了定制 prop 的验证方式，你可以为 props 中的值提供一个带有验证需求的对象，而不是一个字符串数组。例如：
+```js
+Vue.component('my-component', {
+  props: {
+    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+    propA: Number,
+    // 多个可能的类型
+    propB: [String, Number],
+    // 必填的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 带有默认值的数字
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 带有默认值的对象
+    propE: {
+      type: Object,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return ['success', 'warning', 'danger'].includes(value)
+      }
+    }
+  }
+})
+```
+当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。
+
+## 11.3 模板template
+
+组件的template用来描述组件的外观，一般如下定义：
+
+```html
+Vue.component('blog-post', {
+  props: ['post'],
+  template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <div v-html="post.content"></div>
+    </div>
+  `
+})
+```
+
+定义模板时，使用单个根元素是高效简洁的方法。
+
+
+## 11.4 data
+
+data 必须是一个函数,组件的data不像vue的data定义那样，
+
+```js
+data: {
+  count: 0
+}
+```
+
+取而代之的是，一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：
+
+```js
+data: function () {
+  return {
+    count: 0
+  }
+}
+```
+
+如果 Vue 没有这条规则，点击一个按钮就可能会影响到其它所有实例.
+
+## 11.5 组件的事件传递
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Component Blog Post Example</title>
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+
+<body>
+    <div id="blog-post-demo" class="demo">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post v-for="post in posts" v-bind:pop='post' v-on:enlarge-text="postFontSize += 0.1"></blog-post>
+        </div>
+    </div>
+
+    <script>
+        Vue.component("blog-post", {
+            props: ['pop'],
+            template: `
+            <div>
+                <h5>{{pop.id}}</h5>
+                <h3>{{pop.title}}</h3>
+                <button v-on:click="$emit('enlarge-text')">
+                   Enlarge text
+                </button>
+            </div>
+            `
+        });
+
+        new Vue({
+            el: "#blog-post-demo",
+            data: {
+                posts: [{
+                    id: 1,
+                    title: 'My journey with Vue'
+                }, {
+                    id: 2,
+                    title: 'Blogging with Vue'
+                }, {
+                    id: 3,
+                    title: 'Why Vue is so fun'
+                }],
+                postFontSize: 1,
+            },
+        });
+    </script>
+</body>
+
+</html>
+```
+
+## 11.6 插槽
+
+vue 组件用slot标签来站位插槽，插槽内可以包含任何模板代码，包括 HTML。
+
+在 <navigation-link>组件的模板中写为：
+```
+<a
+  v-bind:href="url"
+  class="nav-link"
+>
+  <slot></slot>
+</a>
+```
+
+在外边使用组件时，加入your profile，则可以显示
+<navigation-link url="/profile">
+  Your Profile
+</navigation-link>
+
+
+当组件渲染的时候，<slot></slot> 将会被替换为“Your Profile”。
+
+
+## 十二、单文档组件
+
+
+## 12.1 单文档组件定义
+
+Vue 的单文件组件 (即 *.vue 文件，英文 Single-File Component，简称 SFC) 是一种特殊的文件格式，它使用了类似 HTML 语法的自定义文件格式，用于定义 Vue 组件。使我们能够将一个 Vue 组件的模板、逻辑与样式封装在单个文件中。下面是一个单文件组件的示例：
+
+```vue
+<script>
+export default {
+  data() {
+    return {
+      greeting: 'Hello World!'
+    }
+  }
+}
+</script>
+
+<template>
+  <p class="greeting">{{ greeting }}</p>
+</template>
+
+<style>
+.greeting {
+  color: red;
+  font-weight: bold;
+}
+</style>
+```
+每一个 *.vue 文件都由三种顶层语言块构成：<template>、<script> 和 <style>，以及一些其他的自定义块,是网页开发中 HTML、CSS 和 JavaScript 三种语言经典组合的自然延伸。<template>、<script> 和 <style> 三个块在同一个文件中封装、组合了组件的视图、逻辑和样式。
+
+
+## 12.2 各部分说明
+
+
+* `<template>`
+ 
+每个 *.vue 文件最多可以包含一个顶层 <template> 块。
+
+语块包裹的内容将会被提取、传递给 @vue/compiler-dom，预编译为 JavaScript 渲染函数，并附在导出的组件上作为其 render 选项。
+
+* `<script>`
+每个 *.vue 文件最多可以包含一个 <script> 块。(使用 <script setup> 的情况除外)
+
+这个脚本代码块将作为 ES 模块执行。
+
+默认导出应该是 Vue 的组件选项对象，可以是一个对象字面量或是 defineComponent 函数的返回值。
+
+export default 后面的对象 就相当于 new Vue() 构造函数中的接受的对象，它们都是定义组件所需要的数据（data）, 以及操作数 据的方法等， 更为全面的一个 export default 对象，有methods, data, computed, 这时可以看到, 这个对象和new Vue() 构造函数中接受的对象是一模一样的。但要注意data 的书写方式不同。在 .vue 组件, data 必须是一个函数，它return（返回一个对象），这个返回的对象的数据，供组件实现。
+
+```js
+<script>
+export default {
+  data () {
+    return {
+      msg: 'hello'
+    }
+  },
+  methods:{
+    enter () {
+      alert(this.msg);
+    }
+  },
+  computed: {
+    upper () {
+      return this.msg.toUpperCase();
+    }
+  }
+}
+</script>
+```
+
+* `<style>`
+  
+每个 *.vue 文件可以包含多个 <style> 标签。
+一个 <style> 标签可以使用 scoped 或 module attribute (查看 SFC 样式功能了解更多细节) 来帮助封装当前组件的样式。使用了不同封装模式的多个 <style> 标签可以被混合入同一个组件。
+
+## 12.3 在一个组件中导入单文件组件
+
+```vue
+import MyComponent from './MyComponent.vue'
+
+export default {
+  components: {
+    MyComponent
+  }
+}
+```
+
