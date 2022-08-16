@@ -877,14 +877,59 @@ public class PersonController {
 
 # 八、异常处理注解
 
-## @ControllerAdvice 
+## 8.1 @ControllerAdvice 
 
-注解定义全局异常处理类
+@ControllerAdvice注解是Spring3.2中新增的注解，含义是Controller增强器，作用是给Controller控制器添加统一的操作或处理。
+
+在Spring的AOP中，Advice是用来封装一个切面所有属性的，包括切入点和需要织入的切面逻辑。这里ControllerAdvice也可以这么理解，其抽象级别应该是用于对Controller进行切面环绕的，而具体的业务织入方式则是通过结合其他的注解来实现的。@ControllerAdvice是在类上声明的注解，其用法主要有三点：
+
+1.全局异常处理：结合方法型注解@ExceptionHandler，用于捕获Controller中抛出的指定类型的异常，从而达到不同类型的异常区别处理的目的。
+
+2.全局数据预处理：结合方法型注解@InitBinder，用于request中自定义参数解析方式进行注册，从而达到自定义指定格式参数的目的。
+
+3.全局数据绑定：结合方法型注解@ModelAttribute，表示其注解的方法将会在目标Controller方法执行之前执行。
+
+从上面的讲解可以看出，@ControllerAdvice的用法基本是将其声明在某个bean上，然后在该bean的方法上使用其他的注解来指定不同的织入逻辑。不过这里@ControllerAdvice并不是使用AOP的方式来织入业务逻辑的，而是Spring内置对其各个逻辑的织入方式进行了内置支持。
 
 
-## @ExceptionHandler 注解声明异常处理方法
+## 8.2 @ExceptionHandler 注解声明异常处理方法
 
-如果方法参数不对的话就会抛出`MethodArgumentNotValidException`。
+当一个Controller中有方法加了@ExceptionHandler之后，这个Controller其他方法中没有捕获的异常就会以参数的形式传入加了@ExceptionHandler注解的那个方法中。
+
+例如：
+```java
+/**
+ * Created by liuruijie.
+ * 处理异常的类，需要处理异常的Controller直接继承这个类
+ */
+public class BaseController {
+    /**
+     * 处理Controller抛出的异常
+     * @param e 异常实例
+     * @return Controller层的返回值
+     */
+    @ExceptionHandler
+    @ResponseBody
+    public Object expHandler(Exception e){
+        if(e instanceof SystemException){
+            SystemException ex= (SystemException) e;
+            return WebResult.buildResult().status(ex.getCode())
+                            .msg(ex.getMessage());
+        }else{
+            e.printStackTrace();
+            return WebResult.buildResult().status(Config.FAIL)
+                            .msg("系统错误");
+        }
+    }
+}
+```
+这样，当baseconroller类中的方法有异常抛出时，都会执行expHandler方法。
+
+
+## 8.3 @ControllerAdvice和@Exception结合起来，可以实现全局的异常处理。
+
+在controller代码中，我们不做任何的异常处理，当任何一个controller遭到异常时，都会将该异常抛给GlobalExceptionHandler，然后GlobalExceptionHandler通过WebResult将状态码和提示信息返回给前端。我们只需要在GloebalExceptionHandler中设置好返回结果，前端就可以处理该异常。对于这样的一次交互，我不需要在controller中编写异常处理部分的逻辑。
+
 
 ```java
 @ControllerAdvice
