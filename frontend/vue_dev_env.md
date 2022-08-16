@@ -1,3 +1,29 @@
+- [一、Vue开发环境基础](#一vue开发环境基础)
+  - [1.1 vue开发环境内容](#11-vue开发环境内容)
+- [二、安装node.js](#二安装nodejs)
+  - [2.1 node.js介绍](#21-nodejs介绍)
+  - [2.2 彻底删除已安装的node.js](#22-彻底删除已安装的nodejs)
+  - [2.3 安装node.js环境](#23-安装nodejs环境)
+- [三、安装npm](#三安装npm)
+  - [3.1 npm介绍](#31-npm介绍)
+  - [3.2 npm安装](#32-npm安装)
+  - [3.3 使用npm](#33-使用npm)
+    - [3.3.1 初始化npm init](#331-初始化npm-init)
+    - [3.3.2 使用npm安装项目需要的依赖 npm install](#332-使用npm安装项目需要的依赖-npm-install)
+    - [3.3.3 设置环境变量npm set](#333-设置环境变量npm-set)
+    - [3.3.4 查看npm每个模块的具体信息](#334-查看npm每个模块的具体信息)
+  - [3.3.5 搜索npm模块](#335-搜索npm模块)
+  - [3.3.6 列出项目的所有依赖npm list](#336-列出项目的所有依赖npm-list)
+  - [3.3.7 运行项目脚本 npm run](#337-运行项目脚本-npm-run)
+- [四、安装webpack](#四安装webpack)
+- [五、安装Vue CLI 3](#五安装vue-cli-3)
+- [六、安装开发工具VSCode](#六安装开发工具vscode)
+  - [5.1 vscode介绍](#51-vscode介绍)
+  - [5.2 安装vscode](#52-安装vscode)
+  - [5.3 安装插件](#53-安装插件)
+- [七、使用vue-cli创建和运行第一个vue项目](#七使用vue-cli创建和运行第一个vue项目)
+- [八、错误解决办法：](#八错误解决办法)
+
 
 #  一、Vue开发环境基础
 
@@ -64,7 +90,7 @@ C:\Users\{User}\AppData\Local\Temp\npm-*
 
 * step5: 检查环境变量中是否存在nodejs
 
-### 2.3 安装node.js环境
+## 2.3 安装node.js环境
 
 * Node.js 安装包及源码下载地址为：https://nodejs.org/en/download/。
 
@@ -319,7 +345,7 @@ Vetur支持.vue文件的语法高亮显示，除了支持template模板以外，
 
 ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。如果每次在代码提交之前都进行一次eslint代码检查，就不会因为某个字段未定义为undefined或null这样的错误而导致服务崩溃，可以有效的控制项目代码的质量。
 
-## 七、使用vue-cli创建和运行第一个vue项目
+# 七、使用vue-cli创建和运行第一个vue项目
 
 * 进入终端
 
@@ -330,7 +356,7 @@ ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码�
 选择你想要创建新项目的目录，然后执行命令
 
 ```
-vue init webpack vuedemo
+vue create hello-world
 ```
 此过程会先进性一些配置，根据自己的情况进行配置
 
@@ -353,12 +379,12 @@ vue init webpack vuedemo
 * 本地运行vue项目
 
 ```
-npm run dev
+npm run serve
 ```
 
 切换到项目目录cd vuedemo
 
-最后执行命令npm run dev
+最后执行命令npm run serve
 
 其他命令，npm run build用户构建生产包，npm run start
 
