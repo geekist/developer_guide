@@ -131,6 +131,9 @@ javascript
 
 *  [JavaScript](https://github.com/geekist/developer_guide/blob/main/frontend/javascript.md)
 
+*  [axios网络框架](https://github.com/geekist/developer_guide/blob/main/frontend/axios.md)
+
+
 vue
 
 *  🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
