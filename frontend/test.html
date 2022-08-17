@@ -2,48 +2,38 @@
 <html>
 
 <head>
-    <title>Component Blog Post Example</title>
-    <script src="https://unpkg.com/vue@2"></script>
+    <meta charset="UTF-8">
+
+    <!-- import Vue before Element -->
+    <script src="https:/cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+
 </head>
 
 <body>
-    <div id="blog-post-demo" class="demo">
-        <div :style="{ fontSize: postFontSize + 'em' }">
-            <blog-post v-for="post in posts" v-bind:pop='post' v-on:enlarge-text="postFontSize += 0.1"></blog-post>
-        </div>
+    <div id="app">
+        <el-button @click="visible = true">Button</el-button>
+        <el-dialog :visible.sync="visible" title="Hello world">
+            <p>Try Element</p>
+        </el-dialog>
     </div>
-
-    <script>
-        Vue.component("blog-post", {
-            props: ['pop'],
-            template: `
-            <div>
-                <h5>{{pop.id}}</h5>
-                <h3>{{pop.title}}</h3>
-                <button v-on:click="$emit('enlarge-text')">
-                   Enlarge text
-                </button>
-            </div>
-            `
-        });
-
-        new Vue({
-            el: "#blog-post-demo",
-            data: {
-                posts: [{
-                    id: 1,
-                    title: 'My journey with Vue'
-                }, {
-                    id: 2,
-                    title: 'Blogging with Vue'
-                }, {
-                    id: 3,
-                    title: 'Why Vue is so fun'
-                }],
-                postFontSize: 1,
-            },
-        });
-    </script>
 </body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                visible: false
+            }
+        }
+    })
+</script>
 
 </html>

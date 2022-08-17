@@ -132,6 +132,9 @@ Vue.js是一款JavaScript前端框架，旨在更好地组织与简化Web开发�
 vue-cli脚手架是一个vue开发框架，可以帮助我们快速地生成示例代码、搭建本地环境，也可以更新依赖的版本等，避免了每个开发者自行调整开发环境、打包逻辑等配置。Vue cli还提供了对 Babel、TypeScript、ESLint、PostCSS、PWA、单元测试和 End-to-end 测试提供开箱即用的支持。
 
 Vue CLI 致力于将 Vue 生态中的工具基础标准化。它确保了各种构建工具能够基于智能的默认配置即可平稳衔接，这样你可以专注在撰写应用上，而不必花好几天去纠结配置的问题。
+
+本文针对vue-cli3介绍。
+
 ```shell
 #今日工作区域
 cd vue_demo
@@ -146,7 +149,9 @@ vue-cli会自动在vue_demo/vue_cli_demo下生成vue项目。
 
 ![](./assets/vue-3.png)
 
-运行npm run build即可启动vue
+运行npm run serve即可启动vue。
+
+运行npm run build即可打包应用。
 
 # 三、Vue对象和生命周期
 
@@ -175,7 +180,7 @@ var app = new Vue({
 
 ## 3.2 vue对象
 
-每个 Vue 应用都是通过用 Vue 函数创建一个新的 Vue 实例开始的。开发中经常会使用 vm (ViewModel 的缩写) 这个变量名表示 Vue 实例。
+每个 Vue 应用都是通过用 Vue构造函数创建一个新的 Vue 实例开始的。开发中经常会使用 vm (ViewModel 的缩写) 这个变量名表示 Vue 实例。
 ```js
 // new Vue返回一个Vue实例
 var vm = new Vue({
@@ -419,29 +424,36 @@ Mustache 语法不能作用在 HTML属性上，遇到这种情况应该使用 v-
 ```html
 <!-- 绑定一个属性 -->
 <img v-bind:src="imageSrc" />
-<!-- 缩写 -->
-<img :src="imageSrc" />
+
+<!-- v-bind的缩写 -->
 <!-- 最终会生成 `<img src="${imageSrc}">` 这样的模板 -->
+<img :src="imageSrc" />
+
 
 <!-- 动态特性名 (2.6.0+) -->
 <button v-bind:[key]="value"></button>
+
 <!-- 动态特性名缩写 (2.6.0+) -->
-<button :[key]="value"></button>
 <!-- 最终会生成 `<button ${key}="${value}">` 这样的模板 -->
+<button :[key]="value"></button>
+
 
 <!-- 内联字符串拼接 -->
 <img :src="'/path/to/images/' + fileName" />
 
 <!-- class 绑定 -->
-<div :class="{ red: isRed }"></div>
-<div :class="[classA, classB]"></div>
-<div :class="[classA, { classB: isB, classC: isC }]">
-  <!-- style 绑定 -->
-  <div :style="{ fontSize: size + 'px' }"></div>
-  <div :style="[styleObjectA, styleObjectB]"></div>
+<div :class="{red: isRed }"></div>
 
-  <!-- 绑定一个有属性的对象 -->
-  <div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
+<div :class="[classA, classB]"></div>
+
+<div :class="[classA, { classB: isB, classC: isC }]">
+
+<!-- style 绑定 -->
+<div :style="{ fontSize: size + 'px' }"></div>
+<div :style="[styleObjectA, styleObjectB]"></div>
+
+<!-- 绑定一个有属性的对象 -->
+<div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
 </div>
 ```
 
@@ -455,7 +467,7 @@ Mustache 语法不能作用在 HTML属性上，遇到这种情况应该使用 v-
 ```
 如果 isButtonDisabled 的值是 null、undefined 或 false，则 disabled attribute 甚至不会被包含在渲染出来的 <button> 元素中。
 
-使用JavaScript 表达式
+* 使用JavaScript表达式
 
 迄今为止，在我们的模板中，我们一直都只绑定简单的 property 键值。但实际上，对于所有的数据绑定，Vue.js 都提供了完全的 JavaScript 表达式支持。
 ```js
@@ -467,7 +479,9 @@ Mustache 语法不能作用在 HTML属性上，遇到这种情况应该使用 v-
 
 <div v-bind:id="'list-' + id"></div>
 ```
+
 这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，每个绑定都只能包含单个表达式，所以下面的例子都不会生效。
+
 ```js
 <!-- 这是语句，不是表达式 -->
 {{ var a = 1 }}
@@ -481,7 +495,7 @@ Mustache 语法不能作用在 HTML属性上，遇到这种情况应该使用 v-
 
 vue中规定v-bind指令可以缩写成：
 
-```js
+```html
 <!-- 完整语法 -->
 <a v-bind:href="url">...</a>
 
@@ -506,7 +520,8 @@ vue中规定v-bind指令可以缩写成：
 所以，对于任何复杂逻辑，你都应当使用计算属性。
 
 计算属性的一个例子：
-```html
+
+```js
 <div id="example">
   <p>Original message: "{{ message }}"</p>
   <p>Computed reversed message: "{{ reversedMessage }}"</p>
@@ -526,7 +541,7 @@ var vm = new Vue({
   }
 })
 ```
-我们可以像绑定普通 property 一样在模板中绑定计算属性。Vue 知道 vm.reversedMessage 依赖于 vm.message，因此当 vm.message 发生改变时，所有依赖 vm.reversedMessage 的绑定也会更新。而且最妙的是我们已经以声明的方式创建了这种依赖关系：计算属性的 getter 函数是没有副作用 (side effect) 的，这使它更易于测试和理解。
+我们可以像绑定普通property 一样在模板中绑定计算属性。Vue 知道 vm.reversedMessage 依赖于 vm.message，因此当 vm.message 发生改变时，所有依赖 vm.reversedMessage 的绑定也会更新。而且最妙的是我们已经以声明的方式创建了这种依赖关系：计算属性的 getter 函数是没有副作用 (side effect) 的，这使它更易于测试和理解。
 
 ## 5.6 侦听器（watch）
 
@@ -548,9 +563,11 @@ var vm = new Vue({
     a: function(val, oldVal) {
       console.log("new: %s, old: %s", val, oldVal);
     },
+
     // 方法名
     b: "someMethod",
     // 该回调会在任何被侦听的对象的 property 改变时被调用，不论其被嵌套多深
+    
     c: {
       handler: function(val, oldVal) {
         /* ... */
@@ -597,7 +614,7 @@ vm.a = 2; // => new: 2, old: 1
 ```html
  <div id="app">
         <!--当isActive的值为true时，渲染成为<div class="active"></div>-->
-        <div v-bind:class="{active:isActive }">{{ message }}</div>
+        <div v-bind:class="{active:isActive}">{{ message }}</div>
 
         <!--当isActive和hasError的值为true时，渲染成为<div class="static active text-danger"></div>-->
         <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>

@@ -294,3 +294,8 @@ Maven
 
 * [JavaScript中import、export和export default](https://github.com/geekist/developer_guide/blob/main/other/vue-import-output.md)
 
+* [JavaScript中async函数](http://www.ruanyifeng.com/blog/2015/05/async.html)
+
+
+
+

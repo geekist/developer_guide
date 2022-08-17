@@ -150,7 +150,7 @@ Java也是一门面向对象的语言，但是与Java不同JavaScript是基于�
 
 我们几乎可以使用 `<script>` 标签将 JavaScript 程序插入到 HTML 文档的任何位置。
 
-HTML 中的 Javascript 脚本代码必须位于 <script> 与 </script> 标签之间。Javascript 脚本代码可被放置在 HTML 页面的 <body> 和 <head>部分中。
+HTML 中的 Javascript 脚本代码必须位于 <script> 与 </script> 标签之间。Javascript 脚本代码可被放置在 HTML 页面的 `<body>` 和 `<head>`部分中。
 
 ```html
 <!DOCTYPE html>
@@ -744,6 +744,7 @@ JS中为我们定义了一套对数据进行运算的运算符。包括：算数
 算数运算符就是进行算数操作的运算符。
 
 |运算符 |说明 |运算符 |说明|
+| ---- | ---- | ---- | ---- |
 |+ |加法| ++|（前置）| 自增|
 |- |减法 |++|（后置） |自增|
 |* |乘法 |--|（前置） |自减|
@@ -1215,26 +1216,34 @@ alert( from ); // Ann
 如果一个函数被调用，但有参数（argument）未被提供，那么相应的值就会变成 undefined。
 
 例如，之前提到的函数 showMessage(from, text) 可以只使用一个参数（argument）调用：
-
+```
 showMessage("Ann");
+```
+
 那不是错误，这样调用将输出 "*Ann*: undefined"。因为参数 text 的值未被传递，所以变成了 undefined。
 
 我们可以使用 = 为函数声明中的参数指定所谓的“默认”（如果对应参数的值未被传递则使用）值：
 
+```js
 function showMessage(from, text = "no text given") {
   alert( from + ": " + text );
 }
 
 showMessage("Ann"); // Ann: no text given
+```
+
 现在如果 text 参数未被传递，它将会得到值 "no text given"。
 
 这里 "no text given" 是一个字符串，但它可以是更复杂的表达式，并且只会在缺少参数时才会被计算和分配。所以，这也是可能的：
 
+```
 function showMessage(from, text = anotherFunction()) {
   // anotherFunction() 仅在没有给定 text 时执行
   // 其运行结果将成为 text 的值
 }
+```
 默认参数的计算
+
 在 JavaScript 中，每次函数在没带个别参数的情况下被调用，默认参数会被计算出来。
 
 在上面的例子中，如果传递了参数 text，那么 anotherFunction() 就不会被调用。
@@ -1247,7 +1256,7 @@ function showMessage(from, text = anotherFunction()) {
 如今，我们会在旧代码中看到它们。
 
 例如，显式地检查 undefined：
-
+```
 function showMessage(from, text) {
   if (text === undefined) {
     text = 'no text given';
@@ -1263,11 +1272,14 @@ function showMessage(from, text) {
   text = text || 'no text given';
   ...
 }
+```
+
 后备的默认参数
+
 有些时候，将参数默认值的设置放在函数执行（相较更后期）而不是函数声明时，也行得通。
 
 我们可以通过将参数与 undefined 进行比较，来检查该参数是否在函数执行期间被传递进来：
-
+```
 function showMessage(text) {
   // ...
 
@@ -1286,8 +1298,11 @@ function showMessage(text) {
   text = text || 'empty';
   ...
 }
+```
+
 现代 JavaScript 引擎支持 空值合并运算符 ??，它在大多数假值（例如 0）应该被视为“正常值”时更具优势：
 
+```js
 function showCount(count) {
   // 如果 count 为 undefined 或 null，则提示 "unknown"
   alert(count ?? "unknown");
@@ -1296,7 +1311,7 @@ function showCount(count) {
 showCount(0); // 0
 showCount(null); // unknown
 showCount(); // unknown
-
+```
 
 ## 3.8 返回值
 
@@ -1385,7 +1400,13 @@ let sayHi = function() {
 };
 ```
 
-在这里我们可以看到变量 sayHi 得到了一个值，新函数 function() { alert("Hello"); }。
+在这里我们可以看到变量 sayHi 得到了一个值，新函数
+
+```js
+function() { 
+  alert("Hello"); 
+}
+```
 
 由于函数创建发生在赋值表达式的上下文中（在 = 的右侧），因此这是一个 函数表达式。
 
@@ -1824,7 +1845,7 @@ alert( "age" in user ); // true，user.age 存在
 alert( "blabla" in user ); // false，user.blabla 不存在。
 ```
 
-* 遍历对象
+* 遍历对象的属性
 
 ```
 for(let key in obj) 循环。
