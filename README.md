@@ -80,13 +80,23 @@ Mybatis
 
 * [MyBatis的XML映射文件](https://github.com/geekist/developer_guide/blob/main/server/mybatis/sql_xml.md)
 
-* [tkmybatis简化xml文件的手写工作量](https://github.com/geekist/developer_guide/blob/main/server/mybatis/tkmybatis.md)
+Mybatis-工具
+
+官方工具：Mybatis-generator：生成数据库Entity、接口Mapper和Mapper.xml
 
 * [mybatis-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator.md)
+  
+官方Mybatis-generator的插件，引入到mybaits-generator工具中，能够帮助生成带lombok语法糖的类
 
 * [自动生成lombok风格的mybatis-generator插件mybatis-generator-lombok-plugin](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_generator_lombok_plugin.md)
 
+官方Mybatis-generator的扩展，能够帮助生成Controller、Service、ServiceImpl
+
 * [mybatis-dsc-generator代码生成工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/mybatis_dsc_generator.md)
+  
+一个比较鸡肋的插件，使用该插件的注解可以生成一些简单的查询，不需要写xml文件
+
+* [tkmybatis简化xml文件的手写工作量](https://github.com/geekist/developer_guide/blob/main/server/mybatis/tkmybatis.md)
 
 * [分页工具pagehelper](https://github.com/geekist/developer_guide/blob/main/server/mybatis/pagehelper.md)
 
