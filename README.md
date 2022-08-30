@@ -104,6 +104,8 @@ Mybatis-工具
 
 其他工具
 
+* [Java生成PDF文件](https://github.com/geekist/developer_guide/blob/main/server/java_pdf.md)
+
 
 Java log系统
 
