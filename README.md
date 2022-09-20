@@ -136,7 +136,7 @@ css
 
 *  [Sass和Scss](https://www.sass.hk/docs/)
 
-*  [CSS变量]((https://github.com/geekist/developer_guide/blob/main/frontend/css_variant.md)
+*  [CSS变量](https://github.com/geekist/developer_guide/blob/main/frontend/css_variant.md)
 
 javascript
 
@@ -147,18 +147,19 @@ javascript
 
 *  [JavaScript](https://github.com/geekist/developer_guide/blob/main/frontend/javascript.md)
 
-*  [axios网络框架](https://github.com/geekist/developer_guide/blob/main/frontend/axios.md)
-
-
 vue
-
-*  🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
 
 *  [Vue开发预备知识和环境搭建](https://github.com/geekist/developer_guide/blob/main/frontend/vue_dev_env.md)
 
-* [vue-cli项目结构介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue_file_intro.md)
+* [vue-cli项目结构介绍](https://github.com/geekist/developer_guide/blob/main/frontend/vue_file_intro.md) 
 
-* [vue](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
+> *当前vue-cli已经处于维护模式，官方推荐使用 create-vue 来创建基于 Vite 的新项目。*
+
+* [vue开发笔记](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
+
+*  vue参考资料和教程：🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
+
+*  [axios网络框架](https://github.com/geekist/developer_guide/blob/main/frontend/axios.md)
 
 
 ## 客户端开发
