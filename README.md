@@ -134,6 +134,10 @@ css
 
 *  [CSS](https://github.com/geekist/developer_guide/blob/main/frontend/css.md)
 
+*  [Sass和Scss](https://www.sass.hk/docs/)
+
+*  [CSS变量]((https://github.com/geekist/developer_guide/blob/main/frontend/css_variant.md)
+
 javascript
 
 
