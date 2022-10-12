@@ -267,6 +267,7 @@ Maven
 
 支付开发
 
+ * [支付宝开发](https://github.com/geekist/developer_guide/blob/main/pay/alipay.md)
 
 
 
