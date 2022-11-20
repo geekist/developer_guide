@@ -1,8 +1,6 @@
 
 
-# 第一章 预备知识
-
-## 1.1 基本术语
+# 一、基本术语
 
 * **Objective-C语言**
 
@@ -78,22 +76,7 @@ Objective-C中，方括号[]表示通知某个对象去执行某个操作。第�
 
 冒号是方法名称中的重要部分，如果方法使用参数，则使用冒号，否则不使用冒号。
 
-* **对象实例化**
-
-对象实例化为对象分配内存，将内存初始化并保存为有用的默认值。
-
-实例化方法：
-
-向类发送创建对象实例的消息：
-
-```c
-[Object new];
-或
-[[Object alloc]init];
-```
-[className new]基本等同于[[className alloc] init]；区别在于alloc分配内存的时候使用了zone.在给对象分配内存的时候，把关联的对象分配到一个相邻的内存区域内，以便于调用时消耗很少的代价，提升了程序处理速度；同时使用alloc的init消息可以自定义自己的初始化方法。
-
-## 1.2 Objective C 文件结构（类定义）
+# 二、 类定义和文件结构
 
 OC中的类定义分为接口文件和实现文件两个部分。
 
@@ -102,19 +85,21 @@ OC中的类定义分为接口文件和实现文件两个部分。
 实现文件中对变量初始化以及实现方法。
 
 
-### 1.2.1 类接口文件
+## 2.1 类接口文件
 
 接口文件声明了类的成员变量和方法。用于定义类的公共接口。
 
-* 接口文件声明
+* 接口文件声明语法：
 
-`@interface Circle : NSObject`
+```c
+@interface Circle : NSObject
+```
 
 >@inteface是编译器指令，告诉编译器，这是新类Circle的接口。
 
 >：告诉编译器，类Circle继承于NSObject
 
-* 类的实例变量定义
+* 接口文件中可以定义类的实例变量
 
 用大括号引用起来的变量定义成为类的实例变量。
 
@@ -125,7 +110,7 @@ ShapeRect bounds;
 }
 ```
 
-* 类的方法声明
+* 接口文件中也可以定义类的方法声明
 
 类的方法声明列出了每个方法的名称、方法返回值的类型和参数。
 
@@ -164,7 +149,7 @@ ShapeRect bounds;
 ```
 
 
-### 1.2.2 类实现文件
+## 2.2 类实现文件
 
 ```objective-c
 @implementation Circle
@@ -184,11 +169,20 @@ ShapeRect bounds;
 
 类实现文件中还可以定义在@interface中没有声明过的方法。可以看做是类的私有方法，只在该类中使用。
 
+* **对象实例化**
 
-### 1.2.3 类的实例化
+对象实例化为对象分配内存，将内存初始化并保存为有用的默认值。
 
-类的实例化为类分配内存，然后将这些内存初始化并保存默认值。内存分配和初始化工作完成后，类的对象实例就可以使用了。 
+实例化方法：
 
+向类发送创建对象实例的消息：
+
+```c
+[Object new];
+或
+[[Object alloc]init];
+```
+[className new]基本等同于[[className alloc] init]；区别在于alloc分配内存的时候使用了zone.在给对象分配内存的时候，把关联的对象分配到一个相邻的内存区域内，以便于调用时消耗很少的代价，提升了程序处理速度；同时使用alloc的init消息可以自定义自己的初始化方法。
 ```objective-c
 int main (int argc, const char * argv[]) {
   Circle *circle = [[Circle alloc]init];
@@ -196,8 +190,194 @@ int main (int argc, const char * argv[]) {
 }
 ```
 
+* **类实现文件中的@interface定义**
+
+.h里面的@interface，是典型的头文件，供其它Class调用。它的@property和functions，都能够被其它Class“看到”。
+
+而.m里面的@interface，在OC里叫作Class Extension，是.h文件中@interface的补充。但是.m文件里的@interface，对外是不开放的，只在.m文件里可见。
+
+因此，我们将对外开放的方法、变量放到.h文件中，而将不想要对外开放的变量放到.m文件中（.m文件的方法可以不声明，直接用）。
+
+有的同学看到Class Extension，可能会想到OC里的@protocol。是的，它们都是对一个Class的扩展。不过它们的区别也很明显：
+
+Class Extension只能用在能得到源代码的情况下，而@protocol在得不到源码的时候也可以使用。
+
+因此@protocol一般用作对一些系统Class的扩展，常见的比如对NSString、UIView等。
 
 
+# 三、类的继承--inherit
+
+表明种类和种类中的某个具体对象之间的关系；
+
+* 语法格式：
+
+```objective-c
+@interface Circle : NSObject
+```
+冒号后面的标识符是需要继承的类。如果使用cocoa框架，所有的类都继承自NSObject类。
+
+继承实现举例：
+
+```objective-c
+
+//父类
+@interface Shape : NSObject {
+  ShapeColor fillColor;
+  ShapeRect bounds;
+}
+
+- (void) setFillColor:(ShapeColor)fillColor;
+- (void) setBounds:(ShapeRect)bounds;
+- (void) draw;
+@end
+
+@implementation Shape
+-(void)setFillColor:(ShapeColor)c {
+  fillColor = c;
+}
+
+- (void) setBounds:(ShapeRect)b {
+  bounds = b;
+}
+@end
+
+//子类
+@interface Circle : Shape
+@end
+
+@implementation Circle
+-(void) draw {
+    NSLog(@"");
+}
+@end
+
+//子类
+@interface Rectangle : Shape
+@end
+
+@implementation Rectangle
+
+- (void) draw {
+  NSLog(@"");
+}
+@end
+```
+
+* **继承的工作机制--方法调度：**
+
+当实现类方法时，Objective-C的调度制度将在当前类中搜索响应的方法，如果无法在接受消息的对象的类中找到响应的方法，它就会在该对象的超类中进行寻找。必要时会在继承链的每一个类中重复执行此操作。如果在最顶层的NSObject类中也没有找到该方法，则会出现一个运行时错误。
+
+* **重写方法**
+
+可以定义与父类同名的方法，当向子类发送消息时，将运行重写后的方法，父类的方法会被忽略。
+
+* **self关键字**
+
+每个方法调用都有一个名为self的隐藏参数，该参数是一个指向接受消息的对象的指针。
+```
+[self draw];
+```
+
+* **super关键字**
+
+为避免重写方法导致的父类方法被忽略，引入super关键字来调用父类的实现。
+
+```
+@implementation Circle
+
+- (void) setFillColor: (ShapeColor)c {
+  if(c == kRedColor) {
+    c = kGreenColor;
+  }
+
+  [super setFillColor: c];
+}
+
+```
+
+# 四、类的聚合（composition)
+
+组合关系，表明一个对象和其组成部分之间的关系。
+
+类的聚合例子：
+
+```c
+
+//Engine类
+@interface Engine : NSObject
+@end
+
+@implement Engine
+
+-(void) description {
+    return @"";
+}
+
+//Tire类
+@Interface Tire : NSObject
+@end
+
+@Implement Tire
+
+-(void) description {
+    return @"";
+}
+@end
+
+//Car类
+@Interface Car : NSObject
+{
+
+   Engine *engine;
+   Tire *tires[4];
+
+   -(void) print;
+
+}
+```
+* **读取方法（assessors）**
+
+进一步的拓展，通过IOC和DI方式实现依赖反转
+
+```c
+@interface Car: NSObject
+{
+    Engine *engine;
+    Tire *tires[4];
+}
+
+-(Engine *) engine;
+
+-(void) setEngine:(Engine *)engine;
+
+-(Tire *) tireAtIndex:(NSInteger) index;
+
+
+-(void) setTire:(Tire *) tire atIndex:(NSInteger) index;
+
+```
+
+Cocoa中，get和set方法可以用来设置变量的属性。存取方法的命名，cocoa有自己的惯例。
+getter方法是以其返回的属性名称命名。
+setter方法是set加上属性名称来命名。
+
+* **@class关键字--向前引用**
+
+为避免#import多次重复编译，引入关键字@class来告诉编译器，这是一个类，可以减少导入头文件的编译次数。
+
+```c
+
+@class Egine
+@class Tire
+
+@interface Car: NSObject
+
+-(void) setEngine:(Engine *) engine;
+
+......
+
+```
+具体的使用过程中，如在m文件中，还是需要导入m文件，以使
 
 # 第二章 对C的扩展
 
