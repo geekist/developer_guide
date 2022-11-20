@@ -4,6 +4,9 @@
 
 ## ios开发教程
 
+* [Objective-C基础教程第二版](https://github.com/geekist/developer_guide/blob/main/ios/objective-C-2rd.md)
+
+
 * [ios教程](https://www.runoob.com/ios/ios-tutorial.html)
 
 * [ios开发教程集锦](https://cloud.tencent.com/developer/article/1387518)
