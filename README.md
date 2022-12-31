@@ -159,6 +159,8 @@ vue
 
 * [vue开发笔记](https://github.com/geekist/developer_guide/blob/main/frontend/vue.md)
 
+* [vue学习知识点记录](https://github.com/geekist/developer_guide/blob/main/frontend/vue_notes.md)
+
 *  vue参考资料和教程：🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
 
 *  [axios网络框架](https://github.com/geekist/developer_guide/blob/main/frontend/axios.md)
