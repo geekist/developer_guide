@@ -327,3 +327,5 @@ Maven
 
 
 * [fiddler工具介绍](https://github.com/geekist/developer_guide/blob/main/tools/fiddler.md)
+
+* [使用VirtualXposed检查Android应用是否合规](https://github.com/geekist/developer_guide/blob/main/tools/virtual_xposed.md)
