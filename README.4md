@@ -1,88 +1,10 @@
-# 基础知识
-
-[计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
 
 
-[操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
-
-
-* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
-
-
-# 脚本和编程语言
-
-* [Linux基本命令和shell脚本整理](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
-* 
-
-* [Java语言笔记](https://github.com/geekist/developer_guide/blob/main/java/java.md)
-
-
-Objective-C语言笔记
-
-
-[Objective-C语言](https://github.com/geekist/developer_guide/blob/main/ios/Objective-C.md)
-
-* [Objective C语言介绍](./objective-c/objective-c.md)
-
-* [Foundation 框架介绍](./objective-c/foundation.md)
-
-* [Foundatiaon框架中的存储](./objective-c/storage.md)
-
-* [Foundatiaon中的内存管理](./objective-c/memory_managment.md)
-
-* [Objective-C 中 NULL、nil、Nil、NSNull 的定义及不同](./objective-c/NULL.md)
-
-* [Objective-C 中四种循环方式](./objective-c/continue.md)
-
-* [Objective-C 中循环遍历同时删除数据](./objective-c/continue_remove.md)
-
-* [Objective C基础入门](http://c.biancheng.net/cpp/objective_c/)
-
-* [Objective C在线教程](http://gitbook.net/objective_c/index.html)
-
-swift语言笔记
-
-[Swift编程语言--cnswift翻译5.7版](https://www.cnswift.org/)
-
-
-kotlin语言笔记
-
-* [kotlin语言教程-PDF版本](https://www.kotlincn.net/docs/kotlin-docs.pdf)[       网页版](https://www.kotlincn.net/docs/reference/basic-syntax.html)
-
-* [基础](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin基础.md)
-
-* [Kotlin标准函数库](https://github.com/geekist/developer_guide/blob/main/kotlin/standard.md)
-
-* [类与对象](https://github.com/geekist/developer_guide/blob/main/kotlin/class.md)
-
-* [函数与lambda表达式](https://github.com/geekist/developer_guide/blob/main/kotlin/function&lambda.md)
-
-* [集合](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin集合.md)
-
-* [Kotlin协程](https://github.com/geekist/developer_guide/blob/main/kotlin/coroutine.md)
-
-* [Kotlin的常用语言结构](https://github.com/geekist/developer_guide/blob/main/kotlin/kotlin常用语言结构.md)
-
-* [Kotlin中的5种单例模式](https://github.com/geekist/developer_guide/blob/main/kotlin/singlton.md)
-
-* [Kotlin中常量和静态方法](https://github.com/geekist/developer_guide/blob/main/kotlin/constant_static.md)
-
-
-# 数据结构、算法和设计模式
-
-* [设计模式笔记](https://github.com/geekist/developer_guide/blob/main/designpatterns/patterns.md)
-
-# 数据库
-
-* [mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql.md)
-
-* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
-
-# 服务器开发
-
-服务器安装、管理和配置
+## Linux服务器
 
 Linux
+
+* [Linux基本命令和shell脚本](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
 * [Linux环境下JDK、Git、Maven、Nginx和Nacos的安装与卸载](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
 
@@ -96,27 +18,21 @@ Nginx
 
 * [Nginx服务器配置stub_status](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_stub_stauts.md)
 
+## Java服务器程序开发
+
+Java Web开发
+
+* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
+
 * [Restful API规则](https://github.com/geekist/developer_guide/blob/main/server/restful_api.md)
 
-Java语言相关
+Java语言
 
+* [Java语言](https://github.com/geekist/developer_guide/blob/main/java/java.md)
 
 * [Java注解](https://github.com/geekist/developer_guide/blob/main/java/java_annotation.md)
 
 * [Java语法糖lombok](https://github.com/geekist/developer_guide/blob/main/server/lombok.md)
-* 
-
-Java spring 开发服务器程序
-
-* [Java web开发综合笔记](https://github.com/geekist/developer_guide/blob/main/server.md)
-
-
-* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
-
-* spring boot开发javaweb服务器
-
-* [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
-
 
 Spring
 
@@ -202,17 +118,13 @@ Java log系统
 *  [spring boot整合可视化日志工具：logstash](https://blog.csdn.net/syc000666/article/details/98668485)
 
 
-# 前端开发
-
-[前端开发综合笔记](https://github.com/geekist/developer_guide/blob/main/frontend/frontend.md)
-
+## 前端开发
 
 介绍
 
 *  [前端发展历史](https://github.com/geekist/developer_guide/blob/main/frontend/frontend_history.md)
 
-
-*  [web开发基础教程](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web)--mdn的教程，详细介绍了html、css和javascript
+*  [web开发基础教程](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web)
 
 html
 
@@ -252,39 +164,61 @@ vue
 *  vue参考资料和教程：🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
 
 *  [axios网络框架](https://github.com/geekist/developer_guide/blob/main/frontend/axios.md)
-*  
-
-# 客户端开发
-
-Android客户端开发 
 
 
-[Adnroid开发综合笔记](https://github.com/geekist/developer_guide/blob/main/android.md)
+## 客户端开发
 
-iOS客户端开发
+Android
 
-[iOS开发综合笔记](https://github.com/geekist/developer_guide/blob/main/iOS.md)
+iOS
 
+[Objective-C语言](https://github.com/geekist/developer_guide/blob/main/ios/Objective-C.md)
+
+[Swift]()
+
+
+
+数据库
+
+* [mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql.md)
+
+* [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
+
+
+[计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
+
+
+[操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
+
+
+[开发语言](https://github.com/geekist/developer_guide/blob/main/developing_language.md)
+
+[服务器开发](https://github.com/geekist/developer_guide/blob/main/server.md)
+
+
+[前端开发](https://github.com/geekist/developer_guide/blob/main/frontend/frontend.md)
+
+[java项目开发](./java/java_dev.md)
+
+项目构建和管理
+
+
+JavaWeb开发
+
+* [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
+
+* spring boot开发javaweb服务器
+
+* [Linux环境下web服务器部署](https://github.com/geekist/developer_guide/blob/main/server/linux_web_installer.md)
+
+
+移动端开发
+
+ * [移动端iOS开发](https://github.com/geekist/developer_guide/blob/main/iOS.md)
+
+* [移动端Android开发-->>](https://github.com/geekist/developer_guide/blob/main/android.md)
 
 * [移动端开发常见问题](https://github.com/geekist/developer_guide/blob/main/other/screen-campatible.md)
-
-
-# 工具 
-
-源代码管理和项目配置
-
- * [Git](https://github.com/geekist/developer_guide/blob/main/git/git.md)
-
-Maven
-
-* [Maven](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
-
-
-* [POM](https://github.com/geekist/developer_guide/blob/main/server/pom.md)
-
-
-# 杂项知识点
-
 
 物联网开发
 
@@ -319,10 +253,24 @@ Json
 
 * [Json最佳实践](http://kimmking.github.io/2017/06/06/json-best-practice/)
 
+Maven
+
+* [Maven](https://github.com/geekist/developer_guide/blob/main/server/maven.md)
+
+
+* [POM](https://github.com/geekist/developer_guide/blob/main/server/pom.md)
+
+
+源代码管理
+
+
+ * [Git](https://github.com/geekist/developer_guide/blob/main/git/git.md)
+
 
 支付开发
 
  * [支付宝开发](https://github.com/geekist/developer_guide/blob/main/pay/alipay.md)
+
 
 
 杂项
@@ -368,9 +316,14 @@ Json
 
  * [常用web图片格式GIF、JPG、PNG、WEBP介绍](https://segmentfault.com/a/1190000013589397)
 
+
 * [JavaScript中import、export和export default](https://github.com/geekist/developer_guide/blob/main/other/vue-import-output.md)
 
 * [JavaScript中async函数](http://www.ruanyifeng.com/blog/2015/05/async.html)
+
+
+## 工具使用
+
 
 * [fiddler工具介绍](https://github.com/geekist/developer_guide/blob/main/tools/fiddler.md)
 
