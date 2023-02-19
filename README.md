@@ -1,9 +1,9 @@
 # 基础知识
 
-[计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
+* [计算机理论知识](https://github.com/geekist/developer_guide/blob/main/计算机理论.md)
 
 
-[操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
+* [操作系统](https://github.com/geekist/developer_guide/blob/main/operationsystem.md)
 
 
 * [web发展历史](https://github.com/geekist/developer_guide/blob/main/server/history.md)
@@ -11,12 +11,18 @@
 
 # 脚本和编程语言
 
+脚本语言  
+
 * [Linux基本命令和shell脚本整理](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
-* 
+
+Java
 
 * [Java语言笔记](https://github.com/geekist/developer_guide/blob/main/java/java.md)
 
+Java语言相关
 
+* [Java注解](https://github.com/geekist/developer_guide/blob/main/java/java_annotation.md)
+  
 Objective-C语言笔记
 
 
@@ -97,16 +103,13 @@ Nginx
 * [Nginx服务器配置stub_status](https://github.com/geekist/developer_guide/blob/main/nginx/nginx_stub_stauts.md)
 
 * [Restful API规则](https://github.com/geekist/developer_guide/blob/main/server/restful_api.md)
+  
+Java spring 开发服务器程序
 
 Java语言相关
 
-
-* [Java注解](https://github.com/geekist/developer_guide/blob/main/java/java_annotation.md)
-
 * [Java语法糖lombok](https://github.com/geekist/developer_guide/blob/main/server/lombok.md)
-* 
 
-Java spring 开发服务器程序
 
 * [Java web开发综合笔记](https://github.com/geekist/developer_guide/blob/main/server.md)
 
@@ -252,18 +255,17 @@ vue
 *  vue参考资料和教程：🔨[深入理解Vue.js实战-图灵](https://godbasin.github.io/vue-ebook/)
 
 *  [axios网络框架](https://github.com/geekist/developer_guide/blob/main/frontend/axios.md)
-*  
+
 
 # 客户端开发
 
 Android客户端开发 
 
-
-[Adnroid开发综合笔记](https://github.com/geekist/developer_guide/blob/main/android.md)
+* [Adnroid开发综合笔记](https://github.com/geekist/developer_guide/blob/main/android.md)
 
 iOS客户端开发
 
-[iOS开发综合笔记](https://github.com/geekist/developer_guide/blob/main/iOS.md)
+* [iOS开发综合笔记](https://github.com/geekist/developer_guide/blob/main/iOS.md)
 
 
 * [移动端开发常见问题](https://github.com/geekist/developer_guide/blob/main/other/screen-campatible.md)
