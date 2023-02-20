@@ -4820,10 +4820,10 @@ Lambda表达式的应用场景很多，例如可与RxJava，Retrofit等进行完
 
 关于lambda表达式的两篇总结的比较好的文章：
 
-*  [一文掌握Lambda表达式] (https://zhuanlan.zhihu.com/p/90815478)
+*  [一文掌握Lambda表达式](https://zhuanlan.zhihu.com/p/90815478)
 
 
-*  [关于JavaLambda表达式看这一篇就够了] (https://objcoding.com/2019/03/04/lambda/)
+*  [关于JavaLambda表达式看这一篇就够了](https://objcoding.com/2019/03/04/lambda/)
 
 
 # 十一、Java IO操作
