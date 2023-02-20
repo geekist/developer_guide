@@ -4818,6 +4818,14 @@ checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
 Lambda表达式的应用场景很多，例如可与RxJava，Retrofit等进行完美配合，更多的就等待各位码友去实践发掘了。而到此，本篇关于Lambda表达式的详解与应用就讲解完毕了。技术渣一枚，有写的不对的地方欢迎大神们留言指正。
 
+关于lambda表达式的两篇总结的比较好的文章：
+
+*  [一文掌握Lambda表达式] (https://zhuanlan.zhihu.com/p/90815478)
+
+
+*  [关于JavaLambda表达式看这一篇就够了] (https://objcoding.com/2019/03/04/lambda/)
+
+
 # 十一、Java IO操作
 
 ## 一、概览
