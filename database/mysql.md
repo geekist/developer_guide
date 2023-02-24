@@ -8,6 +8,7 @@
 - [三、mysql 表操作](#三mysql-表操作)
   - [3.1 创建表 CREATE TABLE](#31-创建表-create-table)
   - [3.2 更新表 ALTER TABLE](#32-更新表-alter-table)
+    - [3.2.1 插入一列](#321-插入一列)
   - [3.3 删除表 DROP TABLE](#33-删除表-drop-table)
   - [3.4 重命名表 RENAME TABLE](#34-重命名表-rename-table)
 - [四、MYSQL数据类型](#四mysql数据类型)
@@ -38,11 +39,11 @@
     - [desc降序排列](#desc降序排列)
     - [Where过滤数据](#where过滤数据)
       - [=](#)
-      - [<](#-1)
-      - [>](#-2)
-      - [<=](#-3)
-      - [>=](#-4)
-      - [<>](#-5)
+      - [\<](#-1)
+      - [\>](#-2)
+      - [\<=](#-3)
+      - [\>=](#-4)
+      - [\<\>](#-5)
       - [BETWEEN](#between)
       - [IS NULL](#is-null)
       - [AND](#and)
@@ -51,7 +52,7 @@
       - [IN](#in)
       - [NOT IN](#not-in)
       - [LIKE + %通配符](#like--通配符)
-      - [LIKE + _通配符](#like--_通配符)
+      - [LIKE + \_通配符](#like--_通配符)
       - [REGEXP 正则表达式](#regexp-正则表达式)
     - [计算字段](#计算字段)
     - [Concat函数实现拼接字段](#concat函数实现拼接字段)
@@ -248,6 +249,7 @@ create table u_order
     PRIMARY KEY (order_num,order_item)
 ) ENGINE=InnoDB;
 ```
+
 ## 3.2 更新表 ALTER TABLE
 
 为了使用ALTER TABLE更改表结构，必须给出下面的信息：
@@ -260,6 +262,26 @@ alert table vendors add vend_phone char(20);
 
 alert table vendors drop column vend_phone;
 
+```
+
+### 3.2.1 插入一列  
+
+如果想在一个已经建好的表中添加一列，可以用诸如：
+
+```
+alter table TABLE_NAME add column NEW_COLUMN_NAME varchar(20) not null;
+```
+
+这条语句会向已有的表中加入新的一列，这一列在表的最后一列位置。如果我们希望添加在指定的一列，可以用：
+
+```
+alter table TABLE_NAME add column NEW_COLUMN_NAME varchar(20) not null after COLUMN_NAME;
+```
+
+注意，上面这个命令的意思是说添加新列到某一列后面。如果想添加到第一列的话，可以用：
+
+```
+alter table TABLE_NAME add column NEW_COLUMN_NAME varchar(20) not null first;
 ```
 
 ## 3.3 删除表 DROP TABLE

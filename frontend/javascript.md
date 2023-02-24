@@ -73,7 +73,7 @@
     - [4.3.2 方法中的this](#432-方法中的this)
   - [4.4 构造函数和new操作符](#44-构造函数和new操作符)
   - [4.5 引用数据类型和对象](#45-引用数据类型和对象)
-  - [4.5 数组对象](#45-数组对象)
+  - [4.6 数组对象](#46-数组对象)
   - [4.7 map对象](#47-map对象)
   - [4.8 date对象](#48-date对象)
 - [五、类](#五类)
@@ -2026,17 +2026,183 @@ JavaScript在运行时数据是保存到栈内存和堆内存当中的。简单�
 我们在声明一个变量时实际上就是在栈内存中创建了一个空间用来保存变量。如果是基本类型则在栈内存中直接保存，如果是引用类型则会在堆内存中保存，变量中保存的实际上对象在堆内存中的地址。
 
 
-## 4.5 数组对象
+## 4.6 数组对象
 
 数组是一种用于表达有顺序关系的值的集合的语言结构。数组也是对象的一种。
 
-创建数组：
+数组对象的介绍，参见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+
+在 JavaScript 中，数组不是基本类型，而是具有以下核心特征的 Array 对象：
+
+JavaScript 数组是可调整大小的，并且可以包含不同的数据类型。（当不需要这些特征时，可以使用类型化数组。）
+JavaScript 数组不是关联数组，因此，不能使用任意字符串作为索引访问数组元素，但必须使用非负整数（或它们各自的字符串形式）作为索引访问。
+JavaScript 数组的索引从 0 开始：数组的第一个元素在索引 0 处，第二个在索引 1 处，以此类推，最后一个元素是数组的 length 属性减去 1 的值。
+JavaScript 数组复制操作创建浅拷贝。（所有 JavaScript 对象的标准内置复制操作都会创建浅拷贝，而不是深拷贝）。
+
+
+* 创建数组：
 
 ```js
-var array = [1,44,33];
+let array = [1,44,33];
 ```
 
+* 读取数组
+  
 数组内的各个值被称作元素。每一个元素都可以通过索引（下标）来快速读取。索引是从零开始的整数。
+
+* 遍历数组：
+
+Javascript中，可以有10种以上的遍历数组的方法：https://juejin.cn/post/6854573211699380237
+
+* 删除数组中的元素：
+
+JavaScript 数组允许你对元素进行分组和迭代，你可以用不同的方式添加或者删除数组元素，但不幸的是，却并没有一个简单的 Array.remove 的方法。
+
+​ JavaScript 数组有各种各样的方法来删除数组元素，而不是用 delete 方法。如果我们用 delete arr[index]的方式删除了数组元素，则只是将该数组中索引值为 index 的元素置为 undefined ，该位置上是一个空元素，并且数组长度不会减少。
+
+​ 从数组头部删除元素用 shift ，从尾部删除元素用 pop ，从中间删除元素用 splice ，还可以用 filter 方法来过滤出符合条件的元素，并将这些元素返回一个新的数组，这是一个更高级的用法。
+
+从JavaScript Array 尾部移除元素
+可以通过设置数组的 length 属性来打到移除末端元素的效果，当新设置的 length 属性的值，小于当前数组长度时，索引值大于新的 length 属性的元素都会自动被删除。
+```
+var ar = [1, 2, 3, 4, 5, 6];
+ar.length = 4; // set length to remove elements
+console.log( ar ); //  [1, 2, 3, 4]
+```
+
+pop 方法移除数组末端的最后一个元素，返回这个元素，更新 length 属性。
+```
+var ar = [1, 2, 3, 4, 5, 6];
+ar.pop(); // returns 6
+console.log( ar ); // [1, 2, 3, 4, 5]
+```
+
+从JavaScript Array 头部移除元素
+
+shift 方法会删除数组索引为 0 的元素，返回被删除的元素，删除后，剩余元素会向下移动。
+```
+var ar = ['zero', 'one', 'two', 'three'];
+ar.shift(); // returns "zero"
+console.log( ar ); // ["one", "two", "three"]
+```
+当数组中元素为空，或者 length 为0时，方法返回 undefined
+
+用 splice 方法移除 JavaScript Array 元素
+
+splice 方法用于删除数组元素，也可以新增元素。第一个参数指定增加或者删除的起始位置，第二个参数指定要移除的元素个数。第三个参数以及后续的参数都是可选参数；他们指定了要被加入到数组中的元素。
+
+下面的例子将从数组的第三个元素开始删除两个元素（数组从0开始）
+```
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+var removed = array.splice(2,2);
+
+/*
+removed === [3, 4]
+array === [1, 2, 5, 6, 7, 8, 9, 0]
+*/
+```
+splice 方法返回一个由被删除元素组成的数组
+
+用 splice 方法删除 JavaScript Array 中的特定值的元素
+
+如果知道想要从数组中删除的值，也可以用 splice 方法。但是也要先获取目标元素的索引，然后用根据索引来删除该元素
+```
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+for( var i = 0; i < array.length-1; i++){ 
+   if ( array[i] === 5) {
+     arr.splice(i, 1); 
+   }
+}
+```
+//=> [1, 2, 3, 4, 6, 7, 8, 9, 0]
+这是一个简单的例子，元素都是整数。如果数组元素是 object 类型，那么方法就会复杂的多了。
+
+* 循环删除数组中的元素
+
+不能直接在遍历中删除数组元素，会导致索引值变化
+```
+例如要删除性别为男(male)的学生
+
+var stuArr = [
+  {name:'Jesse',gender:'male'},
+  {name:'Leo',gender:'male'},
+  {name:'Sophia',gender:'female'},
+  {name:'Kathy',gender:'female'},
+  {name:'Gaviin',gender:'male'}
+];
+如果直接在for循环里splice删除，会导致删除不完全，因为splice导致了数组本身的改变，索引值也会变化,错误代码如下：
+
+
+// 错误方法，不能这样写
+for(var i=0; i<stuArr.length; i++) {
+  if(stuArr[i].gender === 'male') {
+    stuArr.splice(i,1);
+  }
+}
+console.log(stuArr);
+// 运行结果，删除后数组当前值
+[
+  {name:'Leo',gender:'male'},
+  {name:'Sophia',gender:'female'},
+  {name:'Kathy',gender:'female'},
+]
+```
+
+有三种方法可以遍历删除数组中的元素：
+
+循环中索引添加递加判断,只有在不删除元素时才对索引递加
+```
+for(var i=0; i<stuArr.length;) {
+  if(stuArr[i].gender === 'male') {
+    stuArr.splice(i,1);
+  }else{
+    i++;
+  }
+}
+console.log(stuArr);
+// 运行结果，删除后数组当前值
+[
+  {name:'Sophia',gender:'female'},
+  {name:'Kathy',gender:'female'},
+]
+```
+
+先获取所有待删除元素的下标，再使用for循环倒序删除，因为从后往前删除不会使数组前方的数组索引发生变化。
+
+```
+// 首先获取所有待删除的数组下标
+var indexArr = [];
+for(var i=0;i<stuArr.length;i++){
+  if(stuArr[i].gender === 'male') {
+    indexArr.push(i);
+  }
+}
+获取到的索引数组为：[0,1,4];
+for(var i=indexArr.length-1;i>=0;i--) {
+  stuArr.splice(indexArr[i],1);
+}
+// 运行结果，删除后数组当前值
+[
+  {name:'Sophia',gender:'female'},
+  {name:'Kathy',gender:'female'},
+]
+```
+
+直接使用Array的filter方法
+
+```
+stuArr = stuArr.filter(function(item){
+  return item.gender !== 'male';
+})
+// 运行结果，删除后数组当前值
+[
+  {name:'Sophia',gender:'female'},
+  {name:'Kathy',gender:'female'},
+]
+```
+
 
 ## 4.7 map对象
 
