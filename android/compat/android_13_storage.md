@@ -162,6 +162,6 @@ val path = context.externalCacheDir?.absolutePath ?: ""
 
 # 二、Android调用内部存储和外部存储的方法
 
-![]([../](https://github.com/geekist/developer_guide/blob/main/android/assets/storage_api.jpg))
+![](https://github.com/geekist/developer_guide/blob/main/android/assets/storage_api.jpg)
 
 # 三、文件的其他调用方法
