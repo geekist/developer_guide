@@ -169,7 +169,7 @@ val path = context.externalCacheDir?.absolutePath ?: ""
 目前android系统api已经不再提供文件方式获取外部存储的公有目录，所有的外部存储都需要用MediaStorage来访问
 
 
-![](../assets/android_storage.webp)
+![](../assets/android_storage.jpg)
 
 # 二、Android调用内部存储和外部存储的方法
 
