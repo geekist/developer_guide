@@ -23,7 +23,7 @@
     - [2.1.4 如何读取外部存储中的其他文件](#214-如何读取外部存储中的其他文件)
     - [2.1.5 如何写入文件到外部存储中](#215-如何写入文件到外部存储中)
     - [2.1.6 如何删除外部存储中的其他文件](#216-如何删除外部存储中的其他文件)
-- [三、如何做android的分区适配](#三如何做android的分区适配)
+- [三、android的分区适配历史版本问题](#三android的分区适配历史版本问题)
 
 
 
@@ -93,6 +93,9 @@ databses目录
 在很久很久以前，几乎所有的Android手机都可以插入一张micro SD卡，因为内部存储实在太小了，我第一款Android手机是SONY LT18i，内部存储只有1GB，最大支持32GB的SD卡。我们所说的外部存储，指的就是我们插入的那张SD卡。SD卡一般会被挂载到/storage/sdcard1，根据设备的不同，不一定叫sdcard1，比如在我的模拟器中，路径为：/storage/1106-3A09。
 
 而现在，几乎没有Android手机再提供SD卡的插口。
+
+![](../assets/android_storage.jpg)
+
 
 ### 1.2.1 外部存储的概念
 
@@ -169,7 +172,6 @@ val path = context.externalCacheDir?.absolutePath ?: ""
 目前android系统api已经不再提供文件方式获取外部存储的公有目录，所有的外部存储都需要用MediaStorage来访问
 
 
-![](../assets/android_storage.jpg)
 
 # 二、Android调用内部存储和外部存储的方法
 
@@ -493,7 +495,20 @@ private fun installAPK(uri: Uri) {
 
 上面代码的详细示例参见：https://github.com/HurryYU/ScopedStorage
 
-# 三、如何做android的分区适配
+# 三、android的分区适配历史版本问题
+
+Android 6.0 以前，应用要想保存图片到相册，只需要通过File对象打开IO流就可以保存；
+
+Android 6.0 添加了运行时权限，需要先申请存储权限才可以保存图片；
+
+Android 10 引入了分区存储，但不是强制的，可以通过清单配置android:requestLegacyExternalStorage="true"关闭分区存储；在targetSdkVersion = 29应用中，设置android:requestLegacyExternalStorage="true"，就可以不启动分区存储，让以前的文件读取正常使用。但是targetSdkVersion = 30中不行了，强制开启分区存储。
+
+Android 11 强制开启分区存储，应用以 Android 11 为目标版本，系统会忽略 requestLegacyExternalStorage标记，访问共享存储空间都需要使用MediaStore进行访问。
+
+
+
+
+
 
 
 
