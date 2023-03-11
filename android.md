@@ -109,6 +109,8 @@
 **Android版本兼容性**
 * [Android平台版本兼容性问题总结](https://github.com/geekist/developer_guide/blob/main/android/compat/Android版本应用兼容性适配问题.md)
 
+* [android 13的分区存储整理](https://github.com/geekist/developer_guide/blob/main/android/compat/android_13_storage.md) 
+
 
 ## Android厂商兼容性问题
 
