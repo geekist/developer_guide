@@ -13,3 +13,11 @@ mysql 下载地址：https://www.mysql.com/downloads/
 
 ![](./assets/mysql_install_3.png)
 
+# 三、安装Mysql数据库
+
+![](./assets/mysql_install_4.png)
+
+![](./assets/mysql_install_5.png)
+
+
+
