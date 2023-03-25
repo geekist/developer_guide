@@ -84,6 +84,8 @@ kotlin语言笔记
 
 * [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
+*  [windows环境下安装和使用mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql_install.md)
+
 # 服务器开发
 
 服务器安装、管理和配置
