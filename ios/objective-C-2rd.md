@@ -176,6 +176,128 @@ ShapeRect bounds;
 @end
 ```
 
+### 成员变量
+
+成员变量是在{}中声明的变量。如果成员变量的类型是一个类则称这个变量为实例变量。成员变量包括实例变量，所以可以通称为成员变量。
+
+
+成员变量的定义
+
+例如：
+
+定义在h文件中
+
+```
+#import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
+@interface Persion : NSObject{
+    NSString *name; //实例变量
+    int age;//成员变量
+}
+@end
+NS_ASSUME_NONNULL_END
+```
+
+定义在m文件中
+
+```
+#import "Persion.h"
+@interface Persion ()
+{
+    NSString *gender;//实例变量
+    int height;//成员变量
+}
+@end
+
+@implementation Persion
+
+@end
+```
+
+成员变量的使用；
+
+成员变量创建后默认是@protected类型，就是受保护的，外部无法访问。
+
+如果需要外部可以访问，在h文件中定义的变量，添加public修饰符；在m文件中定义的变量，添加publuc修饰符无效。
+
+```
+@interface Persion : NSObject
+{
+    @public NSString *name; //实例变量
+    int age;//成员变量
+}
+@end
+```
+
+### 属性变量
+
+使用@property声明的变量都叫做属性变量
+
+在iOS5之后，苹果推出一个新机制，@property声明的属性默认会生成一个_类型的成员变量，同时也会生成setter/getter方法。，属性的使用不再需要sychronize
+
+属性定义在h文件中
+
+```
+#import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
+@interface Persion : NSObject
+@property (nonatomic, copy) NSString *info;//属性变量
+@end
+NS_ASSUME_NONNULL_END
+```
+
+属性定义在m文件中,在.m 中创建的属性变量只能在类内部使用，外部无法使用
+
+```
+#import "Persion.h"
+@interface Persion ()
+
+@property (nonatomic, copy) NSString *hobby;//属性变量
+@end
+```
+
+属性变量的使用：
+
+当我们创建一个属性变量时，系统会自动创建一个与之对应的下划线成员变量，并自动添加了getter和setter方法
+
+```
+#import "Persion.h"
+@interface Persion ()
+@property (nonatomic, copy) NSString *hobby;//属性变量
+@end
+
+@implementation Persion
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self->_hobby = @"爱美女";//使用成员变量赋值
+    }
+    return self;
+}
+```
+可以用点操作符来使用属性
+
+### ios属性的修饰符号
+
+原子性： atomic，nonatomic
+读写语义：readwrite，readonly，getter，setter
+内存管理语义：assign，weak，unsafe_unretained，retain，strong，copy
+
+**nonatomic** 表示非原子属性，并发访问性能高，但是访问不安全，它直接访问内存中的地址，不关心其他线程是否在改变这个值，并且中间没有死锁保护；所以可能拿不到完整的值。
+
+**atomic** 表示原子属性，系统生成的 getter/setter 会保证 get、set 操作的完整性，不受其他线程影响。系统生成的 getter/setter 方法中，使用了@synchronized(self)如果一个线程正在执行 getter/setter，其他线程就得等待。但是如果有另一个线程同时在调 [property release]，那可能就会crash，因为 release 不受 getter/setter 操作的限制。也就是说，atomic 修饰的属性只能说是读/写安全的，但并不是线程安全的。因为别的线程还能进行读写之外的其他操作。线程安全需要开发者自己来保证。
+
+**strong** 表示对对象的强引用，引用计数会 +1。给 strong 属性赋值时，setter 方法中会先 release 旧值再 retain 新值并赋值。两个对象之间相互强引用会造成循环引用，内存泄漏。
+
+**weak** 表示对象的弱引用。弱引用时，不会使传入的对象计数+1；被其修饰的对象随时可能被系统销毁回收。当该对象的引用计数为 0，则会被回收，对象被释放以后，weak 指针会被自动设置为 nil。weak 多用于避免循环引用
+
+**assign** 主要用于修饰基本数据类型。括OC基本数据类型（NSInteger，CGFloat）和C数据类型（int, float, double, char）基本数据类型存储在栈中，内存不用程序员管理。assign 也可以修饰对象，但是当对象被释放后，指针依然指向之前的内存地址。此时，访问被释放的地址就会 crash这个已经被释放了的对象被称为 僵尸对象
+
+**copy** 建立一个和新对象内容相同且索引计数为1的对象，指针指向这个对象，然后释放指针之前指向的旧对象。NSString变量一般都用copy修饰，因为字符串常用于直接复制，而不是去引用某个字符串；
+
+
+
+
 
 ## 2.2 类实现文件
 
