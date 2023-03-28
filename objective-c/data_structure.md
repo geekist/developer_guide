@@ -1,4 +1,27 @@
 
+- [一、objective C中的基本数据类型](#一objective-c中的基本数据类型)
+  - [1.1 OC中有如下基本数据类型：](#11-oc中有如下基本数据类型)
+  - [1.2 常用占位符](#12-常用占位符)
+- [二、objective-C 拓展数据类型](#二objective-c-拓展数据类型)
+  - [2.1 NSString和NSMutableString](#21-nsstring和nsmutablestring)
+  - [2.2 id类型 万能指针](#22-id类型-万能指针)
+  - [2.3 NSRange](#23-nsrange)
+  - [2.5 NSNumber](#25-nsnumber)
+  - [2.6 NSValue](#26-nsvalue)
+  - [2.7 NSNull空对象](#27-nsnull空对象)
+  - [2.8 NSDate时间](#28-nsdate时间)
+  - [2.9 NSObject](#29-nsobject)
+  - [2.10 集合类型---NSArray和NSMutableArray](#210-集合类型---nsarray和nsmutablearray)
+  - [2.11 NSDictionary和NSMutableDictionary](#211-nsdictionary和nsmutabledictionary)
+  - [2.12 NSData](#212-nsdata)
+    - [字符串与NSData相互转换](#字符串与nsdata相互转换)
+    - [Byte与NSData](#byte与nsdata)
+    - [NSData --\>UIImage](#nsdata---uiimage)
+    - [NSData--NSMutableData](#nsdata--nsmutabledata)
+    - [通过NSData 和 NSKeyedArchive 实现一个文件归档多个对象](#通过nsdata-和-nskeyedarchive-实现一个文件归档多个对象)
+
+
+
 # 一、objective C中的基本数据类型
 
 ## 1.1 OC中有如下基本数据类型：
@@ -532,3 +555,125 @@ NSMutableDictionary *dic10 = @{@"name":@"jack"};//error,右值是NSDictionary对
 NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:@"Users/warwick/Desktop/abc.plist"];//从文件中读取字典
 
 ```
+
+## 2.12 NSData
+
+NSData是用来包装数据的，NSData存储的是二进制数据，屏蔽了数据之间的差异，文本、音频、图像等数据都可用NSData来存储。在多媒体开发时，比较常用，例如拼接音频、图片。
+
+### 字符串与NSData相互转换
+
+字符串 -->NSData
+
+```c
+ NSString *aString = @"http://www.baidu.com";
+ NSData *aData = [aString dataUsingEncoding: NSUTF8StringEncoding];
+```
+
+NSData -->字符串
+
+```c
+NSString *aString = [[NSString alloc] initWithData:adata encoding:NSUTF8StringEncoding];
+```
+
+### Byte与NSData
+
+NSData --> Byte
+
+```c
+ NSString *testString = @"1234567890";
+ NSData *testData = [testString dataUsingEncoding: NSUTF8StringEncoding];　　
+ Byte *testByte = (Byte *)[testData bytes];
+ ```
+Byte --> NSData
+
+```c
+Byte byte[] = {0,1,2,3,4,5,6,7};
+NSData *adata = [[NSData alloc] initWithBytes:byte length:8];
+```
+
+### NSData -->UIImage
+
+
+NSData --> UIImage
+
+```c
+ UIImage *aImage = [UIImage imageWithData: imageData];
+```
+
+UIImage --->NSData
+
+```c
+//例：从本地文件沙盒中取图片并转换为NSData
+ NSString *path = [[NSBundle mainBundle] bundlePath];
+ NSString *name = [NSString stringWithFormat:@"ceshi.png"];
+ NSString *finalPath = [path stringByAppendingPathComponent:name];
+ NSData *imageData = [NSData dataWithContentsOfFile: finalPath];
+ UIImage *aimage = [UIImage imageWithData: imageData];
+ 
+NSData *imageData = UIImageJPEGRepresentation(image, compressionQuality);
+NSData *imageData = UIImagePNGRepresentation(aimae);
+```
+### NSData--NSMutableData
+
+NSData与 NSMutableData
+
+```c
+NSData *data=[[NSData alloc]init];
+NSMutableData *mData=[[NSMutableData alloc]init]; 
+mData=[NSData dataWithData:data];
+```
+
+### 通过NSData 和 NSKeyedArchive 实现一个文件归档多个对象
+
+使用archiveRootObject:toFile:方法可以将一个对象直接写入到一个文件中,
+
+但有时候可能想将多个对象写入到同一个文件中,那么就要使用NSData来进行归档对象.
+
+实现原理:
+
+利用NSData为一些数据提供临时存储空间,以便随后写入文件，或者存放从磁盘读取的文件内容,可以使用[NSMutableData data]创建可变数据空间
+屏幕快照 2016-06-08 下午3.42.15.png
+
+
+实例操作:
+
+归档（编码）
+
+```c
+// 新建一块可变数据区
+NSMutableData *data = [NSMutableData data];
+
+// 将数据区连接到一个NSKeyedArchiver对象
+NSKeyedArchiver *archiver = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data] autorelease];
+
+// 开始存档对象，存档的数据都会存储到NSMutableData中
+[archiver encodeObject:person1 forKey:@"person1"];
+[archiver encodeObject:person2 forKey:@"person2"];
+
+// 存档完毕(一定要调用这个方法)
+[archiver finishEncoding];
+
+// 将存档的数据写入文件
+[data writeToFile:path atomically:YES];
+```
+
+NSData-从同一文件中恢复2个Person对象
+
+恢复（解码）
+
+```c
+// 从文件中读取数据
+NSData *data = [NSData dataWithContentsOfFile:path];
+
+// 根据数据，解析成一个NSKeyedUnarchiver对象
+NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+
+Person *person1 = [unarchiver decodeObjectForKey:@"person1"];
+Person *person2 = [unarchiver decodeObjectForKey:@"person2"];
+
+// 恢复完毕
+[unarchiver finishDecoding];
+
+```c
+
+
