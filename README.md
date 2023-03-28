@@ -25,8 +25,7 @@ Java语言相关
   
 Objective-C语言笔记
 
-
-[Objective-C语言](https://github.com/geekist/developer_guide/blob/main/ios/Objective-C.md)
+* [Objective-C基础教程第二版](https://github.com/geekist/developer_guide/blob/main/ios/objective-C-2rd.md)
 
 * [Objective C语言介绍](./objective-c/objective-c.md)
 
