@@ -233,92 +233,7 @@ CGPoint origin; CGSize size;
 typedef struct CGRect CGRect CGRect；
 可以用CGRectMake来创建
 
-## 2.4 NSArray和NSMutableArray
 
-NSArray 用来存储对象的有序列表，它是不可变的，也不能存储C语言中的基本数据类型，如int、float、enum、struct，也不能存储nil
-
-常用的创建方法
-
-```c
-快速创建
-NSArray *ar = @[@"1",@2",@"3"];
-
-创建一个空字典
-NSArray本arr1 = [NSArray array];
-
-创建含有元素的字典
-NSArray *arr2 = [NSArray arrayWithobjects:@"1" ,@"2"，@"3"，@"4"]；
-
-
-从文件中读取
-NSArray *arr3 = [NSArray arraywithContentsOfFile:path] ;
-```
-
-NSArray查询
-
-```c
-//获取数组元素个数 [arr count];
-
-//是否包含某一元素 [arr containsObject:@"a"];
-
-//返回第一个元素 [arr firstobject];
-
-//返回最后一个元素 [arr lastobject]; 
-
-//获得指定位置的对象 [arr objectAtIndex:2]; arr[2]；
-
-//查找元素位置 [arr indexofobject:@"a"];
-
-//在range范围内查找元素的位置 [arr indexOfobject:@"a" inRange:NSMakeRange(3, 4)];
-```
-
-NSArray其它方法
-
-```c
-
-//用"，"将字典元素依次拼接成一个字符串 [arr componentsJoinedByString：@“，”
-//持久化 [arr writeToFile:path atomically：true]； //与在文件中读取一样，将数组存在文件中去；
-```
-
-NSArray排序
-
-```c
-Block排序
-
-[arr sor tedArrayUsingComparator:
-NSComparisonResult(id Nonnt obj1, id Nonnull obj2) {
-return [obj1 compare:obj2] ;
-```
-
-NSMutableArray 可变数组
-
-NSMutableArray的创建
-
-
-可变的NSArray, NSArray的子类，可以随意的添加或者删除元素
-
-创建NSMutableArray的方法
-
-```c
-NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:5]; //表示这个数组可能有5个元素
-
-NSMutableArray *mutableArrl = [[NSMutableArray alloclinwithCapacity:5];
-```
-
-也可以使用创建NSArray的方法来创建NSMutableArray.
-
-当一个元素被加到集合中时，会执行一次retain操作; 让一个元素从集合中移除时，会执行一次release操作; 当集合被销毁时（调用dealloc),集合里的所有元素会执行一次release操作
-
-NSMutableArray删除元素
-```
-//删除所有元素 [mutableArr removeAllobjects];
-
-//删除某个范围的元素 [mutableArr removeObjectsInRange :NSMakeRange(3,2)；]
-
-//删除某个指定元素 [mutableArr removeObject:@"a"];
-
-//删除两个集合中都存在的元素 [mutableArr removeObjectsInArray:@[@"a" ,@"b" ,@"c“，@"d"]；
-```
 
 ## 2.5 NSNumber
 
@@ -442,3 +357,178 @@ NSObject常用方法
 
 
 
+## 2.10 集合类型---NSArray和NSMutableArray
+
+NSArray 用来存储对象的有序列表，它是不可变的，也不能存储C语言中的基本数据类型，如int、float、enum、struct，也不能存储nil
+
+常用的创建方法
+
+```c
+快速创建
+NSArray *ar = @[@"1",@2",@"3"];
+
+创建一个空字典
+NSArray本arr1 = [NSArray array];
+
+创建含有元素的字典
+NSArray *arr2 = [NSArray arrayWithobjects:@"1" ,@"2"，@"3"，@"4"]；
+
+
+从文件中读取
+NSArray *arr3 = [NSArray arraywithContentsOfFile:path] ;
+```
+
+NSArray查询
+
+```c
+//获取数组元素个数 [arr count];
+
+//是否包含某一元素 [arr containsObject:@"a"];
+
+//返回第一个元素 [arr firstobject];
+
+//返回最后一个元素 [arr lastobject]; 
+
+//获得指定位置的对象 [arr objectAtIndex:2]; arr[2]；
+
+//查找元素位置 [arr indexofobject:@"a"];
+
+//在range范围内查找元素的位置 [arr indexOfobject:@"a" inRange:NSMakeRange(3, 4)];
+```
+
+NSArray其它方法
+
+```c
+
+//用"，"将字典元素依次拼接成一个字符串 [arr componentsJoinedByString：@“，”
+//持久化 [arr writeToFile:path atomically：true]； //与在文件中读取一样，将数组存在文件中去；
+```
+
+NSArray排序
+
+```c
+Block排序
+
+[arr sor tedArrayUsingComparator:
+NSComparisonResult(id Nonnt obj1, id Nonnull obj2) {
+return [obj1 compare:obj2] ;
+```
+
+NSMutableArray 可变数组
+
+NSMutableArray的创建
+
+
+可变的NSArray, NSArray的子类，可以随意的添加或者删除元素
+
+创建NSMutableArray的方法
+
+```c
+NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:5]; //表示这个数组可能有5个元素
+
+NSMutableArray *mutableArrl = [[NSMutableArray alloclinwithCapacity:5];
+```
+
+也可以使用创建NSArray的方法来创建NSMutableArray.
+
+当一个元素被加到集合中时，会执行一次retain操作; 让一个元素从集合中移除时，会执行一次release操作; 当集合被销毁时（调用dealloc),集合里的所有元素会执行一次release操作
+
+NSMutableArray删除元素
+```
+//删除所有元素 [mutableArr removeAllobjects];
+
+//删除某个范围的元素 [mutableArr removeObjectsInRange :NSMakeRange(3,2)；]
+
+//删除某个指定元素 [mutableArr removeObject:@"a"];
+
+//删除两个集合中都存在的元素 [mutableArr removeObjectsInArray:@[@"a" ,@"b" ,@"c“，@"d"]；
+```
+
+
+## 2.11 NSDictionary和NSMutableDictionary
+
+NSDictionary
+
+C++/STL中有一种容器叫做map，OC中的NSDictionary与map很类似，是一个拥有键值对的类/数据结构。这个键值对的要求是键必须遵守NSCopying协议（NSString就遵守这个协议），值需要满足是OC对象。NSDictionary的元素不可变，而NSMutableDictionary中元素可变。
+
+1). 创建方法
+
+```c
+NSDictionary *dic1 = [NSDictionary new];
+
+NSDictionary *dic2 = [[NSDictionary alloc] init];
+
+NSDictionary *dic3 = [NSDictionary dictionary];//以上3种是没有意义的创建，无法更改，大小恒为0
+
+NSDictionary *dic4 = [NSDictionary dictionaryWithObjectsAndKeys:@"jack",@"name",@"Xi'an",@"address", nil];//添加两个键值对，需要注意的是先写键值对中的值，再写键，最后以nil结尾。
+
+
+//快速创建方法，用大括号
+NSDictionary *dic5 = @{@"name":@"rose",@"age":@"18",@"address":@"Beijing"};
+```
+2). 相关方法
+
+```c
+//用%@就可以打印整个字典
+NSLog(@"%@",dic5);
+
+//用键来取值，有两种方法：下标或者自带的方法，需要注意的是如果没有指定的key，会返回nil
+NSString *str1 = dic4[@"name"];
+NSLog(@"%@",str1);
+NSString *str2 = [dic4 objectForKey:@"address"];
+NSLog(@"%@",str2);
+
+//计算字典的大小
+NSUInteger count = dic4.count;
+NSLog(@"%lu",(unsigned long)count);
+
+//遍历字典所以的键（值用allValues）：
+for(NSString *str in dic4.allKeys)
+    NSLog(@"%@",str);  
+
+//遍历字典 使用for-in循环遍历出来的是字典中所有的键
+for(id item in dic4)
+    NSLog(@"%@ = %@",item,dic4[item]);
+
+//遍历字典 使用block
+ [dic4 enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        NSLog(@"%@ = %@", key ,obj);
+        //key为元素的键，obj为元素的值，stop为YES时，终止遍历
+}];
+```
+
+最后再讨论一下字典在内存中的存放：在内存中，字典的元素先用键进行哈希函数运算，将计算所得的结果作为存储的位置；取值的时候也是先对键进行哈希运算，再定位查找值。与NSArray相比，NSDictionary的查找效率是很高的，不需要对整个字典进行遍历；而NSArray在存放的时候效率更高，不需要进行哈希运算。
+
+——–NSMutableDictionary——–
+
+NSMutableDictionary是从NSDictionary继承而来的。因此我们仅对其特性进行讨论，其他方法略去。
+
+1). 创建方法
+
+```c
+NSMutableDictionary *dic6 = [NSMutableDictionary new];
+
+NSMutableDictionary *dic7 = [[NSMutableDictionary alloc] init];
+
+NSMutableDictionary *dic8 = [NSMutableDictionary dictionary];//以上3种都是有意义的创建，因为可以更改
+
+NSMutableDictionary *dic9 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"jack",@"name",@"Xi'an",@"address", nil];
+
+NSMutableDictionary *dic10 = @{@"name":@"jack"};//error,右值是NSDictionary对象,子类指针指向父类对象，危险！
+```
+2). 相关方法
+
+```c
+//新增与删除键值对
+[dic9 setObject:@"19" forKey:@"age"];
+[dic9 setObject:@"21" forKey:@"age"];//键重复了，此时保存的是后添加的，原有的被替换
+
+[dic9 removeObjectForKey:@"age"];//删除键值为19的键值对
+[dic9 removeAllObjects];//删除全部键值对
+
+//字典数组信息持久化 读写磁盘
+[dic9 writeToFile:@"Users/warwick/Desktop/abc.plist" atomically:NO];//将字典的内容写到磁盘上的文件中
+
+NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:@"Users/warwick/Desktop/abc.plist"];//从文件中读取字典
+
+```
