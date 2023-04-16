@@ -84,6 +84,10 @@ kotlin语言笔记
 
 * [mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql.md)
 
+* [含有GROUP BY子句的查询中如何显示COUNT()为0的结果](https://www.51cto.com/article/282639.html)
+
+* [MySQL去重中 distinct 和 group by 的区别](https://blog.csdn.net/weixin_40983094/article/details/112285004)
+
 * [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
 *  [windows环境下安装和使用mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql_install.md)
@@ -381,3 +385,10 @@ Json
 * [fiddler工具介绍](https://github.com/geekist/developer_guide/blob/main/tools/fiddler.md)
 
 * [使用VirtualXposed检查Android应用是否合规](https://github.com/geekist/developer_guide/blob/main/tools/virtual_xposed.md)
+
+# OpenAI
+
+[OpenAI介绍](https://zhuanlan.zhihu.com/p/590676423)
+
+[中国区注册OpenAI账号试用ChatGPT指南](https://readdevdocs.com/blog/makemoney/enable-gpt4.html)
+
