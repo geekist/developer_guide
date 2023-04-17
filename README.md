@@ -15,6 +15,8 @@
 
 * [Linux基本命令和shell脚本整理](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
+* [nohup.out文件的清理方法](https://blog.csdn.net/rickiyeat/article/details/71158936)
+
 Java
 
 * [Java语言笔记](https://github.com/geekist/developer_guide/blob/main/java/java.md)
