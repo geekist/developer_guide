@@ -79,6 +79,11 @@ kotlin语言笔记
 
 * [Kotlin中常量和静态方法](https://github.com/geekist/developer_guide/blob/main/kotlin/constant_static.md)
 
+MQL4语言
+
+* [MQL4教程](https://github.com/geekist/developer_guide/blob/main/mql4/mql4.md)
+
+
 
 # 数据结构、算法和设计模式
 
