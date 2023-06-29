@@ -81,7 +81,7 @@ kotlin语言笔记
 
 MQL4语言
 
-* [MQL4教程](https://github.com/geekist/developer_guide/blob/main/MQL4/mql4.md)
+* [MQL4教程](https://github.com/geekist/developer_guide/blob/main/mt4/mql4.md)
 
 
 
