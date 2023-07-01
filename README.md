@@ -83,6 +83,9 @@ MQL4语言
 
 * [MQL4教程](https://github.com/geekist/developer_guide/blob/main/mt4/mql4.md)
 
+* [指标](https://github.com/geekist/developer_guide/blob/main/mt4/indictor.md)
+
+* [简单EA的例子](https://github.com/geekist/developer_guide/blob/main/mt4/structure.md)
 
 
 # 数据结构、算法和设计模式
