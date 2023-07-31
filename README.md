@@ -98,6 +98,8 @@ MQL4语言
 
 * [含有GROUP BY子句的查询中如何显示COUNT()为0的结果](https://www.51cto.com/article/282639.html)
 
+* [Mybatis 插入数据之后怎么获取主键id？](https://cloud.tencent.com/developer/article/1943341)
+
 * [MySQL去重中 distinct 和 group by 的区别](https://blog.csdn.net/weixin_40983094/article/details/112285004)
 
 * [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
