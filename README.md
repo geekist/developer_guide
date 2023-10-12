@@ -211,6 +211,10 @@ Mybatis-工具
 
 * [数据库动态切换工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/dynamic-datasource-spring-boot-starter.md)
 
+消息队列RocketMQ
+
+* [搭建RocketMQ服务器](https://cloud.tencent.com/developer/article/2119961)
+
 其他工具
 
 * [Java生成PDF文件](https://github.com/geekist/developer_guide/blob/main/server/java_pdf.md)
