@@ -15,6 +15,8 @@
 
 * [Linux基本命令和shell脚本整理](https://github.com/geekist/developer_guide/blob/main/operationsystem/linux/linux.md)
 
+* [nohup.out文件的清理方法](https://blog.csdn.net/rickiyeat/article/details/71158936)
+
 Java
 
 * [Java语言笔记](https://github.com/geekist/developer_guide/blob/main/java/java.md)
@@ -22,11 +24,12 @@ Java
 Java语言相关
 
 * [Java注解](https://github.com/geekist/developer_guide/blob/main/java/java_annotation.md)
+
+* [Java中使用POI库读写office文档](https://github.com/geekist/developer_guide/blob/main/java/java_poi.md)
   
 Objective-C语言笔记
 
-
-[Objective-C语言](https://github.com/geekist/developer_guide/blob/main/ios/Objective-C.md)
+* [Objective-C基础教程第二版](https://github.com/geekist/developer_guide/blob/main/ios/objective-C-2rd.md)
 
 * [Objective C语言介绍](./objective-c/objective-c.md)
 
@@ -76,6 +79,14 @@ kotlin语言笔记
 
 * [Kotlin中常量和静态方法](https://github.com/geekist/developer_guide/blob/main/kotlin/constant_static.md)
 
+MQL4语言
+
+* [MQL4教程](https://github.com/geekist/developer_guide/blob/main/mt4/mql4.md)
+
+* [指标](https://github.com/geekist/developer_guide/blob/main/mt4/indictor.md)
+
+* [简单EA的例子](https://github.com/geekist/developer_guide/blob/main/mt4/structure.md)
+
 
 # 数据结构、算法和设计模式
 
@@ -84,6 +95,12 @@ kotlin语言笔记
 # 数据库
 
 * [mysql数据库](https://github.com/geekist/developer_guide/blob/main/database/mysql.md)
+
+* [含有GROUP BY子句的查询中如何显示COUNT()为0的结果](https://www.51cto.com/article/282639.html)
+
+* [Mybatis 插入数据之后怎么获取主键id？](https://cloud.tencent.com/developer/article/1943341)
+
+* [MySQL去重中 distinct 和 group by 的区别](https://blog.csdn.net/weixin_40983094/article/details/112285004)
 
 * [redis介绍](https://github.com/geekist/developer_guide/blob/main/server/redis.md)
 
@@ -193,6 +210,10 @@ Mybatis-工具
 * [分页工具pagehelper](https://github.com/geekist/developer_guide/blob/main/server/mybatis/pagehelper.md)
 
 * [数据库动态切换工具](https://github.com/geekist/developer_guide/blob/main/server/mybatis/dynamic-datasource-spring-boot-starter.md)
+
+消息队列RocketMQ
+
+* [搭建RocketMQ服务器](https://cloud.tencent.com/developer/article/2119961)
 
 其他工具
 
@@ -382,3 +403,10 @@ Json
 * [fiddler工具介绍](https://github.com/geekist/developer_guide/blob/main/tools/fiddler.md)
 
 * [使用VirtualXposed检查Android应用是否合规](https://github.com/geekist/developer_guide/blob/main/tools/virtual_xposed.md)
+
+# OpenAI
+
+[OpenAI介绍](https://zhuanlan.zhihu.com/p/590676423)
+
+[中国区注册OpenAI账号试用ChatGPT指南](https://readdevdocs.com/blog/makemoney/enable-gpt4.html)
+
